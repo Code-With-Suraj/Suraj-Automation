@@ -26,7 +26,7 @@ export default function WhatIDo() {
             I Build Custom Business Systems Using Google Apps Script
           </h2>
           <p className="text-lg text-slate-600">
-            Main ready-made software sell nahi karta. Main aapke business ke hisaab se system build karta hoon.
+            I don't sell ready-made software. I build systems tailored to your business.
           </p>
         </div>
 

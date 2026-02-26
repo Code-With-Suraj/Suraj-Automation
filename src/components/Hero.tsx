@@ -20,13 +20,13 @@ export default function Hero() {
             Custom Automation for SMBs
           </span>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-8 leading-tight">
-            Sab Data Hai… <br className="hidden sm:block" />
+            You Have Data... <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-              Par Control Nahi Hai?
+              But No Control?
             </span>
           </h1>
           <p className="mt-4 text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
-            Main Google Apps Script se custom web apps aur automation systems banata hoon jo SMBs ka manual kaam <span className="font-semibold text-slate-900">50% tak kam kar dete hain</span> — bina costly ERP ke.
+            I build custom web apps and automation systems using Google Apps Script that reduce manual work for SMBs by up to <span className="font-semibold text-slate-900">50%</span> — without costly ERPs.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -37,7 +37,7 @@ export default function Hero() {
               className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 group hover:-translate-y-1"
             >
               <Calendar className="w-5 h-5" />
-              Free Process Audit Book Karein
+              Book a Free Process Audit
             </a>
             <a 
               href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20share%20my%20current%20system%20details." 
@@ -45,7 +45,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl font-medium transition-all flex items-center justify-center gap-2 group hover:-translate-y-1 shadow-sm"
             >
-              Apna Current System Share Karein
+              Share Your Current System
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

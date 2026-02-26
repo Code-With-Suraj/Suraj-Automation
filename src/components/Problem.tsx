@@ -3,17 +3,17 @@ import { AlertCircle, MessageSquare, CreditCard, FileSpreadsheet, Users } from '
 
 export default function Problem() {
   const problems = [
-    { icon: <MessageSquare className="w-5 h-5" />, text: "Orders WhatsApp pe aa rahe hain." },
-    { icon: <CreditCard className="w-5 h-5" />, text: "Payments kabhi UPI, kabhi bank transfer." },
-    { icon: <FileSpreadsheet className="w-5 h-5" />, text: "Inventory Excel mein hai… par update kabhi hoti hai, kabhi nahi." },
-    { icon: <Users className="w-5 h-5" />, text: "Staff alag data maintain karta hai." },
+    { icon: <MessageSquare className="w-5 h-5" />, text: "Orders are coming on WhatsApp." },
+    { icon: <CreditCard className="w-5 h-5" />, text: "Payments are sometimes via UPI, sometimes bank transfer." },
+    { icon: <FileSpreadsheet className="w-5 h-5" />, text: "Inventory is in Excel... but sometimes it's updated, sometimes not." },
+    { icon: <Users className="w-5 h-5" />, text: "Staff maintains separate data." },
   ];
 
   const confusions = [
-    "Actual profit kitna?",
-    "Kiska payment pending hai?",
-    "Stock kab khatam hoga?",
-    "Kaun follow-up bhool gaya?",
+    "What is the actual profit?",
+    "Whose payment is pending?",
+    "When will the stock run out?",
+    "Who forgot to follow up?",
   ];
 
   return (
@@ -27,8 +27,8 @@ export default function Problem() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Aapka business chal raha hai... <br/>
-              <span className="text-slate-500">Par system bikhra hua hai.</span>
+              Your business is running... <br/>
+              <span className="text-slate-500">But the system is scattered.</span>
             </h2>
             
             <div className="space-y-4 mb-8">
@@ -51,7 +51,7 @@ export default function Problem() {
             <div className="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
             <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <AlertCircle className="text-red-500 w-6 h-6" />
-              Month end pe confusion:
+              Confusion at month end:
             </h3>
             
             <ul className="space-y-4 mb-8">
@@ -64,9 +64,9 @@ export default function Problem() {
             </ul>
 
             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
-              <p className="text-lg font-semibold text-slate-900 mb-2">Problem growth ki nahi hai.</p>
-              <p className="text-lg font-semibold text-indigo-600 mb-4">Problem system ki hai.</p>
-              <p className="text-slate-600 italic">Aur yahin main help karta hoon.</p>
+              <p className="text-lg font-semibold text-slate-900 mb-2">The problem is not growth.</p>
+              <p className="text-lg font-semibold text-indigo-600 mb-4">The problem is the system.</p>
+              <p className="text-slate-600 italic">And that's where I help.</p>
             </div>
           </motion.div>
         </div>

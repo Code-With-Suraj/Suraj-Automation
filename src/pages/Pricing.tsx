@@ -16,7 +16,7 @@ export default function Pricing() {
         "Simple dashboard",
         "1 revision cycle"
       ],
-      ideal: "Ideal agar aap manual kaam reduce karna start karna chahte ho."
+      ideal: "Ideal if you want to start reducing manual work."
     },
     {
       name: "Growth System",
@@ -32,7 +32,7 @@ export default function Pricing() {
         "Role-based access",
         "2–3 revision cycles"
       ],
-      ideal: "Yeh plan aapko proper structured system deta hai."
+      ideal: "This plan gives you a properly structured system."
     },
     {
       name: "Advanced Custom Web App",
@@ -49,7 +49,7 @@ export default function Pricing() {
         "Long-term scalability",
         "Dedicated support period"
       ],
-      ideal: "Yeh mini-ERP alternative hai — Google ecosystem ke andar."
+      ideal: "This is a mini-ERP alternative — within the Google ecosystem."
     }
   ];
 
@@ -92,7 +92,7 @@ export default function Pricing() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">How Pricing Works</h2>
           <p className="text-xl text-slate-600 mb-10">
-            Har business alag hota hai. Isliye pricing depend karti hai:
+            Every business is different. That's why pricing depends on:
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <span className="px-5 py-2.5 bg-white rounded-xl text-slate-700 font-semibold shadow-sm border border-slate-200 flex items-center gap-2"><Zap className="w-4 h-4 text-indigo-500"/> Process complexity</span>
@@ -102,7 +102,7 @@ export default function Pricing() {
             <span className="px-5 py-2.5 bg-white rounded-xl text-slate-700 font-semibold shadow-sm border border-slate-200 flex items-center gap-2"><Zap className="w-4 h-4 text-indigo-500"/> Custom web app features</span>
           </div>
           <div className="inline-block bg-indigo-100 text-indigo-800 px-6 py-3 rounded-full font-bold text-lg">
-            Par clarity ke liye 3 structured plans diye gaye hain.
+            But for clarity, 3 structured plans are given.
           </div>
         </div>
       </section>
@@ -202,41 +202,41 @@ export default function Pricing() {
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center">Investment vs Return</h2>
               
-              <p className="text-2xl text-indigo-300 mb-10 text-center font-medium">Agar automation se:</p>
+              <p className="text-2xl text-indigo-300 mb-10 text-center font-medium">If automation helps you:</p>
               
               <div className="grid sm:grid-cols-2 gap-6 mb-12">
                 <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
                   <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                     <Clock className="text-emerald-400 w-6 h-6" />
                   </div>
-                  <span className="font-semibold text-lg">2 ghante daily save ho</span>
+                  <span className="font-semibold text-lg">Save 2 hours daily</span>
                 </div>
                 <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
                   <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                     <TrendingUp className="text-emerald-400 w-6 h-6" />
                   </div>
-                  <span className="font-semibold text-lg">1 staff dependency kam ho</span>
+                  <span className="font-semibold text-lg">Reduce 1 staff dependency</span>
                 </div>
                 <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
                   <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                     <AlertTriangle className="text-emerald-400 w-6 h-6" />
                   </div>
-                  <span className="font-semibold text-lg">1 payment follow-up miss na ho</span>
+                  <span className="font-semibold text-lg">Don't miss 1 payment follow-up</span>
                 </div>
                 <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
                   <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                     <ShieldCheck className="text-emerald-400 w-6 h-6" />
                   </div>
-                  <span className="font-semibold text-lg">1 inventory loss prevent ho</span>
+                  <span className="font-semibold text-lg">Prevent 1 inventory loss</span>
                 </div>
               </div>
 
               <div className="text-center border-t border-slate-700/50 pt-10">
-                <p className="text-3xl font-bold text-emerald-400 mb-6">Toh system apna cost recover kar leta hai.</p>
+                <p className="text-3xl font-bold text-emerald-400 mb-6">Then the system recovers its cost.</p>
                 <div className="inline-block bg-slate-800 px-8 py-4 rounded-2xl border border-slate-700">
                   <p className="text-xl text-slate-300">
-                    Automation expense nahi hai.<br/>
-                    <span className="text-white font-bold mt-1 block">Operational efficiency investment hai.</span>
+                    Automation is not an expense.<br/>
+                    <span className="text-white font-bold mt-1 block">It's an investment in operational efficiency.</span>
                   </p>
                 </div>
               </div>
@@ -279,12 +279,12 @@ export default function Pricing() {
           <div className="bg-white border border-slate-200 p-10 md:p-16 rounded-[2.5rem] shadow-2xl shadow-indigo-100/50 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-blue-500"></div>
             
-            <p className="text-xl text-slate-500 font-medium mb-2">Agar aap sirf price dekh rahe ho —</p>
-            <p className="text-2xl font-bold text-slate-900 mb-10">Toh shayad abhi ready nahi ho.</p>
+            <p className="text-xl text-slate-500 font-medium mb-2">If you are only looking at the price —</p>
+            <p className="text-2xl font-bold text-slate-900 mb-10">Then maybe you are not ready yet.</p>
             
             <div className="w-16 h-1 bg-slate-200 mx-auto mb-10 rounded-full"></div>
             
-            <p className="text-3xl md:text-4xl font-extrabold text-indigo-700 mb-10">Agar aap system build karna chahte ho — Toh let's talk.</p>
+            <p className="text-3xl md:text-4xl font-extrabold text-indigo-700 mb-10">If you want to build a system — Then let's talk.</p>
             
             <a 
               href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20build%20a%20system%20and%20discuss%20pricing." 
@@ -292,10 +292,10 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="inline-flex px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xl transition-all shadow-xl shadow-indigo-200 items-center justify-center gap-3 mx-auto group hover:-translate-y-1"
             >
-              Apna process share karo
+              Share your process
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </a>
-            <p className="mt-6 text-slate-600 font-semibold text-lg">Main clear roadmap + estimate de dunga.</p>
+            <p className="mt-6 text-slate-600 font-semibold text-lg">I will give a clear roadmap + estimate.</p>
           </div>
         </div>
       </section>

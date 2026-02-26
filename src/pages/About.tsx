@@ -20,9 +20,9 @@ export default function About() {
               Authority Positioning
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
-              Main Code Nahi… <br />
+              I Don't Just Write Code... <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                Business Systems Banata Hoon.
+                I Build Business Systems.
               </span>
             </h1>
           </motion.div>
@@ -41,30 +41,30 @@ export default function About() {
             <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 mb-16 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
               <p className="text-2xl font-medium text-slate-900 mb-8 leading-relaxed">
-                Main ek cheez notice karta tha — India ke 80% small aur medium businesses ke paas data hota hai… par control nahi hota.
+                I noticed one thing — 80% of small and medium businesses in India have data... but no control.
               </p>
               
               <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-8 flex flex-wrap gap-4">
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">Excel hai.</span>
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">WhatsApp hai.</span>
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">Register hai.</span>
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">Staff hai.</span>
-                <span className="px-5 py-2.5 bg-red-50 text-red-600 rounded-xl shadow-sm font-bold border border-red-100">Par system nahi hai.</span>
+                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have Excel.</span>
+                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have WhatsApp.</span>
+                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have Registers.</span>
+                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have Staff.</span>
+                <span className="px-5 py-2.5 bg-red-50 text-red-600 rounded-xl shadow-sm font-bold border border-red-100">But they don't have a system.</span>
               </div>
 
               <p className="text-xl text-slate-700 font-medium">
-                Business grow kar raha hota hai… par owner ka stress bhi grow kar raha hota hai. Yahin se meri journey start hui.
+                The business is growing... but the owner's stress is also growing. That's where my journey started.
               </p>
             </div>
 
             <div className="bg-gradient-to-br from-indigo-600 to-blue-700 text-white p-10 md:p-14 rounded-3xl shadow-2xl shadow-indigo-200 mb-16 relative overflow-hidden">
               <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-white leading-tight">Main Google Apps Script use karke aise custom web apps aur automation systems design karta hoon jo:</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-white leading-tight">I design custom web apps and automation systems using Google Apps Script that:</h3>
               <ul className="space-y-5">
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Manual kaam kam kare</li>
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Owner ko real-time visibility de</li>
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Process ko structured banaye</li>
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Aur expensive ERP ki zarurat hi khatam kar de</li>
+                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Reduce manual work</li>
+                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Give the owner real-time visibility</li>
+                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Make the process structured</li>
+                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> And eliminate the need for expensive ERPs</li>
               </ul>
             </div>
           </motion.div>
@@ -75,8 +75,8 @@ export default function About() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Mera Approach – Pehle Samajhta Hoon, Phir Banata Hoon</h2>
-            <p className="text-xl text-indigo-600 font-semibold">Main ready-made template sell nahi karta.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">My Approach – Understand First, Then Build</h2>
+            <p className="text-xl text-indigo-600 font-semibold">I don't sell ready-made templates.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -91,14 +91,14 @@ export default function About() {
                 <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
                   <Lightbulb className="text-amber-500 w-6 h-6" />
                 </div>
-                Main pehle samajhta hoon:
+                I understand first:
               </h3>
               <ul className="space-y-5 text-slate-600">
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> Aapka order flow kaise chalta hai</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> Payment tracking kaise hoti hai</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> Inventory kaise manage hoti hai</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> Follow-up kahan miss hota hai</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> Reporting kaise hoti hai</li>
+                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How your order flow works</li>
+                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How payment tracking is done</li>
+                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How inventory is managed</li>
+                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> Where follow-ups are missed</li>
+                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How reporting is done</li>
               </ul>
             </motion.div>
             
@@ -117,7 +117,7 @@ export default function About() {
                 Result?
               </h3>
               <ul className="space-y-4 text-slate-300">
-                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> WhatsApp se structured order system</li>
+                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Structured order system from WhatsApp</li>
                 <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Auto invoice generation</li>
                 <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Low stock alerts</li>
                 <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Outstanding payment tracking</li>
@@ -142,18 +142,18 @@ export default function About() {
             <div className="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-sm border border-indigo-200">
               <ShieldCheck className="w-10 h-10 text-indigo-600" />
             </div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-8">Mera Mission</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-8">My Mission</h2>
             <blockquote className="text-2xl md:text-3xl font-medium text-slate-800 italic mb-10 border-l-4 border-indigo-500 pl-8 text-left bg-white p-8 rounded-r-2xl shadow-sm">
-              "Indian SMB owners ko manual dependency se system-driven business tak le jaana."
+              "To take Indian SMB owners from manual dependency to a system-driven business."
             </blockquote>
             <p className="text-xl text-slate-600 mb-16 leading-relaxed">
-              Aap business owner ho. Aapka time strategic decisions mein lagna chahiye. <br className="hidden md:block" />
-              <span className="font-bold text-slate-900 bg-indigo-100 px-2 py-1 rounded">Data entry mein nahi.</span>
+              You are a business owner. Your time should be spent on strategic decisions. <br className="hidden md:block" />
+              <span className="font-bold text-slate-900 bg-indigo-100 px-2 py-1 rounded">Not on data entry.</span>
             </p>
 
             <div className="bg-white rounded-3xl p-10 md:p-14 border border-slate-200 shadow-2xl shadow-indigo-100/50 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-blue-500"></div>
-              <h3 className="text-3xl font-bold text-slate-900 mb-8">Agar aap genuinely chahte ho:</h3>
+              <h3 className="text-3xl font-bold text-slate-900 mb-8">If you genuinely want:</h3>
               <div className="flex flex-wrap justify-center gap-4 mb-10">
                 <span className="px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-semibold shadow-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500"/> Clear visibility</span>
                 <span className="px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-semibold shadow-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500"/> Automated workflow</span>
@@ -161,7 +161,7 @@ export default function About() {
                 <span className="px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-semibold shadow-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500"/> Stress reduction</span>
               </div>
               
-              <p className="text-xl font-semibold text-slate-800 mb-8">Toh ek step lo. Apna current process share karo. Main batata hoon system kaise ban sakta hai.</p>
+              <p className="text-xl font-semibold text-slate-800 mb-8">Then take a step. Share your current process. I'll tell you how the system can be built.</p>
               
               <a 
                 href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20share%20my%20current%20process%20with%20you." 

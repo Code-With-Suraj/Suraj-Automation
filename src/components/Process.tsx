@@ -5,22 +5,22 @@ export default function Process() {
     {
       num: "01",
       title: "Explain",
-      desc: "Aap apna current process explain karo (voice note bhi chalega)."
+      desc: "Explain your current process (voice note works too)."
     },
     {
       num: "02",
       title: "Identify",
-      desc: "Main bataunga automation kahan possible hai."
+      desc: "I will tell you where automation is possible."
     },
     {
       num: "03",
       title: "Build",
-      desc: "Custom web app ya automation system build hoga."
+      desc: "A custom web app or automation system will be built."
     },
     {
       num: "04",
       title: "Result",
-      desc: "Aapka manual load half ho jayega."
+      desc: "Your manual load will be halved."
     }
   ];
 

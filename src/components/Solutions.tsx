@@ -7,9 +7,9 @@ export default function Solutions() {
       title: "WhatsApp Order Management System",
       icon: <MessageCircle className="w-6 h-6" />,
       features: [
-        "Orders structured sheet mein auto entry",
-        "Daily sales summary owner ko mail",
-        "Invoice auto-generate"
+        "Auto-entry of orders into structured sheets",
+        "Daily sales summary emailed to owner",
+        "Auto-generate invoices"
       ]
     },
     {
@@ -44,7 +44,7 @@ export default function Solutions() {
       icon: <PieChart className="w-6 h-6" />,
       features: [
         "One-click business overview",
-        "Manual Excel reporting eliminate",
+        "Eliminate manual Excel reporting",
         "Real-time performance tracking"
       ]
     },
@@ -67,7 +67,7 @@ export default function Solutions() {
             Solutions I’ve Built for SMBs
           </h2>
           <p className="text-lg text-slate-400">
-            Yeh generic development nahi hai. Yeh real-world SMB automation hai.
+            This is not generic development. This is real-world SMB automation.
           </p>
         </div>
 
@@ -99,7 +99,7 @@ export default function Solutions() {
         
         <div className="mt-12 text-center">
           <p className="inline-block bg-slate-800 px-6 py-3 rounded-full text-slate-300 border border-slate-700">
-            Aur sab Google ecosystem ke andar. <span className="text-white font-semibold">No complicated login jungle.</span>
+            And all within the Google ecosystem. <span className="text-white font-semibold">No complicated login jungle.</span>
           </p>
         </div>
       </div>

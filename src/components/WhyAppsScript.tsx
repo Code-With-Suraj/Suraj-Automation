@@ -4,7 +4,7 @@ import { ShieldCheck, Settings, TrendingUp, Zap, CheckCircle2 } from 'lucide-rea
 export default function WhyAppsScript() {
   const reasons = [
     {
-      title: "Aap already Google tools use karte ho",
+      title: "You already use Google tools",
       icon: <CheckCircle2 className="w-5 h-5" />
     },
     {
@@ -42,16 +42,16 @@ export default function WhyAppsScript() {
             <div className="bg-red-50 border border-red-100 p-6 rounded-2xl mb-8">
               <p className="text-red-800 font-medium flex items-center gap-2 mb-2">
                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                Enterprise ERP mehenga hota hai.
+                Enterprise ERP is expensive.
               </p>
               <p className="text-red-800 font-medium flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                No-code tools limited hote hain.
+                No-code tools are limited.
               </p>
             </div>
 
             <p className="text-xl font-semibold text-slate-900 mb-6">
-              Google Apps Script perfect hai SMB ke liye because:
+              Google Apps Script is perfect for SMBs because:
             </p>
 
             <div className="space-y-4">
@@ -71,7 +71,7 @@ export default function WhyAppsScript() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-indigo-600 rounded-3xl p-10 text-white text-center shadow-2xl shadow-indigo-200"
           >
-            <h3 className="text-2xl font-bold mb-8 opacity-90">Simple words mein:</h3>
+            <h3 className="text-2xl font-bold mb-8 opacity-90">In simple words:</h3>
             
             <div className="space-y-6">
               <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">

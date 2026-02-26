@@ -3,16 +3,16 @@ import { Search, Clock, ShieldAlert, ArrowRight } from 'lucide-react';
 
 export default function WhyMe() {
   const steps = [
-    { icon: <Search className="w-5 h-5" />, text: "Aapka order flow" },
-    { icon: <Clock className="w-5 h-5" />, text: "Kahan manual dependency hai" },
-    { icon: <ShieldAlert className="w-5 h-5" />, text: "Kahan data leak ho raha hai" },
-    { icon: <Clock className="w-5 h-5" />, text: "Owner ka time kahan waste ho raha hai" },
+    { icon: <Search className="w-5 h-5" />, text: "Your order flow" },
+    { icon: <Clock className="w-5 h-5" />, text: "Where manual dependency exists" },
+    { icon: <ShieldAlert className="w-5 h-5" />, text: "Where data leakage is happening" },
+    { icon: <Clock className="w-5 h-5" />, text: "Where the owner's time is being wasted" },
   ];
 
   const goals = [
-    "Aapko data entry se nikalna",
-    "Aapko control dena",
-    "Aapka business system-driven banana"
+    "To get you out of data entry",
+    "To give you control",
+    "To make your business system-driven"
   ];
 
   return (
@@ -23,7 +23,7 @@ export default function WhyMe() {
             Why Work With Me?
           </h2>
           <p className="text-xl text-indigo-600 font-semibold">
-            Main sirf coder nahi hoon.
+            I am not just a coder.
           </p>
         </div>
 
@@ -35,7 +35,7 @@ export default function WhyMe() {
             transition={{ duration: 0.5 }}
             className="bg-slate-50 rounded-3xl p-8 border border-slate-100"
           >
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Main pehle samajhta hoon:</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">I understand first:</h3>
             <div className="space-y-4 mb-8">
               {steps.map((step, idx) => (
                 <div key={idx} className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
@@ -47,7 +47,7 @@ export default function WhyMe() {
               ))}
             </div>
             <div className="bg-indigo-600 text-white p-4 rounded-xl text-center font-semibold">
-              Phir system design karta hoon.
+              Then I design the system.
             </div>
           </motion.div>
 
@@ -58,7 +58,7 @@ export default function WhyMe() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-slate-900 rounded-3xl p-8 text-white flex flex-col justify-center"
           >
-            <h3 className="text-2xl font-bold mb-8 text-indigo-400">Mera goal simple hai:</h3>
+            <h3 className="text-2xl font-bold mb-8 text-indigo-400">My goal is simple:</h3>
             <div className="space-y-6 mb-12">
               {goals.map((goal, idx) => (
                 <div key={idx} className="flex items-center gap-4">
@@ -70,8 +70,8 @@ export default function WhyMe() {
             
             <div className="mt-auto pt-8 border-t border-slate-800">
               <p className="text-lg text-slate-400">
-                <span className="text-white font-semibold block mb-1">SMBs ke liye build karta hoon.</span>
-                Enterprise ke liye nahi.
+                <span className="text-white font-semibold block mb-1">I build for SMBs.</span>
+                Not for enterprises.
               </p>
             </div>
           </motion.div>

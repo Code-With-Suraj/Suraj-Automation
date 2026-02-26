@@ -47,10 +47,10 @@ export default function WhoIsThisFor() {
           className="max-w-2xl mx-auto bg-white rounded-2xl p-8 text-center shadow-xl shadow-indigo-100 border border-indigo-200"
         >
           <p className="text-xl text-slate-700 font-medium mb-2">
-            Agar aapka business <span className="text-emerald-600 font-bold">Excel + WhatsApp</span> pe chal raha hai —
+            If your business runs on <span className="text-emerald-600 font-bold">Excel + WhatsApp</span> —
           </p>
           <p className="text-2xl font-bold text-indigo-600">
-            Toh yeh aapke liye hai.
+            Then this is for you.
           </p>
         </motion.div>
       </div>

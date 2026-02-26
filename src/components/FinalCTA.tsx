@@ -3,10 +3,10 @@ import { ArrowRight, CheckCircle2, MessageSquare } from 'lucide-react';
 
 export default function FinalCTA() {
   const benefits = [
-    "Time bachana hai",
-    "Manual errors kam karne hain",
-    "Clear visibility chahiye",
-    "Growth ke liye ready system chahiye"
+    "Want to save time",
+    "Want to reduce manual errors",
+    "Need clear visibility",
+    "Need a system ready for growth"
   ];
 
   return (
@@ -23,10 +23,10 @@ export default function FinalCTA() {
         >
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Aap business owner ho. <br/>
-              <span className="text-indigo-400">Data entry operator nahi.</span>
+              You are a business owner. <br/>
+              <span className="text-indigo-400">Not a data entry operator.</span>
             </h2>
-            <p className="text-xl text-slate-300 font-medium">Agar aapko:</p>
+            <p className="text-xl text-slate-300 font-medium">If you:</p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto">
@@ -39,7 +39,7 @@ export default function FinalCTA() {
           </div>
 
           <div className="text-center">
-            <p className="text-2xl font-bold text-white mb-8">Toh wait mat karo.</p>
+            <p className="text-2xl font-bold text-white mb-8">Then don't wait.</p>
             
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <a 
@@ -49,7 +49,7 @@ export default function FinalCTA() {
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 group hover:-translate-y-1"
               >
                 <MessageSquare className="w-5 h-5" />
-                Message karo
+                Message me
               </a>
               <a 
                 href="https://wa.me/918851666208?text=Hi%20Suraj,%20Here%20are%20the%20details%20of%20my%20current%20system..." 
@@ -57,7 +57,7 @@ export default function FinalCTA() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-1"
               >
-                Apna current system bhejo
+                Send your current system
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
