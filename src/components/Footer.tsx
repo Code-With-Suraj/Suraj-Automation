@@ -21,6 +21,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4 tracking-wide uppercase text-sm">Quick Links</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Home</Link></li>
+              <li><Link to="/products" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Products</Link></li>
               <li><Link to="/about" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>About</Link></li>
               <li><Link to="/pricing" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Pricing</Link></li>
             </ul>

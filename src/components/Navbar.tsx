@@ -33,6 +33,7 @@ export default function Navbar() {
           
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className={`font-medium transition-colors ${location.pathname === '/' ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-600'}`}>Home</Link>
+            <Link to="/products" className={`font-medium transition-colors ${location.pathname.startsWith('/products') ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-600'}`}>Products</Link>
             <Link to="/about" className={`font-medium transition-colors ${location.pathname === '/about' ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-600'}`}>About</Link>
             <Link to="/pricing" className={`font-medium transition-colors ${location.pathname === '/pricing' ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-600'}`}>Pricing</Link>
             <a 
@@ -60,6 +61,7 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200 px-4 pt-2 pb-6 space-y-4 shadow-xl absolute w-full">
           <Link to="/" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/' ? 'text-indigo-600 bg-indigo-50' : 'text-slate-700 hover:text-indigo-600 hover:bg-slate-50'}`}>Home</Link>
+          <Link to="/products" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname.startsWith('/products') ? 'text-indigo-600 bg-indigo-50' : 'text-slate-700 hover:text-indigo-600 hover:bg-slate-50'}`}>Products</Link>
           <Link to="/about" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/about' ? 'text-indigo-600 bg-indigo-50' : 'text-slate-700 hover:text-indigo-600 hover:bg-slate-50'}`}>About</Link>
           <Link to="/pricing" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/pricing' ? 'text-indigo-600 bg-indigo-50' : 'text-slate-700 hover:text-indigo-600 hover:bg-slate-50'}`}>Pricing</Link>
           <a 

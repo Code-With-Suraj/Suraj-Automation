@@ -1,7 +1,6 @@
 import Hero from '../components/Hero';
 import Problem from '../components/Problem';
 import WhatIDo from '../components/WhatIDo';
-import Solutions from '../components/Solutions';
 import WhyAppsScript from '../components/WhyAppsScript';
 import WhyMe from '../components/WhyMe';
 import WhoIsThisFor from '../components/WhoIsThisFor';
@@ -14,7 +13,6 @@ export default function Home() {
       <Hero />
       <Problem />
       <WhatIDo />
-      <Solutions />
       <WhyAppsScript />
       <WhyMe />
       <WhoIsThisFor />
