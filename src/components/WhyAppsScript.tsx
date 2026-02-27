@@ -69,21 +69,31 @@ export default function WhyAppsScript() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-indigo-600 rounded-3xl p-10 text-white text-center shadow-2xl shadow-indigo-200"
+            className="bg-indigo-600 rounded-3xl p-10 text-white text-center shadow-2xl shadow-indigo-200 relative overflow-hidden"
           >
-            <h3 className="text-2xl font-bold mb-8 opacity-90">In simple words:</h3>
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-blue-600 opacity-50"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop" 
+              alt="Team collaborating on a system" 
+              className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
+              referrerPolicy="no-referrer"
+            />
             
-            <div className="space-y-6">
-              <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
-                <p className="text-3xl font-extrabold tracking-tight">Affordable</p>
-              </div>
-              <div className="text-indigo-300 text-3xl font-bold">+</div>
-              <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
-                <p className="text-3xl font-extrabold tracking-tight">Powerful</p>
-              </div>
-              <div className="text-indigo-300 text-3xl font-bold">+</div>
-              <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
-                <p className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-indigo-200">Customized</p>
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold mb-8 opacity-90">In simple words:</h3>
+              
+              <div className="space-y-6">
+                <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
+                  <p className="text-3xl font-extrabold tracking-tight">Affordable</p>
+                </div>
+                <div className="text-indigo-300 text-3xl font-bold">+</div>
+                <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
+                  <p className="text-3xl font-extrabold tracking-tight">Powerful</p>
+                </div>
+                <div className="text-indigo-300 text-3xl font-bold">+</div>
+                <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
+                  <p className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-indigo-200">Customized</p>
+                </div>
               </div>
             </div>
           </motion.div>

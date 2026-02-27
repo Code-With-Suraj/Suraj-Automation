@@ -12,6 +12,12 @@ export default function FinalCTA() {
   return (
     <section className="py-24 bg-slate-900 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-900/50 via-slate-900 to-slate-900"></div>
+      <img 
+        src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2070&auto=format&fit=crop" 
+        alt="Business meeting" 
+        className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-overlay"
+        referrerPolicy="no-referrer"
+      />
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div

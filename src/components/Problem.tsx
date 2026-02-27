@@ -49,6 +49,14 @@ export default function Problem() {
             className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+            
+            <img 
+              src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2070&auto=format&fit=crop" 
+              alt="Messy paperwork and scattered data" 
+              className="w-full h-48 object-cover rounded-xl mb-6 shadow-sm border border-slate-100"
+              referrerPolicy="no-referrer"
+            />
+
             <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <AlertCircle className="text-red-500 w-6 h-6" />
               Confusion at month end:

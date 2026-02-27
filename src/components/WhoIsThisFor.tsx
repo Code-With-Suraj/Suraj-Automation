@@ -44,14 +44,23 @@ export default function WhoIsThisFor() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-2xl mx-auto bg-white rounded-2xl p-8 text-center shadow-xl shadow-indigo-100 border border-indigo-200"
+          className="max-w-4xl mx-auto bg-white rounded-3xl p-8 md:p-12 text-center shadow-xl shadow-indigo-100 border border-indigo-200 relative overflow-hidden"
         >
-          <p className="text-xl text-slate-700 font-medium mb-2">
-            If your business runs on <span className="text-emerald-600 font-bold">Excel + WhatsApp</span> —
-          </p>
-          <p className="text-2xl font-bold text-indigo-600">
-            Then this is for you.
-          </p>
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-50 to-blue-50 opacity-50"></div>
+          <img 
+            src="https://images.unsplash.com/photo-1664575602276-acd073f104c1?q=80&w=2070&auto=format&fit=crop" 
+            alt="Business owner working" 
+            className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-multiply"
+            referrerPolicy="no-referrer"
+          />
+          <div className="relative z-10">
+            <p className="text-xl md:text-2xl text-slate-700 font-medium mb-4">
+              If your business runs on <span className="text-emerald-600 font-bold bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-100">Excel + WhatsApp</span> —
+            </p>
+            <p className="text-3xl md:text-4xl font-extrabold text-indigo-600">
+              Then this is for you.
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>

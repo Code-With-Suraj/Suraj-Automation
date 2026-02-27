@@ -66,24 +66,42 @@ export default function Pricing() {
   return (
     <main className="pt-24 pb-20">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 bg-slate-950 text-white text-center overflow-hidden">
+      <section className="relative py-20 lg:py-32 bg-slate-950 text-white overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-indigo-900/40 via-slate-950 to-slate-950"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-indigo-500/20 rounded-full blur-[100px] -z-10"></div>
         
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-500/10 text-indigo-300 text-sm font-bold tracking-wide mb-6 border border-indigo-500/20 backdrop-blur-sm">
-              Transparent Pricing
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight">
-              Custom Automation for <br className="hidden sm:block" /> Growing Businesses
-            </h1>
-            <p className="text-2xl text-indigo-400 font-medium">Clear Pricing. No Confusion.</p>
-          </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center lg:text-left"
+            >
+              <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-500/10 text-indigo-300 text-sm font-bold tracking-wide mb-6 border border-indigo-500/20 backdrop-blur-sm">
+                Transparent Pricing
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight">
+                Custom Automation for <br className="hidden sm:block" /> Growing Businesses
+              </h1>
+              <p className="text-2xl text-indigo-400 font-medium">Clear Pricing. No Confusion.</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative hidden lg:block"
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-blue-500 rounded-[2.5rem] blur-2xl opacity-20"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop" 
+                alt="Business Finance and Growth" 
+                className="relative rounded-[2.5rem] shadow-2xl border border-slate-800 object-cover w-full h-[400px]"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -198,6 +216,12 @@ export default function Pricing() {
           <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-16 text-white shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" 
+              alt="Data Analytics" 
+              className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-overlay"
+              referrerPolicy="no-referrer"
+            />
             
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center">Investment vs Return</h2>

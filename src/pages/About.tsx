@@ -10,22 +10,43 @@ export default function About() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute top-40 right-10 w-72 h-72 bg-indigo-400/10 rounded-full blur-3xl -z-10"></div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
-              Authority Positioning
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
-              I Don't Just Write Code... <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                I Build Business Systems.
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center lg:text-left"
+            >
+              <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
+                Authority Positioning
               </span>
-            </h1>
-          </motion.div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
+                I Don't Just Write Code... <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
+                  I Build Business Systems.
+                </span>
+              </h1>
+              <p className="mt-4 text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Helping Indian SMB owners move from manual dependency to system-driven businesses.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative hidden lg:block"
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-blue-500 rounded-[2.5rem] blur-2xl opacity-20"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
+                alt="Business Consulting and Planning" 
+                className="relative rounded-[2.5rem] shadow-2xl border border-white/50 object-cover w-full h-[400px]"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -72,8 +93,15 @@ export default function About() {
       </section>
 
       {/* Approach Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-slate-50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-white/50"></div>
+        <img 
+          src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop" 
+          alt="Business strategy" 
+          className="absolute inset-0 w-full h-full object-cover opacity-5 mix-blend-multiply"
+          referrerPolicy="no-referrer"
+        />
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">My Approach – Understand First, Then Build</h2>
             <p className="text-xl text-indigo-600 font-semibold">I don't sell ready-made templates.</p>
