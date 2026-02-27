@@ -2,6 +2,17 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight } from 'lucide-react';
 
+const colorStyles: Record<string, { bg: string, text: string, hoverText: string, buttonBg: string, buttonHoverBg: string }> = {
+  indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700', buttonBg: 'bg-indigo-600', buttonHoverBg: 'hover:bg-indigo-700' },
+  emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', hoverText: 'hover:text-emerald-700', buttonBg: 'bg-emerald-600', buttonHoverBg: 'hover:bg-emerald-700' },
+  blue: { bg: 'bg-blue-50', text: 'text-blue-600', hoverText: 'hover:text-blue-700', buttonBg: 'bg-blue-600', buttonHoverBg: 'hover:bg-blue-700' },
+  amber: { bg: 'bg-amber-50', text: 'text-amber-600', hoverText: 'hover:text-amber-700', buttonBg: 'bg-amber-600', buttonHoverBg: 'hover:bg-amber-700' },
+  purple: { bg: 'bg-purple-50', text: 'text-purple-600', hoverText: 'hover:text-purple-700', buttonBg: 'bg-purple-600', buttonHoverBg: 'hover:bg-purple-700' },
+  rose: { bg: 'bg-rose-50', text: 'text-rose-600', hoverText: 'hover:text-rose-700', buttonBg: 'bg-rose-600', buttonHoverBg: 'hover:bg-rose-700' },
+  orange: { bg: 'bg-orange-50', text: 'text-orange-600', hoverText: 'hover:text-orange-700', buttonBg: 'bg-orange-600', buttonHoverBg: 'hover:bg-orange-700' },
+  red: { bg: 'bg-red-50', text: 'text-red-600', hoverText: 'hover:text-red-700', buttonBg: 'bg-red-600', buttonHoverBg: 'hover:bg-red-700' },
+};
+
 export default function Products() {
   const products = [
     {
@@ -99,32 +110,35 @@ export default function Products() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, idx) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col hover:-translate-y-2 transition-transform duration-300"
-              >
-                <div className={`w-16 h-16 rounded-2xl bg-${product.color}-50 flex items-center justify-center text-${product.color}-600 mb-6`}>
-                  {product.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">{product.name}</h3>
-                <p className={`text-sm font-semibold text-${product.color}-600 mb-4`}>{product.tagline}</p>
-                <p className="text-slate-600 mb-8 flex-grow">
-                  {product.description}
-                </p>
-                <Link
-                  to={`/products/${product.id}`}
-                  className={`inline-flex items-center justify-center w-full px-6 py-3 bg-${product.color}-600 hover:bg-${product.color}-700 text-white rounded-xl font-medium transition-colors group`}
+            {products.map((product, idx) => {
+              const styles = colorStyles[product.color];
+              return (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col hover:-translate-y-2 transition-transform duration-300"
                 >
-                  View Details
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
-            ))}
+                  <div className={`w-16 h-16 rounded-2xl ${styles.bg} flex items-center justify-center ${styles.text} mb-6`}>
+                    {product.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{product.name}</h3>
+                  <p className={`text-sm font-semibold ${styles.text} mb-4`}>{product.tagline}</p>
+                  <p className="text-slate-600 mb-8 flex-grow">
+                    {product.description}
+                  </p>
+                  <Link
+                    to={`/products/${product.id}`}
+                    className={`inline-flex items-center justify-center w-full px-6 py-3 ${styles.buttonBg} ${styles.buttonHoverBg} text-white rounded-xl font-medium transition-colors group`}
+                  >
+                    View Details
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
