@@ -36,13 +36,13 @@ export default function WhyAppsScript() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Why Google Apps Script?
+              Why Google Apps Script Automation Instead of ERP?
             </h2>
             
             <div className="bg-red-50 border border-red-100 p-6 rounded-2xl mb-8">
               <p className="text-red-800 font-medium flex items-center gap-2 mb-2">
                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                Enterprise ERP is expensive.
+                Enterprise ERP is expensive and complex.
               </p>
               <p className="text-red-800 font-medium flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
@@ -51,7 +51,7 @@ export default function WhyAppsScript() {
             </div>
 
             <p className="text-xl font-semibold text-slate-900 mb-6">
-              Google Apps Script is perfect for SMBs because:
+              Google Workspace automation is the perfect low cost ERP solution for SMBs because:
             </p>
 
             <div className="space-y-4">

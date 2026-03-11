@@ -79,10 +79,10 @@ export default function Pricing() {
               className="text-center lg:text-left"
             >
               <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-500/10 text-indigo-300 text-sm font-bold tracking-wide mb-6 border border-indigo-500/20 backdrop-blur-sm">
-                Transparent Pricing
+                Low Cost ERP Solution
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight">
-                Custom Automation for <br className="hidden sm:block" /> Growing Businesses
+                Pricing for Custom <br className="hidden sm:block" /> Business Automation
               </h1>
               <p className="text-2xl text-indigo-400 font-medium">Clear Pricing. No Confusion.</p>
             </motion.div>

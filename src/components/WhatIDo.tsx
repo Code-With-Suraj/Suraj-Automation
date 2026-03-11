@@ -23,10 +23,10 @@ export default function WhatIDo() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-            I Build Custom Business Systems Using Google Apps Script
+            Custom Business Automation Systems Using Google Apps Script
           </h2>
           <p className="text-lg text-slate-600">
-            I don't sell ready-made software. I build systems tailored to your business.
+            I don't sell ready-made software. I build custom web apps and workflow automation for small business tailored to your needs.
           </p>
         </div>
 

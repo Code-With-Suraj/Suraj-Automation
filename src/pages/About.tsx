@@ -19,7 +19,7 @@ export default function About() {
               className="text-center lg:text-left"
             >
               <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
-                Authority Positioning
+                Google Apps Script Developer India
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
                 I Don't Just Write Code... <br />
@@ -28,7 +28,7 @@ export default function About() {
                 </span>
               </h1>
               <p className="mt-4 text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Helping Indian SMB owners move from manual dependency to system-driven businesses.
+                As an automation consultant for small business in India, I help SMB owners move from manual dependency to system-driven businesses.
               </p>
             </motion.div>
 

@@ -26,8 +26,8 @@ export default function ProductsSection() {
     {
       id: 'stocksarthi',
       name: 'StockSarthi',
-      tagline: 'Smart Stock Management',
-      description: 'Take full control of your stock without Excel confusion. Built for growing businesses.',
+      tagline: 'Stock Management System',
+      description: 'Take full control of your stock without Excel confusion. A simple inventory management software built for growing businesses.',
       icon: <Package className="w-6 h-6" />,
       color: 'emerald',
     },
@@ -50,8 +50,8 @@ export default function ProductsSection() {
     {
       id: 'karmsarthi',
       name: 'KarmSarthi',
-      tagline: 'HR Operations Automation',
-      description: 'A focused HR automation system that handles your daily HR operations.',
+      tagline: 'HR Management System for Small Business',
+      description: 'An employee management system for SMBs that handles your daily HR operations.',
       icon: <Users className="w-6 h-6" />,
       color: 'purple',
     },
@@ -66,16 +66,16 @@ export default function ProductsSection() {
     {
       id: 'gymsarthi',
       name: 'GymSarthi',
-      tagline: 'Gym Management System',
-      description: 'A simple, powerful system specially built for Indian gym owners to manage members.',
+      tagline: 'Gym Management System for Small Gym',
+      description: 'A simple gym member tracking system specially built for Indian gym owners.',
       icon: <Dumbbell className="w-6 h-6" />,
       color: 'orange',
     },
     {
       id: 'menusarthi',
       name: 'MenuSarthi',
-      tagline: 'Premium Digital Menu',
-      description: 'Your own premium digital menu and direct ordering system without heavy commissions.',
+      tagline: 'Digital Menu for Restaurant',
+      description: 'Your own premium digital menu and restaurant online ordering system without heavy commissions.',
       icon: <Utensils className="w-6 h-6" />,
       color: 'red',
     }
@@ -94,13 +94,13 @@ export default function ProductsSection() {
             transition={{ duration: 0.5 }}
           >
             <span className="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-700 text-sm font-bold tracking-wide mb-4">
-              Our Products
+              Custom Web Apps for Business
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">
-              Ready-to-Deploy Business Systems
+              Ready-to-Deploy Automation Systems
             </h2>
             <p className="text-lg text-slate-600">
-              Powerful, customizable web applications designed specifically to solve the most common operational challenges faced by SMBs.
+              Powerful, customizable web applications and small business automation tools designed specifically to solve the most common operational challenges.
             </p>
           </motion.div>
         </div>

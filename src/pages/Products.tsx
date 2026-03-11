@@ -26,8 +26,8 @@ export default function Products() {
     {
       id: 'stocksarthi',
       name: 'StockSarthi',
-      tagline: 'Smart Stock Entry & Closing Stock Management System',
-      description: 'Take full control of your stock without Excel confusion. A simple and powerful web-based stock entry and reporting system built for growing businesses.',
+      tagline: 'Stock Management System for Small Business',
+      description: 'Take full control of your stock without Excel confusion. A simple inventory management software and stock tracking system using Google Sheets built for growing businesses.',
       icon: <Package className="w-8 h-8" />,
       color: 'emerald',
     },
@@ -50,8 +50,8 @@ export default function Products() {
     {
       id: 'karmsarthi',
       name: 'KarmSarthi',
-      tagline: 'HR Operations Automation Suite',
-      description: 'Stop managing HR on Excel & WhatsApp. KarmSarthi is a focused HR automation system that handles your daily HR operations in one structured platform.',
+      tagline: 'HR Management System for Small Business',
+      description: 'Stop managing HR on Excel & WhatsApp. KarmSarthi is an employee management system for SMBs that handles your daily HR operations in one structured platform.',
       icon: <Users className="w-8 h-8" />,
       color: 'purple',
     },
@@ -66,16 +66,16 @@ export default function Products() {
     {
       id: 'gymsarthi',
       name: 'GymSarthi',
-      tagline: 'Complete Gym Management System for Desi Gym Owners',
-      description: 'Stop running your gym on register & memory. GymSarthi is a simple, powerful system specially built for Indian gym owners to manage members, fees, and renewals.',
+      tagline: 'Gym Management System for Small Gym',
+      description: 'Stop running your gym on register & memory. GymSarthi is a simple gym member tracking system and fee management system specially built for Indian gym owners.',
       icon: <Dumbbell className="w-8 h-8" />,
       color: 'orange',
     },
     {
       id: 'menusarthi',
       name: 'MenuSarthi',
-      tagline: 'Premium Digital Menu & Online Ordering System for Restaurants',
-      description: 'Turn your restaurant into a smart digital ordering system. MenuSarthi gives you your own premium digital menu and direct ordering system without heavy commissions.',
+      tagline: 'Digital Menu for Restaurant & QR Ordering System',
+      description: 'Turn your restaurant into a smart digital ordering system. MenuSarthi gives you your own premium digital menu and restaurant online ordering system without heavy commissions.',
       icon: <Utensils className="w-8 h-8" />,
       color: 'red',
     }
@@ -92,16 +92,16 @@ export default function Products() {
             transition={{ duration: 0.5 }}
           >
             <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
-              Our Products
+              Custom Web Apps for Business
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
               Ready-to-Deploy <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                Business Systems
+                Automation Systems for SMBs
               </span>
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Powerful, customizable web applications designed specifically to solve the most common operational challenges faced by SMBs.
+              Powerful, customizable web applications and small business automation tools designed specifically to solve the most common operational challenges.
             </p>
           </motion.div>
         </div>

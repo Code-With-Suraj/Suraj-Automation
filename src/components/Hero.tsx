@@ -19,16 +19,16 @@ export default function Hero() {
             className="text-center lg:text-left"
           >
             <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
-              Custom Automation for SMBs
+              Custom Business Automation Services India
             </span>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-8 leading-tight">
-              You Have Data... <br className="hidden sm:block" />
+              Replace Excel & WhatsApp With <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                But No Control?
+                Custom Automation Solutions
               </span>
             </h1>
             <p className="mt-4 text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed">
-              I build custom web apps and automation systems using Google Apps Script that reduce manual work for SMBs by up to <span className="font-semibold text-slate-900">50%</span> — without costly ERPs.
+              I am a Google Apps Script developer building custom web apps and automation systems for SMBs. Get a low-cost ERP alternative that reduces manual work by <span className="font-semibold text-slate-900">50%</span>.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
