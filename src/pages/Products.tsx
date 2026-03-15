@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store } from 'lucide-react';
 
 const colorStyles: Record<string, { bg: string, text: string, hoverText: string, buttonBg: string, buttonHoverBg: string }> = {
   indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700', buttonBg: 'bg-indigo-600', buttonHoverBg: 'hover:bg-indigo-700' },
@@ -11,10 +11,20 @@ const colorStyles: Record<string, { bg: string, text: string, hoverText: string,
   rose: { bg: 'bg-rose-50', text: 'text-rose-600', hoverText: 'hover:text-rose-700', buttonBg: 'bg-rose-600', buttonHoverBg: 'hover:bg-rose-700' },
   orange: { bg: 'bg-orange-50', text: 'text-orange-600', hoverText: 'hover:text-orange-700', buttonBg: 'bg-orange-600', buttonHoverBg: 'hover:bg-orange-700' },
   red: { bg: 'bg-red-50', text: 'text-red-600', hoverText: 'hover:text-red-700', buttonBg: 'bg-red-600', buttonHoverBg: 'hover:bg-red-700' },
+  teal: { bg: 'bg-teal-50', text: 'text-teal-600', hoverText: 'hover:text-teal-700', buttonBg: 'bg-teal-600', buttonHoverBg: 'hover:bg-teal-700' },
 };
 
 export default function Products() {
   const products = [
+    {
+      id: 'supplysarthi',
+      name: 'SupplySarthi',
+      tagline: 'Complete Supply & Distribution Management System',
+      description: 'Stop taking orders on WhatsApp. Manage your entire supply business in one Google Sheet-based system—from orders to GST invoices. Pay once, use for a lifetime.',
+      icon: <Store className="w-8 h-8" />,
+      color: 'teal',
+      featured: true,
+    },
     {
       id: 'rationkart',
       name: 'RationKart',
@@ -112,6 +122,8 @@ export default function Products() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, idx) => {
               const styles = colorStyles[product.color];
+              const isFeatured = product.featured;
+              
               return (
                 <motion.div
                   key={product.id}
@@ -119,23 +131,34 @@ export default function Products() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                  className={`bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border flex flex-col hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden ${isFeatured ? 'border-teal-300 md:col-span-2 lg:col-span-3 lg:flex-row gap-8 items-center' : 'border-slate-100'}`}
                 >
-                  <div className={`w-16 h-16 rounded-2xl ${styles.bg} flex items-center justify-center ${styles.text} mb-6`}>
+                  {isFeatured && (
+                    <div className="absolute top-0 right-0 bg-teal-500 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10">
+                      FEATURED
+                    </div>
+                  )}
+                  
+                  <div className={`w-16 h-16 rounded-2xl ${styles.bg} flex items-center justify-center ${styles.text} mb-6 lg:mb-0 shrink-0 ${isFeatured ? 'lg:w-24 lg:h-24' : ''}`}>
                     {product.icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{product.name}</h3>
-                  <p className={`text-sm font-semibold ${styles.text} mb-4`}>{product.tagline}</p>
-                  <p className="text-slate-600 mb-8 flex-grow">
-                    {product.description}
-                  </p>
-                  <Link
-                    to={`/products/${product.id}`}
-                    className={`inline-flex items-center justify-center w-full px-6 py-3 ${styles.buttonBg} ${styles.buttonHoverBg} text-white rounded-xl font-medium transition-colors group`}
-                  >
-                    View Details
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  
+                  <div className={`flex flex-col flex-grow ${isFeatured ? 'lg:ml-4' : ''}`}>
+                    <h3 className={`font-bold text-slate-900 mb-3 ${isFeatured ? 'text-3xl' : 'text-2xl'}`}>{product.name}</h3>
+                    <p className={`text-sm font-semibold ${styles.text} mb-4`}>{product.tagline}</p>
+                    <p className={`text-slate-600 mb-8 flex-grow ${isFeatured ? 'text-lg max-w-3xl' : ''}`}>
+                      {product.description}
+                    </p>
+                    <div className={`${isFeatured ? 'mt-auto' : ''}`}>
+                      <Link
+                        to={`/products/${product.id}`}
+                        className={`inline-flex items-center justify-center px-6 py-3 ${styles.buttonBg} ${styles.buttonHoverBg} text-white rounded-xl font-medium transition-colors group ${isFeatured ? 'w-auto' : 'w-full'}`}
+                      >
+                        View Details
+                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
                 </motion.div>
               );
             })}

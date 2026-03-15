@@ -18,6 +18,7 @@ import KarmSarthi from './pages/products/KarmSarthi';
 import CakeSarthi from './pages/products/CakeSarthi';
 import GymSarthi from './pages/products/GymSarthi';
 import MenuSarthi from './pages/products/MenuSarthi';
+import SupplySarthi from './pages/products/SupplySarthi';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/products/cakesarthi" element={<CakeSarthi />} />
             <Route path="/products/gymsarthi" element={<GymSarthi />} />
             <Route path="/products/menusarthi" element={<MenuSarthi />} />
+            <Route path="/products/supplysarthi" element={<SupplySarthi />} />
           </Routes>
         </div>
         <Footer />

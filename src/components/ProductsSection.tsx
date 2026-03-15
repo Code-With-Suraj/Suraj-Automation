@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store } from 'lucide-react';
 
 const colorStyles: Record<string, { bg: string, text: string, hoverText: string }> = {
   indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700' },
@@ -11,10 +11,20 @@ const colorStyles: Record<string, { bg: string, text: string, hoverText: string 
   rose: { bg: 'bg-rose-50', text: 'text-rose-600', hoverText: 'hover:text-rose-700' },
   orange: { bg: 'bg-orange-50', text: 'text-orange-600', hoverText: 'hover:text-orange-700' },
   red: { bg: 'bg-red-50', text: 'text-red-600', hoverText: 'hover:text-red-700' },
+  teal: { bg: 'bg-teal-50', text: 'text-teal-600', hoverText: 'hover:text-teal-700' },
 };
 
 export default function ProductsSection() {
   const products = [
+    {
+      id: 'supplysarthi',
+      name: 'SupplySarthi',
+      tagline: 'Complete Supply & Distribution Management System',
+      description: 'Stop taking orders on WhatsApp. Manage your entire supply business in one Google Sheet-based system—from orders to GST invoices. Pay once, use for a lifetime.',
+      icon: <Store className="w-8 h-8" />,
+      color: 'teal',
+      featured: true,
+    },
     {
       id: 'rationkart',
       name: 'RationKart',
@@ -105,9 +115,11 @@ export default function ProductsSection() {
           </motion.div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {products.slice(0, 2).map((product, idx) => {
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {products.slice(0, 3).map((product, idx) => {
             const styles = colorStyles[product.color];
+            const isFeatured = product.featured;
+            
             return (
               <motion.div
                 key={product.id}
@@ -115,23 +127,32 @@ export default function ProductsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/40 border border-slate-100 flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"
+                className={`bg-white rounded-2xl p-6 md:p-8 shadow-lg shadow-slate-200/40 border flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group relative overflow-hidden ${isFeatured ? 'border-teal-300 md:col-span-2 md:flex-row gap-6 md:gap-8 items-center' : 'border-slate-100'}`}
               >
-                <div className={`w-12 h-12 rounded-xl ${styles.bg} flex items-center justify-center ${styles.text} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                {isFeatured && (
+                  <div className="absolute top-0 right-0 bg-teal-500 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10">
+                    FEATURED
+                  </div>
+                )}
+                
+                <div className={`rounded-xl ${styles.bg} flex items-center justify-center ${styles.text} mb-4 md:mb-0 group-hover:scale-110 transition-transform duration-300 shrink-0 ${isFeatured ? 'w-16 h-16 md:w-24 md:h-24' : 'w-12 h-12'}`}>
                   {product.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{product.name}</h3>
-                <p className={`text-xs font-bold ${styles.text} mb-3 uppercase tracking-wider`}>{product.tagline}</p>
-                <p className="text-sm text-slate-600 mb-6 flex-grow">
-                  {product.description}
-                </p>
-                <Link
-                  to={`/products/${product.id}`}
-                  className={`inline-flex items-center text-sm font-bold ${styles.text} ${styles.hoverText} transition-colors group/link mt-auto`}
-                >
-                  View Details
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
+                
+                <div className={`flex flex-col flex-grow ${isFeatured ? 'md:ml-2' : ''}`}>
+                  <h3 className={`font-bold text-slate-900 mb-2 ${isFeatured ? 'text-2xl md:text-3xl' : 'text-xl'}`}>{product.name}</h3>
+                  <p className={`text-xs font-bold ${styles.text} mb-3 uppercase tracking-wider`}>{product.tagline}</p>
+                  <p className={`text-slate-600 mb-6 flex-grow ${isFeatured ? 'text-base md:text-lg max-w-2xl' : 'text-sm'}`}>
+                    {product.description}
+                  </p>
+                  <Link
+                    to={`/products/${product.id}`}
+                    className={`inline-flex items-center text-sm font-bold ${styles.text} ${styles.hoverText} transition-colors group/link mt-auto`}
+                  >
+                    View Details
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
               </motion.div>
             );
           })}
