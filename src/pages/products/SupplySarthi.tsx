@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Package, AlertTriangle, CheckCircle2, ListChecks, FileSpreadsheet, Users, Receipt, Wallet, Smartphone, ShieldCheck, TrendingUp, ArrowRight, MessageSquare, Store } from 'lucide-react';
+import { Package, AlertTriangle, CheckCircle2, ListChecks, FileSpreadsheet, Users, Receipt, Wallet, Smartphone, ShieldCheck, TrendingUp, ArrowRight, MessageSquare, Store, ExternalLink } from 'lucide-react';
 
 export default function SupplySarthi() {
   const problems = [
@@ -122,15 +122,26 @@ export default function SupplySarthi() {
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">Auto GST Invoices</span>
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">Client Portal</span>
               </div>
-              <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20SupplySarthi." 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
-              >
-                Book a Free Demo Now
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a 
+                  href="https://supplysarthi.surajdx.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                >
+                  Visit Official Website
+                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </a>
+                <a 
+                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20SupplySarthi." 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2 group hover:-translate-y-1"
+                >
+                  Book a Free Demo
+                  <MessageSquare className="w-5 h-5" />
+                </a>
+              </div>
             </motion.div>
             
             <motion.div
@@ -387,22 +398,22 @@ export default function SupplySarthi() {
               
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20SupplySarthi." 
+                  href="https://supplysarthi.surajdx.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 group hover:-translate-y-1"
                 >
-                  Book a Free Demo Today
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  Visit Official Website
+                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20Let's%20automate%20my%20operations." 
+                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20SupplySarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-1"
                 >
+                  Book a Free Demo
                   <MessageSquare className="w-5 h-5" />
-                  Let’s Automate Your Operations
                 </a>
               </div>
             </div>
