@@ -340,86 +340,192 @@ export default function SupplySarthi() {
         </div>
       </section>
 
-      {/* Pricing & Customization & CTA */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-100/80 via-white to-white -z-10"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-              <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 text-left">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">💰 Transparent Pricing</h3>
-                <p className="text-slate-600 mb-6">No monthly subscriptions. No yearly renewals.</p>
-                
-                <div className="mb-6">
-                  <h4 className="font-bold text-lg text-slate-900">One-Time Setup Cost: ₹35,000</h4>
-                  <p className="text-sm text-slate-600 mt-1">Includes 3 months of dedicated free support. The system is yours forever.</p>
+      {/* Pricing */}
+      <section className="py-24 relative overflow-hidden bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Transparent Pricing</h2>
+            <p className="text-xl text-slate-600 mb-4">Simple pricing. Zero surprises. 🔐</p>
+            <p className="text-lg text-slate-500">
+              Chota start karo subscription se, ya ek baar pay karke lifetime ownership lo — dono options available hain.
+            </p>
+          </div>
+
+          {/* Subscription Plans */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {/* Starter */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 flex flex-col relative">
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Starter</h3>
+              <p className="text-sm text-slate-500 mb-6 h-10">Naya supplier jiske paas abhi thode clients hain aur growth shuru ho rahi hai</p>
+              <div className="mb-6">
+                <span className="text-4xl font-extrabold text-slate-900">₹999</span>
+                <span className="text-slate-500">/month</span>
+                <p className="text-xs text-slate-400 mt-1">billed monthly</p>
+              </div>
+              <div className="bg-indigo-50 text-indigo-700 text-sm font-bold py-2 px-4 rounded-lg mb-6 inline-block w-fit">
+                📊 5 Clients · 50 Orders/month
+              </div>
+              <ul className="space-y-3 mb-8 flex-grow">
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Order Management System</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Client & Site Management (5 clients)</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> GST Invoice Auto-Generate</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Delivery Challan Generation</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Account Ledger & Payments</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Client Self-Service Portal</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Admin Dashboard</li>
+                <li className="flex items-start gap-2 text-sm text-slate-400 line-through"><span className="w-4 h-4 mt-0.5 shrink-0 inline-block" /> Unlimited Clients</li>
+                <li className="flex items-start gap-2 text-sm text-slate-400 line-through"><span className="w-4 h-4 mt-0.5 shrink-0 inline-block" /> Unlimited Orders</li>
+                <li className="flex items-start gap-2 text-sm text-slate-400 line-through"><span className="w-4 h-4 mt-0.5 shrink-0 inline-block" /> Priority Support</li>
+              </ul>
+              <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Starter%20Plan." target="_blank" rel="noopener noreferrer" className="w-full py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold rounded-xl text-center transition-colors">
+                Get Starter Plan →
+              </a>
+            </div>
+
+            {/* Pro */}
+            <div className="bg-white rounded-3xl p-8 shadow-2xl border-2 border-indigo-500 flex flex-col relative transform md:-translate-y-4">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-full">
+                ⭐ Most Popular
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Pro</h3>
+              <p className="text-sm text-slate-500 mb-6 h-10">Growing supplier jise unlimited freedom chahiye bina kisi restriction ke</p>
+              <div className="mb-6">
+                <span className="text-4xl font-extrabold text-slate-900">₹1,499</span>
+                <span className="text-slate-500">/month</span>
+                <p className="text-xs text-slate-400 mt-1">billed monthly</p>
+              </div>
+              <div className="bg-indigo-50 text-indigo-700 text-sm font-bold py-2 px-4 rounded-lg mb-6 inline-block w-fit">
+                ✨ Unlimited Clients · Unlimited Orders
+              </div>
+              <ul className="space-y-3 mb-8 flex-grow">
+                <li className="flex items-start gap-2 text-sm font-bold text-slate-900"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Everything in Starter</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Unlimited Clients & Sites</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Unlimited Orders per Month</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Client-wise Custom Price List</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Sales & Outstanding Reports</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Credit & Debit Notes</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Demand Summary Reports</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Printable Ledger Statements</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Priority WhatsApp Support</li>
+                <li className="flex items-start gap-2 text-sm text-slate-700"><CheckCircle2 className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> Future Feature Updates</li>
+              </ul>
+              <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Pro%20Plan." target="_blank" rel="noopener noreferrer" className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-center transition-colors shadow-lg shadow-indigo-500/25">
+                Get Pro Plan →
+              </a>
+            </div>
+
+            {/* Pro Annual */}
+            <div className="bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-800 flex flex-col relative text-white">
+              <div className="absolute top-0 right-0 bg-rose-500 text-white text-xs font-bold px-4 py-1 rounded-bl-xl rounded-tr-3xl">
+                🔥 Best Value
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Pro Annual</h3>
+              <p className="text-sm text-slate-400 mb-6 h-10">Ek saal ek saath pay karo — 13 months ka fayda, sab kuch unlimited</p>
+              <div className="mb-6">
+                <p className="text-sm text-slate-400 line-through mb-1">₹1,499 × 12 = ₹17,988/year</p>
+                <span className="text-4xl font-extrabold">₹14,999</span>
+                <span className="text-slate-400">/year</span>
+                <p className="text-xs text-slate-400 mt-1">one annual payment</p>
+              </div>
+              <div className="bg-rose-500/20 text-rose-300 text-sm font-bold py-2 px-4 rounded-lg mb-6 inline-block w-fit border border-rose-500/30">
+                🎉 Save ₹2,989 · 👑 13 months ka fayda
+              </div>
+              <ul className="space-y-3 mb-8 flex-grow">
+                <li className="flex items-start gap-2 text-sm font-bold"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> Everything in Pro Plan</li>
+                <li className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> 13 Months for Price of 12</li>
+                <li className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> Unlimited Clients & Orders</li>
+                <li className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> Priority Setup Assistance</li>
+                <li className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> Dedicated WhatsApp Support</li>
+                <li className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> All Future Feature Updates</li>
+                <li className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> Lowest Effective Monthly Cost</li>
+                <li className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> ★ Lock in price for full year</li>
+              </ul>
+              <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Pro%20Annual%20Plan." target="_blank" rel="noopener noreferrer" className="w-full py-3 px-4 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl text-center transition-colors shadow-lg shadow-rose-500/25">
+                Get Pro Annual — Best Deal 🔥
+              </a>
+            </div>
+          </div>
+
+          {/* Lifetime Ownership */}
+          <div className="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-indigo-500/30 text-left relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
+            
+            <div className="flex flex-col md:flex-row gap-12 relative z-10">
+              <div className="md:w-1/2">
+                <div className="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-amber-500/20 text-amber-300 text-sm font-bold tracking-wide mb-6 border border-amber-500/30">
+                  🏆 Lifetime Ownership
                 </div>
-                
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">One-time setup cost. Ek baar pay karo, hamesha apna.</h3>
                 <div className="mb-8">
-                  <h4 className="font-bold text-lg text-slate-900">Post-Support Maintenance: ₹5,000</h4>
-                  <p className="text-sm text-slate-600 mt-1">Need-based only. For future bug fixes, server resolutions, or new feature additions after the free support period.</p>
+                  <p className="text-slate-400 line-through mb-1">Market Rate: ₹60,000+</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl font-extrabold text-white">₹35,000</span>
+                    <span className="text-indigo-200 font-medium">One-time setup fee</span>
+                  </div>
+                  <p className="text-indigo-300 mt-2 font-medium">No subscription ever · No hidden fees · Works on any Google account</p>
                 </div>
 
-                <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20for%20my%20business." 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex w-full justify-center px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-colors"
-                >
-                  Get SupplySarthi Now
+                <div className="space-y-6 mb-8">
+                  <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
+                    <h4 className="font-bold text-lg text-white mb-3 flex items-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Included in ₹35,000
+                    </h4>
+                    <ul className="space-y-2">
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-emerald-400 mt-1">•</span> Complete SupplySarthi system</li>
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-emerald-400 mt-1">•</span> Full setup & configuration</li>
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-emerald-400 mt-1">•</span> 3 months dedicated support</li>
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-emerald-400 mt-1">•</span> Bug fixes — free in 3 months</li>
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-emerald-400 mt-1">•</span> Training & onboarding</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
+                    <h4 className="font-bold text-lg text-white mb-3 flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-amber-400" /> After 3 Months (on-demand)
+                    </h4>
+                    <p className="text-amber-300 font-bold mb-2">₹5,000 <span className="text-sm font-normal text-slate-300">Per request — only if needed. Pay jab chahiye tab.</span></p>
+                    <ul className="space-y-2">
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-amber-400 mt-1">•</span> Bug fix / sheet crash repair</li>
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-amber-400 mt-1">•</span> New feature request</li>
+                      <li className="text-slate-300 flex items-start gap-2"><span className="text-amber-400 mt-1">•</span> Major customization</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Lifetime%20Access%20for%20₹35,000." target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-xl font-bold text-lg transition-all shadow-xl items-center justify-center gap-2 group">
+                  Get Lifetime Access — ₹35,000
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
 
-              <div className="bg-indigo-600 p-8 rounded-3xl shadow-xl text-left text-white">
-                <h3 className="text-2xl font-bold mb-4 text-white">👨‍💻 About Suraj Automation</h3>
-                <p className="text-indigo-100 mb-6">We build:</p>
-                <ul className="space-y-3 mb-8 text-indigo-50">
-                  <li className="flex items-center gap-2 font-medium">✨ Practical business systems</li>
-                  <li className="flex items-center gap-2 font-medium">✨ Smart automation tools</li>
-                  <li className="flex items-center gap-2 font-medium">✨ Custom dashboards</li>
-                  <li className="flex items-center gap-2 font-medium">✨ Operational control solutions</li>
-                </ul>
-                <p className="font-bold text-white">Our goal is simple: Turn manual chaos into structured systems.</p>
+              <div className="md:w-1/2">
+                <div className="bg-slate-950/50 p-8 rounded-3xl border border-indigo-500/20 h-full">
+                  <h4 className="text-xl font-bold text-white mb-6 border-b border-slate-700 pb-4">Everything included — unlocked forever</h4>
+                  <div className="grid sm:grid-cols-2 gap-x-4 gap-y-3">
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Order Management System</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Client & Multi-Site Management</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> GST Invoice Auto-Generate</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Delivery Challan Generation</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Account Ledger System</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Payment & Outstanding Tracking</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Credit & Debit Notes</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Client Self-Service Portal</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Admin Dashboard & Reports</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Client-wise Custom Price List</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Sales & Outstanding Reports</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Printable Ledger Statements</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Demand Summary Reports</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Unlimited Clients & Sites</div>
+                    <div className="flex items-start gap-2 text-sm text-slate-300"><CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" /> Unlimited Orders</div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="bg-slate-900 text-white rounded-[2.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 relative z-10">🚀 Ready to Scale Your Supply Business?</h2>
-              <p className="text-xl text-slate-300 mb-8 relative z-10">
-                Stop managing your business manually. Get a system that works for you, so you can focus on growth. <br className="hidden sm:block" />
-                <span className="text-white font-bold">Invest once. Reap the ROI for years.</span>
-              </p>
-              
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
-                <a 
-                  href="https://supplysarthi.surajdx.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 group hover:-translate-y-1"
-                >
-                  Visit Official Website
-                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </a>
-                <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20SupplySarthi." 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-1"
-                >
-                  Book a Free Demo
-                  <MessageSquare className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-          </motion.div>
+          </div>
         </div>
       </section>
+
+      {/* CTA Section */}
     </main>
   );
 }
