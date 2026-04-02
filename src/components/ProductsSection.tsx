@@ -17,14 +17,6 @@ const colorStyles: Record<string, { bg: string, text: string, hoverText: string 
 export default function ProductsSection() {
   const products = [
     {
-      id: 'hisabsarthi',
-      name: 'HisabSarthi',
-      tagline: 'Google Sheets-based GST Accounting Tool',
-      description: 'Ditch Tally and complex ERPs. HisabSarthi is a simple, affordable GST invoicing and accounting system built for Indian small businesses. 100% data control in your Google Drive.',
-      icon: <Calculator className="w-8 h-8" />,
-      color: 'blue',
-    },
-    {
       id: 'supplysarthi',
       name: 'SupplySarthi',
       tagline: 'Complete Supply & Distribution Management System',
@@ -32,6 +24,14 @@ export default function ProductsSection() {
       icon: <Store className="w-8 h-8" />,
       color: 'teal',
       featured: true,
+    },
+    {
+      id: 'hisabsarthi',
+      name: 'HisabSarthi',
+      tagline: 'Google Sheets-based GST Accounting Tool',
+      description: 'Ditch Tally and complex ERPs. HisabSarthi is a simple, affordable GST invoicing and accounting system built for Indian small businesses. 100% data control in your Google Drive.',
+      icon: <Calculator className="w-8 h-8" />,
+      color: 'blue',
     },
     {
       id: 'rationkart',
