@@ -125,7 +125,7 @@ export default function Products() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, idx) => {
@@ -139,28 +139,28 @@ export default function Products() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className={`bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border flex flex-col hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden ${isFeatured ? 'border-teal-300 md:col-span-2 lg:col-span-3 lg:flex-row gap-8 items-center' : 'border-slate-100'}`}
+                  className={`bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 group relative overflow-hidden ${isFeatured ? 'border-indigo-100 md:col-span-2 lg:col-span-3 lg:flex-row gap-8 lg:gap-12 items-center overflow-visible' : 'border-slate-100 hover:border-slate-300'}`}
                 >
                   {isFeatured && (
-                    <div className="absolute top-0 right-0 bg-teal-500 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10">
+                    <div className="absolute top-0 right-0 bg-gradient-to-r from-indigo-500 to-blue-500 text-white text-xs font-bold px-5 py-1.5 rounded-bl-[1.5rem] shadow-sm z-10 hidden md:block">
                       FEATURED
                     </div>
                   )}
                   
-                  <div className={`w-16 h-16 rounded-2xl ${styles.bg} flex items-center justify-center ${styles.text} mb-6 lg:mb-0 shrink-0 ${isFeatured ? 'lg:w-24 lg:h-24' : ''}`}>
+                  <div className={`rounded-2xl border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] ${styles.bg} flex items-center justify-center ${styles.text} mb-6 lg:mb-0 group-hover:scale-110 transition-transform duration-300 shrink-0 w-16 h-16 ${isFeatured ? 'lg:w-28 lg:h-28' : ''}`}>
                     {product.icon}
                   </div>
                   
                   <div className={`flex flex-col flex-grow ${isFeatured ? 'lg:ml-4' : ''}`}>
-                    <h3 className={`font-bold text-slate-900 mb-3 ${isFeatured ? 'text-3xl' : 'text-2xl'}`}>{product.name}</h3>
-                    <p className={`text-sm font-semibold ${styles.text} mb-4`}>{product.tagline}</p>
-                    <p className={`text-slate-600 mb-8 flex-grow ${isFeatured ? 'text-lg max-w-3xl' : ''}`}>
+                    <h3 className={`font-extrabold text-slate-900 mb-2 tracking-tight ${isFeatured ? 'text-4xl' : 'text-2xl'}`}>{product.name}</h3>
+                    <p className={`text-xs font-bold ${styles.text} mb-4 uppercase tracking-wider`}>{product.tagline}</p>
+                    <p className={`text-slate-600 mb-8 font-body leading-relaxed flex-grow ${isFeatured ? 'text-lg max-w-3xl' : ''}`}>
                       {product.description}
                     </p>
                     <div className={`${isFeatured ? 'mt-auto' : ''}`}>
                       <Link
                         to={`/products/${product.id}`}
-                        className={`inline-flex items-center justify-center px-6 py-3 ${styles.buttonBg} ${styles.buttonHoverBg} text-white rounded-xl font-medium transition-colors group ${isFeatured ? 'w-auto' : 'w-full'}`}
+                        className={`inline-flex items-center justify-center px-6 py-3 bg-slate-950 text-white rounded-xl font-bold transition-all shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:-translate-y-0.5 group ${isFeatured ? 'w-auto' : 'w-full'}`}
                       >
                         View Details
                         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

@@ -135,30 +135,30 @@ export default function ProductsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`bg-white rounded-2xl p-6 md:p-8 shadow-lg shadow-slate-200/40 border flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group relative overflow-hidden ${isFeatured ? 'border-teal-300 md:col-span-2 md:flex-row gap-6 md:gap-8 items-center' : 'border-slate-100'}`}
+                className={`bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 group relative overflow-hidden ${isFeatured ? 'border-indigo-100 md:col-span-2 md:flex-row gap-6 md:gap-10 items-center overflow-visible' : 'border-slate-100 hover:border-slate-300'}`}
               >
                 {isFeatured && (
-                  <div className="absolute top-0 right-0 bg-teal-500 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10">
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-indigo-500 to-blue-500 text-white text-xs font-bold px-5 py-1.5 rounded-bl-[1.5rem] shadow-sm z-10 hidden md:block">
                     FEATURED
                   </div>
                 )}
                 
-                <div className={`rounded-xl ${styles.bg} flex items-center justify-center ${styles.text} mb-4 md:mb-0 group-hover:scale-110 transition-transform duration-300 shrink-0 ${isFeatured ? 'w-16 h-16 md:w-24 md:h-24' : 'w-12 h-12'}`}>
+                <div className={`rounded-2xl border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] ${styles.bg} flex items-center justify-center ${styles.text} mb-6 md:mb-0 group-hover:scale-110 transition-transform duration-300 shrink-0 ${isFeatured ? 'w-20 h-20 md:w-28 md:h-28' : 'w-16 h-16'}`}>
                   {product.icon}
                 </div>
                 
                 <div className={`flex flex-col flex-grow ${isFeatured ? 'md:ml-2' : ''}`}>
-                  <h3 className={`font-bold text-slate-900 mb-2 ${isFeatured ? 'text-2xl md:text-3xl' : 'text-xl'}`}>{product.name}</h3>
+                  <h3 className={`font-extrabold text-slate-900 mb-2 tracking-tight ${isFeatured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>{product.name}</h3>
                   <p className={`text-xs font-bold ${styles.text} mb-3 uppercase tracking-wider`}>{product.tagline}</p>
-                  <p className={`text-slate-600 mb-6 flex-grow ${isFeatured ? 'text-base md:text-lg max-w-2xl' : 'text-sm'}`}>
+                  <p className={`text-slate-600 mb-8 font-body leading-relaxed flex-grow ${isFeatured ? 'text-base md:text-lg max-w-2xl' : 'text-sm md:text-base'}`}>
                     {product.description}
                   </p>
                   <Link
                     to={`/products/${product.id}`}
-                    className={`inline-flex items-center text-sm font-bold ${styles.text} ${styles.hoverText} transition-colors group/link mt-auto`}
+                    className={`inline-flex items-center text-sm font-bold bg-slate-950 text-white px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-all group/link w-fit ${isFeatured ? 'shadow-md shadow-slate-900/10' : ''}`}
                   >
                     View Details
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </motion.div>

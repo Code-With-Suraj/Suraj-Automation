@@ -3,32 +3,30 @@ import { ArrowRight, Calendar } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100/80 via-white to-white"></div>
-      
-      {/* Decorative background elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute top-40 right-10 w-72 h-72 bg-indigo-400/10 rounded-full blur-3xl -z-10"></div>
+    <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-[#F8F9FA]">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center lg:text-left"
           >
-            <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
-              Custom Business Automation Services India
-            </span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-8 leading-tight">
+            <div className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/80 backdrop-blur-sm text-slate-800 text-sm font-semibold tracking-wide mb-8 border border-slate-200/60 shadow-sm">
+              <span className="flex h-2 w-2 rounded-full bg-indigo-600"></span>
+              Custom Business Automation Services
+            </div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-8 leading-[1.1]">
               Replace Excel & WhatsApp With <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                Custom Automation Solutions
+                Smart Automation
               </span>
             </h1>
-            <p className="mt-4 text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed">
-              I am a Google Apps Script developer building custom web apps and automation systems for SMBs. Get a low-cost ERP alternative that reduces manual work by <span className="font-semibold text-slate-900">50%</span>.
+            <p className="mt-4 text-[1.15rem] text-slate-600 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed font-body">
+              I build custom web apps and automation systems for ambitious SMBs. Get a premium, low-cost ERP alternative that cuts manual multi-tasking by <span className="font-semibold text-slate-900">50%</span>.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
@@ -36,7 +34,7 @@ export default function Hero() {
                 href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 group hover:-translate-y-1"
+                className="w-full sm:w-auto px-8 py-4 bg-slate-950 hover:bg-slate-800 text-white rounded-xl font-semibold transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] flex items-center justify-center gap-2 group hover:-translate-y-1"
               >
                 <Calendar className="w-5 h-5" />
                 Book a Free Process Audit
@@ -45,43 +43,64 @@ export default function Hero() {
                 href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20share%20my%20current%20system%20details." 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl font-medium transition-all flex items-center justify-center gap-2 group hover:-translate-y-1 shadow-sm"
+                className="w-full sm:w-auto px-8 py-4 bg-white/80 hover:bg-white backdrop-blur-sm text-slate-700 border border-slate-200 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group hover:-translate-y-1 shadow-sm hover:shadow-md"
               >
                 Share Your Current System
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
+            
+            <div className="mt-10 flex items-center justify-center lg:justify-start gap-4 text-sm font-medium text-slate-500">
+              <div className="flex -space-x-2">
+                <img className="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="Client" />
+                <img className="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=2" alt="Client" />
+                <img className="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=3" alt="Client" />
+                <div className="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-600">+50</div>
+              </div>
+              <span>Trusted by 50+ growing businesses</span>
+            </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative hidden lg:block"
+            initial={{ opacity: 0, scale: 0.95, rotateY: 10 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="relative hidden lg:block perspective-1000"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-blue-500 rounded-[2.5rem] blur-2xl opacity-20"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
-              alt="Business Dashboard and Analytics" 
-              className="relative rounded-[2.5rem] shadow-2xl border border-white/50 object-cover w-full h-[500px]"
-              referrerPolicy="no-referrer"
-            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 rounded-[2rem] blur-3xl transform -rotate-6"></div>
             
-            {/* Floating UI Elements */}
-            <div className="absolute -left-8 top-12 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce" style={{ animationDuration: '3s' }}>
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-xl">✓</div>
-              <div>
-                <p className="text-sm font-bold text-slate-900">Task Automated</p>
-                <p className="text-xs text-slate-500">2 hours saved</p>
-              </div>
-            </div>
-            
-            <div className="absolute -right-8 bottom-12 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
-              <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xl">📈</div>
-              <div>
-                <p className="text-sm font-bold text-slate-900">Revenue Updated</p>
-                <p className="text-xs text-slate-500">Real-time sync</p>
-              </div>
+            <div className="relative rounded-[2rem] p-2 bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]">
+              <img 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
+                alt="Business Dashboard and Analytics" 
+                className="rounded-[1.5rem] object-cover w-full h-[540px] shadow-sm"
+                referrerPolicy="no-referrer"
+              />
+              
+              {/* Premium Floating UI Elements */}
+              <motion.div 
+                animate={{ y: [-10, 10, -10] }} 
+                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                className="absolute -left-12 top-20 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] border border-slate-100/50 flex items-center gap-4"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-100 to-emerald-50 flex items-center justify-center text-emerald-600 font-bold text-xl shadow-inner border border-emerald-100/50">✓</div>
+                <div>
+                  <p className="font-bold text-slate-800 tracking-tight">Task Automated</p>
+                  <p className="text-sm text-slate-500 font-medium">2 hours saved daily</p>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                animate={{ y: [10, -10, 10] }} 
+                transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1 }}
+                className="absolute -right-10 bottom-24 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] border border-slate-100/50 flex items-center gap-4"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-xl shadow-inner border border-indigo-100/50">📈</div>
+                <div>
+                  <p className="font-bold text-slate-800 tracking-tight">Revenue Sync</p>
+                  <p className="text-sm text-slate-500 font-medium">Real-time update</p>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

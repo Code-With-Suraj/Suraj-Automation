@@ -5,46 +5,49 @@ export default function About() {
   return (
     <main className="pt-24 pb-20">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden bg-slate-50">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100/80 via-white to-white"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl -z-10"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-indigo-400/10 rounded-full blur-3xl -z-10"></div>
+      <section className="relative py-20 lg:py-32 overflow-hidden bg-[#F8F9FA]">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="text-center lg:text-left"
             >
-              <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
-                Google Apps Script Developer India
+              <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/80 backdrop-blur-sm text-slate-800 text-sm font-semibold tracking-wide mb-8 border border-slate-200/60 shadow-sm">
+                <span className="flex h-2 w-2 rounded-full bg-indigo-600"></span>
+                Google Apps Script Developer
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
-                I Don't Just Write Code... <br />
+                I Don't Just Write Code... <br className="hidden sm:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                  I Build Business Systems.
+                  I Build Systems.
                 </span>
               </h1>
-              <p className="mt-4 text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                As an automation consultant for small business in India, I help SMB owners move from manual dependency to system-driven businesses.
+              <p className="mt-4 text-[1.15rem] text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-body">
+                As an automation consultant for small businesses, I help SMB owners move from manual dependency to system-driven growth without expensive software bloat.
               </p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative hidden lg:block"
+              initial={{ opacity: 0, scale: 0.95, rotateY: 10 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="relative hidden lg:block perspective-1000"
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-blue-500 rounded-[2.5rem] blur-2xl opacity-20"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
-                alt="Business Consulting and Planning" 
-                className="relative rounded-[2.5rem] shadow-2xl border border-white/50 object-cover w-full h-[400px]"
-                referrerPolicy="no-referrer"
-              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 rounded-[2rem] blur-3xl transform -rotate-3"></div>
+              
+              <div className="relative rounded-[2rem] p-2 bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]">
+                <img 
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
+                  alt="Business Consulting and Planning" 
+                  className="rounded-[1.5rem] shadow-sm object-cover w-full h-[440px]"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

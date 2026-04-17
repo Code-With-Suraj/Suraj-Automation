@@ -126,53 +126,84 @@ export default function Pricing() {
       </section>
 
       {/* Pricing Plans */}
-      <section className="py-24 relative">
-        <div className="absolute top-0 w-full h-1/2 bg-slate-50 -z-10"></div>
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute top-0 w-full h-1/2 bg-[#F8F9FA] -z-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-8">
-            {plans.map((plan, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`relative bg-white rounded-3xl p-8 md:p-10 border-2 ${plan.popular ? 'border-indigo-500 shadow-2xl shadow-indigo-200/50 scale-105 z-10' : 'border-slate-100 shadow-xl shadow-slate-200/50'} flex flex-col transition-transform hover:-translate-y-2`}
-              >
-                {plan.popular && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white px-6 py-1.5 rounded-full text-sm font-bold tracking-wide uppercase shadow-md">
-                    Most Popular
-                  </div>
-                )}
-                
-                <div className="mb-8 border-b border-slate-100 pb-8">
-                  <h3 className="text-2xl font-extrabold text-slate-900 mb-2">{plan.name}</h3>
-                  <p className="text-slate-500 font-medium mb-6">{plan.subtitle}</p>
-                  <div className={`bg-${plan.color}-50 p-4 rounded-xl border border-${plan.color}-100`}>
-                    <span className={`text-xs font-bold text-${plan.color}-700 uppercase tracking-wider`}>Best For</span>
-                    <p className={`text-sm font-semibold text-${plan.color}-900 mt-1`}>{plan.bestFor}</p>
-                  </div>
-                </div>
+            {plans.map((plan, idx) => {
+              // Map colors safely for tailwind
+              const colorMaps: any = {
+                emerald: {
+                  bgLight: "bg-emerald-50",
+                  borderLight: "border-emerald-100",
+                  textNormal: "text-emerald-700",
+                  textDark: "text-emerald-900",
+                  textAccent: "text-emerald-500",
+                  borderActive: "border-slate-200"
+                },
+                indigo: {
+                  bgLight: "bg-indigo-50",
+                  borderLight: "border-indigo-100",
+                  textNormal: "text-indigo-700",
+                  textDark: "text-indigo-900",
+                  textAccent: "text-indigo-500",
+                  borderActive: "border-indigo-500"
+                },
+                slate: {
+                  bgLight: "bg-slate-50",
+                  borderLight: "border-slate-200",
+                  textNormal: "text-slate-700",
+                  textDark: "text-slate-900",
+                  textAccent: "text-slate-500",
+                  borderActive: "border-slate-200"
+                }
+              };
+              const c = colorMaps[plan.color];
 
-                <div className="flex-grow mb-8">
-                  <p className="font-bold text-slate-900 mb-6 uppercase tracking-wide text-sm">What's Included</p>
-                  <ul className="space-y-4">
-                    {plan.features.map((feature, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-3">
-                        <CheckCircle2 className={`w-5 h-5 text-${plan.color}-500 flex-shrink-0 mt-0.5`} />
-                        <span className="text-slate-700 font-medium">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className={`relative bg-white rounded-[2rem] p-8 md:p-10 border-2 ${plan.popular ? `${c.borderActive} shadow-[0_20px_40px_-15px_rgba(79,70,229,0.2)] md:scale-105 z-10` : 'border-transparent shadow-[0_4px_20px_rgba(0,0,0,0.04)]'} flex flex-col transition-all hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]`}
+                >
+                  {plan.popular && (
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-500 to-blue-500 text-white px-6 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-md z-20">
+                      Most Popular
+                    </div>
+                  )}
+                  
+                  <div className="mb-8 border-b border-slate-100 pb-8">
+                    <h3 className={`text-2xl font-extrabold text-slate-900 mb-2 tracking-tight ${plan.popular ? 'text-3xl' : ''}`}>{plan.name}</h3>
+                    <p className="text-slate-500 font-medium mb-6">{plan.subtitle}</p>
+                    <div className={`${c.bgLight} p-4 rounded-2xl border ${c.borderLight}`}>
+                      <span className={`text-[11px] font-bold ${c.textNormal} uppercase tracking-wider`}>Best For</span>
+                      <p className={`text-sm font-bold ${c.textDark} mt-1 leading-snug`}>{plan.bestFor}</p>
+                    </div>
+                  </div>
 
-                <div className={`mt-auto p-5 rounded-2xl bg-slate-50 border border-slate-100`}>
-                  <p className="text-sm font-semibold text-slate-600 text-center italic">
-                    "{plan.ideal}"
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="flex-grow mb-8">
+                    <p className="font-bold text-slate-900 mb-6 uppercase tracking-wide text-[13px]">What's Included</p>
+                    <ul className="space-y-4">
+                      {plan.features.map((feature, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-4">
+                          <CheckCircle2 className={`w-5 h-5 ${c.textAccent} flex-shrink-0 mt-0.5`} />
+                          <span className="text-slate-700 font-medium">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className={`mt-auto p-5 rounded-2xl bg-slate-50 border border-slate-100`}>
+                    <p className="text-sm font-semibold text-slate-600 text-center italic">
+                      "{plan.ideal}"
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

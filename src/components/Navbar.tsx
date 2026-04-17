@@ -25,10 +25,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex-shrink-0 flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-[0_4px_12px_rgba(15,23,42,0.3)] group-hover:scale-105 transition-transform">
               SA
             </div>
-            <span className="font-bold text-xl text-slate-900 hidden sm:block tracking-tight">Suraj Automation</span>
+            <span className="font-extrabold text-xl text-slate-900 hidden sm:block tracking-tight">Suraj Automation</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -40,7 +40,7 @@ export default function Navbar() {
               href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-6 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-indigo-200 hover:-translate-y-0.5"
+              className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold transition-all shadow-[0_4px_14px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5"
             >
               Book Audit
             </a>

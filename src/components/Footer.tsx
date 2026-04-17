@@ -8,10 +8,10 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-white font-bold shadow-[0_4px_12px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform border border-slate-700/50">
                 SA
               </div>
-              <span className="font-bold text-xl text-white tracking-tight">Suraj Automation</span>
+              <span className="font-extrabold text-xl text-white tracking-tight">Suraj Automation</span>
             </Link>
             <p className="text-sm leading-relaxed">
               Custom business systems and automation using Google Apps Script for SMBs.
