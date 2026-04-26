@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator } from 'lucide-react';
+import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart } from 'lucide-react';
 
 const colorStyles: Record<string, { bg: string, text: string, hoverText: string, buttonBg: string, buttonHoverBg: string }> = {
   indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700', buttonBg: 'bg-indigo-600', buttonHoverBg: 'hover:bg-indigo-700' },
@@ -24,6 +24,14 @@ export default function Products() {
       icon: <Store className="w-8 h-8" />,
       color: 'teal',
       featured: true,
+    },
+    {
+      id: 'cogs-dashboard',
+      name: 'Custom COGS Dashboard',
+      tagline: 'Automated COGS Reporting & AI Profit Dashboard',
+      description: 'Stop guessing your profit margins. A highly powerful COGS reporting web application built on Google Workspace that automates multi-branch cost tracking with AI-driven insights.',
+      icon: <PieChart className="w-8 h-8" />,
+      color: 'amber',
     },
     {
       id: 'hisabsarthi',

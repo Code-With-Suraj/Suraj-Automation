@@ -20,6 +20,7 @@ import GymSarthi from './pages/products/GymSarthi';
 import MenuSarthi from './pages/products/MenuSarthi';
 import SupplySarthi from './pages/products/SupplySarthi';
 import HisabSarthi from './pages/products/HisabSarthi';
+import CogsDashboard from './pages/products/CogsDashboard';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/products/cogs-dashboard" element={<CogsDashboard />} />
             <Route path="/products/rationkart" element={<RationKart />} />
             <Route path="/products/stocksarthi" element={<StockSarthi />} />
             <Route path="/products/billsarthi" element={<BillSarthi />} />
