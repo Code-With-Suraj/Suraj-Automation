@@ -40,13 +40,24 @@ export default function About() {
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 rounded-[2rem] blur-3xl transform -rotate-3"></div>
               
-              <div className="relative rounded-[2rem] p-2 bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]">
-                <img 
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Business Consulting and Planning" 
-                  className="rounded-[1.5rem] shadow-sm object-cover w-full h-[440px]"
-                  referrerPolicy="no-referrer"
-                />
+              <div className="relative rounded-[2rem] p-3 bg-white/60 backdrop-blur-xl border border-slate-200/60 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden">
+                <div className="absolute inset-x-10 -bottom-4 h-4 bg-indigo-500/20 blur-xl"></div>
+                <div className="relative w-full h-[540px] rounded-[1.5rem] bg-indigo-50 border border-indigo-100 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="/profile.jpg" 
+                    alt="Suraj Singh" 
+                    className="absolute inset-0 w-full h-full object-cover object-[center_30%] shadow-inner"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <div className="hidden text-center p-6">
+                    <p className="text-indigo-400 font-medium mb-2">Image Not Found</p>
+                    <p className="text-sm text-slate-500">Please upload your profile.jpg to the public folder.</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
