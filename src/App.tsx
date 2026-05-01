@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
+import Contact from './pages/Contact';
 import Pricing from './pages/Pricing';
 import Products from './pages/Products';
 import RationKart from './pages/products/RationKart';
@@ -34,6 +35,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/cogs-dashboard" element={<CogsDashboard />} />

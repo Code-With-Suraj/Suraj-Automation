@@ -58,6 +58,7 @@ export default function Navbar() {
             <Link to="/" className={`font-medium transition-colors ${location.pathname === '/' ? activeClass : textClass}`}>Home</Link>
             <Link to="/products" className={`font-medium transition-colors ${location.pathname.startsWith('/products') ? activeClass : textClass}`}>Products</Link>
             <Link to="/about" className={`font-medium transition-colors ${location.pathname === '/about' ? activeClass : textClass}`}>About</Link>
+            <Link to="/contact" className={`font-medium transition-colors ${location.pathname === '/contact' ? activeClass : textClass}`}>Contact</Link>
             <Link to="/pricing" className={`font-medium transition-colors ${location.pathname === '/pricing' ? activeClass : textClass}`}>Pricing</Link>
             
             <button 
@@ -109,6 +110,7 @@ export default function Navbar() {
           <Link to="/" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Home</Link>
           <Link to="/products" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname.startsWith('/products') ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Products</Link>
           <Link to="/about" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/about' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>About</Link>
+          <Link to="/contact" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/contact' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Contact</Link>
           <Link to="/pricing" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/pricing' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Pricing</Link>
           <a 
             href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
