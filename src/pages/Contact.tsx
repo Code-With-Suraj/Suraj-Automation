@@ -14,6 +14,12 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      alert("All fields are mandatory. Please fill them out.");
+      return;
+    }
+
     setStatus('loading');
     
     // Use explicit URL as fallback if environment variable is not injected during build
@@ -155,7 +161,7 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-bold text-slate-700 dark:text-slate-300">Your Name</label>
+                      <label htmlFor="name" className="text-sm font-bold text-slate-700 dark:text-slate-300">Your Name <span className="text-rose-500">*</span></label>
                       <input
                         type="text"
                         id="name"
@@ -168,7 +174,7 @@ export default function Contact() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-bold text-slate-700 dark:text-slate-300">Email Address</label>
+                      <label htmlFor="email" className="text-sm font-bold text-slate-700 dark:text-slate-300">Email Address <span className="text-rose-500">*</span></label>
                       <input
                         type="email"
                         id="email"
@@ -183,7 +189,7 @@ export default function Contact() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="phone" className="text-sm font-bold text-slate-700 dark:text-slate-300">Phone / WhatsApp</label>
+                    <label htmlFor="phone" className="text-sm font-bold text-slate-700 dark:text-slate-300">Phone / WhatsApp <span className="text-rose-500">*</span></label>
                     <input
                       type="tel"
                       id="phone"
@@ -197,7 +203,7 @@ export default function Contact() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-bold text-slate-700 dark:text-slate-300">Message</label>
+                    <label htmlFor="message" className="text-sm font-bold text-slate-700 dark:text-slate-300">Message <span className="text-rose-500">*</span></label>
                     <textarea
                       id="message"
                       name="message"

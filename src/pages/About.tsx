@@ -1,8 +1,6 @@
 import { motion } from 'motion/react';
 import { MapPin, Globe, CheckCircle2, ArrowRight } from 'lucide-react';
 
-import profileImage from '../suraj-image.jpg';
-
 export default function About() {
   const skills = [
     { name: "Google Sheets", icon: "📊" },
@@ -35,7 +33,7 @@ export default function About() {
               <div className="relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-4 border border-slate-200 dark:border-slate-800 shadow-2xl transition-colors">
                 <div className="aspect-[4/5] rounded-[2rem] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                   <img 
-                    src={profileImage}
+                    src="https://sarthi-automations.vercel.app/static/suraj.png"
                     alt="Suraj Singh" 
                     className="w-full h-full object-cover object-[center_20%]"
                   />
