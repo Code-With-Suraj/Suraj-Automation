@@ -35,10 +35,15 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
 
   return (
     <div className="relative w-full h-48 sm:h-56 mb-6 rounded-2xl overflow-hidden group/carousel bg-slate-100 flex-shrink-0">
-      <div 
-        style={{ backgroundImage: `url(${images[currentIndex]})` }} 
-        className="w-full h-full bg-center bg-cover bg-no-repeat transition-all duration-500"
-      ></div>
+      <img 
+        src={images[currentIndex]} 
+        alt={`Product screenshot ${currentIndex + 1}`}
+        className="w-full h-full object-cover transition-all duration-500"
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = `https://placehold.co/600x400/e2e8f0/475569?text=Screenshot+Coming+Soon`;
+        }}
+      />
       {images.length > 1 && (
         <>
           <div className="absolute inset-0 flex items-center justify-between p-2 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
@@ -61,7 +66,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
             {images.map((_, idx) => (
               <div 
                 key={idx} 
-                className={`w-1.5 h-1.5 rounded-full transition-all ${idx === currentIndex ? 'bg-white w-3 opacity-100' : 'bg-white/60 opacity-80'}`}
+                className={`w-1.5 h-1.5 rounded-full transition-all ${idx === currentIndex ? 'bg-white w-3 opacity-100 shadow-sm' : 'bg-white/60 opacity-80'}`}
               />
             ))}
           </div>
