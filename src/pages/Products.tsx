@@ -41,11 +41,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
         className="w-full h-full object-cover transition-all duration-500"
         onError={(e) => {
           e.currentTarget.onerror = null;
-          // When image is broken (e.g. 0 byte file or missing), hide it so the background shows instead of broken icon
-          e.currentTarget.style.display = 'none';
-        }}
-        onLoad={(e) => {
-          e.currentTarget.style.display = 'block';
+          e.currentTarget.src = `https://placehold.co/600x400/e2e8f0/475569?text=Screenshot+Coming+Soon`;
         }}
       />
       {images.length > 1 && (
