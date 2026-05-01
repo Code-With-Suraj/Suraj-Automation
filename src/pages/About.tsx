@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { MapPin, Globe, CheckCircle2, ArrowRight } from 'lucide-react';
 
-import profileImage from '../profile.jpg';
+import profileImage from '../suraj-image.jpg';
 
 export default function About() {
   const skills = [
