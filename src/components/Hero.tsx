@@ -2,6 +2,25 @@ import { motion } from 'motion/react';
 import { ArrowRight, Calendar } from 'lucide-react';
 
 export default function Hero() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <section className="relative min-h-[100svh] flex items-center pt-20 pb-20 overflow-hidden">
       {/* Background Image & Overlay */}
@@ -19,27 +38,27 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <div className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/10 backdrop-blur-md text-slate-200 text-sm font-semibold tracking-wide mb-8 border border-white/10 shadow-sm">
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/10 backdrop-blur-md text-slate-200 text-sm font-semibold tracking-wide mb-8 border border-white/10 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-indigo-400"></span>
               Custom Business Automation Services
-            </div>
+            </motion.div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-extrabold text-white tracking-tight mb-8 leading-[1.05]">
+            <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-[5rem] font-extrabold text-white tracking-tight mb-8 leading-[1.05]">
               Replace Excel & WhatsApp With <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-sky-300">
                 Smart Automation
               </span>
-            </h1>
+            </motion.h1>
             
-            <p className="mt-6 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed font-body">
+            <motion.p variants={itemVariants} className="mt-6 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed font-body">
               I build custom web apps and automation systems for ambitious SMBs. Get a premium, low-cost ERP alternative that cuts manual multi-tasking by <span className="font-semibold text-white">50%</span>.
-            </p>
+            </motion.p>
             
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center items-center gap-5">
               <a 
                 href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
                 target="_blank" 
@@ -58,12 +77,10 @@ export default function Hero() {
                 Share Your Current System
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
-            </div>
+            </motion.div>
             
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
+              variants={itemVariants}
               className="mt-16 flex items-center justify-center gap-5 pt-8 border-t border-white/10"
             >
               <div className="flex -space-x-3">

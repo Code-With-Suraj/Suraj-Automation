@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, User } from 'lucide-react';
+import { Mail, Phone, User, Linkedin, Twitter, Facebook } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -13,9 +13,20 @@ export default function Footer() {
               </div>
               <span className="font-extrabold text-xl text-white tracking-tight">Suraj Automation</span>
             </Link>
-            <p className="text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed mb-6">
               Custom business systems and automation using Google Apps Script for SMBs.
             </p>
+            <div className="flex items-center gap-4 text-slate-400">
+              <a href="https://www.linkedin.com/in/surajautomation" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all border border-slate-700/50" aria-label="LinkedIn">
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky-500 hover:text-white transition-all border border-slate-700/50" aria-label="Twitter">
+                <Twitter className="w-4 h-4" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all border border-slate-700/50" aria-label="Facebook">
+                <Facebook className="w-4 h-4" />
+              </a>
+            </div>
           </div>
           <div>
             <h4 className="text-white font-semibold mb-4 tracking-wide uppercase text-sm">Quick Links</h4>
