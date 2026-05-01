@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Dumbbell, AlertTriangle, CheckCircle2, UserPlus, CreditCard, MessageCircle, IdCard, LayoutDashboard, Store, Settings, ArrowRight, MessageSquare, TrendingUp, ShieldCheck } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function GymSarthi() {
+  useSEO(
+    'GymSarthi | Suraj Automation',
+    'Gym Management System for Small Gym - A simple gym member tracking system specially built for Indian gym owners.',
+    'gym member tracking, gym billing software, gym management app, fitness club software'
+  );
+
   const problems = [
     "Register mein fees likh rahe ho",
     "Yaad se renewals track kar rahe ho",

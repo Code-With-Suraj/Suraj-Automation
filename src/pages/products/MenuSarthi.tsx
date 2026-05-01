@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Utensils, AlertTriangle, CheckCircle2, Smartphone, ShoppingBag, Edit3, LayoutDashboard, BarChart3, Settings, ArrowRight, MessageSquare, Store, TrendingUp, ShieldCheck } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function MenuSarthi() {
+  useSEO(
+    'MenuSarthi | Suraj Automation',
+    'Digital Menu for Restaurant - Your own premium digital menu and restaurant online ordering system.',
+    'digital menu, restaurant software, qr code menu, restaurant online ordering'
+  );
+
   const problems = [
     "Menu printed once, never updated",
     "Out-of-stock items still shown",

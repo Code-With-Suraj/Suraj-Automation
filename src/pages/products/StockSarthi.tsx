@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Package, AlertTriangle, CheckCircle2, ListChecks, History, Upload, Smartphone, Store, TrendingUp, ShieldCheck, Settings, ArrowRight, MessageSquare, FileSpreadsheet, Lock } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function StockSarthi() {
+  useSEO(
+    'StockSarthi | Suraj Automation',
+    'Stock Management System - Take full control of your stock without Excel confusion.',
+    'stock management, inventory software, stock tracking, closing stock'
+  );
+
   const problems = [
     "Multiple sites, but no centralized tracking",
     "Manual stock entry in Excel",

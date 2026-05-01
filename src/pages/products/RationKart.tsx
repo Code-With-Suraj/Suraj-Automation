@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { ShoppingCart, AlertTriangle, CheckCircle2, ListChecks, History, Upload, Smartphone, Store, TrendingUp, ShieldCheck, Settings, ArrowRight, MessageSquare } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function RationKart() {
+  useSEO(
+    'RationKart | Suraj Automation',
+    'Digital Ordering & Approval - Manage item requests, approvals, and stock in one place for grocery stores.',
+    'grocery store app, digital ordering system, retail inventory, store management'
+  );
+
   const problems = [
     "Orders coming from different places",
     "Staff requesting items without tracking",

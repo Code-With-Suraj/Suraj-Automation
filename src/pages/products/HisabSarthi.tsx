@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Calculator, AlertTriangle, CheckCircle2, FileText, Receipt, Wallet, FileSpreadsheet, TrendingUp, ShieldCheck, ArrowRight, MessageSquare, PieChart, Database, Zap, Store, ExternalLink } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function HisabSarthi() {
+  useSEO(
+    'HisabSarthi | Suraj Automation',
+    'Google Sheets-based GST Accounting Tool - A simple, affordable GST invoicing and accounting system.',
+    'gst invoicing software, small business accounting, google sheets gst tool, simple billing app'
+  );
+
   const problems = [
     "Risk of ₹2-5L GST notices due to 'Kaccha Hisab' (Diary/WhatsApp)",
     "Paying ₹20,000+ for Tally but only using it for basic invoicing",

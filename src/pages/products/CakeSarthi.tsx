@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Cake, AlertTriangle, CheckCircle2, Globe, ShoppingBag, PlusCircle, Tag, Coins, CreditCard, Lock, LayoutDashboard, BarChart3, MessageSquare, ArrowRight, Store, TrendingUp, ShieldCheck, Settings } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function CakeSarthi() {
+  useSEO(
+    'CakeSarthi | Suraj Automation',
+    'Online Ordering for Bakeries - Turn your local bakery into a smart online business.',
+    'bakery online system, cake ordering website, bakery ecommerce, cake shop app'
+  );
+
   const problems = [
     "Take orders only on WhatsApp",
     "Forget order details",

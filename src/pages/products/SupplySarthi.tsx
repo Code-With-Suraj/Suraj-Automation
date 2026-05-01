@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Package, AlertTriangle, CheckCircle2, ListChecks, FileSpreadsheet, Users, Receipt, Wallet, Smartphone, ShieldCheck, TrendingUp, ArrowRight, MessageSquare, Store, ExternalLink } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function SupplySarthi() {
+  useSEO(
+    'SupplySarthi | Suraj Automation',
+    'Complete Supply & Distribution Management System - Manage your entire supply business in one Google Sheet-based system.',
+    'supply management, distribution software, order tracking, business automation'
+  );
+
   const problems = [
     "Orders getting lost in WhatsApp messages",
     "Mismatch between ordered and delivered quantities",

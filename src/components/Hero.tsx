@@ -93,7 +93,7 @@ export default function Hero() {
                 <div className="flex text-amber-400 text-sm">
                   ★★★★★
                 </div>
-                <span className="text-sm font-medium text-slate-300">Trusted by 50+ growing businesses</span>
+                <span className="text-sm font-medium text-slate-300">Trusted by 10+ growing businesses</span>
               </div>
             </motion.div>
           </motion.div>

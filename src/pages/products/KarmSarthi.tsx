@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Users, AlertTriangle, CheckCircle2, ListChecks, Calendar, Bell, LayoutDashboard, FileText, ArrowRight, MessageSquare, Store, TrendingUp, ShieldCheck, Settings } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function KarmSarthi() {
+  useSEO(
+    'KarmSarthi | Suraj Automation',
+    'HR Management System for Small Business - An employee management system for SMBs that handles your daily HR operations.',
+    'hr software, employee management system, small business hr, leave management'
+  );
+
   const problems = [
     "Employees ask for leave on WhatsApp",
     "Managers forget approvals",

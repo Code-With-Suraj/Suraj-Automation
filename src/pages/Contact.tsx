@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FormEvent, ChangeEvent } from 'react';
 import { motion } from 'motion/react';
 import { Mail, MapPin, Phone, Send, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 
@@ -12,7 +13,7 @@ export default function Contact() {
   
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'missing_url'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.phone || !formData.message) {
@@ -23,7 +24,7 @@ export default function Contact() {
     setStatus('loading');
     
     // Use explicit URL as fallback if environment variable is not injected during build
-    const scriptUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBAPP_URL || "https://script.google.com/macros/s/AKfycbw1YRxx1Pxbwx0vXxklEAnqMdgIbeUyWw2mfDpXJUldXk5m76UjEQ6OYtvF6s17ZRVG/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbw1YRxx1Pxbwx0vXxklEAnqMdgIbeUyWw2mfDpXJUldXk5m76UjEQ6OYtvF6s17ZRVG/exec";
 
     if (!scriptUrl) {
       setStatus('missing_url');
@@ -53,7 +54,7 @@ export default function Contact() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 

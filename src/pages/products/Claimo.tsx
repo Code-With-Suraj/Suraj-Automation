@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Wallet, AlertTriangle, CheckCircle2, ListChecks, Calculator, Save, UserCheck, LayoutDashboard, PieChart, Clock, Upload, ArrowRight, MessageSquare, Store, TrendingUp, ShieldCheck, Settings } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function Claimo() {
+  useSEO(
+    'Claimo | Suraj Automation',
+    'Expense & Reimbursement System - Brings structure, transparency, and speed to your entire expense process.',
+    'expense management, reimbursement tool, expense approval workflow, corporate expenses'
+  );
+
   const problems = [
     "Expense claims come via email, WhatsApp, Excel",
     "No standard format",

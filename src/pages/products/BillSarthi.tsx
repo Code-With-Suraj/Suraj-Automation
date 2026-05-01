@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Receipt, AlertTriangle, CheckCircle2, ListChecks, Search, Calculator, BrainCircuit, LayoutDashboard, FileSpreadsheet, Settings, ArrowRight, MessageSquare, Store, TrendingUp, ShieldCheck } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function BillSarthi() {
+  useSEO(
+    'BillSarthi | Suraj Automation',
+    'Vendor Bill Management - A smart web-based billing system that helps store teams enter vendor bills correctly.',
+    'vendor bills, billing system, bill management, accounts tool'
+  );
+
   const problems = [
     "Store team enters bills manually",
     "GST calculations are wrong",

@@ -15,6 +15,7 @@ const colorStyles: Record<string, { bg: string, text: string, hoverText: string 
 };
 
 export default function ProductsSection() {
+
   const products = [
     {
       id: 'supplysarthi',
@@ -175,7 +176,7 @@ export default function ProductsSection() {
         >
           <Link
             to="/products"
-            className="inline-flex items-center justify-center px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-slate-900/20 group"
+            className="inline-flex items-center justify-center px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-slate-900/20 group hover:shadow-xl hover:-translate-y-1"
           >
             Explore All Products
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -185,3 +186,4 @@ export default function ProductsSection() {
     </section>
   );
 }
+

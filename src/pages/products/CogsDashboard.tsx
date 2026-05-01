@@ -1,7 +1,14 @@
 import { motion } from 'motion/react';
 import { Bot, AlertTriangle, CheckCircle2, TrendingUp, Receipt, Database, PieChart, ShieldCheck, ArrowRight, MessageSquare, Store, Calculator } from 'lucide-react';
+import { useSEO } from '../../hooks/useSEO';
 
 export default function CogsDashboard() {
+  useSEO(
+    'Custom COGS Dashboard | Suraj Automation',
+    'Automated COGS Reporting & AI Profit Dashboard - Stop guessing your profit margins with our Google Workspace app.',
+    'cogs dashboard, profit tracking, cost of goods sold, branch margin tracker'
+  );
+
   const problems = [
     "COGS is impossible to calculate until the month ends",
     "Staff sending blurry notebook photos and broken Excel files via WhatsApp",
