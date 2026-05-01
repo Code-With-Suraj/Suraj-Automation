@@ -1,221 +1,132 @@
 import { motion } from 'motion/react';
-import { ArrowRight, CheckCircle2, Target, Lightbulb, ShieldCheck } from 'lucide-react';
+import { MapPin, Globe, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export default function About() {
+  const skills = [
+    { name: "Google Sheets", icon: "📊" },
+    { name: "Apps Script", icon: "⚡" },
+    { name: "Web Apps", icon: "🌐" },
+    { name: "Power BI", icon: "📈" },
+    { name: "SQL", icon: "🗄️" },
+    { name: "Python", icon: "🐍" },
+    { name: "GST Logic", icon: "📑" },
+    { name: "Automation", icon: "🤖" },
+    { name: "Dashboards", icon: "📉" },
+  ];
+
   return (
-    <main className="pt-24 pb-20">
-      {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden bg-[#F8F9FA]">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <main className="pt-24 pb-20 dark:bg-slate-950 transition-colors duration-300">
+      <section className="py-20 lg:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-50 dark:from-slate-900 via-white dark:via-slate-950 to-white dark:to-slate-950 -z-10 transition-colors"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-16 items-center">
+            
+            {/* Image/Profile Column */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-center lg:text-left"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5 relative"
             >
-              <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/80 backdrop-blur-sm text-slate-800 text-sm font-semibold tracking-wide mb-8 border border-slate-200/60 shadow-sm">
-                <span className="flex h-2 w-2 rounded-full bg-indigo-600"></span>
-                Google Apps Script Developer
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
-                I Don't Just Write Code... <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                  I Build Systems.
-                </span>
-              </h1>
-              <p className="mt-4 text-[1.15rem] text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-body">
-                As an automation consultant for small businesses, I help SMB owners move from manual dependency to system-driven growth without expensive software bloat.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, rotateY: 10 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="relative hidden lg:block perspective-1000"
-            >
-              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 rounded-[2rem] blur-3xl transform -rotate-3"></div>
-              
-              <div className="relative rounded-[2rem] p-3 bg-white/60 backdrop-blur-xl border border-slate-200/60 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden">
-                <div className="absolute inset-x-10 -bottom-4 h-4 bg-indigo-500/20 blur-xl"></div>
-                <div className="relative w-full h-[540px] rounded-[1.5rem] bg-indigo-50 border border-indigo-100 flex items-center justify-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 rounded-[2.5rem] blur-3xl transform -rotate-6"></div>
+              <div className="relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-4 border border-slate-200 dark:border-slate-800 shadow-2xl transition-colors">
+                <div className="aspect-[4/5] rounded-[2rem] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                   <img 
                     src="/profile.jpg" 
                     alt="Suraj Singh" 
-                    className="absolute inset-0 w-full h-full object-cover object-[center_30%] shadow-inner"
-                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-[center_20%]"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                       (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
                     }}
                   />
-                  <div className="hidden text-center p-6">
-                    <p className="text-indigo-400 font-medium mb-2">Image Not Found</p>
-                    <p className="text-sm text-slate-500">Please upload your profile.jpg to the public folder.</p>
+                  <div className="hidden absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                    <p className="text-indigo-500 dark:text-indigo-400 font-bold mb-2">Image Not Found</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Please upload your profile.jpg to the public folder.</p>
+                  </div>
+                </div>
+                
+                <div className="absolute -bottom-6 -right-6 lg:-right-10 bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 max-w-[280px] transition-colors">
+                  <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-1 block">Suraj Automation founder</span>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 transition-colors">Suraj Singh</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 font-medium mb-3">Business Automation Studio</p>
+                  
+                  <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
+                    <MapPin className="w-4 h-4 shrink-0 text-rose-500" />
+                    <span>Noida, India</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    <Globe className="w-4 h-4 shrink-0 text-blue-500" />
+                    <span>India-wide service</span>
                   </div>
                 </div>
               </div>
             </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* Story Section */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="prose prose-lg prose-indigo max-w-none text-slate-600"
-          >
-            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 mb-16 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
-              <p className="text-2xl font-medium text-slate-900 mb-8 leading-relaxed">
-                I noticed one thing — 80% of small and medium businesses in India have data... but no control.
-              </p>
-              
-              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-8 flex flex-wrap gap-4">
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have Excel.</span>
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have WhatsApp.</span>
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have Registers.</span>
-                <span className="px-5 py-2.5 bg-white rounded-xl shadow-sm font-medium text-slate-700 border border-slate-200">They have Staff.</span>
-                <span className="px-5 py-2.5 bg-red-50 text-red-600 rounded-xl shadow-sm font-bold border border-red-100">But they don't have a system.</span>
-              </div>
-
-              <p className="text-xl text-slate-700 font-medium">
-                The business is growing... but the owner's stress is also growing. That's where my journey started.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-indigo-600 to-blue-700 text-white p-10 md:p-14 rounded-3xl shadow-2xl shadow-indigo-200 mb-16 relative overflow-hidden">
-              <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-white leading-tight">I design custom web apps and automation systems using Google Apps Script that:</h3>
-              <ul className="space-y-5">
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Reduce manual work</li>
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Give the owner real-time visibility</li>
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> Make the process structured</li>
-                <li className="flex items-center gap-4 text-lg"><CheckCircle2 className="text-indigo-300 w-6 h-6 flex-shrink-0" /> And eliminate the need for expensive ERPs</li>
-              </ul>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Approach Section */}
-      <section className="py-20 bg-slate-50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-white/50"></div>
-        <img 
-          src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop" 
-          alt="Business strategy" 
-          className="absolute inset-0 w-full h-full object-cover opacity-5 mix-blend-multiply"
-          referrerPolicy="no-referrer"
-        />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">My Approach – Understand First, Then Build</h2>
-            <p className="text-xl text-indigo-600 font-semibold">I don't sell ready-made templates.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 hover:border-indigo-200 transition-colors"
-            >
-              <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
-                  <Lightbulb className="text-amber-500 w-6 h-6" />
-                </div>
-                I understand first:
-              </h3>
-              <ul className="space-y-5 text-slate-600">
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How your order flow works</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How payment tracking is done</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How inventory is managed</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> Where follow-ups are missed</li>
-                <li className="flex items-start gap-3 text-lg"><span className="text-indigo-500 mt-1 font-bold">•</span> How reporting is done</li>
-              </ul>
-            </motion.div>
-            
-            <motion.div 
+            {/* Content Column */}
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-slate-900 p-10 rounded-3xl shadow-xl text-white flex flex-col justify-center relative overflow-hidden"
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="lg:col-span-7 lg:pl-10 mt-12 lg:mt-0"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl"></div>
-              <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                  <Target className="text-emerald-400 w-6 h-6" />
-                </div>
-                Result?
-              </h3>
-              <ul className="space-y-4 text-slate-300">
-                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Structured order system from WhatsApp</li>
-                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Auto invoice generation</li>
-                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Low stock alerts</li>
-                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Outstanding payment tracking</li>
-                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> MIS dashboard</li>
-                <li className="flex items-center gap-3 text-lg"><CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" /> Lead to conversion tracking</li>
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-50/50 via-white to-white -z-10"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-sm border border-indigo-200">
-              <ShieldCheck className="w-10 h-10 text-indigo-600" />
-            </div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-8">My Mission</h2>
-            <blockquote className="text-2xl md:text-3xl font-medium text-slate-800 italic mb-10 border-l-4 border-indigo-500 pl-8 text-left bg-white p-8 rounded-r-2xl shadow-sm">
-              "To take Indian SMB owners from manual dependency to a system-driven business."
-            </blockquote>
-            <p className="text-xl text-slate-600 mb-16 leading-relaxed">
-              You are a business owner. Your time should be spent on strategic decisions. <br className="hidden md:block" />
-              <span className="font-bold text-slate-900 bg-indigo-100 px-2 py-1 rounded">Not on data entry.</span>
-            </p>
-
-            <div className="bg-white rounded-3xl p-10 md:p-14 border border-slate-200 shadow-2xl shadow-indigo-100/50 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-blue-500"></div>
-              <h3 className="text-3xl font-bold text-slate-900 mb-8">If you genuinely want:</h3>
-              <div className="flex flex-wrap justify-center gap-4 mb-10">
-                <span className="px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-semibold shadow-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500"/> Clear visibility</span>
-                <span className="px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-semibold shadow-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500"/> Automated workflow</span>
-                <span className="px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-semibold shadow-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500"/> Time saving</span>
-                <span className="px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-semibold shadow-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-500"/> Stress reduction</span>
+              <div className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 text-sm font-bold tracking-wide mb-6 border border-indigo-100 dark:border-indigo-500/20">
+                About Suraj Automation
               </div>
               
-              <p className="text-xl font-semibold text-slate-800 mb-8">Then take a step. Share your current process. I'll tell you how the system can be built.</p>
+              <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight transition-colors">
+                Automation Partner for <br className="hidden md:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500">Small Business India</span>
+              </h1>
               
-              <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20share%20my%20current%20process%20with%20you." 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xl transition-all shadow-xl shadow-indigo-200 items-center justify-center gap-3 mx-auto group hover:-translate-y-1"
-              >
-                Let's Talk
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-          </motion.div>
+              <div className="space-y-6 text-lg text-slate-600 dark:text-slate-300 font-body transition-colors">
+                <p>
+                  <strong className="text-slate-900 dark:text-white transition-colors">Suraj Automation</strong> is a professional business automation studio built around one promise: <span className="italic text-indigo-600 dark:text-indigo-400 font-medium">Excel se System tak.</span> We help Indian SMBs turn messy spreadsheets, WhatsApp workflows, and manual follow-ups into structured systems.
+                </p>
+                <p>
+                  We build Google Apps Script solutions, dashboards, internal web apps, and Google Sheets based systems that make daily operations easier to track, control, and scale.
+                </p>
+              </div>
+
+              <div className="my-10 bg-indigo-600 rounded-2xl p-6 md:p-8 text-white relative overflow-hidden shadow-lg shadow-indigo-600/20">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500 rounded-full blur-[50px] mix-blend-screen"></div>
+                <h3 className="text-xl md:text-2xl font-bold flex items-center gap-3 relative z-10 font-body">
+                  <CheckCircle2 className="w-8 h-8 text-emerald-400 shrink-0" />
+                  Our goal is simple: Make your business run on systems, not stress.
+                </h3>
+              </div>
+
+              {/* Skills Grid */}
+              <div>
+                <p className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-6 transition-colors">Technology Stack</p>
+                <div className="flex flex-wrap gap-3">
+                  {skills.map((skill, idx) => (
+                    <div 
+                      key={idx}
+                      className="flex items-center gap-2 bg-white dark:bg-slate-900 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all cursor-default"
+                    >
+                      <span className="text-lg">{skill.icon}</span>
+                      <span className="font-semibold text-sm text-slate-700 dark:text-slate-300">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-12">
+                <a 
+                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20your%20automation%20services." 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-xl shadow-slate-900/20 dark:shadow-indigo-900/20 group w-full sm:w-auto"
+                >
+                  Discuss Your Project
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
     </main>

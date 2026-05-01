@@ -1,161 +1,163 @@
 import { motion } from 'motion/react';
-import { CheckCircle2, XCircle, ArrowRight, Clock, AlertTriangle, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
+import { CheckCircle2, Info, ArrowRight, ShieldCheck, Zap, Plus, Layers, MonitorSmartphone } from 'lucide-react';
 
 export default function Pricing() {
   const plans = [
     {
-      name: "Starter Automation",
-      subtitle: "For Small Businesses Starting Systemization",
-      bestFor: "Retailers / small service businesses",
+      badge: "Starter",
+      name: "Basic Website",
+      bestFor: "Best for local shops & small businesses starting online",
+      price: "₹3,999",
+      period: "one-time payment",
       color: "emerald",
       popular: false,
       features: [
-        "Basic process automation",
-        "Order or lead tracking sheet automation",
-        "Email alerts setup",
-        "Simple dashboard",
-        "1 revision cycle"
+        "1-Page Landing Website",
+        "Mobile Responsive Design",
+        "Business Info (About, Services, Contact)",
+        "WhatsApp Button Integration",
+        "Contact Form"
       ],
-      ideal: "Ideal if you want to start reducing manual work."
+      cta: "Get Started →",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20Starter%20Basic%20Website%20package."
     },
     {
-      name: "Growth System",
-      subtitle: "For Businesses Ready to Scale",
-      bestFor: "Traders / distributors / multi-staff business",
-      color: "indigo",
+      badge: "Standard",
+      name: "Standard Website",
+      bestFor: "Best for serious businesses that want to generate leads",
+      price: "₹9,999",
+      period: "one-time payment",
+      color: "blue",
       popular: true,
       features: [
-        "Multi-process automation",
-        "Inventory tracking system",
-        "Payment due tracking",
-        "Custom dashboard",
-        "Role-based access",
-        "2–3 revision cycles"
+        "4–5 Pages Professional Website",
+        "Lead Capture System",
+        "WhatsApp + Call Integration",
+        "Basic SEO Setup",
+        "Admin Panel (basic content edit)"
       ],
-      ideal: "This plan gives you a properly structured system."
+      cta: "Get Started →",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20Standard%20Website%20package."
     },
     {
-      name: "Advanced Custom Web App",
-      subtitle: "Full Business System Automation",
-      bestFor: "Scaling SMBs",
-      color: "slate",
+      badge: "Business System",
+      name: "System Website",
+      bestFor: "Best for businesses that need automation + tracking",
+      price: "₹19,999",
+      period: "+ custom features",
+      color: "indigo",
       popular: false,
       features: [
-        "Complete custom web app",
-        "End-to-end workflow automation",
-        "MIS dashboard",
-        "Multi-user system",
-        "Advanced reporting",
-        "Long-term scalability",
-        "Dedicated support period"
+        "Everything in Standard",
+        "Payment Tracking Module",
+        "Customer Management (CRM)",
+        "Inventory Tracking",
+        "Google Sheets Integration",
+        "Automation Workflows"
       ],
-      ideal: "This is a mini-ERP alternative — within the Google ecosystem."
+      cta: "Let's Discuss →",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20Business%20System%20package."
+    },
+    {
+      badge: "Enterprise",
+      name: "Advanced Web App",
+      bestFor: "Best for full business automation with custom software",
+      price: "₹29,999",
+      period: "+ scope-based",
+      color: "rose",
+      popular: false,
+      features: [
+        "Custom Web Application",
+        "Role-Based Access (Admin/Staff)",
+        "Full Dashboard & Reports",
+        "Email Alerts & Automation",
+        "Data Management System",
+        "Scalable Architecture"
+      ],
+      cta: "Let's Discuss →",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20Enterprise%20Advanced%20Web%20App%20package."
     }
   ];
 
-  const processSteps = [
-    "Free discussion call",
-    "Process analysis",
-    "Scope finalization",
-    "Development",
-    "Testing",
-    "Deployment",
-    "Support"
+  const addons = [
+    { name: "Extra Page", price: "₹1,000" },
+    { name: "Custom Dashboard", price: "₹5,000+" },
+    { name: "Automation Setup", price: "₹3,000+" },
+    { name: "Monthly Maintenance", price: "₹999/mo" },
+    { name: "Custom Feature", price: "₹2K–10K" }
   ];
 
   return (
-    <main className="pt-24 pb-20">
+    <main className="pt-24 pb-20 dark:bg-slate-950 transition-colors duration-300">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 bg-slate-950 text-white overflow-hidden">
+      <section className="relative py-20 lg:py-24 bg-slate-950 text-white overflow-hidden transition-colors">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-indigo-900/40 via-slate-950 to-slate-950"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-indigo-500/20 rounded-full blur-[100px] -z-10"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center lg:text-left"
-            >
-              <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-500/10 text-indigo-300 text-sm font-bold tracking-wide mb-6 border border-indigo-500/20 backdrop-blur-sm">
-                Low Cost ERP Solution
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight">
-                Pricing for Custom <br className="hidden sm:block" /> Business Automation
-              </h1>
-              <p className="text-2xl text-indigo-400 font-medium">Clear Pricing. No Confusion.</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative hidden lg:block"
-            >
-              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-blue-500 rounded-[2.5rem] blur-2xl opacity-20"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop" 
-                alt="Business Finance and Growth" 
-                className="relative rounded-[2.5rem] shadow-2xl border border-slate-800 object-cover w-full h-[400px]"
-                referrerPolicy="no-referrer"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* How Pricing Works */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">How Pricing Works</h2>
-          <p className="text-xl text-slate-600 mb-10">
-            Every business is different. That's why pricing depends on:
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <span className="px-5 py-2.5 bg-white rounded-xl text-slate-700 font-semibold shadow-sm border border-slate-200 flex items-center gap-2"><Zap className="w-4 h-4 text-indigo-500"/> Process complexity</span>
-            <span className="px-5 py-2.5 bg-white rounded-xl text-slate-700 font-semibold shadow-sm border border-slate-200 flex items-center gap-2"><Zap className="w-4 h-4 text-indigo-500"/> Automation level</span>
-            <span className="px-5 py-2.5 bg-white rounded-xl text-slate-700 font-semibold shadow-sm border border-slate-200 flex items-center gap-2"><Zap className="w-4 h-4 text-indigo-500"/> Dashboard requirement</span>
-            <span className="px-5 py-2.5 bg-white rounded-xl text-slate-700 font-semibold shadow-sm border border-slate-200 flex items-center gap-2"><Zap className="w-4 h-4 text-indigo-500"/> Integrations</span>
-            <span className="px-5 py-2.5 bg-white rounded-xl text-slate-700 font-semibold shadow-sm border border-slate-200 flex items-center gap-2"><Zap className="w-4 h-4 text-indigo-500"/> Custom web app features</span>
-          </div>
-          <div className="inline-block bg-indigo-100 text-indigo-800 px-6 py-3 rounded-full font-bold text-lg">
-            But for clarity, 3 structured plans are given.
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-3xl mx-auto"
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 tracking-tight">
+              Simple, Clear <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-sky-400">Pricing</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-300 font-medium mb-8">
+              No hidden costs. No surprises. Pick your level.
+            </p>
+            
+            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-4 rounded-xl border border-white/20 text-left">
+              <Info className="w-6 h-6 text-indigo-300 shrink-0" />
+              <p className="text-sm md:text-base text-slate-200">
+                <strong className="text-white">Note:</strong> Domain and hosting charges are separate and will apply as per the selected website service.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Pricing Plans */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute top-0 w-full h-1/2 bg-[#F8F9FA] -z-10"></div>
+      <section className="py-24 relative overflow-hidden transition-colors duration-300">
+        <div className="absolute top-0 w-full h-1/3 bg-slate-50 dark:bg-slate-900/50 -z-10 transition-colors"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
+          
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors">Business pricing and project planning</h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 transition-colors">Clear packages for websites, systems, dashboards, and automation</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {plans.map((plan, idx) => {
-              // Map colors safely for tailwind
               const colorMaps: any = {
                 emerald: {
-                  bgLight: "bg-emerald-50",
-                  borderLight: "border-emerald-100",
-                  textNormal: "text-emerald-700",
-                  textDark: "text-emerald-900",
-                  textAccent: "text-emerald-500",
-                  borderActive: "border-slate-200"
+                  badgeBg: "bg-emerald-100 dark:bg-emerald-500/20",
+                  badgeText: "text-emerald-700 dark:text-emerald-300",
+                  iconColor: "text-emerald-500",
+                  borderActive: "border-emerald-500",
+                  btnClass: "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:hover:bg-emerald-500/20"
+                },
+                blue: {
+                  badgeBg: "bg-blue-100 dark:bg-blue-500/20",
+                  badgeText: "text-blue-700 dark:text-blue-300",
+                  iconColor: "text-blue-500",
+                  borderActive: "border-blue-500",
+                  btnClass: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                 },
                 indigo: {
-                  bgLight: "bg-indigo-50",
-                  borderLight: "border-indigo-100",
-                  textNormal: "text-indigo-700",
-                  textDark: "text-indigo-900",
-                  textAccent: "text-indigo-500",
-                  borderActive: "border-indigo-500"
+                  badgeBg: "bg-indigo-100 dark:bg-indigo-500/20",
+                  badgeText: "text-indigo-700 dark:text-indigo-300",
+                  iconColor: "text-indigo-500",
+                  borderActive: "border-indigo-500",
+                  btnClass: "bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:hover:bg-indigo-500/20"
                 },
-                slate: {
-                  bgLight: "bg-slate-50",
-                  borderLight: "border-slate-200",
-                  textNormal: "text-slate-700",
-                  textDark: "text-slate-900",
-                  textAccent: "text-slate-500",
-                  borderActive: "border-slate-200"
+                rose: {
+                  badgeBg: "bg-rose-100 dark:bg-rose-500/20",
+                  badgeText: "text-rose-700 dark:text-rose-300",
+                  iconColor: "text-rose-500",
+                  borderActive: "border-rose-500",
+                  btnClass: "bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-500/10 dark:text-rose-400 dark:hover:bg-rose-500/20"
                 }
               };
               const c = colorMaps[plan.color];
@@ -167,40 +169,46 @@ export default function Pricing() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className={`relative bg-white rounded-[2rem] p-8 md:p-10 border-2 ${plan.popular ? `${c.borderActive} shadow-[0_20px_40px_-15px_rgba(79,70,229,0.2)] md:scale-105 z-10` : 'border-transparent shadow-[0_4px_20px_rgba(0,0,0,0.04)]'} flex flex-col transition-all hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]`}
+                  className={`bg-white dark:bg-slate-900 border-2 ${plan.popular ? `${c.borderActive} shadow-[0_20px_40px_-15px_rgba(59,130,246,0.3)] dark:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.15)] md:-mt-4 relative` : 'border-slate-200 dark:border-slate-800 shadow-sm'} rounded-[2rem] p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 group`}
                 >
                   {plan.popular && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-500 to-blue-500 text-white px-6 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-md z-20">
-                      Most Popular
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase shadow-md z-20 whitespace-nowrap">
+                      💥 Most Popular
                     </div>
                   )}
-                  
-                  <div className="mb-8 border-b border-slate-100 pb-8">
-                    <h3 className={`text-2xl font-extrabold text-slate-900 mb-2 tracking-tight ${plan.popular ? 'text-3xl' : ''}`}>{plan.name}</h3>
-                    <p className="text-slate-500 font-medium mb-6">{plan.subtitle}</p>
-                    <div className={`${c.bgLight} p-4 rounded-2xl border ${c.borderLight}`}>
-                      <span className={`text-[11px] font-bold ${c.textNormal} uppercase tracking-wider`}>Best For</span>
-                      <p className={`text-sm font-bold ${c.textDark} mt-1 leading-snug`}>{plan.bestFor}</p>
-                    </div>
+
+                  <div className="mb-6">
+                    <span className={`inline-block px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider mb-4 ${c.badgeBg} ${c.badgeText}`}>
+                      {plan.badge}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white mb-2 transition-colors">{plan.name}</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 transition-colors h-10">{plan.bestFor}</p>
                   </div>
 
-                  <div className="flex-grow mb-8">
-                    <p className="font-bold text-slate-900 mb-6 uppercase tracking-wide text-[13px]">What's Included</p>
+                  <div className="mb-8">
+                    <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tight transition-colors">{plan.price}</p>
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1 transition-colors">{plan.period}</p>
+                  </div>
+
+                  <div className="flex-grow mb-8 border-t border-slate-100 dark:border-slate-800 pt-8 transition-colors">
                     <ul className="space-y-4">
                       {plan.features.map((feature, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-4">
-                          <CheckCircle2 className={`w-5 h-5 ${c.textAccent} flex-shrink-0 mt-0.5`} />
-                          <span className="text-slate-700 font-medium">{feature}</span>
+                        <li key={fIdx} className="flex gap-3 text-sm">
+                          <CheckCircle2 className={`w-5 h-5 ${c.iconColor} shrink-0`} />
+                          <span className="text-slate-700 dark:text-slate-300 font-medium transition-colors">{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className={`mt-auto p-5 rounded-2xl bg-slate-50 border border-slate-100`}>
-                    <p className="text-sm font-semibold text-slate-600 text-center italic">
-                      "{plan.ideal}"
-                    </p>
-                  </div>
+                  <a 
+                    href={plan.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`mt-auto w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all duration-300 ${c.btnClass}`}
+                  >
+                    {plan.cta}
+                  </a>
                 </motion.div>
               );
             })}
@@ -208,149 +216,54 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* What You Don't Pay For */}
-      <section className="py-20 bg-red-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12">What You Don’t Pay For</h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 flex flex-col items-center gap-4 hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
-                <XCircle className="text-red-500 w-8 h-8" />
-              </div>
-              <span className="font-bold text-slate-800">Monthly heavy SaaS subscription</span>
-            </div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 flex flex-col items-center gap-4 hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
-                <XCircle className="text-red-500 w-8 h-8" />
-              </div>
-              <span className="font-bold text-slate-800">Unnecessary features</span>
-            </div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 flex flex-col items-center gap-4 hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
-                <XCircle className="text-red-500 w-8 h-8" />
-              </div>
-              <span className="font-bold text-slate-800">Complicated training</span>
-            </div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 flex flex-col items-center gap-4 hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
-                <XCircle className="text-red-500 w-8 h-8" />
-              </div>
-              <span className="font-bold text-slate-800">Enterprise overhead</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Investment vs Return */}
-      <section className="py-24">
+      {/* Add-Ons Section */}
+      <section className="py-20 bg-indigo-50 dark:bg-slate-900/40 relative transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-16 text-white shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" 
-              alt="Data Analytics" 
-              className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-overlay"
-              referrerPolicy="no-referrer"
-            />
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center">Investment vs Return</h2>
-              
-              <p className="text-2xl text-indigo-300 mb-10 text-center font-medium">If automation helps you:</p>
-              
-              <div className="grid sm:grid-cols-2 gap-6 mb-12">
-                <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                    <Clock className="text-emerald-400 w-6 h-6" />
-                  </div>
-                  <span className="font-semibold text-lg">Save 2 hours daily</span>
-                </div>
-                <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                    <TrendingUp className="text-emerald-400 w-6 h-6" />
-                  </div>
-                  <span className="font-semibold text-lg">Reduce 1 staff dependency</span>
-                </div>
-                <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                    <AlertTriangle className="text-emerald-400 w-6 h-6" />
-                  </div>
-                  <span className="font-semibold text-lg">Don't miss 1 payment follow-up</span>
-                </div>
-                <div className="flex items-center gap-5 bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                    <ShieldCheck className="text-emerald-400 w-6 h-6" />
-                  </div>
-                  <span className="font-semibold text-lg">Prevent 1 inventory loss</span>
-                </div>
+          <div className="grid md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-5 text-center md:text-left">
+              <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/50 rounded-2xl flex items-center justify-center mb-6 mx-auto md:mx-0">
+                <Plus className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               </div>
-
-              <div className="text-center border-t border-slate-700/50 pt-10">
-                <p className="text-3xl font-bold text-emerald-400 mb-6">Then the system recovers its cost.</p>
-                <div className="inline-block bg-slate-800 px-8 py-4 rounded-2xl border border-slate-700">
-                  <p className="text-xl text-slate-300">
-                    Automation is not an expense.<br/>
-                    <span className="text-white font-bold mt-1 block">It's an investment in operational efficiency.</span>
-                  </p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-4 transition-colors">Add-Ons</h2>
+              <p className="text-xl text-indigo-600 dark:text-indigo-400 font-semibold mb-3">Power Up Your Package</p>
+              <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-md transition-colors">
+                Add exactly what you need — nothing more. Customize your chosen package with specific capabilities.
+              </p>
+            </div>
+            
+            <div className="md:col-span-7">
+              <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-xl shadow-indigo-100/50 dark:shadow-none border border-slate-200 dark:border-slate-800 transition-colors">
+                <div className="space-y-4">
+                  {addons.map((addon, idx) => (
+                    <div key={idx} className={`flex justify-between items-center p-4 rounded-xl ${idx !== addons.length - 1 ? 'border-b border-slate-100 dark:border-slate-800' : ''} hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors`}>
+                      <span className="font-bold text-slate-800 dark:text-slate-200">{addon.name}</span>
+                      <span className="font-black text-indigo-600 dark:text-indigo-400">{addon.price}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Process */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-16">Process</h2>
-          
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            {processSteps.map((step, idx) => (
-              <div key={idx} className="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-200 hover:border-indigo-300 transition-colors">
-                <span className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-black text-lg">
-                  {idx + 1}
-                </span>
-                <span className="font-bold text-slate-700">{step}</span>
-              </div>
-            ))}
-          </div>
-          
-          <div className="text-center">
-            <p className="text-2xl font-bold text-slate-900 flex items-center justify-center gap-4">
-              <span className="text-indigo-600">Clear.</span>
-              <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-              <span className="text-indigo-600">Transparent.</span>
-              <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-              <span className="text-indigo-600">Structured.</span>
-            </p>
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-24">
+      <section className="py-24 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-white border border-slate-200 p-10 md:p-16 rounded-[2.5rem] shadow-2xl shadow-indigo-100/50 relative overflow-hidden">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 md:p-16 rounded-[2.5rem] shadow-2xl shadow-indigo-100/50 dark:shadow-none relative overflow-hidden transition-colors">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-blue-500"></div>
             
-            <p className="text-xl text-slate-500 font-medium mb-2">If you are only looking at the price —</p>
-            <p className="text-2xl font-bold text-slate-900 mb-10">Then maybe you are not ready yet.</p>
-            
-            <div className="w-16 h-1 bg-slate-200 mx-auto mb-10 rounded-full"></div>
-            
-            <p className="text-3xl md:text-4xl font-extrabold text-indigo-700 mb-10">If you want to build a system — Then let's talk.</p>
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mb-10 transition-colors">Have questions about which plan fits your business?</p>
             
             <a 
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20build%20a%20system%20and%20discuss%20pricing." 
+              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20have%20questions%20about%20the%20pricing%20plans." 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xl transition-all shadow-xl shadow-indigo-200 items-center justify-center gap-3 mx-auto group hover:-translate-y-1"
+              className="inline-flex px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xl transition-all shadow-xl shadow-indigo-200 dark:shadow-none items-center justify-center gap-3 mx-auto group hover:-translate-y-1"
             >
-              Share your process
+              Consult For Free
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </a>
-            <p className="mt-6 text-slate-600 font-semibold text-lg">I will give a clear roadmap + estimate.</p>
           </div>
         </div>
       </section>

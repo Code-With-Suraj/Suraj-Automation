@@ -11,11 +11,11 @@ export default function FinalCTA() {
 
   return (
     <section className="py-24 bg-slate-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-900/50 via-slate-900 to-slate-900"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-900/80 via-slate-950 to-slate-950"></div>
       <img 
         src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2070&auto=format&fit=crop" 
         alt="Business meeting" 
-        className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-overlay"
+        className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
         referrerPolicy="no-referrer"
       />
       
@@ -25,7 +25,7 @@ export default function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-slate-800/50 backdrop-blur-xl border border-slate-700 p-8 md:p-12 rounded-3xl shadow-2xl"
+          className="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 p-8 md:p-14 rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]"
         >
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
