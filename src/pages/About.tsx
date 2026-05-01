@@ -1,8 +1,6 @@
 import { motion } from 'motion/react';
 import { MapPin, Globe, CheckCircle2, ArrowRight } from 'lucide-react';
 
-import profileImage from '../../public/profile.jpg';
-
 export default function About() {
   const skills = [
     { name: "Google Sheets", icon: "📊" },
@@ -35,18 +33,10 @@ export default function About() {
               <div className="relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-4 border border-slate-200 dark:border-slate-800 shadow-2xl transition-colors">
                 <div className="aspect-[4/5] rounded-[2rem] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                   <img 
-                    src={profileImage} 
+                    src="/profile.jpg" 
                     alt="Suraj Singh" 
                     className="w-full h-full object-cover object-[center_20%]"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                      (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                    }}
                   />
-                  <div className="hidden absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <p className="text-indigo-500 dark:text-indigo-400 font-bold mb-2">Image Not Found</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Please upload your profile.jpg to the public folder.</p>
-                  </div>
                 </div>
                 
                 <div className="absolute -bottom-6 -right-6 lg:-right-10 bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 max-w-[280px] transition-colors">

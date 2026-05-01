@@ -16,7 +16,8 @@ export default function Contact() {
     e.preventDefault();
     setStatus('loading');
     
-    const scriptUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBAPP_URL;
+    // Use explicit URL as fallback if environment variable is not injected during build
+    const scriptUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBAPP_URL || "https://script.google.com/macros/s/AKfycbw1YRxx1Pxbwx0vXxklEAnqMdgIbeUyWw2mfDpXJUldXk5m76UjEQ6OYtvF6s17ZRVG/exec";
 
     if (!scriptUrl) {
       setStatus('missing_url');
@@ -128,7 +129,7 @@ export default function Contact() {
                   <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-xl flex gap-3 text-amber-800 dark:text-amber-300">
                     <AlertCircle className="w-6 h-6 shrink-0" />
                     <p className="text-sm font-medium">
-                      The Google Sheets Web App URL is not configured. Please add <code>VITE_GOOGLE_SHEET_WEBAPP_URL</code> to your environment settings in AI Studio.
+                      The Google Sheets Web App URL is not configured. Please verify the URL in the Contact.tsx file or environment variables.
                     </p>
                   </div>
                 )}
