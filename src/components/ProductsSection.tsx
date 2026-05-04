@@ -18,6 +18,15 @@ export default function ProductsSection() {
 
   const products = [
     {
+      id: 'loansarthi',
+      name: 'LoanSarthi',
+      tagline: 'Finance & Recovery Control System',
+      description: 'Small finance businesses ke liye powerful, mobile-first loan management system to create loans, track EMI, and manage recovery quickly.',
+      icon: <Wallet className="w-8 h-8" />,
+      color: 'indigo',
+      featured: true,
+    },
+    {
       id: 'supplysarthi',
       name: 'SupplySarthi',
       tagline: 'Complete Supply & Distribution Management System',
