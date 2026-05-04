@@ -16,7 +16,7 @@ const colorStyles: Record<string, { bg: string, text: string, hoverText: string,
   teal: { bg: 'bg-teal-50', text: 'text-teal-600', hoverText: 'hover:text-teal-700', buttonBg: 'bg-teal-600', buttonHoverBg: 'hover:bg-teal-700' },
 };
 
-const ImageCarousel = ({ images }: { images: string[] }) => {
+const ImageCarousel = ({ images, className = '' }: { images: string[], className?: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = (e: MouseEvent) => {
@@ -34,7 +34,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   };
 
   return (
-    <div className="relative w-full h-48 sm:h-56 mb-6 rounded-2xl overflow-hidden group/carousel bg-slate-100 flex-shrink-0">
+    <div className={`relative w-full rounded-2xl overflow-hidden group/carousel bg-slate-100 flex-shrink-0 ${className || 'h-48 sm:h-56 mb-6'}`}>
       <img 
         src={images[currentIndex]} 
         alt={`Product screenshot ${currentIndex + 1}`}
@@ -66,7 +66,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
-          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
             {images.map((_, idx) => (
               <div 
                 key={idx} 
@@ -345,56 +345,113 @@ export default function Products() {
                 const styles = colorStyles[product.color];
                 const isFeatured = product.featured;
                 
-                return (
+                return isFeatured && activeCategory === 'All' ? (
                   <motion.div
                     layout
                     key={product.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.4 }}
-                    className={`bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border flex flex-col hover:scale-[1.02] hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:border-indigo-200 transition-all duration-300 group relative overflow-hidden ${isFeatured && activeCategory === 'All' ? 'border-indigo-100 md:col-span-2 lg:col-span-3 lg:flex-row gap-8 lg:gap-10 items-center overflow-visible' : 'border-slate-100'}`}
-                  >
-                    {isFeatured && activeCategory === 'All' && (
-                      <div className="absolute top-0 right-0 bg-gradient-to-r from-indigo-500 to-blue-500 text-white text-xs font-bold px-5 py-1.5 rounded-bl-[1.5rem] rounded-tr-[2rem] shadow-sm z-10 hidden md:block">
-                        FEATURED
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.4 }}
+                      className="bg-slate-950 rounded-[2.5rem] p-8 lg:p-12 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] border border-slate-800 flex flex-col lg:flex-row gap-10 lg:gap-16 items-center group relative overflow-hidden md:col-span-2 lg:col-span-3 text-white transition-all duration-500 hover:border-indigo-500/50 hover:shadow-[0_20px_60px_-10px_rgba(79,70,229,0.3)] mb-4"
+                    >
+                      {/* Background Glow */}
+                      <div className={`absolute -top-40 -right-40 w-[40rem] h-[40rem] ${styles.buttonBg} rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+                      
+                      <div className="absolute top-6 left-6 z-10 hidden md:flex gap-3">
+                        <span className="bg-gradient-to-r from-indigo-500 to-cyan-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                          FEATURED SYSTEM
+                        </span>
+                        <span className="text-xs uppercase tracking-wider font-bold px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 backdrop-blur-md text-slate-300">
+                          {product.category}
+                        </span>
                       </div>
-                    )}
-                    
-                    {/* Category Tag */}
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-md ${styles.bg} ${styles.text} shadow-sm backdrop-blur-md bg-white/70`}>
-                        {product.category}
-                      </span>
-                    </div>
 
-                    <div className={`w-full ${isFeatured && activeCategory === 'All' ? 'lg:w-[45%] shrink-0' : ''} pt-4`}>
-                      <ImageCarousel images={product.images} />
-                    </div>
-                    
-                    <div className={`flex flex-col flex-grow ${isFeatured && activeCategory === 'All' ? 'lg:w-[55%]' : ''}`}>
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className={`rounded-xl border border-slate-100 shadow-sm ${styles.bg} flex items-center justify-center ${styles.text} shrink-0 w-12 h-12 ${isFeatured && activeCategory === 'All' ? 'lg:w-16 lg:h-16' : ''}`}>
-                          {product.icon}
+                      <div className="w-full lg:w-[50%] xl:w-[55%] flex flex-col z-10 pt-4 md:pt-10 lg:pt-0">
+                        <div className="flex md:hidden gap-2 mb-6">
+                          <span className="bg-gradient-to-r from-indigo-500 to-cyan-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                            FEATURED
+                          </span>
                         </div>
-                        <h3 className={`font-extrabold text-slate-900 tracking-tight text-xl ${isFeatured && activeCategory === 'All' ? 'lg:text-4xl' : 'md:text-2xl'}`}>{product.name}</h3>
+                        <div className="flex items-center gap-5 mb-6">
+                          <div className={`rounded-2xl bg-slate-900 border border-slate-800 p-4 shrink-0 shadow-2xl text-white w-16 h-16 lg:w-20 lg:h-20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                            {product.icon}
+                          </div>
+                          <div>
+                            <h3 className="font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2">{product.name}</h3>
+                            <p className="text-xs md:text-sm font-bold text-indigo-400 uppercase tracking-widest">{product.tagline}</p>
+                          </div>
+                        </div>
+                        
+                        <p className="text-slate-300 mb-10 text-base md:text-lg lg:text-xl leading-relaxed font-medium">
+                          {product.description}
+                        </p>
+                        
+                        <div className="mt-auto">
+                          <Link
+                            to={`/products/${product.id}`}
+                            className="inline-flex items-center justify-center px-8 py-4 bg-white text-slate-950 rounded-xl font-bold transition-all shadow-xl hover:bg-indigo-50 hover:-translate-y-1 group/btn w-full sm:w-auto text-lg"
+                          >
+                            Explore {product.name}
+                            <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                          </Link>
+                        </div>
                       </div>
-                      <p className={`text-xs font-bold ${styles.text} mb-4 uppercase tracking-wider`}>{product.tagline}</p>
-                      <p className={`text-slate-600 mb-8 font-body leading-relaxed flex-grow text-sm md:text-base ${isFeatured && activeCategory === 'All' ? 'lg:text-lg max-w-3xl' : ''}`}>
-                        {product.description}
-                      </p>
-                      <div className={`${isFeatured && activeCategory === 'All' ? 'mt-auto' : ''}`}>
-                        <Link
-                          to={`/products/${product.id}`}
-                          className={`inline-flex items-center justify-center px-6 py-3 bg-slate-950 text-white rounded-xl font-bold transition-all shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:-translate-y-0.5 group w-full ${isFeatured && activeCategory === 'All' ? 'lg:w-auto px-8 py-4' : ''}`}
-                        >
-                          View Details
-                          <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                      
+                      {/* Product Image */}
+                      <div className="w-full lg:w-[50%] xl:w-[45%] z-10 relative">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/30 to-transparent rounded-2xl z-10 pointer-events-none" />
+                        <div className="rounded-2xl border border-slate-800/80 p-1.5 md:p-3 bg-slate-900/50 backdrop-blur-sm shadow-2xl relative group-hover:border-indigo-500/30 transition-colors duration-500">
+                          <ImageCarousel images={product.images} className="h-60 sm:h-80 lg:h-[26rem]" />
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                );
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      layout
+                      key={product.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.4 }}
+                      className="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col hover:scale-[1.02] hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:border-indigo-200 transition-all duration-300 group relative overflow-hidden"
+                    >
+                      {/* Category Tag */}
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-md ${styles.bg} ${styles.text} shadow-sm backdrop-blur-md bg-white/70`}>
+                          {product.category}
+                        </span>
+                      </div>
+
+                      <div className="w-full pt-4">
+                        <ImageCarousel images={product.images} />
+                      </div>
+                      
+                      <div className="flex flex-col flex-grow">
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className={`rounded-xl border border-slate-100 shadow-sm ${styles.bg} flex items-center justify-center ${styles.text} shrink-0 w-12 h-12`}>
+                            {product.icon}
+                          </div>
+                          <h3 className="font-extrabold text-slate-900 tracking-tight text-xl md:text-2xl">{product.name}</h3>
+                        </div>
+                        <p className={`text-xs font-bold ${styles.text} mb-4 uppercase tracking-wider`}>{product.tagline}</p>
+                        <p className="text-slate-600 mb-8 font-body leading-relaxed flex-grow text-sm md:text-base">
+                          {product.description}
+                        </p>
+                        <div>
+                          <Link
+                            to={`/products/${product.id}`}
+                            className="inline-flex items-center justify-center px-6 py-3 bg-slate-950 text-white rounded-xl font-bold transition-all shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:-translate-y-0.5 group/btn w-full"
+                          >
+                            View Details
+                            <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
               })}
             </AnimatePresence>
           </div>
