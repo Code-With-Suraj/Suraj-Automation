@@ -31,7 +31,7 @@ export default defineConfig(({mode}) => {
       react(), 
       tailwindcss(),
       Sitemap({ 
-        hostname: 'https://www.surajautomation.com', 
+        hostname: 'https://surajdx.com', 
         dynamicRoutes 
       })
     ],
