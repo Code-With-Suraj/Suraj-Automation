@@ -1,7 +1,7 @@
 import { useState, MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 
 const colorStyles: Record<string, { bg: string, text: string, hoverText: string, buttonBg: string, buttonHoverBg: string }> = {
@@ -98,9 +98,9 @@ export default function Products() {
       category: 'Accounting & Finance',
       popularity: 105,
       images: [
-        `/images/products/loansarthi1.jpg`,
-        `/images/products/loansarthi2.jpg`,
-        `/images/products/loansarthi3.jpg`,
+        `https://blogger.googleusercontent.com/img/a/AVvXsEh5zZHbpxiw_k6uVI42WF3xsmx5ufKvjLCZmmNF7Wx1w3JXIFvgHSu6IQuiigrjGxnmzU99q-ZLe143TGx1uqJwdDWgBGzvwXLdcatbImKrD8TRKda9y4PnW6m_88uEs9JmwklolKLHhMnD4dFrJ3fxBXKncoDZyu4YPXgZ5vGfLE2vSbNUXEH-iHeUVbw=s16000`,
+        `https://blogger.googleusercontent.com/img/a/AVvXsEhRwZ7jr27Aex3DkMF2H3BqRhc2BniAv718FR-O7y1mWKbbzapoAqoduJwO8XXHt6SrsBzDMSDkiro4eeIszkMkAfvEOaPUaE-RTywgxYtQ2YBir6qwPcQXq83P9ediOyHf9SU1SBQgqWRDr5Matusd3oyXCyWBCiNjRI4DRxc_NlvPPnkgzmq0QNweP6M=s16000`,
+        `https://blogger.googleusercontent.com/img/a/AVvXsEgTKZ12p4akvWrmyqk_VoUqoFnEeLqd6cT2S24OXfzFtuQA7TVlUM4Z6mxG7_ygK4HMAGAMwisyw_AE53vzOAesgi9jrPbcXkrxk6-VhNvtEbz9Fq9apnLCkhY3ikuJIXEbD5nsbygZj4cWjTejZ4brVn7qhqyJ77WWqBUO-TJss-SeXbV5nGEz-T4Z6eo=s16000`,
       ]
     },
     {
@@ -267,6 +267,21 @@ export default function Products() {
         `/images/products/menusarthi1.jpg`,
         `/images/products/menusarthi2.jpg`,
         `/images/products/menusarthi3.jpg`,
+      ]
+    },
+    {
+      id: 'vendorsarthi',
+      name: 'VendorSarthi',
+      tagline: 'Smart Vendor Management System',
+      description: 'A complete Vendor Management System built entirely on Google Sheets to end manual RFQs, WhatsApp quotes, and Excel comparisons.',
+      icon: <ListChecks className="w-8 h-8" />,
+      color: 'teal',
+      category: 'Retail & Supply',
+      popularity: 88,
+      images: [
+        `/images/products/vendorsarthi1.jpg`,
+        `/images/products/vendorsarthi2.jpg`,
+        `/images/products/vendorsarthi3.jpg`,
       ]
     }
   ];

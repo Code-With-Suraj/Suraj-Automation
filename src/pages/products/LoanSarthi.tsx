@@ -1,8 +1,9 @@
-import { motion } from 'motion/react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   AlertTriangle, CheckCircle2, ArrowRight, MessageSquare, 
   ShieldCheck, Calculator, Users, PieChart, CreditCard, 
-  Smartphone, LineChart, Lock, Target 
+  Smartphone, LineChart, Lock, Target, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { useSEO } from '../../hooks/useSEO';
 
@@ -12,6 +13,23 @@ export default function LoanSarthi() {
     'Finance business control system - Track karo. Loan do. Recovery karo - Sab kuch ek hi system me.',
     'loan management software, finance business, emi tracking, recovery optimization, loan app'
   );
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % 3); // We have 3 screenshots
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + 3) % 3);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   const problems = [
     "Excel + WhatsApp = Data mess 😵",
@@ -28,6 +46,21 @@ export default function LoanSarthi() {
     "Collection track hota hai",
     "Defaulters automatically detect hote hain",
     "Reports ek click me milte hain"
+  ];
+
+  const screenshots = [
+    {
+      url: "https://blogger.googleusercontent.com/img/a/AVvXsEh5zZHbpxiw_k6uVI42WF3xsmx5ufKvjLCZmmNF7Wx1w3JXIFvgHSu6IQuiigrjGxnmzU99q-ZLe143TGx1uqJwdDWgBGzvwXLdcatbImKrD8TRKda9y4PnW6m_88uEs9JmwklolKLHhMnD4dFrJ3fxBXKncoDZyu4YPXgZ5vGfLE2vSbNUXEH-iHeUVbw=s16000",
+      alt: "LoanSarthi Dashboard & Overview"
+    },
+    {
+      url: "https://blogger.googleusercontent.com/img/a/AVvXsEhRwZ7jr27Aex3DkMF2H3BqRhc2BniAv718FR-O7y1mWKbbzapoAqoduJwO8XXHt6SrsBzDMSDkiro4eeIszkMkAfvEOaPUaE-RTywgxYtQ2YBir6qwPcQXq83P9ediOyHf9SU1SBQgqWRDr5Matusd3oyXCyWBCiNjRI4DRxc_NlvPPnkgzmq0QNweP6M=s16000",
+      alt: "Customer & Loan Management"
+    },
+    {
+      url: "https://blogger.googleusercontent.com/img/a/AVvXsEgTKZ12p4akvWrmyqk_VoUqoFnEeLqd6cT2S24OXfzFtuQA7TVlUM4Z6mxG7_ygK4HMAGAMwisyw_AE53vzOAesgi9jrPbcXkrxk6-VhNvtEbz9Fq9apnLCkhY3ikuJIXEbD5nsbygZj4cWjTejZ4brVn7qhqyJ77WWqBUO-TJss-SeXbV5nGEz-T4Z6eo=s16000",
+      alt: "Recovery & Reports Interface"
+    }
   ];
 
   const features = [
@@ -297,6 +330,77 @@ export default function LoanSarthi() {
                 )}
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* System Interface / Screenshots */}
+      <section className="py-20 bg-slate-900 border-t border-slate-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">🖥️ System Interface</h2>
+            <p className="text-xl text-slate-400">Clean, professional, and easy to use across any device.</p>
+          </div>
+
+          <div className="relative max-w-5xl mx-auto">
+            {/* Slider Container */}
+            <div className="relative aspect-[16/10] md:aspect-[16/9] rounded-2xl md:rounded-3xl overflow-hidden bg-slate-800 shadow-2xl border border-slate-700 group">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 flex flex-col"
+                >
+                  <div className="relative overflow-hidden flex-1 bg-slate-900/50 p-4 md:p-8 flex items-center justify-center">
+                    <img 
+                      src={screenshots[currentSlide].url} 
+                      alt={screenshots[currentSlide].alt} 
+                      className="w-full h-full object-contain drop-shadow-2xl rounded-xl ring-1 ring-white/10"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-4 md:p-6 border-t border-slate-700/50 bg-slate-800/90 backdrop-blur-md shrink-0">
+                    <h3 className="text-lg md:text-xl font-bold text-white text-center flex items-center justify-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-indigo-400" />
+                      {screenshots[currentSlide].alt}
+                    </h3>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Navigation Arrows */}
+              <button 
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-slate-900/50 text-white hover:bg-indigo-600 border border-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all z-10 hidden sm:block"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button 
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-slate-900/50 text-white hover:bg-indigo-600 border border-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all z-10 hidden sm:block"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Dots */}
+            <div className="flex justify-center gap-3 mt-8">
+              {screenshots.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    currentSlide === idx ? 'bg-indigo-500 w-10' : 'bg-slate-700 hover:bg-slate-500 w-2.5'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

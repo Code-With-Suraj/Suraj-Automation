@@ -23,6 +23,7 @@ import SupplySarthi from './pages/products/SupplySarthi';
 import HisabSarthi from './pages/products/HisabSarthi';
 import CogsDashboard from './pages/products/CogsDashboard';
 import LoanSarthi from './pages/products/LoanSarthi';
+import VendorSarthi from './pages/products/VendorSarthi';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="/products/supplysarthi" element={<SupplySarthi />} />
             <Route path="/products/hisabsarthi" element={<HisabSarthi />} />
             <Route path="/products/loansarthi" element={<LoanSarthi />} />
+            <Route path="/products/vendorsarthi" element={<VendorSarthi />} />
           </Routes>
         </div>
         <Footer />
