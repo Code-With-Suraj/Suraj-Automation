@@ -216,10 +216,6 @@ export default function DynamicProductPage() {
             <div className="border-t border-b border-slate-100 py-6 mb-8 space-y-4">
               <div className="flex items-center gap-3 text-slate-700 font-medium">
                 <CheckCircle2 className="w-5 h-5 text-indigo-600 shrink-0" />
-                <span>Original Copyable Google Apps Script Code</span>
-              </div>
-              <div className="flex items-center gap-3 text-slate-700 font-medium">
-                <CheckCircle2 className="w-5 h-5 text-indigo-600 shrink-0" />
                 <span>Preloader Workspace Google Sheet Template Link</span>
               </div>
               <div className="flex items-center gap-3 text-slate-700 font-medium">

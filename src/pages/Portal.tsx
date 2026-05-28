@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   LogIn, 
@@ -19,12 +19,13 @@ import {
   ArrowRight,
   ShieldAlert,
   HelpCircle,
-  Settings
+  Settings,
+  Youtube // Add Youtube icon
 } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 import { useSEO } from '../hooks/useSEO';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Portal() {
   useSEO(
@@ -35,8 +36,9 @@ export default function Portal() {
 
   const { user, userProfile, purchases, customProducts, loading, login, logout, hasPurchased, isAdmin, getProductSolution } = useUser();
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'blueprint' | 'code' | 'guide'>('blueprint');
+  const [activeTab, setActiveTab] = useState<'blueprint' | 'guide'>('blueprint');
   const [copied, setCopied] = useState(false);
+  const location = useLocation();
 
   // Filter solutions into purchased vs explore list without duplicates.
   // Custom products with the same id will override the static PRODUCT_SOLUTIONS.
@@ -48,6 +50,16 @@ export default function Portal() {
     solutionsMap.set(sol.id, sol);
   });
   const allSolutions = Array.from(solutionsMap.values());
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const pid = params.get('product');
+    
+    if (pid && hasPurchased(pid)) {
+      setSelectedProductId(pid);
+    }
+  }, [location.search, hasPurchased]);
+
   const activeSolution = selectedProductId ? getProductSolution(selectedProductId) : null;
 
   const copyCode = (code: string) => {
@@ -297,17 +309,6 @@ export default function Portal() {
                             Blueprint URL
                           </button>
                           <button
-                            onClick={() => setActiveTab('code')}
-                            className={`flex-1 px-4 py-3 rounded-lg font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                              activeTab === 'code'
-                                ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-white shadow'
-                                : 'text-slate-500 hover:text-indigo-500'
-                            }`}
-                          >
-                            <FileCode className="w-3.5 h-3.5" />
-                            Script Code (.gs)
-                          </button>
-                          <button
                             onClick={() => setActiveTab('guide')}
                             className={`flex-1 px-4 py-3 rounded-lg font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                               activeTab === 'guide'
@@ -349,64 +350,29 @@ export default function Portal() {
                                   <h4 className="font-bold text-slate-800 dark:text-white mb-1">Make 1-Click Copy into Drive</h4>
                                   <p className="text-xs text-slate-550 dark:text-slate-400 max-w-sm">This master template contains structural formulas. Hit "File" &gt; "Make a copy" to initialize on your own workspace.</p>
                                 </div>
-                                <a
-                                  href={activeSolution.sheetTemplateUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-sm tracking-wide flex items-center gap-2 shadow shadow-indigo-650/15"
-                                >
-                                  Open Google Sheets Template
-                                  <ExternalLink className="w-4 h-4" />
-                                </a>
-                              </div>
-                            </motion.div>
-                          )}
-
-                          {activeTab === 'code' && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="space-y-4"
-                            >
-                              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
-                                <div>
-                                  <h3 className="text-xl font-black text-slate-900 dark:text-white">
-                                    Google Apps Script Code
-                                  </h3>
-                                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">Audited Core Engine File</p>
-                                </div>
-
-                                <div className="flex gap-2.5">
-                                  <button
-                                    onClick={() => copyCode(activeSolution.appsScriptCode)}
-                                    className="px-3.5 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                  <a
+                                    href={activeSolution.sheetTemplateUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-sm tracking-wide flex items-center gap-2 shadow shadow-indigo-650/15"
                                   >
-                                    {copied ? (
-                                      <>
-                                        <Check className="w-3.5 h-3.5 text-emerald-500" />
-                                        Copied!
-                                      </>
-                                    ) : (
-                                      <>
-                                        <Copy className="w-3.5 h-3.5" />
-                                        Copy Code
-                                      </>
-                                    )}
-                                  </button>
-                                  <button
-                                    onClick={() => handleDownloadCode(activeSolution.appsScriptCode, activeSolution.id)}
-                                    className="px-3.5 py-2 bg-slate-900 border border-slate-800 text-white hover:bg-slate-800 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
-                                  >
-                                    <Download className="w-3.5 h-3.5" />
-                                    Download .js
-                                  </button>
+                                    Open Google Sheets Template
+                                    <ExternalLink className="w-4 h-4" />
+                                  </a>
+                                  
+                                  {activeSolution.youtubeUrl && (
+                                    <a
+                                      href={activeSolution.youtubeUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="px-6 py-3 bg-red-50 hover:bg-red-100 dark:bg-red-500/10 dark:hover:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/20 rounded-xl font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+                                    >
+                                      <Youtube className="w-4 h-4" />
+                                      Watch Video Tutorial
+                                    </a>
+                                  )}
                                 </div>
-                              </div>
-
-                              <div className="relative rounded-2xl bg-slate-950 p-5 overflow-x-auto border border-slate-800 shadow-inner max-h-[380px] overflow-y-auto font-mono scrollbar-thin">
-                                <pre className="text-xs font-semibold text-indigo-300 leading-relaxed whitespace-pre font-mono">
-                                  <code>{activeSolution.appsScriptCode}</code>
-                                </pre>
                               </div>
                             </motion.div>
                           )}
@@ -476,8 +442,22 @@ export default function Portal() {
                         <div>
                           <h4 className="font-extrabold text-slate-850 dark:text-white">No solution is currently open for viewing</h4>
                           <p className="text-xs font-semibold text-slate-550 dark:text-slate-400 max-w-sm mx-auto mt-1 leading-normal">
-                            Click on the <span className="text-indigo-600 dark:text-indigo-400 font-bold">"Open"</span> button of any purchased solutions on the left to inspect its script file, template url, and configuration guide instantly here!
+                            Click on the <span className="text-indigo-600 dark:text-indigo-400 font-bold">"Open"</span> button of any purchased solutions on the left to inspect its template url and configuration guide instantly here!
                           </p>
+                        </div>
+                        
+                        <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center max-w-sm mx-auto">
+                           <a 
+                             href="https://www.youtube.com/@suraj.gasdeveloper" 
+                             target="_blank" 
+                             rel="noopener noreferrer"
+                             className="group flex flex-col items-center justify-center gap-3 p-4 bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 text-red-600 dark:text-red-400 font-bold text-sm rounded-2xl transition-all border border-red-100 dark:border-red-500/20 shadow-sm cursor-pointer w-full"
+                           >
+                             <div className="w-10 h-10 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                               <Youtube className="w-5 h-5" />
+                             </div>
+                             Watch Portal Walkthrough on YouTube
+                           </a>
                         </div>
                       </div>
                     )}

@@ -442,12 +442,12 @@ export default function SupplySarthi() {
               <p className="text-sm text-slate-400 mb-6 h-10">Ek saal ek saath pay karo — 13 months ka fayda, sab kuch unlimited</p>
               <div className="mb-6">
                 <p className="text-sm text-slate-400 line-through mb-1">₹1,499 × 12 = ₹17,988/year</p>
-                <span className="text-4xl font-extrabold">₹14,999</span>
+                <span className="text-4xl font-extrabold">₹10,999</span>
                 <span className="text-slate-400">/year</span>
                 <p className="text-xs text-slate-400 mt-1">one annual payment</p>
               </div>
               <div className="bg-rose-500/20 text-rose-300 text-sm font-bold py-2 px-4 rounded-lg mb-6 inline-block w-fit border border-rose-500/30">
-                🎉 Save ₹2,989 · 👑 13 months ka fayda
+                🎉 Save ₹6,989 · 👑 13 months ka fayda
               </div>
               <ul className="space-y-3 mb-8 flex-grow">
                 <li className="flex items-start gap-2 text-sm font-bold"><CheckCircle2 className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" /> Everything in Pro Plan</li>
@@ -478,7 +478,7 @@ export default function SupplySarthi() {
                 <div className="mb-8">
                   <p className="text-slate-400 line-through mb-1">Market Rate: ₹60,000+</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-extrabold text-white">₹35,000</span>
+                    <span className="text-5xl font-extrabold text-white">₹15,999</span>
                     <span className="text-indigo-200 font-medium">One-time setup fee</span>
                   </div>
                   <p className="text-indigo-300 mt-2 font-medium">No subscription ever · No hidden fees · Works on any Google account</p>
@@ -487,7 +487,7 @@ export default function SupplySarthi() {
                 <div className="space-y-6 mb-8">
                   <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
                     <h4 className="font-bold text-lg text-white mb-3 flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Included in ₹35,000
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Included in ₹15,999
                     </h4>
                     <ul className="space-y-2">
                       <li className="text-slate-300 flex items-start gap-2"><span className="text-emerald-400 mt-1">•</span> Complete SupplySarthi system</li>
@@ -511,8 +511,8 @@ export default function SupplySarthi() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Lifetime%20Access%20for%20₹35,000." target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-xl font-bold text-lg transition-all shadow-xl items-center justify-center gap-2 group">
-                  Get Lifetime Access — ₹35,000
+                <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Lifetime%20Access%20for%20₹15,999." target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-xl font-bold text-lg transition-all shadow-xl items-center justify-center gap-2 group">
+                  Get Lifetime Access — ₹15,999
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>

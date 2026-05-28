@@ -385,20 +385,18 @@ export default function RazorpayCheckout({ productId }: RazorpayCheckoutProps) {
 
               <div className="shrink-0 flex flex-col sm:flex-row gap-3">
                 <a
-                  href={solution.sheetTemplateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 bg-white text-emerald-700 hover:bg-emerald-50 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-md transition-all uppercase tracking-wider"
+                  href="/portal"
+                  className="px-6 py-3.5 bg-white text-emerald-700 hover:bg-emerald-50 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-md transition-all tracking-wide border border-emerald-100"
                 >
-                  Make Copy of Sheets Template
-                  <ExternalLink className="w-4 h-4" />
+                  <Sparkles className="w-4 h-4" />
+                  View & Manage in My Portal
                 </a>
 
                 <button
                   onClick={handleDownloadCode}
-                  className="px-6 py-3.5 bg-slate-900 border border-slate-800 text-white hover:bg-slate-800 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-md transition-all uppercase tracking-wider cursor-pointer"
+                  className="px-6 py-3.5 bg-slate-900 border border-slate-800 text-white hover:bg-slate-800 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-md transition-all tracking-wide cursor-pointer"
                 >
-                  Download .js Code
+                  Download Setup Guide
                   <Download className="w-4 h-4" />
                 </button>
               </div>
@@ -407,113 +405,44 @@ export default function RazorpayCheckout({ productId }: RazorpayCheckoutProps) {
             {/* Layout divided into tabs */}
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-xl">
               
-              {/* Tab Header Selector */}
-              <div className="flex border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-2.5">
-                <button
-                  onClick={() => setActiveTab('guide')}
-                  className={`flex-1 sm:flex-initial px-6 py-3.5 rounded-xl font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                    activeTab === 'guide'
-                      ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-white shadow'
-                      : 'text-slate-500 hover:text-indigo-500'
-                  }`}
-                >
-                  <Info className="w-4 h-4" />
-                  Setup Guide Handbook
-                </button>
-                <button
-                  onClick={() => setActiveTab('code')}
-                  className={`flex-1 sm:flex-initial px-6 py-3.5 rounded-xl font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                    activeTab === 'code'
-                      ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-white shadow'
-                      : 'text-slate-500 hover:text-indigo-500'
-                  }`}
-                >
-                  <FileCode className="w-4 h-4" />
-                  Google Apps Script File Code
-                </button>
-              </div>
-
               {/* Tab content content */}
               <div className="p-6 md:p-10">
                 <AnimatePresence mode="wait">
-                  {activeTab === 'guide' ? (
-                    <motion.div
-                      key="guide"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="space-y-6"
-                    >
-                      <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Step-by-Step setup configurations</h4>
-                      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-                        Follow these exact steps carefully to connect the automated Google script backend:
-                      </p>
-                      
-                      <div className="space-y-4">
-                        {solution.setupSteps.map((step, sIdx) => (
-                          <div key={sIdx} className="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
-                            <span className="w-7 h-7 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-650 dark:text-indigo-400 text-xs font-black rounded-full flex items-center justify-center shrink-0">
-                              {sIdx + 1}
-                            </span>
-                            <span className="text-[14px] font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
-                              {step}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="flex items-start gap-3 bg-indigo-500/10 rounded-2xl p-4 md:p-6 border border-indigo-400/20 max-w-2xl text-slate-600 dark:text-slate-400 mt-6">
-                        <Zap className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" />
-                        <div>
-                          <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1">Need customization support?</h5>
-                          <p className="text-xs leading-relaxed">
-                            Need custom features or integration with external systems? Get one-on-one customization matching your custom requirements from Suraj. Write on WhatsApp or consult for free.
-                          </p>
+                  <motion.div
+                    key="guide"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="space-y-6"
+                  >
+                    <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Step-by-Step setup configurations</h4>
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+                      Follow these exact steps carefully to connect the automated Google script backend:
+                    </p>
+                    
+                    <div className="space-y-4">
+                      {solution.setupSteps.map((step, sIdx) => (
+                        <div key={sIdx} className="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
+                          <span className="w-7 h-7 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-650 dark:text-indigo-400 text-xs font-black rounded-full flex items-center justify-center shrink-0">
+                            {sIdx + 1}
+                          </span>
+                          <span className="text-[14px] font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
+                            {step}
+                          </span>
                         </div>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="code"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="space-y-6"
-                    >
-                      <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-900 px-5 py-4 border-b border-slate-200 dark:border-slate-800 rounded-2xl rounded-b-none">
-                        <div className="flex items-center gap-2">
-                          <span className="flex-shrink-0 w-3 h-3 rounded-full bg-red-400"></span>
-                          <span className="flex-shrink-0 w-3 h-3 rounded-full bg-yellow-400"></span>
-                          <span className="flex-shrink-0 w-3 h-3 rounded-full bg-green-400"></span>
-                          <span className="text-xs font-bold text-slate-400 ml-2 font-mono">Code.gs (Apps Script Engine)</span>
-                        </div>
+                      ))}
+                    </div>
 
-                        <button
-                          onClick={copyCode}
-                          className="px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl font-bold text-xs flex items-center gap-1.5 shadow transition-colors cursor-pointer"
-                        >
-                          {copied ? (
-                            <>
-                              <Check className="w-3.5 h-3.5" />
-                              Copied!
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5" />
-                              Copy Code
-                            </>
-                          )}
-                        </button>
+                    <div className="flex items-start gap-3 bg-indigo-500/10 rounded-2xl p-4 md:p-6 border border-indigo-400/20 max-w-2xl text-slate-600 dark:text-slate-400 mt-6">
+                      <Zap className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" />
+                      <div>
+                        <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1">Need customization support?</h5>
+                        <p className="text-xs leading-relaxed">
+                          Need custom features or integration with external systems? Get one-on-one customization matching your custom requirements from Suraj. Write on WhatsApp or consult for free.
+                        </p>
                       </div>
-
-                      {/* Clean display block of code */}
-                      <div className="relative rounded-2xl rounded-t-none bg-slate-950 p-6 overflow-x-auto border border-slate-800 shadow-inner max-h-[500px] overflow-y-auto font-mono scrollbar-thin">
-                        <pre className="text-xs font-semibold text-indigo-200 leading-relaxed whitespace-pre font-mono">
-                          <code>{solution.appsScriptCode}</code>
-                        </pre>
-                      </div>
-                    </motion.div>
-                  )}
+                    </div>
+                  </motion.div>
                 </AnimatePresence>
               </div>
 
