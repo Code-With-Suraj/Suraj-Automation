@@ -1,5 +1,6 @@
 {
   "name": "Suraj Automation",
   "description": "A professional landing page for custom business systems and automation using Google Apps Script for SMBs.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

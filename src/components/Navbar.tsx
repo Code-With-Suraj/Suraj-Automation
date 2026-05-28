@@ -5,6 +5,7 @@ import { useDarkMode } from '../hooks/useDarkMode';
 import { useUser } from '../contexts/UserContext';
 
 export default function Navbar() {
+  const [scrollProgress, setScrollProgress] = useState(0);
   const { isAdmin } = useUser();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,6 +17,13 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+      
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      } else {
+        setScrollProgress(0);
+      }
     };
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check on mount
@@ -133,6 +141,12 @@ export default function Navbar() {
           </a>
         </div>
       )}
+      
+      {/* Dynamic Scroll Progress Bar */}
+      <div 
+        className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 transition-all duration-75 shadow-[0_1px_8px_rgba(99,102,241,0.5)] pointer-events-none" 
+        style={{ width: `${scrollProgress}%` }}
+      />
     </nav>
   );
 }

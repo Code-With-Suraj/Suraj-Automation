@@ -1,6 +1,7 @@
 import Hero from '../components/Hero';
 import Stats from '../components/Stats';
 import Problem from '../components/Problem';
+import DiagnosticSimulator from '../components/DiagnosticSimulator';
 import WhatIDo from '../components/WhatIDo';
 import WhatWeOffer from '../components/WhatWeOffer';
 import ProductsSection from '../components/ProductsSection';
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <Stats />
       <Problem />
+      <DiagnosticSimulator />
       <WhatIDo />
       <WhatWeOffer />
       <ProductsSection />
@@ -27,3 +29,4 @@ export default function Home() {
     </main>
   );
 }
+

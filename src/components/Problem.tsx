@@ -1,12 +1,30 @@
-import { motion } from 'motion/react';
-import { Frown, Clock, DollarSign, UserX, Smartphone } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  Frown, 
+  Clock, 
+  DollarSign, 
+  UserX, 
+  Smartphone, 
+  AlertCircle, 
+  CheckCircle, 
+  FileSpreadsheet, 
+  Share2, 
+  ShieldAlert, 
+  Zap, 
+  CheckCircle2, 
+  Smartphone as Phone, 
+  Users 
+} from 'lucide-react';
 
 export default function Problem() {
+  const [activeTab, setActiveTab] = useState<'chaos' | 'sarthi'>('chaos');
+
   const problems = [
     { 
       icon: <Frown className="w-6 h-6 text-rose-500" />, 
-      title: "Data scattered in whatsapp and excel solution",
-      text: "Stop searching through chats. Get a centralized small business data management system india." 
+      title: "Data scattered in WhatsApp and Excel solution",
+      text: "Stop searching through chats. Get a centralized small business data management system India." 
     },
     { 
       icon: <Clock className="w-6 h-6 text-amber-500" />, 
@@ -45,17 +63,19 @@ export default function Problem() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 items-stretch">
+          
+          {/* Left Side: Current Pain Points list */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-7 space-y-6"
+            className="lg:col-span-6 space-y-6 flex flex-col justify-center"
           >
             {problems.map((prob, idx) => (
               <div key={idx} className="flex items-start gap-4 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl shrink-0">
+                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl shrink-0 animate-pulse">
                   {prob.icon}
                 </div>
                 <div>
@@ -66,32 +86,155 @@ export default function Problem() {
             ))}
           </motion.div>
 
+          {/* Right Side: Interactive Workflow Comparison (Visual Playground) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-5 bg-indigo-600 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden"
+            className="lg:col-span-6 flex flex-col justify-between bg-slate-900 dark:bg-slate-950 rounded-[2.5rem] border border-slate-800 p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-[80px]"></div>
-            
-            <div className="relative z-10 h-full flex flex-col justify-center text-center">
-              <h3 className="text-3xl md:text-4xl font-black mb-8 leading-tight">
-                Then you don't need just a website…
-              </h3>
-              
-              <div className="inline-block bg-white text-indigo-700 px-8 py-5 rounded-2xl font-black text-3xl md:text-4xl shadow-xl transform -rotate-2 mb-10 mx-auto">
-                You need a system. <span className="animate-bounce inline-block">👇</span>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <div className="relative z-10 w-full">
+              {/* Heading */}
+              <div className="text-center mb-8">
+                <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight mb-2">
+                  System vs Static Webpage
+                </h3>
+                <p className="text-xs text-slate-400 font-bold tracking-widest uppercase">
+                  Click tabs below to see comparison in action
+                </p>
               </div>
-              
-              <div className="bg-indigo-700/50 p-6 rounded-2xl backdrop-blur-sm border border-indigo-500/50">
-                <p className="text-lg font-bold mb-2">Small business owner using digital management system</p>
-                <p className="text-indigo-200 text-sm">Built for local teams that still depend on Excel and WhatsApp</p>
+
+              {/* Slider Tabs */}
+              <div className="grid grid-cols-2 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-850 mb-8 max-w-md mx-auto">
+                <button
+                  onClick={() => setActiveTab('chaos')}
+                  className={`py-3 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all uppercase flex items-center justify-center gap-2 ${
+                    activeTab === 'chaos'
+                      ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30 font-extrabold shadow-[inset_0_1px_2px_rgba(239,68,68,0.2)]'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <ShieldAlert className="w-4 h-4 shrink-0" />
+                  Manual Mess (Before)
+                </button>
+                <button
+                  onClick={() => setActiveTab('sarthi')}
+                  className={`py-3 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all uppercase flex items-center justify-center gap-2 ${
+                    activeTab === 'sarthi'
+                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-extrabold shadow-[inset_0_1px_2px_rgba(16,185,129,0.2)]'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Zap className="w-4 h-4 shrink-0" />
+                  Sarthi Automation
+                </button>
+              </div>
+
+              {/* Console comparison body */}
+              <div className="rounded-2xl bg-slate-950 p-5 border border-slate-850/80 min-h-[300px] flex flex-col justify-between">
+                <AnimatePresence mode="wait">
+                  {activeTab === 'chaos' ? (
+                    <motion.div
+                      key="chaos"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="space-y-4"
+                    >
+                      <div className="flex items-center gap-2 pb-3 border-b border-rose-950/40">
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+                        <p className="text-xs font-mono font-bold text-rose-400 uppercase tracking-widest">
+                          Warning: Operational Bottleneck
+                        </p>
+                      </div>
+
+                      <div className="space-y-3 font-body text-xs sm:text-sm text-slate-300">
+                        <div className="flex items-start gap-3 p-3 bg-rose-950/10 rounded-xl border border-rose-950/30">
+                          <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-slate-200">Scattered WhatsApp order taking</p>
+                            <p className="text-xs text-slate-400 mt-1">Customer texts on 3 different chats. Admin miscounts quantity or misses item details.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 bg-rose-950/10 rounded-xl border border-rose-950/30">
+                          <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-slate-200">Manual Excel billing entry</p>
+                            <p className="text-xs text-slate-400 mt-1">Staff types invoices one-by-one. Formulas get overwritten, pending due alerts get left completely unnotified.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 bg-rose-950/10 rounded-xl border border-rose-950/30">
+                          <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-slate-200">No morning daily reports built</p>
+                            <p className="text-xs text-slate-400 mt-1">Owner stays back till 11:30 PM with staff just to understand total collections and stock leftover balances.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="sarthi"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="space-y-4"
+                    >
+                      <div className="flex items-center gap-2 pb-3 border-b border-emerald-950/40">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+                          Normal State: Streamined Workflow
+                        </p>
+                      </div>
+
+                      <div className="space-y-3 font-body text-xs sm:text-sm text-slate-300">
+                        <div className="flex items-start gap-3 p-3 bg-emerald-950/10 rounded-xl border border-emerald-950/20">
+                          <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-slate-100">3-Clicks Ordering Web App</p>
+                            <p className="text-xs text-slate-400 mt-1">Customer adds items on Sarthi interface. Done. Direct auto-notifications with receipts triggers in WhatsApp.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 bg-emerald-950/10 rounded-xl border border-emerald-950/20">
+                          <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-slate-100">Centrally Sync'd Ledger & Google Sheet</p>
+                            <p className="text-xs text-slate-400 mt-1">Database automatically structures compliance GST invoices in PDF. Overdue balances alert admins via scheduled SMS triggers.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 bg-emerald-950/10 rounded-xl border border-emerald-950/20">
+                          <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-slate-100">Automated Daily PDF Reports at 8:00 AM</p>
+                            <p className="text-xs text-slate-400 mt-1">Google App Script compiles stats. You get a tidy summary of sales, staff entries, and cash flow directly on email.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Micro-interactive prompt footer */}
+                <div className="pt-4 mt-4 border-t border-slate-850 flex items-center justify-between text-xs text-slate-450">
+                  <span className="font-mono text-slate-400">Status: {activeTab === 'chaos' ? '🔴 Time Leakage' : '🟢 100% Automatic'}</span>
+                  <span>Click other tab to switch view</span>
+                </div>
               </div>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>
   );
 }
+

@@ -1,7 +1,7 @@
 import { useState, MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks } from 'lucide-react';
+import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks, Search } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 import { useUser } from '../contexts/UserContext';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
@@ -86,6 +86,7 @@ export default function Products() {
   useSEO('Products | Suraj Automation', 'Explore all our custom web apps for business automation including GST tools, HR systems, Expense trackers, and more.');
 
   const { customProducts } = useUser();
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<'popularity' | 'alphabetical'>('popularity');
 
@@ -330,6 +331,16 @@ export default function Products() {
 
   const filteredAndSortedProducts = mergedProducts
     .filter(p => activeCategory === 'All' || p.category === activeCategory)
+    .filter(p => {
+      if (!searchTerm) return true;
+      const term = searchTerm.toLowerCase();
+      return (
+        p.name.toLowerCase().includes(term) ||
+        p.tagline.toLowerCase().includes(term) ||
+        p.description.toLowerCase().includes(term) ||
+        p.category.toLowerCase().includes(term)
+      );
+    })
     .sort((a, b) => {
       if (sortBy === 'popularity') return b.popularity - a.popularity;
       return a.name.localeCompare(b.name);
@@ -363,6 +374,28 @@ export default function Products() {
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Interactive Modern Search Bar */}
+          <div className="mb-10 max-w-2xl mx-auto relative group">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+              <Search className="w-5 h-5" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search products by title, industry, or features (e.g. 'loan', 'GST', 'billing')..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full pl-12 pr-16 py-4.5 border border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-2xl bg-slate-50 text-slate-900 placeholder-slate-400 shadow-sm focus:shadow-md transition-all outline-none font-medium text-base"
+            />
+            {searchTerm && (
+              <button 
+                onClick={() => setSearchTerm('')} 
+                className="absolute inset-y-0 right-0 pr-5 flex items-center text-xs font-black text-rose-500 hover:text-rose-600 transition-colors uppercase tracking-widest"
+              >
+                Clear
+              </button>
+            )}
+          </div>
           
           {/* Filter and Sort UI */}
           <div className="mb-12 flex flex-col md:flex-row justify-between items-center gap-6">
