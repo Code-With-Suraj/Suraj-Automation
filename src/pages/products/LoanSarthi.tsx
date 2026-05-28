@@ -7,11 +7,13 @@ import {
 } from 'lucide-react';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
+import { calculateDiscount } from '../../data/productSolutions';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
 
 export default function LoanSarthi() {
-  const { hasPurchased } = useUser();
+  const { hasPurchased, getProductSolution } = useUser();
   const isPurchased = hasPurchased('loansarthi');
+  const solution = getProductSolution('loansarthi');
 
   useSEO(
     'LoanSarthi | Suraj Automation',
@@ -186,7 +188,7 @@ export default function LoanSarthi() {
                     href="#checkout-loansarthi" 
                     className="inline-flex px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
                   >
-                    Get instant access for ₹1,499
+                    Get instant access for {solution?.price || '₹1,499'}
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </a>
                 )}
@@ -199,6 +201,15 @@ export default function LoanSarthi() {
                   Book Free Demo On WhatsApp
                 </a>
               </div>
+
+              {solution?.marketPrice && (
+                <div className="flex items-center justify-center gap-3.5 mt-6 text-sm flex-wrap text-slate-400 font-semibold bg-slate-900/40 border border-slate-800/80 p-3 rounded-xl max-w-sm mx-auto">
+                  <span>Market Price: <span className="line-through text-slate-500">{solution.marketPrice}</span></span>
+                  <span className="text-emerald-400 font-extrabold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    {calculateDiscount(solution.price || '₹1,499', solution.marketPrice)}% OFF
+                  </span>
+                </div>
+              )}
             </motion.div>
           </div>
         </div>

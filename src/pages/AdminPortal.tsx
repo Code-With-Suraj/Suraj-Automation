@@ -6,7 +6,7 @@ import {
   Code2, Sparkles, Check, AlertCircle, X, ArrowLeft, ArrowUpRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
+import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 
 export default function AdminPortal() {
   const { user, isAdmin, customProducts, saveCustomProduct, deleteCustomProduct, loading: authLoading } = useUser();
@@ -17,6 +17,7 @@ export default function AdminPortal() {
   const [formName, setFormName] = useState('');
   const [formId, setFormId] = useState('');
   const [formPrice, setFormPrice] = useState('₹1,499');
+  const [formMarketPrice, setFormMarketPrice] = useState('₹4,999');
   const [formTagline, setFormTagline] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formSheetUrl, setFormSheetUrl] = useState('');
@@ -99,6 +100,7 @@ export default function AdminPortal() {
     setFormId(p.id);
     setFormName(p.name);
     setFormPrice(p.price || '₹1,499');
+    setFormMarketPrice(p.marketPrice || '');
     setFormTagline(p.tagline || '');
     setFormDescription(p.description || '');
     setFormSheetUrl(p.sheetTemplateUrl || '');
@@ -117,6 +119,7 @@ export default function AdminPortal() {
     setFormId('');
     setFormName('');
     setFormPrice('₹1,499');
+    setFormMarketPrice('₹4,999');
     setFormTagline('');
     setFormDescription('');
     setFormSheetUrl('');
@@ -148,6 +151,7 @@ export default function AdminPortal() {
         id: formId.trim().toLowerCase(),
         name: formName.trim(),
         price: formPrice.trim(),
+        marketPrice: formMarketPrice.trim(),
         tagline: formTagline.trim(),
         description: formDescription.trim(),
         sheetTemplateUrl: formSheetUrl.trim(),
@@ -280,17 +284,36 @@ export default function AdminPortal() {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Pricing Amount (String) <span className="text-red-500">*</span></label>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Selling Price <span className="text-red-500">*</span></label>
                   <input 
                     type="text"
                     required
                     value={formPrice}
                     placeholder="₹1,499"
                     onChange={(e) => setFormPrice(e.target.value)}
+                    className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-bold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Market Price (Original) <span className="text-slate-400 font-normal">(Optional)</span></label>
+                  <input 
+                    type="text"
+                    value={formMarketPrice}
+                    placeholder="e.g. ₹4,999"
+                    onChange={(e) => setFormMarketPrice(e.target.value)}
                     className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
+                  {formPrice && formMarketPrice && (
+                    <p className="text-xs text-emerald-600 font-bold mt-1.5 flex items-center gap-1">
+                      <span>✓ Discount Preview:</span>
+                      <span className="bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded text-[10px] border border-emerald-100 font-black">
+                        {calculateDiscount(formPrice, formMarketPrice)}% OFF
+                      </span>
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -526,6 +549,18 @@ export default function AdminPortal() {
                         "{displayProduct.tagline || 'No tagline configured.'}"
                       </p>
 
+                      <div className="flex justify-between items-center text-xs font-semibold bg-slate-50 border border-slate-100 p-2.5 rounded-xl">
+                        <span className="text-slate-600">Price: <span className="font-extrabold text-slate-800">{displayProduct.price}</span></span>
+                        {displayProduct.marketPrice && (
+                          <span className="text-slate-500 flex items-center gap-1">
+                            Market: <span className="line-through">{displayProduct.marketPrice}</span>
+                            <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-black text-[10px] border border-emerald-100">
+                              -{calculateDiscount(displayProduct.price, displayProduct.marketPrice)}%
+                            </span>
+                          </span>
+                        )}
+                      </div>
+
                       <div className="flex items-center justify-between border-t border-slate-100 pt-3 mt-1">
                         <Link 
                           to={`/products/${legacyProd.id}`}
@@ -582,6 +617,18 @@ export default function AdminPortal() {
                       <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed italic">
                         "{p.tagline || 'No tagline configured.'}"
                       </p>
+
+                      <div className="flex justify-between items-center text-xs font-semibold bg-slate-50 border border-slate-100 p-2.5 rounded-xl">
+                        <span className="text-slate-600">Price: <span className="font-extrabold text-slate-800">{p.price}</span></span>
+                        {p.marketPrice && (
+                          <span className="text-slate-500 flex items-center gap-1">
+                            Market: <span className="line-through">{p.marketPrice}</span>
+                            <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-black text-[10px] border border-emerald-100">
+                              -{calculateDiscount(p.price, p.marketPrice)}%
+                            </span>
+                          </span>
+                        )}
+                      </div>
 
                       <div className="flex items-center justify-between border-t border-slate-100 pt-3 mt-1">
                         <Link 

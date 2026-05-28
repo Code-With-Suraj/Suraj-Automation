@@ -22,7 +22,7 @@ import {
   Settings
 } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
-import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
+import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 import { useSEO } from '../hooks/useSEO';
 import { Link } from 'react-router-dom';
 
@@ -225,8 +225,17 @@ export default function Portal() {
                             <h4 className="font-bold text-[15px] truncate max-w-[200px] leading-snug">
                               {sol.name}
                             </h4>
-                            <p className={`text-xs font-semibold ${isSelected ? 'text-indigo-200' : 'text-slate-500 dark:text-slate-400'}`}>
-                              Blueprint Price: <span className={`font-black ${isSelected ? 'text-white' : 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 px-1.5 py-0.5 rounded-md'}`}>{sol.price || "₹1,499"}</span>
+                            <p className={`text-xs font-semibold ${isSelected ? 'text-indigo-205' : 'text-slate-500 dark:text-slate-400'} flex items-center flex-wrap gap-1`}>
+                              <span>Blueprint Price:</span> 
+                              <span className={`font-black ${isSelected ? 'text-white' : 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 px-1.5 py-0.5 rounded-md'}`}>{sol.price || "₹1,499"}</span>
+                              {sol.marketPrice && (
+                                <>
+                                  <span className="text-[10px] line-through opacity-70">{sol.marketPrice}</span>
+                                  <span className={`text-[9px] font-black px-1 rounded ${isSelected ? 'bg-indigo-500 text-white' : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-430'}`}>
+                                    {calculateDiscount(sol.price || "₹1,499", sol.marketPrice)}% OFF
+                                  </span>
+                                </>
+                              )}
                             </p>
                           </div>
 

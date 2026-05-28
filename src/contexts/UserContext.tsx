@@ -116,7 +116,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
             category: data.category || 'General',
             color: data.color || 'indigo',
             images: data.images || [],
-            youtubeUrl: data.youtubeUrl || ''
+            youtubeUrl: data.youtubeUrl || '',
+            marketPrice: data.marketPrice || ''
           });
         });
         setCustomProducts(list);
@@ -444,6 +445,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
       color: product?.color || 'indigo',
       images: product?.images || [],
       youtubeUrl: product?.youtubeUrl || '',
+      marketPrice: product?.marketPrice || '',
       createdAt: new Date()
     });
   };

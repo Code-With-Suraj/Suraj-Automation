@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useUser } from '../contexts/UserContext';
-import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
+import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Sparkles, 
@@ -12,13 +12,17 @@ import {
   BookOpen, 
   Code, 
   ShieldCheck,
-  CreditCard
+  CreditCard,
+  Share2
 } from 'lucide-react';
+import ShareProductModal from './ShareProductModal';
 
 export default function FloatingBuyWidget() {
   const location = useLocation();
-  const { hasPurchased, user } = useUser();
+  const { hasPurchased, user, getProductSolution } = useUser();
   const [active, setActive] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
+
 
   // Parse path to find if we are on a product solution page
   const pathParts = location.pathname.split('/');
@@ -26,7 +30,7 @@ export default function FloatingBuyWidget() {
   const productId = isProductPage ? pathParts[2] : null;
 
   // Retrieve matching configuration
-  const solution = productId ? PRODUCT_SOLUTIONS[productId] : null;
+  const solution = productId ? getProductSolution(productId) : null;
   const isPurchased = solution ? hasPurchased(solution.id) : false;
 
   useEffect(() => {
@@ -69,7 +73,7 @@ export default function FloatingBuyWidget() {
           <div className="flex justify-between items-center mb-4">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
               <Sparkles className="w-3 h-3 text-indigo-400" />
-              {isPurchased ? 'Unlocked' : '70% Limited Off'}
+              {isPurchased ? 'Unlocked' : solution.marketPrice ? `${calculateDiscount(solution.price || '₹1,499', solution.marketPrice)}% Promo Off` : '70% Limited Off'}
             </span>
             <div className="flex items-center gap-1.5">
               <span className={`w-2 h-2 rounded-full ${isPurchased ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400 animate-pulse'}`}></span>
@@ -122,36 +126,54 @@ export default function FloatingBuyWidget() {
             ) : (
               <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 line-through">₹4,999</span>
+                  {solution.marketPrice ? (
+                    <span className="text-[10px] font-bold text-slate-500 line-through">{solution.marketPrice}</span>
+                  ) : (
+                    <span className="text-[10px] font-bold text-slate-500 line-through">₹4,999</span>
+                  )}
                   <span className="text-xl font-black text-white leading-none">{solution.price || '₹1,499'}</span>
                 </div>
-                <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded-md font-bold text-right-align">
-                  One-time buy
-                </span>
+                {solution.marketPrice ? (
+                  <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-black">
+                    {calculateDiscount(solution.price || '₹1,499', solution.marketPrice)}% OFF
+                  </span>
+                ) : (
+                  <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded-md font-bold">
+                    One-time buy
+                  </span>
+                )}
               </div>
             )}
           </div>
 
           {/* CTA Primary Action */}
-          {isPurchased ? (
+          <div className="flex gap-2">
+            {isPurchased ? (
+              <button
+                onClick={handleScrollToCheckout}
+                className="flex-grow py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 hover:-translate-y-0.5 transition-all cursor-pointer"
+              >
+                <BookOpen className="w-4 h-4" />
+                View Manual
+              </button>
+            ) : (
+              <button
+                onClick={handleScrollToCheckout}
+                className="flex-grow py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 hover:shadow-indigo-605/35 hover:-translate-y-0.5 transition-all cursor-pointer"
+              >
+                <CreditCard className="w-4 h-4" />
+                Buy Code & Blueprint
+              </button>
+            )}
             <button
-              onClick={handleScrollToCheckout}
-              className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 hover:-translate-y-0.5 transition-all cursor-pointer"
+              type="button"
+              onClick={() => setIsShareOpen(true)}
+              className="p-3 bg-slate-800 hover:bg-slate-705 border border-slate-700 text-slate-300 hover:text-white rounded-xl transition-all cursor-pointer flex items-center justify-center hover:-translate-y-0.5 shrink-0"
+              title="Share solution promotion card"
             >
-              <BookOpen className="w-4 h-4" />
-              View Handbook & Codes
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1" />
+              <Share2 className="w-4 h-4 text-indigo-400" />
             </button>
-          ) : (
-            <button
-              onClick={handleScrollToCheckout}
-              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 hover:shadow-indigo-605/35 hover:-translate-y-0.5 transition-all cursor-pointer"
-            >
-              <CreditCard className="w-4 h-4" />
-              Buy Code & Blueprint
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          )}
+          </div>
 
           {/* Secure details */}
           <div className="flex items-center justify-center gap-1 mt-3.5 text-[9px] font-bold text-slate-500">
@@ -175,9 +197,11 @@ export default function FloatingBuyWidget() {
               <span className="text-[10px] font-black text-slate-400 truncate max-w-[120px]">
                 {solution.name} Source
               </span>
-              <span className="text-[9px] bg-emerald-500 text-white font-black px-1.5 py-0.2 rounded">
-                70% OFF
-              </span>
+              {isPurchased ? null : (
+                <span className="text-[9px] bg-emerald-500 text-white font-black px-1.5 py-0.2 rounded">
+                  {solution.marketPrice ? `${calculateDiscount(solution.price || '₹1,499', solution.marketPrice)}% OFF` : '70% OFF'}
+                </span>
+              )}
             </div>
             {isPurchased ? (
               <span className="text-xs font-black text-emerald-400 uppercase tracking-wider flex items-center gap-1">
@@ -186,31 +210,58 @@ export default function FloatingBuyWidget() {
             ) : (
               <div className="flex items-baseline gap-1">
                 <span className="text-base font-black text-white">{solution.price || '₹1,499'}</span>
-                <span className="text-[9px] font-bold text-slate-500 line-through">₹4,999</span>
+                {solution.marketPrice ? (
+                  <span className="text-[9px] font-bold text-slate-500 line-through">{solution.marketPrice}</span>
+                ) : (
+                  <span className="text-[9px] font-bold text-slate-500 line-through">₹4,999</span>
+                )}
               </div>
             )}
           </div>
 
           {/* Right Action Trigger */}
-          {isPurchased ? (
+          <div className="flex gap-2 shrink-0">
+            {isPurchased ? (
+              <button
+                onClick={handleScrollToCheckout}
+                className="py-2.5 px-4 bg-emerald-600 text-white rounded-lg font-black text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer"
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                Handbook
+              </button>
+            ) : (
+              <button
+                onClick={handleScrollToCheckout}
+                className="py-2.5 px-3.5 bg-indigo-650 text-white rounded-lg font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+              >
+                <CreditCard className="w-3.5 h-3.5" />
+                Buy Code
+              </button>
+            )}
             <button
-              onClick={handleScrollToCheckout}
-              className="py-2.5 px-4 bg-emerald-600 text-white rounded-lg font-black text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer"
+              type="button"
+              onClick={() => setIsShareOpen(true)}
+              className="p-2.5 bg-slate-800 border border-slate-750 text-slate-350 rounded-lg flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+              aria-label="Share"
             >
-              <BookOpen className="w-3.5 h-3.5" />
-              Handbook
+              <Share2 className="w-4 h-4 text-indigo-400" />
             </button>
-          ) : (
-            <button
-              onClick={handleScrollToCheckout}
-              className="py-2.5 px-4 bg-indigo-650 text-white rounded-lg font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-            >
-              <CreditCard className="w-3.5 h-3.5" />
-              Buy Code
-              <ArrowRight className="w-3 h-3" />
-            </button>
-          )}
+          </div>
         </motion.div>
+
+        <ShareProductModal 
+          isOpen={isShareOpen}
+          onClose={() => setIsShareOpen(false)}
+          product={{
+            id: solution.id,
+            name: solution.name,
+            tagline: solution.tagline,
+            description: solution.description,
+            price: solution.price,
+            marketPrice: solution.marketPrice || undefined,
+            images: solution.images
+          }}
+        />
 
       </div>
     </AnimatePresence>

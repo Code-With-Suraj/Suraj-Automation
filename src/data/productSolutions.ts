@@ -11,6 +11,7 @@ export interface ProductSolution {
   color?: string;
   images?: string[];
   youtubeUrl?: string;
+  marketPrice?: string;
 }
 
 export const PRODUCT_SOLUTIONS: Record<string, ProductSolution> = {
@@ -18,6 +19,7 @@ export const PRODUCT_SOLUTIONS: Record<string, ProductSolution> = {
     id: "rationkart",
     name: "RationKart",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1RationKartTemplateDemo/copy",
     appsScriptCode: `/**
  * RationKart - Complete Grocery Request & Approval System
@@ -159,6 +161,7 @@ function sendEmailAlert(site, reqId, action) {
     id: "vendorsarthi",
     name: "VendorSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1VendorSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * VendorSarthi - Automated Vendor Management & Procurement System
@@ -311,6 +314,7 @@ function sendRFQEmail(vendor, rfqName, token) {
     id: "billsarthi",
     name: "BillSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1BillSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * BillSarthi - Smart Vendor Bill Verification & Entry System
@@ -393,6 +397,7 @@ function getPODetails(poNo) {
     id: "claimo",
     name: "Claimo",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1ClaimoTemplateDemo/copy",
     appsScriptCode: `/**
  * Claimo - Smart Employee Expense & Reimbursement Approval Engine
@@ -501,6 +506,7 @@ function sendNotificationEmail(to, claimId, status) {
     id: "karmsarthi",
     name: "KarmSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1KarmSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * KarmSarthi - Human Resource & Leave Tracking System Backend
@@ -569,6 +575,7 @@ function checkInAttendance(empName, latitude, longitude) {
     id: "cakesarthi",
     name: "CakeSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1CakeSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * CakeSarthi - Auto UPI Invoice Generator & Order Book for Bakeries
@@ -616,6 +623,7 @@ function sendBillSmsAlert(name, contact, cost, orderId) {
     id: "gymsarthi",
     name: "GymSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1GymSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * GymSarthi - Gym Membership Tracker & Automated Renewals Handler
@@ -661,6 +669,7 @@ function sendReminder(email, name, fee) {
     id: "menusarthi",
     name: "MenuSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1MenuSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * MenuSarthi - Digital QR Menu Order Routing System
@@ -698,6 +707,7 @@ function submitTableOrder(tableNumber, dishItems, comment) {
     id: "supplysarthi",
     name: "SupplySarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1SupplySarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * SupplySarthi - Supply & B2B Distribution System Backend
@@ -742,6 +752,7 @@ function recordDistributionSale(partyName, itemsList, billingType) {
     id: "hisabsarthi",
     name: "HisabSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1HisabSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * HisabSarthi - Small Business GST Sales Book Automation
@@ -799,6 +810,7 @@ function logGSTInvoice(invoiceId, party, pan, taxVal, gstRate, state) {
     id: "loansarthi",
     name: "LoanSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1LoanSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * LoanSarthi - Loan Ledger Tracker & Recovery EMI Calculator
@@ -848,6 +860,7 @@ function generateLoanAccount(borrowerName, principal, annualInterestPct, tenureM
     id: "cogs-dashboard",
     name: "Custom COGS Dashboard",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1CogsDashboardTemplateDemo/copy",
     appsScriptCode: `/**
  * Custom COGS Dashboard Aggregator
@@ -890,6 +903,7 @@ function calculateConsolidatedCOGS() {
     id: "stocksarthi",
     name: "StockSarthi",
     price: "₹1,499",
+    marketPrice: "₹4,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1StockSarthiTemplateDemo/copy",
     appsScriptCode: `/**
  * StockSarthi - Real-Time Low Stock Alerter & Inventory Ledger
@@ -934,3 +948,18 @@ function sendLowStockNotification(sku, name, level) {
     ]
   }
 };
+
+export function getNumericPrice(priceStr: string): number {
+  if (!priceStr) return 0;
+  const cleaned = priceStr.replace(/[^0-9.]/g, '');
+  const parsed = parseFloat(cleaned);
+  return isNaN(parsed) ? 0 : parsed;
+}
+
+export function calculateDiscount(priceStr: string, marketPriceStr?: string): number {
+  if (!marketPriceStr) return 0;
+  const price = getNumericPrice(priceStr);
+  const marketPrice = getNumericPrice(marketPriceStr);
+  if (price <= 0 || marketPrice <= 0 || price >= marketPrice) return 0;
+  return Math.round(((marketPrice - price) / marketPrice) * 100);
+}

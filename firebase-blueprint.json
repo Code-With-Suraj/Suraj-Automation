@@ -54,6 +54,7 @@
           "type": "array",
           "items": { "type": "string" }
         },
+        "marketPrice": { "type": "string" },
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["id", "name", "price", "sheetTemplateUrl", "appsScriptCode", "setupSteps", "tagline", "description", "category", "color", "images", "createdAt"]

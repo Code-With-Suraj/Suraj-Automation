@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 import { useUser } from '../contexts/UserContext';
+import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 
 const colorStyles: Record<string, { bg: string, text: string, hoverText: string, buttonBg: string, buttonHoverBg: string }> = {
   indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700', buttonBg: 'bg-indigo-600', buttonHoverBg: 'hover:bg-indigo-700' },
@@ -294,7 +295,12 @@ export default function Products() {
 
   // Add all static products first
   products.forEach(p => {
-    productsMap.set(p.id, p);
+    const solData = PRODUCT_SOLUTIONS[p.id];
+    productsMap.set(p.id, {
+      ...p,
+      price: solData?.price || '₹1,499',
+      marketPrice: solData?.marketPrice || ''
+    });
   });
 
   // Overwrite or append custom products
@@ -303,6 +309,8 @@ export default function Products() {
     productsMap.set(p.id, {
       id: p.id,
       name: p.name,
+      price: p.price || (existing ? existing.price : '₹1,499'),
+      marketPrice: p.marketPrice || (existing ? existing.marketPrice : ''),
       tagline: p.tagline || (existing ? existing.tagline : 'Business Automation & Sheets Blueprint'),
       description: p.description || (existing ? existing.description : 'Google Workspace custom blueprint, automated sheets template and deployment handbook.'),
       icon: existing ? existing.icon : <Package className="w-8 h-8" />,
@@ -432,9 +440,22 @@ export default function Products() {
                           </div>
                         </div>
                         
-                        <p className="text-slate-300 mb-10 text-base md:text-lg lg:text-xl leading-relaxed font-medium">
+                        <p className="text-slate-300 mb-6 text-base md:text-lg lg:text-xl leading-relaxed font-medium">
                           {product.description}
                         </p>
+                        
+                        {/* Price details with Market Price comparison discount */}
+                        <div className="flex items-center gap-3 bg-slate-900/50 border border-slate-800/80 p-3.5 px-5 rounded-2xl mb-8 flex-wrap w-fit">
+                          <span className="text-2xl font-black text-white">{product.price || "₹1,499"}</span>
+                          {product.marketPrice && (
+                            <>
+                              <span className="text-base text-slate-500 line-through font-bold">{product.marketPrice}</span>
+                              <span className="text-xs font-black text-emerald-400 bg-emerald-500/15 border border-emerald-500/20 px-2.5 py-1 rounded-lg">
+                                {calculateDiscount(product.price || "₹1,499", product.marketPrice)}% OFF
+                              </span>
+                            </>
+                          )}
+                        </div>
                         
                         <div className="mt-auto">
                           <Link
@@ -484,9 +505,22 @@ export default function Products() {
                           <h3 className="font-extrabold text-slate-900 tracking-tight text-xl md:text-2xl">{product.name}</h3>
                         </div>
                         <p className={`text-xs font-bold ${styles.text} mb-4 uppercase tracking-wider`}>{product.tagline}</p>
-                        <p className="text-slate-600 mb-8 font-body leading-relaxed flex-grow text-sm md:text-base">
+                        <p className="text-slate-600 mb-4 font-body leading-relaxed flex-grow text-sm md:text-base">
                           {product.description}
                         </p>
+                        
+                        {/* Price details with Market Price comparison discount */}
+                        <div className="flex items-center gap-2 mb-6 flex-wrap">
+                          <span className="text-2xl font-black text-slate-900">{product.price || "₹1,499"}</span>
+                          {product.marketPrice && (
+                            <>
+                              <span className="text-sm text-slate-400 line-through font-bold">{product.marketPrice}</span>
+                              <span className={`text-[10px] font-black px-2 py-0.5 rounded ${styles.bg} ${styles.text} border border-slate-150`}>
+                                {calculateDiscount(product.price || "₹1,499", product.marketPrice)}% OFF
+                              </span>
+                            </>
+                          )}
+                        </div>
                         <div>
                           <Link
                             to={`/products/${product.id}`}

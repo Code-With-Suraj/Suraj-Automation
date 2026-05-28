@@ -15,7 +15,7 @@ import {
   CreditCard,
   AlertCircle
 } from 'lucide-react';
-import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
+import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 import { useUser } from '../contexts/UserContext';
 
 interface RazorpayCheckoutProps {
@@ -293,9 +293,13 @@ export default function RazorpayCheckout({ productId }: RazorpayCheckoutProps) {
                     <Lock className="w-5 h-5" />
                   </div>
                   
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-bold text-slate-400 line-through">₹4,999</span>
-                    <span className="text-xs font-black bg-emerald-500 text-white px-2 py-0.5 rounded-full">70% OFF</span>
+                  <div className="flex items-center gap-2 mb-1.5 flex-wrap justify-center">
+                    <span className="text-sm font-bold text-slate-400 line-through">
+                      {solution.marketPrice || '₹4,999'}
+                    </span>
+                    <span className="text-xs font-black bg-emerald-500 text-white px-2 py-0.5 rounded-full">
+                      {calculateDiscount(solution.price || '₹1,499', solution.marketPrice || '₹4,999')}% OFF
+                    </span>
                   </div>
                   
                   <span className="text-4xl font-black text-slate-900 dark:text-white leading-none tracking-tight mb-2">

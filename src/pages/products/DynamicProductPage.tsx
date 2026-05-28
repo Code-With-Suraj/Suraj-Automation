@@ -4,11 +4,14 @@ import { motion } from 'motion/react';
 import { 
   ShoppingCart, AlertTriangle, CheckCircle2, ListChecks, 
   History, Upload, Users, ArrowRight, RefreshCcw, 
-  Copy, FileText, Check, ChevronLeft, Eye, Lock, Youtube
+  Copy, FileText, Check, ChevronLeft, Eye, Lock, Youtube,
+  Share2
 } from 'lucide-react';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
+import { calculateDiscount } from '../../data/productSolutions';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
+import ShareProductModal from '../../components/ShareProductModal';
 
 function getYoutubeId(url: string | undefined): string | null {
   if (!url) return null;
@@ -22,15 +25,23 @@ export default function DynamicProductPage() {
   const navigate = useNavigate();
   const { getProductSolution, hasPurchased, user, login } = useUser();
   const [copied, setCopied] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   const product = productId ? getProductSolution(productId) : null;
   const isPurchased = productId ? hasPurchased(productId) : false;
 
   useSEO(
-    product ? `${product.name} | Automation Solution` : 'Product Details',
+    product ? `${product.name} — ${product.tagline || 'Business Automation Tool'}` : 'Product Details',
     product ? product.description || `Automated spreadsheet and scripting solutions for ${product.name}` : 'Details regarding automation tools.',
-    'google apps script, sheets automation, workflow management'
+    'google apps script, sheets automation, workflow management',
+    product?.images?.[0] || undefined,
+    product ? {
+      price: product.price,
+      marketPrice: product.marketPrice || undefined,
+      discount: calculateDiscount(product.price, product.marketPrice)
+    } : undefined
   );
+
 
   if (!product) {
     return (
@@ -118,6 +129,14 @@ export default function DynamicProductPage() {
                 >
                   Book 1-on-1 WhatsApp Demo
                 </a>
+                <button
+                  type="button"
+                  onClick={() => setIsShareOpen(true)}
+                  className="inline-flex px-8 py-4 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Share2 className="w-5 h-5 text-indigo-400" />
+                  Share & Promote
+                </button>
               </div>
             </motion.div>
           </div>
@@ -213,9 +232,17 @@ export default function DynamicProductPage() {
               </div>
             </div>
 
-            <div className="flex items-baseline gap-2 mb-8">
-              <span className="text-5xl font-extrabold text-slate-950">{product.price}</span>
-              <span className="text-slate-500 font-semibold uppercase text-sm tracking-widest">One-time payment</span>
+            <div className="flex items-baseline gap-3 mb-8 flex-wrap">
+              <span className="text-4xl md:text-5xl font-extrabold text-slate-950 tracking-tight">{product.price}</span>
+              {product.marketPrice && (
+                <>
+                  <span className="text-2xl text-slate-400 line-through font-bold">{product.marketPrice}</span>
+                  <span className="inline-flex items-center px-3.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-black rounded-lg border border-emerald-250 uppercase tracking-wider animate-pulse">
+                    Save {calculateDiscount(product.price, product.marketPrice)}% Now
+                  </span>
+                </>
+              )}
+              <span className="text-slate-500 font-semibold uppercase text-xs tracking-wider block w-full mt-1.5">One-time billing • Lifetime Updates</span>
             </div>
 
             {isPurchased ? (
@@ -396,6 +423,20 @@ export default function DynamicProductPage() {
           )}
         </div>
       </section>
+      
+      <ShareProductModal 
+        isOpen={isShareOpen} 
+        onClose={() => setIsShareOpen(false)} 
+        product={{
+          id: product.id,
+          name: product.name,
+          tagline: product.tagline,
+          description: product.description,
+          price: product.price,
+          marketPrice: product.marketPrice || undefined,
+          images: product.images
+        }}
+      />
     </main>
   );
 }
