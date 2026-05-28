@@ -963,3 +963,163 @@ export function calculateDiscount(priceStr: string, marketPriceStr?: string): nu
   if (price <= 0 || marketPrice <= 0 || price >= marketPrice) return 0;
   return Math.round(((marketPrice - price) / marketPrice) * 100);
 }
+
+export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; description: string; category: string; color: string; images: string[] }> = {
+  loansarthi: {
+    tagline: "Smart Finance & Recovery Control System",
+    description: "Small finance businesses ke liye powerful, mobile-first loan management system. Loan create, EMI track, recovery manage, and reports all in one dashboard.",
+    category: "Accounting & Finance",
+    color: "indigo",
+    images: [
+      "https://blogger.googleusercontent.com/img/a/AVvXsEh5zZHbpxiw_k6uVI42WF3xsmx5ufKvjLCZmmNF7Wx1w3JXIFvgHSu6IQuiigrjGxnmzU99q-ZLe143TGx1uqJwdDWgBGzvwXLdcatbImKrD8TRKda9y4PnW6m_88uEs9JmwklolKLHhMnD4dFrJ3fxBXKncoDZyu4YPXgZ5vGfLE2vSbNUXEH-iHeUVbw=s16000",
+      "https://blogger.googleusercontent.com/img/a/AVvXsEhRwZ7jr27Aex3DkMF2H3BqRhc2BniAv718FR-O7y1mWKbbzapoAqoduJwO8XXHt6SrsBzDMSDkiro4eeIszkMkAfvEOaPUaE-RTywgxYtQ2YBir6qwPcQXq83P9ediOyHf9SU1SBQgqWRDr5Matusd3oyXCyWBCiNjRI4DRxc_NlvPPnkgzmq0QNweP6M=s16000",
+      "https://blogger.googleusercontent.com/img/a/AVvXsEgTKZ12p4akvWrmyqk_VoUqoFnEeLqd6cT2S24OXfzFtuQA7TVlUM4Z6mxG7_ygK4HMAGAMwisyw_AE53vzOAesgi9jrPbcXkrxk6-VhNvtEbz9Fq9apnLCkhY3ikuJIXEbD5nsbygZj4cWjTejZ4brVn7qhqyJ77WWqBUO-TJss-SeXbV5nGEz-T4Z6eo=s16000"
+    ]
+  },
+  supplysarthi: {
+    tagline: "Complete Supply & Distribution Management System",
+    description: "Stop taking orders on WhatsApp. Manage your entire supply business in one Google Sheet-based system—from orders to GST invoices. Pay once, use for a lifetime.",
+    category: "Retail & Supply",
+    color: "teal",
+    images: [
+      "/images/products/supplysarthi1.jpg",
+      "/images/products/supplysarthi2.jpg",
+      "/images/products/supplysarthi3.jpg"
+    ]
+  },
+  "cogs-dashboard": {
+    tagline: "Automated COGS Reporting & AI Profit Dashboard",
+    description: "Stop guessing your profit margins. A highly powerful COGS reporting web application built on Google Workspace that automates multi-branch cost tracking with AI-driven insights.",
+    category: "Accounting & Finance",
+    color: "amber",
+    images: [
+      "/images/products/cogs-dashboard1.jpg",
+      "/images/products/cogs-dashboard2.jpg",
+      "/images/products/cogs-dashboard3.jpg"
+    ]
+  },
+  hisabsarthi: {
+    tagline: "Google Sheets-based GST Accounting Tool",
+    description: "Ditch Tally and complex ERPs. HisabSarthi is a simple, affordable GST invoicing and accounting system built for Indian small businesses. 100% data control in your Google Drive.",
+    category: "Accounting & Finance",
+    color: "blue",
+    images: [
+      "/images/products/hisabsarthi1.jpg",
+      "/images/products/hisabsarthi2.jpg",
+      "/images/products/hisabsarthi3.jpg"
+    ]
+  },
+  rationkart: {
+    tagline: "Store Se Site Tak – Complete Digital Ordering & Approval System",
+    description: "A simple and powerful web app that helps grocery stores, kirana shops, and small retail businesses manage item requests, approvals, and stock in one place.",
+    category: "Retail & Supply",
+    color: "indigo",
+    images: [
+      "/images/products/rationkart1.jpg",
+      "/images/products/rationkart2.jpg",
+      "/images/products/rationkart3.jpg"
+    ]
+  },
+  stocksarthi: {
+    tagline: "Stock Management System for Small Business",
+    description: "Take full control of your stock without Excel confusion. A simple inventory management software and stock tracking system using Google Sheets built for growing businesses.",
+    category: "Inventory",
+    color: "emerald",
+    images: [
+      "/images/products/stocksarthi1.jpg",
+      "/images/products/stocksarthi2.jpg",
+      "/images/products/stocksarthi3.jpg"
+    ]
+  },
+  billsarthi: {
+    tagline: "Smart Vendor Bill Management System for Growing Businesses",
+    description: "Bills with errors? Accounts team rejecting entries? Not anymore. BillSarthi is a smart web-based billing system that helps store teams enter vendor bills correctly — the first time.",
+    category: "Accounting & Finance",
+    color: "blue",
+    images: [
+      "/images/products/billsarthi1.jpg",
+      "/images/products/billsarthi2.jpg",
+      "/images/products/billsarthi3.jpg"
+    ]
+  },
+  claimo: {
+    tagline: "Smart Expense & Reimbursement Management System",
+    description: "Tired of Excel expense sheets and approval delays? Claimo brings structure, transparency, and speed to your entire expense process.",
+    category: "HR & Management",
+    color: "amber",
+    images: [
+      "/images/products/claimo1.jpg",
+      "/images/products/claimo2.jpg",
+      "/images/products/claimo3.jpg"
+    ]
+  },
+  karmsarthi: {
+    tagline: "HR Management System for Small Business",
+    description: "Stop managing HR on Excel & WhatsApp. KarmSarthi is an employee management system for SMBs that handles your daily HR operations in one structured platform.",
+    category: "HR & Management",
+    color: "purple",
+    images: [
+      "/images/products/karmsarthi1.jpg",
+      "/images/products/karmsarthi2.jpg",
+      "/images/products/karmsarthi3.jpg"
+    ]
+  },
+  cakesarthi: {
+    tagline: "Complete Online Ordering & Growth System for Bakeries",
+    description: "Turn your local bakery into a smart online business. CakeSarthi gives you your own online cake ordering website, smart checkout, UPI payments, and an owner dashboard.",
+    category: "Food & Beverage",
+    color: "rose",
+    images: [
+      "/images/products/cakesarthi1.jpg",
+      "/images/products/cakesarthi2.jpg",
+      "/images/products/cakesarthi3.jpg"
+    ]
+  },
+  gymsarthi: {
+    tagline: "Gym Management System for Small Gym",
+    description: "Stop running your gym on register & memory. GymSarthi is a simple gym member tracking system and fee management system specially built for Indian gym owners.",
+    category: "Health & Fitness",
+    color: "orange",
+    images: [
+      "/images/products/gymsarthi1.jpg",
+      "/images/products/gymsarthi2.jpg",
+      "/images/products/gymsarthi3.jpg"
+    ]
+  },
+  menusarthi: {
+    tagline: "Digital Menu for Restaurant & QR Ordering System",
+    description: "Turn your restaurant into a smart digital ordering system. MenuSarthi gives you your own premium digital menu and restaurant online ordering system without heavy commissions.",
+    category: "Food & Beverage",
+    color: "red",
+    images: [
+      "/images/products/menusarthi1.jpg",
+      "/images/products/menusarthi2.jpg",
+      "/images/products/menusarthi3.jpg"
+    ]
+  },
+  vendorsarthi: {
+    tagline: "Smart Vendor Management System",
+    description: "A complete Vendor Management System built entirely on Google Sheets to end manual RFQs, WhatsApp quotes, and Excel comparisons.",
+    category: "Retail & Supply",
+    color: "teal",
+    images: [
+      "/images/products/vendorsarthi1.jpg",
+      "/images/products/vendorsarthi2.jpg",
+      "/images/products/vendorsarthi3.jpg"
+    ]
+  }
+};
+
+// Decorate the product solutions dynamically
+Object.keys(PRODUCT_CATALOG_METADATA).forEach((id) => {
+  const p = PRODUCT_SOLUTIONS[id];
+  if (p) {
+    const meta = PRODUCT_CATALOG_METADATA[id];
+    p.tagline = meta.tagline;
+    p.description = meta.description;
+    p.category = meta.category;
+    p.color = meta.color;
+    p.images = meta.images;
+  }
+});
+

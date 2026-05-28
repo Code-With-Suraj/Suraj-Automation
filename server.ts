@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
+import { PRODUCT_SOLUTIONS } from './src/data/productSolutions';
 
 // Hardcoded fallbacks provided by user for instant out-of-the-box live functionality
 const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || 'rzp_live_Sugpl07IegaqDU';
@@ -118,9 +120,108 @@ async function startServer() {
     }
   });
 
+  let vite: any = null;
+
+  // Intercept product routes to dynamically inject SEO Meta tags for social media preview indexers
+  app.get('/products/:id', async (req, res, next) => {
+    try {
+      const productId = req.params.id;
+      const lookupId = productId ? productId.toLowerCase() : '';
+      const product = PRODUCT_SOLUTIONS[lookupId];
+
+      if (!product) {
+        return next();
+      }
+
+      const isProd = process.env.NODE_ENV === "production";
+      const htmlPath = isProd 
+        ? path.join(process.cwd(), 'dist', 'index.html')
+        : path.join(process.cwd(), 'index.html');
+
+      if (!fs.existsSync(htmlPath)) {
+        return next();
+      }
+
+      let html = fs.readFileSync(htmlPath, 'utf-8');
+
+      // Resolve development Vite compilation wrapper
+      if (!isProd && vite) {
+        html = await vite.transformIndexHtml(req.originalUrl, html);
+      }
+
+      // Format dynamic SEO descriptions
+      const priceStr = product.price || '₹1,499';
+      const marketPriceStr = product.marketPrice || '₹4,999';
+      
+      const cleanPrice = parseInt(priceStr.replace(/[^\d]/g, ''), 10) || 1499;
+      const cleanMarketPrice = parseInt(marketPriceStr.replace(/[^\d]/g, ''), 10) || 4999;
+      const discount = Math.round(((cleanMarketPrice - cleanPrice) / cleanMarketPrice) * 100);
+
+      const titleStr = `${product.name} — ${product.tagline || 'Business Automation Tool'} | Suraj Automation`;
+      const descriptionStr = `🔥 Special Discount: Get @ ${priceStr} (${discount}% OFF, MRP: ${marketPriceStr}) — ${product.description || 'Google Workspace Apps Script workflows.'}`;
+      const keywordsStr = `${product.name}, google apps script solutions, sheet automation system, workflow integration dashboard`;
+
+      // Pick the primary preview image
+      const primaryImg = product.images && product.images.length > 0
+        ? product.images[0]
+        : 'https://blogger.googleusercontent.com/img/a/AVvXsEh5zZHbpxiw_k6uVI42WF3xsmx5ufKvjLCZmmNF7Wx1w3JXIFvgHSu6IQuiigrjGxnmzU99q-ZLe143TGx1uqJwdDWgBGzvwXLdcatbImKrD8TRKda9y4PnW6m_88uEs9JmwklolKLHhMnD4dFrJ3fxBXKncoDZyu4YPXgZ5vGfLE2vSbNUXEH-iHeUVbw=s16000';
+
+      const host = req.headers.host || 'surajdx.com';
+      const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+      const origin = `${protocol}://${host}`;
+      
+      const absoluteImgUrl = primaryImg.startsWith('http') 
+        ? primaryImg 
+        : `${origin}${primaryImg}`;
+      const absoluteProductUrl = `${origin}/products/${productId}`;
+
+      // Open Graph structure for WhatsApp, LinkedIn, Facebook, Discord, Slack
+      const seoMetaTags = `
+    <!-- Dynamic Social Media SEO Injection -->
+    <title>${titleStr}</title>
+    <meta name="description" content="${descriptionStr}" />
+    <meta name="keywords" content="${keywordsStr}" />
+    
+    <meta property="og:title" content="${titleStr}" />
+    <meta property="og:description" content="${descriptionStr}" />
+    <meta property="og:image" content="${absoluteImgUrl}" />
+    <meta property="og:image:secure_url" content="${absoluteImgUrl}" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="${absoluteProductUrl}" />
+    <meta property="og:site_name" content="Suraj Automation" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${titleStr}" />
+    <meta name="twitter:description" content="${descriptionStr}" />
+    <meta name="twitter:image" content="${absoluteImgUrl}" />
+      `;
+
+      // Clean existing tags to prevent dual title/descriptions
+      html = html.replace(/<title>[\s\S]*?<\/title>/i, '');
+      html = html.replace(/<meta\s+name="description"[\s\S]*?\/>/i, '');
+      html = html.replace(/<meta\s+name="keywords"[\s\S]*?\/>/i, '');
+
+      // Inject clean SEO tags at top of <head> block
+      if (html.includes('<head>')) {
+        html = html.replace('<head>', `<head>\n${seoMetaTags}`);
+      } else {
+        html = html.replace('</head>', `${seoMetaTags}\n</head>`);
+      }
+
+      res.setHeader('Content-Type', 'text/html');
+      res.send(html);
+    } catch (err) {
+      console.error(`Error servicing dynamic product SEO for ${req.params.id}:`, err);
+      next();
+    }
+  });
+
   // Serve static files in production / Vite middleware in development
   if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
+    vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
