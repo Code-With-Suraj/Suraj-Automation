@@ -80,8 +80,21 @@ async function startServer() {
       if (!razorpayResponse.ok) {
         const errorText = await razorpayResponse.text();
         console.error('Razorpay Order Creation Failed:', errorText);
+        
+        let customMessage = 'Razorpay payment generation failed';
+        try {
+          const parsed = JSON.parse(errorText);
+          if (parsed && parsed.error && parsed.error.description) {
+            customMessage = `Razorpay API: ${parsed.error.description}`;
+          } else if (parsed && parsed.error && parsed.error.metadata) {
+            customMessage = `Razorpay API Error: ${JSON.stringify(parsed.error.metadata)}`;
+          }
+        } catch (_) {
+          customMessage = `Razorpay Connectivity Error: ${errorText.substring(0, 120)}`;
+        }
+
         res.status(500).json({ 
-          error: 'Razorpay payment generation failed', 
+          error: customMessage, 
           details: errorText,
           fallbackToClientMock: true // Graceful response if keys expire or fail
         });
