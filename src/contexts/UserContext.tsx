@@ -117,7 +117,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
             color: data.color || 'indigo',
             images: data.images || [],
             youtubeUrl: data.youtubeUrl || '',
-            marketPrice: data.marketPrice || ''
+            marketPrice: data.marketPrice || '',
+            isHidden: !!data.isHidden
           });
         });
         setCustomProducts(list);
@@ -332,6 +333,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
         setOtpError("Must be a valid international phone number (e.g. +91 99999 99999)");
       } else if (err.code === 'auth/too-many-requests') {
         setOtpError("Too many SMS requests sent. Please try again later.");
+      } else if (err.code === 'auth/billing-not-enabled' || (err.message && err.message.includes('billing-not-enabled'))) {
+        setOtpError("Firebase Phone Login currently requires the owner to upgrade to the Blaze Plan. Please use Google Login instead to continue.");
       } else {
         setOtpError(err.message || "Failed to send OTP verification code. Try again.");
       }
@@ -446,6 +449,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
       images: product?.images || [],
       youtubeUrl: product?.youtubeUrl || '',
       marketPrice: product?.marketPrice || '',
+      isHidden: !!product.isHidden,
       createdAt: new Date()
     });
   };

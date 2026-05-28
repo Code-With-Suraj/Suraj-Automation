@@ -12,6 +12,7 @@ export interface ProductSolution {
   images?: string[];
   youtubeUrl?: string;
   marketPrice?: string;
+  isHidden?: boolean;
 }
 
 export const PRODUCT_SOLUTIONS: Record<string, ProductSolution> = {

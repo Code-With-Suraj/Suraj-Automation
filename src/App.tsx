@@ -29,6 +29,8 @@ import VendorSarthi from './pages/products/VendorSarthi';
 import DynamicProductPage from './pages/products/DynamicProductPage';
 import AdminPortal from './pages/AdminPortal';
 import RoiTool from './pages/RoiTool';
+import Terms from './pages/Terms';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FloatingBuyWidget from './components/FloatingBuyWidget';
 import ScrollToTop from './components/ScrollToTop';
@@ -64,6 +66,8 @@ export default function App() {
               <Route path="/admin" element={<AdminPortal />} />
               <Route path="/roi-tool" element={<RoiTool />} />
               <Route path="/products/:productId" element={<DynamicProductPage />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>
           </div>
           <Footer />

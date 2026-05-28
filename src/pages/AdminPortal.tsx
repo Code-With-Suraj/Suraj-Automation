@@ -29,6 +29,7 @@ export default function AdminPortal() {
   const [imageInput, setImageInput] = useState('');
   const [formImages, setFormImages] = useState<string[]>([]);
   const [formYoutubeUrl, setFormYoutubeUrl] = useState('');
+  const [formIsHidden, setFormIsHidden] = useState(false);
 
   // Feedback states
   const [errorMsg, setErrorMsg] = useState('');
@@ -110,6 +111,7 @@ export default function AdminPortal() {
     setFormSteps(p.setupSteps || []);
     setFormImages(p.images || []);
     setFormYoutubeUrl(p.youtubeUrl || '');
+    setFormIsHidden(!!p.isHidden);
     setErrorMsg('');
     setSuccessMsg('');
   };
@@ -131,6 +133,7 @@ export default function AdminPortal() {
     setFormYoutubeUrl('');
     setStepsInput('');
     setImageInput('');
+    setFormIsHidden(false);
     setErrorMsg('');
     setSuccessMsg('');
   };
@@ -160,7 +163,8 @@ export default function AdminPortal() {
         category: formCategory,
         setupSteps: formSteps,
         images: formImages,
-        youtubeUrl: formYoutubeUrl.trim()
+        youtubeUrl: formYoutubeUrl.trim(),
+        isHidden: formIsHidden
       });
 
       setSuccessMsg(editingId ? 'Product customized successfully!' : 'New Automation deployed successfully!');
@@ -408,6 +412,20 @@ export default function AdminPortal() {
                 <p className="text-xs text-slate-500 mt-1">Enter a YouTube tutorial link detailing the setup configuration for this product.</p>
               </div>
 
+              {/* Visibility Toggle */}
+              <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                <input 
+                  type="checkbox"
+                  id="formIsHidden"
+                  checked={formIsHidden}
+                  onChange={(e) => setFormIsHidden(e.target.checked)}
+                  className="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500"
+                />
+                <label htmlFor="formIsHidden" className="text-sm font-bold text-slate-700 cursor-pointer">
+                  Hide product from live website catalog
+                </label>
+              </div>
+
               {/* Steps input */}
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">Installation Handbook Guidelines</label>
@@ -531,7 +549,12 @@ export default function AdminPortal() {
                     <div key={legacyProd.id} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-3">
                       <div>
                         <div className="flex items-center justify-between gap-2">
-                          <h5 className="font-extrabold text-slate-950 text-base">{displayProduct.name}</h5>
+                          <h5 className="font-extrabold text-slate-950 text-base">
+                            {displayProduct.name}
+                            {displayProduct.isHidden && (
+                              <span className="ml-2 text-[10px] bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-bold uppercase">Hidden</span>
+                            )}
+                          </h5>
                           {isActiveOverride ? (
                             <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
                               Override Active (Live)
@@ -606,7 +629,12 @@ export default function AdminPortal() {
                     <div key={p.id} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-3">
                       <div>
                         <div className="flex items-center justify-between">
-                          <h5 className="font-extrabold text-slate-950 text-base">{p.name}</h5>
+                          <h5 className="font-extrabold text-slate-950 text-base">
+                            {p.name}
+                            {p.isHidden && (
+                              <span className="ml-2 text-[10px] bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-bold uppercase">Hidden</span>
+                            )}
+                          </h5>
                           <span className="text-[10px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-full">
                             Database Live
                           </span>

@@ -321,11 +321,12 @@ export default function Products() {
       popularity: existing ? existing.popularity : 30,
       images: p.images && p.images.length > 0 ? p.images : (existing ? existing.images : [
         'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
-      ])
+      ]),
+      isHidden: !!p.isHidden
     });
   });
 
-  const mergedProducts = Array.from(productsMap.values());
+  const mergedProducts = Array.from(productsMap.values()).filter(p => !p.isHidden);
 
   const categories = ['All', ...Array.from(new Set(mergedProducts.map(p => p.category)))];
 

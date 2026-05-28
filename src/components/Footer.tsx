@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4 group">
               <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-white font-bold shadow-[0_4px_12px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform border border-slate-700/50">
@@ -35,6 +35,13 @@ export default function Footer() {
               <li><Link to="/products" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Products</Link></li>
               <li><Link to="/about" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>About</Link></li>
               <li><Link to="/pricing" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Pricing</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white font-semibold mb-4 tracking-wide uppercase text-sm">Legal</h4>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/terms" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Terms and Policy</Link></li>
+              <li><Link to="/privacy-policy" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Privacy Policy</Link></li>
             </ul>
           </div>
           <div>

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator } from 'lucide-react';
+import { useUser } from '../contexts/UserContext';
 
 const colorStyles: Record<string, { bg: string, text: string, hoverText: string }> = {
   indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700' },
@@ -15,6 +16,7 @@ const colorStyles: Record<string, { bg: string, text: string, hoverText: string 
 };
 
 export default function ProductsSection() {
+  const { customProducts } = useUser();
 
   const products = [
     {
@@ -134,7 +136,7 @@ export default function ProductsSection() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {products.slice(0, 3).map((product, idx) => {
+          {products.filter(p => !customProducts.find((cp: any) => cp.id === p.id)?.isHidden).slice(0, 3).map((product, idx) => {
             const styles = colorStyles[product.color];
             const isFeatured = product.featured;
             
