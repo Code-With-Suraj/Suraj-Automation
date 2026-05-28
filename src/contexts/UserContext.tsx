@@ -18,6 +18,8 @@ import {
 } from 'firebase/firestore';
 import { auth, db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { PRODUCT_SOLUTIONS, ProductSolution } from '../data/productSolutions';
+import { X, Copy, Check, ExternalLink, AlertTriangle, Globe } from 'lucide-react';
+import { firebaseConfig } from '../lib/firebaseConfig';
 
 interface UserProfile {
   uid: string;
@@ -70,6 +72,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [purchases, setPurchases] = useState<PurchaseRecord[]>([]);
   const [customProducts, setCustomProducts] = useState<ProductSolution[]>([]);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState<{ code: string; message: string; hostname: string } | null>(null);
+  const [copiedHost, setCopiedHost] = useState(false);
 
   const isAdmin = user?.email === 'surajsingh.noida98@gmail.com';
 
@@ -213,12 +217,19 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   const login = async () => {
     setLoading(true);
+    setAuthError(null);
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       return result.user;
-    } catch (e) {
+    } catch (e: any) {
       setLoading(false);
+      console.error("Firebase Sign-In Error caught:", e);
+      setAuthError({
+        code: e?.code || 'unknown-error',
+        message: e?.message || String(e),
+        hostname: window.location.hostname
+      });
       throw e;
     }
   };
@@ -328,6 +339,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const handleCopyHost = () => {
+    if (authError?.hostname) {
+      navigator.clipboard.writeText(authError.hostname);
+      setCopiedHost(true);
+      setTimeout(() => setCopiedHost(false), 2000);
+    }
+  };
+
   return (
     <UserContext.Provider value={{ 
       user, 
@@ -345,6 +364,92 @@ export function UserProvider({ children }: { children: ReactNode }) {
       getProductSolution
     }}>
       {children}
+
+      {/* Elegant, Premium Authorization Help Dialog Overlay */}
+      {authError && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in text-slate-900 dark:text-white">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] w-full max-w-lg p-6 md:p-8 shadow-2xl relative flex flex-col max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setAuthError(null)}
+              className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-650 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+              aria-label="Close Error dialog"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-start gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+              <div className="w-12 h-12 bg-amber-50 dark:bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center shrink-0 border border-amber-100 dark:border-amber-505/20">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-black tracking-tight text-slate-905 dark:text-white">
+                  Google Login Error Help
+                </h3>
+                <p className="text-[11px] font-mono font-bold text-rose-500 mt-1 uppercase tracking-wide">
+                  CODE: {authError.code}
+                </p>
+              </div>
+            </div>
+
+            <div className="py-5 space-y-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+              <p>
+                To secure your data, Google Sign-In requires your deployed website domain to be approved in your Firebase Authentication configuration.
+              </p>
+
+              <div className="space-y-2 bg-slate-50 dark:bg-slate-950/40 border border-slate-200/60 dark:border-slate-800 p-4 rounded-xl">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">Step 1: Copy Your Current Domain</span>
+                <div className="flex items-center justify-between gap-3 bg-white dark:bg-slate-900 px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-850">
+                  <span className="font-mono text-xs text-indigo-650 dark:text-indigo-400 break-all select-all">{authError.hostname}</span>
+                  <button
+                    onClick={handleCopyHost}
+                    className="shrink-0 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-505 dark:text-slate-400 rounded-lg transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                  >
+                    {copiedHost ? (
+                      <Check className="w-4 h-4 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-2 bg-slate-50 dark:bg-slate-950/40 border border-slate-200/60 dark:border-slate-800 p-4 rounded-xl">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">Step 2: Add it to Firebase Console</span>
+                <p className="text-xs text-slate-550 dark:text-slate-400 font-medium">
+                  Add this domain to the <strong className="text-slate-900 dark:text-white font-bold">Authorized domains</strong> list in your Firebase Console under:
+                  <br />
+                  <span className="font-mono text-[11px] text-indigo-500 block mt-1">Authentication → Settings → Authorized domains</span>
+                </p>
+                <a
+                  href={`https://console.firebase.google.com/project/${firebaseConfig.projectId}/authentication/providers`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full mt-2 inline-flex items-center justify-center gap-2 py-2.5 border border-indigo-200 hover:border-indigo-300 bg-indigo-50/50 hover:bg-indigo-50 transition-colors text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 dark:border-indigo-500/20 dark:hover:bg-indigo-505/20 rounded-xl text-xs font-bold cursor-pointer"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Open Firebase Authorizations Console
+                </a>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-orange-50 dark:bg-orange-950/10 border border-orange-100 dark:border-orange-950/20 gap-2.5 flex items-start">
+                <Globe className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+                <p className="text-[12px] text-orange-600 dark:text-orange-400 font-medium">
+                  <strong>Notice (AI Studio Iframe Constraints):</strong> Some browsers block popups inside code editor iframes. Simply click the <strong>"Open in New Tab"</strong> icon on the top right above the app review, and try signing in again there.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+              <button
+                onClick={() => setAuthError(null)}
+                className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 dark:text-slate-950 text-white rounded-xl font-bold text-xs transition-transform cursor-pointer hover:scale-[1.02]"
+              >
+                Dismiss Help
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </UserContext.Provider>
   );
 }
