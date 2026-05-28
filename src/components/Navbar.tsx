@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDarkMode } from '../hooks/useDarkMode';
+import { useUser } from '../contexts/UserContext';
 
 export default function Navbar() {
+  const { isAdmin } = useUser();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -60,6 +62,11 @@ export default function Navbar() {
             <Link to="/about" className={`font-medium transition-colors ${location.pathname === '/about' ? activeClass : textClass}`}>About</Link>
             <Link to="/contact" className={`font-medium transition-colors ${location.pathname === '/contact' ? activeClass : textClass}`}>Contact</Link>
             <Link to="/pricing" className={`font-medium transition-colors ${location.pathname === '/pricing' ? activeClass : textClass}`}>Pricing</Link>
+            <Link to="/portal" className={`font-medium transition-colors ${location.pathname === '/portal' ? activeClass : textClass}`}>My Portal</Link>
+            
+            {isAdmin && (
+              <Link to="/admin" className={`font-medium transition-colors ${location.pathname === '/admin' ? activeClass : textClass}`}>Admin Workspace</Link>
+            )}
             
             <button 
               onClick={toggleDark}
@@ -112,6 +119,10 @@ export default function Navbar() {
           <Link to="/about" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/about' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>About</Link>
           <Link to="/contact" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/contact' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Contact</Link>
           <Link to="/pricing" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/pricing' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Pricing</Link>
+          <Link to="/portal" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/portal' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>My Portal</Link>
+          {isAdmin && (
+            <Link to="/admin" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/admin' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Admin Workspace</Link>
+          )}
           <a 
             href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
             target="_blank" 

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ShoppingCart, AlertTriangle, CheckCircle2, ListChecks, History, Upload, Users, Store, TrendingUp, Settings, ArrowRight, MessageSquare, Target, Clock, RefreshCcw, Database } from 'lucide-react';
 import { useSEO } from '../../hooks/useSEO';
+import RazorpayCheckout from '../../components/RazorpayCheckout';
 
 export default function RationKart() {
   useSEO(
@@ -327,6 +328,17 @@ export default function RationKart() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Razorpay Integration */}
+      <section className="bg-slate-50 dark:bg-slate-900/10 py-12 border-t border-b border-slate-200/50 dark:border-slate-800/50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Buy Source Code & Blueprint</h2>
+            <p className="text-slate-600 dark:text-slate-400 font-medium">Get lifetime access to the audited Google Workspace code & template setup guide instantly.</p>
+          </div>
+          <RazorpayCheckout productId="rationkart" />
         </div>
       </section>
 

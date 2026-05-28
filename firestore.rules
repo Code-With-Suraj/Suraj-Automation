@@ -1,0 +1,102 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation functions
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['uid', 'email', 'displayName', 'photoURL', 'createdAt', 'updatedAt'])
+        && data.keys().size() == 6
+        && data.uid is string && data.uid.size() <= 128
+        && data.email is string && data.email.size() <= 256
+        && data.displayName is string && data.displayName.size() <= 256
+        && data.photoURL is string && data.photoURL.size() <= 2048
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // Purchase record should be valid. Allowed fields must match the DB schemas exactly.
+    function isValidPurchaseRecord(data) {
+      return data.keys().hasAll(['userId', 'email', 'productId', 'productName', 'amount', 'currency', 'paymentId', 'orderId', 'status', 'createdAt'])
+        && data.keys().size() == 10
+        && data.userId is string && data.userId.size() <= 128
+        && data.email is string && data.email.size() <= 256
+        && data.productId is string && data.productId.size() <= 128
+        && data.productName is string && data.productName.size() <= 256
+        && data.amount is int
+        && data.currency is string && data.currency.size() <= 10
+        && data.paymentId is string && data.paymentId.size() <= 128
+        && data.orderId is string && data.orderId.size() <= 128
+        && data.status is string && data.status.size() <= 64
+        && data.createdAt is timestamp;
+    }
+
+    // Match users profile documents
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) 
+        && isValidUserProfile(incoming())
+        && incoming().uid == request.auth.uid;
+      allow update: if isOwner(userId)
+        && isValidUserProfile(incoming())
+        && incoming().uid == existing().uid
+        && incoming().createdAt == existing().createdAt;
+      allow delete: if false;
+    }
+
+    // Match purchases history documents
+    match /purchases/{purchaseId} {
+      // User can only read their own purchase history
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      
+      // Secure creation for authenticated owner
+      allow create: if isSignedIn() 
+        && isValidId(purchaseId)
+        && isValidPurchaseRecord(incoming())
+        && incoming().userId == request.auth.uid;
+        
+      // Purchases of a finalized payment details should be immutable
+      allow update, delete: if false;
+    }
+
+    // Checking for administrator capabilities
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == "surajsingh.noida98@gmail.com";
+    }
+
+    // Match dynamic custom products
+    match /custom_products/{productId} {
+      // Read is open to any user visiting the site
+      allow read: if true;
+      // Write (create, update, delete) is strictly restricted to verified admin
+      allow create, update: if isAdmin() && isValidId(productId);
+      allow delete: if isAdmin();
+    }
+  }
+}

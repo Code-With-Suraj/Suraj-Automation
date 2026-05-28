@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account registration metadata and role attributes",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "PurchaseRecord": {
+      "title": "PurchaseRecord",
+      "description": "Information about a product solution purchase made by a user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "amount": { "type": "integer" },
+        "currency": { "type": "string" },
+        "paymentId": { "type": "string" },
+        "orderId": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email", "productId", "paymentId", "status", "createdAt"]
+    },
+    "CustomProduct": {
+      "title": "CustomProduct",
+      "description": "Dynamically added automation product solution with codes and handbook guides",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "string" },
+        "sheetTemplateUrl": { "type": "string" },
+        "appsScriptCode": { "type": "string" },
+        "setupSteps": { 
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tagline": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "color": { "type": "string" },
+        "images": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "price", "sheetTemplateUrl", "appsScriptCode", "setupSteps", "tagline", "description", "category", "color", "images", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles database"
+    },
+    "/purchases/{purchaseId}": {
+      "schema": "PurchaseRecord",
+      "description": "Verified transaction and purchase records database"
+    },
+    "/custom_products/{productId}": {
+      "schema": "CustomProduct",
+      "description": "Dynamically hosted custom product sheets and core script configurations"
+    }
+  }
+}

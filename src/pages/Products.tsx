@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
+import { useUser } from '../contexts/UserContext';
 
 const colorStyles: Record<string, { bg: string, text: string, hoverText: string, buttonBg: string, buttonHoverBg: string }> = {
   indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700', buttonBg: 'bg-indigo-600', buttonHoverBg: 'hover:bg-indigo-700' },
@@ -83,6 +84,7 @@ const ImageCarousel = ({ images, className = '' }: { images: string[], className
 export default function Products() {
   useSEO('Products | Suraj Automation', 'Explore all our custom web apps for business automation including GST tools, HR systems, Expense trackers, and more.');
 
+  const { customProducts } = useUser();
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<'popularity' | 'alphabetical'>('popularity');
 
@@ -286,9 +288,27 @@ export default function Products() {
     }
   ];
 
-  const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
+  const mergedProducts = [
+    ...products,
+    ...customProducts.map(p => ({
+      id: p.id,
+      name: p.name,
+      tagline: p.tagline || 'Business Automation & Sheets Blueprint',
+      description: p.description || 'Google Workspace custom blueprint, automated sheets template and deployment handbook.',
+      icon: <Package className="w-8 h-8" />,
+      color: p.color || 'indigo',
+      featured: false,
+      category: p.category || 'Accounting & Finance',
+      popularity: 30,
+      images: p.images && p.images.length > 0 ? p.images : [
+        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
+      ]
+    }))
+  ];
 
-  const filteredAndSortedProducts = products
+  const categories = ['All', ...Array.from(new Set(mergedProducts.map(p => p.category)))];
+
+  const filteredAndSortedProducts = mergedProducts
     .filter(p => activeCategory === 'All' || p.category === activeCategory)
     .sort((a, b) => {
       if (sortBy === 'popularity') return b.popularity - a.popularity;
