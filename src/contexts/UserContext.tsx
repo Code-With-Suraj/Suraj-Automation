@@ -1,10 +1,13 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useRef, FormEvent, ReactNode } from 'react';
 import { 
   User, 
   onAuthStateChanged, 
   signInWithPopup, 
   signOut, 
-  GoogleAuthProvider 
+  GoogleAuthProvider,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  ConfirmationResult
 } from 'firebase/auth';
 import { 
   doc, 
@@ -18,7 +21,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { PRODUCT_SOLUTIONS, ProductSolution } from '../data/productSolutions';
-import { X, Copy, Check, ExternalLink, AlertTriangle, Globe } from 'lucide-react';
+import { X, Copy, Check, ExternalLink, AlertTriangle, Globe, Smartphone, Key, Loader2, Sparkles, AlertCircle, Phone } from 'lucide-react';
 import { firebaseConfig } from '../lib/firebaseConfig';
 
 interface UserProfile {
@@ -75,6 +78,21 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [authError, setAuthError] = useState<{ code: string; message: string; hostname: string } | null>(null);
   const [copiedHost, setCopiedHost] = useState(false);
 
+  // Login Modal and Phone OTP Verification States
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [otpCode, setOtpCode] = useState('');
+  const [otpStep, setOtpStep] = useState<'phone' | 'otp'>('phone');
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+  const [otpError, setOtpError] = useState<string | null>(null);
+  const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
+
+  const loginPromiseRef = useRef<{
+    resolve: (user: User) => void;
+    reject: (err: any) => void;
+  } | null>(null);
+
   const isAdmin = user?.email === 'surajsingh.noida98@gmail.com';
 
   // Synchronize Custom Products Real-time Listener (independent of authentication)
@@ -119,12 +137,15 @@ export function UserProvider({ children }: { children: ReactNode }) {
       const now = new Date();
       let profileData: UserProfile;
 
+      const userEmail = firebaseUser.email || (firebaseUser.phoneNumber ? `${firebaseUser.phoneNumber}@phone.auth` : '');
+      const userDisplayName = firebaseUser.displayName || firebaseUser.phoneNumber || 'User';
+
       if (userSnap.exists()) {
         const existingData = userSnap.data();
         profileData = {
           uid: firebaseUser.uid,
-          email: firebaseUser.email || '',
-          displayName: firebaseUser.displayName || 'User',
+          email: userEmail,
+          displayName: userDisplayName,
           photoURL: firebaseUser.photoURL || '',
           createdAt: existingData.createdAt?.toDate() || now,
           updatedAt: now,
@@ -132,8 +153,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
       } else {
         profileData = {
           uid: firebaseUser.uid,
-          email: firebaseUser.email || '',
-          displayName: firebaseUser.displayName || 'User',
+          email: userEmail,
+          displayName: userDisplayName,
           photoURL: firebaseUser.photoURL || '',
           createdAt: now,
           updatedAt: now,
@@ -156,8 +177,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
       // Fail gracefully for basic authentication state fallback
       setUserProfile({
         uid: firebaseUser.uid,
-        email: firebaseUser.email || '',
-        displayName: firebaseUser.displayName || 'User',
+        email: firebaseUser.email || (firebaseUser.phoneNumber ? `${firebaseUser.phoneNumber}@phone.auth` : ''),
+        displayName: firebaseUser.displayName || firebaseUser.phoneNumber || 'User',
         photoURL: firebaseUser.photoURL || '',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -216,23 +237,167 @@ export function UserProvider({ children }: { children: ReactNode }) {
     return () => unsubscribeAuth();
   }, []);
 
-  const login = async () => {
+  const handleCancelLogin = () => {
+    setShowLoginModal(false);
+    if (loginPromiseRef.current) {
+      loginPromiseRef.current.reject(new Error("Login cancelled by user"));
+      loginPromiseRef.current = null;
+    }
+  };
+
+  const handleGoogleLogin = async () => {
     setLoading(true);
     setAuthError(null);
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
+      setShowLoginModal(false);
+      if (loginPromiseRef.current) {
+        loginPromiseRef.current.resolve(result.user);
+        loginPromiseRef.current = null;
+      }
       return result.user;
     } catch (e: any) {
       setLoading(false);
       console.error("Firebase Sign-In Error caught:", e);
+      setShowLoginModal(false);
       setAuthError({
         code: e?.code || 'unknown-error',
         message: e?.message || String(e),
         hostname: window.location.hostname
       });
+      if (loginPromiseRef.current) {
+        loginPromiseRef.current.reject(e);
+        loginPromiseRef.current = null;
+      }
       throw e;
     }
+  };
+
+  const setupRecaptcha = () => {
+    try {
+      let verifier = (window as any).recaptchaVerifier;
+      if (!verifier) {
+        verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+          size: 'invisible',
+          callback: () => {
+            // reCAPTCHA solved
+          },
+          'expired-callback': () => {
+            // reCAPTCHA expired, reset
+          }
+        });
+        (window as any).recaptchaVerifier = verifier;
+      }
+      return verifier;
+    } catch (err: any) {
+      console.error("Error setting up RecaptchaVerifier:", err);
+      setOtpError("Failed to initialize verification system. Please try again.");
+      return null;
+    }
+  };
+
+  const handleSendOtp = async (e?: FormEvent) => {
+    if (e) e.preventDefault();
+    setOtpError(null);
+    
+    let formattedPhone = phoneNumber.trim();
+    if (!formattedPhone) {
+      setOtpError("Please enter a valid phone number.");
+      return;
+    }
+    
+    if (/^\d{10}$/.test(formattedPhone)) {
+      formattedPhone = `+91${formattedPhone}`;
+    } else if (!formattedPhone.startsWith('+')) {
+      formattedPhone = `+91${formattedPhone.replace(/[^0-9]/g, '')}`;
+    }
+
+    setIsSendingOtp(true);
+    const verifier = setupRecaptcha();
+    if (!verifier) {
+      setIsSendingOtp(false);
+      return;
+    }
+
+    try {
+      const result = await signInWithPhoneNumber(auth, formattedPhone, verifier);
+      setConfirmationResult(result);
+      setOtpStep('otp');
+      setOtpError(null);
+    } catch (err: any) {
+      console.error("Error sending SMS OTP:", err);
+      if (err.code === 'auth/invalid-phone-number') {
+        setOtpError("Must be a valid international phone number (e.g. +91 99999 99999)");
+      } else if (err.code === 'auth/too-many-requests') {
+        setOtpError("Too many SMS requests sent. Please try again later.");
+      } else {
+        setOtpError(err.message || "Failed to send OTP verification code. Try again.");
+      }
+      if ((window as any).recaptchaVerifier) {
+        try {
+          (window as any).recaptchaVerifier.clear();
+          (window as any).recaptchaVerifier = null;
+        } catch (_) {}
+      }
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e?: FormEvent) => {
+    if (e) e.preventDefault();
+    setOtpError(null);
+
+    const trimmedCode = otpCode.trim();
+    if (trimmedCode.length !== 6 || !/^\d{6}$/.test(trimmedCode)) {
+      setOtpError("OTP must be a 6-digit numeric verification code.");
+      return;
+    }
+
+    if (!confirmationResult) {
+      setOtpError("No verification session found. Please re-enter your phone number.");
+      setOtpStep('phone');
+      return;
+    }
+
+    setIsVerifyingOtp(true);
+    try {
+      const result = await confirmationResult.confirm(trimmedCode);
+      const firebaseUser = result.user;
+      
+      await syncUserProfile(firebaseUser);
+      setUser(firebaseUser);
+      
+      setShowLoginModal(false);
+      if (loginPromiseRef.current) {
+        loginPromiseRef.current.resolve(firebaseUser);
+        loginPromiseRef.current = null;
+      }
+    } catch (err: any) {
+      console.error("Error confirming OTP verification code:", err);
+      if (err.code === 'auth/invalid-verification-code') {
+        setOtpError("The verification code you entered is incorrect. Please check and try again.");
+      } else if (err.code === 'auth/code-expired') {
+        setOtpError("The verification code has expired. Please request a new one.");
+      } else {
+        setOtpError(err.message || "Failed to verify code. Please try again.");
+      }
+    } finally {
+      setIsVerifyingOtp(false);
+    }
+  };
+
+  const login = (): Promise<User> => {
+    setAuthError(null);
+    setOtpStep('phone');
+    setOtpError(null);
+    setPhoneNumber('');
+    setOtpCode('');
+    setShowLoginModal(true);
+    return new Promise<User>((resolve, reject) => {
+      loginPromiseRef.current = { resolve, reject };
+    });
   };
 
   const logout = async () => {
@@ -449,6 +614,170 @@ export function UserProvider({ children }: { children: ReactNode }) {
                 Dismiss Help
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modern, Premium, Multi-Provider Login Dialog (Google + Phone Auth) */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in text-slate-900 dark:text-white">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] w-full max-w-md p-6 md:p-8 shadow-2xl relative flex flex-col max-h-[90vh] overflow-y-auto">
+            {/* Invisible Recaptcha Container mandated by Firebase Phone Auth SDK */}
+            <div id="recaptcha-container" className="hidden"></div>
+
+            <button
+              onClick={handleCancelLogin}
+              className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-650 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+              aria-label="Cancel login"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="text-center pb-5 mb-5 border-b border-slate-100 dark:border-slate-800">
+              <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Access Suraj Automation
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
+                Choose a method below to access your premium workspace
+              </p>
+            </div>
+
+            {/* Login Selection / Form Body */}
+            <div className="space-y-6">
+              {/* Option A: Fast Google login */}
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-slate-200 hover:border-indigo-400 dark:border-slate-800 dark:hover:border-indigo-500 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900/60 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 transition-all duration-200 cursor-pointer shadow-sm"
+              >
+                <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+                  <path fill="#EA4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.67 1.48 14.99 1 12 1 7.35 1 3.37 3.67 1.39 7.56l3.89 3.02C6.22 7.56 8.87 5.04 12 5.04z" />
+                  <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.36H12v4.51h6.46c-.29 1.48-1.14 2.73-2.42 3.57l3.77 2.92c2.2-2.03 3.48-5.02 3.48-8.64z" />
+                  <path fill="#FBBC05" d="M5.28 14.78c-.24-.72-.38-1.49-.38-2.28s.14-1.56.38-2.28L1.39 7.2C.5 8.98 0 10.93 0 13s.5 4.02 1.39 5.8l3.89-3.02z" />
+                  <path fill="#34A853" d="M12 23c3.24 0 5.97-1.09 7.96-2.96l-3.77-2.92c-1.09.73-2.49 1.18-4.19 1.18-3.13 0-5.78-2.52-6.72-5.54l-3.89 3.02C3.37 20.33 7.35 23 12 23z" />
+                </svg>
+                Continue with Google
+              </button>
+
+              <div className="relative flex py-2 items-center">
+                <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+                <span className="flex-shrink mx-4 text-slate-400 text-[10px] tracking-wider uppercase font-extrabold bg-white dark:bg-slate-900 px-2 rounded-md">
+                  or use phone login
+                </span>
+                <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+              </div>
+
+              {/* OTP Login Form */}
+              {otpStep === 'phone' ? (
+                <form onSubmit={handleSendOtp} className="space-y-4">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                      <Phone className="w-3.5 h-3.5" />
+                      Mobile Number
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold font-mono text-sm border-r border-slate-200 dark:border-slate-800 pr-3">+91</span>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="Enter 10-digit number"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                        className="w-full pl-16 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm font-semibold text-slate-900 dark:text-white transition-all shadow-inner"
+                      />
+                    </div>
+                  </div>
+
+                  {otpError && (
+                    <div className="p-3 bg-rose-50 dark:bg-rose-550/10 border border-rose-100 dark:border-rose-950/20 rounded-xl flex items-start gap-2.5">
+                      <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                      <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">{otpError}</span>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSendingOtp}
+                    className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/60 disabled:cursor-not-allowed text-white rounded-xl font-bold text-sm shadow-md shadow-indigo-600/10 hover:shadow-indigo-600/20 hover:-translate-y-0.5 cursor-pointer transition-all"
+                  >
+                    {isSendingOtp ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending verification code...
+                      </>
+                    ) : (
+                      <>
+                        Send OTP via SMS
+                        <Smartphone className="w-4 h-4 ml-1" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleVerifyOtp} className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                        <Key className="w-3.5 h-3.5" />
+                        Verification Code
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => { setOtpStep('phone'); setOtpError(null); }}
+                        className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+                      >
+                        Change Number
+                      </button>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-2">
+                      OTP code has been sent successfully to <span className="text-slate-800 dark:text-slate-200 font-mono font-extrabold">{phoneNumber.startsWith('+') ? phoneNumber : `+91 ${phoneNumber}`}</span>
+                    </p>
+                    <input
+                      type="text"
+                      required
+                      maxLength={6}
+                      pattern="\d{6}"
+                      placeholder="Enter 6-digit OTP code"
+                      value={otpCode}
+                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
+                      className="w-full tracking-[0.5em] text-center py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-black font-mono text-xl text-slate-900 dark:text-white transition-all shadow-inner"
+                    />
+                  </div>
+
+                  {otpError && (
+                    <div className="p-3 bg-rose-50 dark:bg-rose-550/10 border border-rose-100 dark:border-rose-950/20 rounded-xl flex items-start gap-2.5">
+                      <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                      <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">{otpError}</span>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isVerifyingOtp}
+                    className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/60 disabled:cursor-not-allowed text-white rounded-xl font-bold text-sm shadow-md shadow-indigo-600/10 hover:shadow-indigo-600/20 hover:-translate-y-0.5 cursor-pointer transition-all"
+                  >
+                    {isVerifyingOtp ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Verifying details...
+                      </>
+                    ) : (
+                      <>
+                        Verify code & login
+                        <Check className="w-4 h-4 ml-1" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
+
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center font-medium mt-6 leading-relaxed">
+              By connecting, you agree to the Suraj Automation secure identity sandbox. Mobile carriers standard rates for messaging/OTP service may apply.
+            </p>
           </div>
         </div>
       )}
