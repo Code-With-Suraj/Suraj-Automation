@@ -288,23 +288,35 @@ export default function Products() {
     }
   ];
 
-  const mergedProducts = [
-    ...products,
-    ...customProducts.map(p => ({
+  // Merge static and dynamic products to prevent duplicates.
+  // Custom products override static product fields where applicable.
+  const productsMap = new Map<string, any>();
+
+  // Add all static products first
+  products.forEach(p => {
+    productsMap.set(p.id, p);
+  });
+
+  // Overwrite or append custom products
+  customProducts.forEach(p => {
+    const existing = productsMap.get(p.id);
+    productsMap.set(p.id, {
       id: p.id,
       name: p.name,
-      tagline: p.tagline || 'Business Automation & Sheets Blueprint',
-      description: p.description || 'Google Workspace custom blueprint, automated sheets template and deployment handbook.',
-      icon: <Package className="w-8 h-8" />,
-      color: p.color || 'indigo',
-      featured: false,
-      category: p.category || 'Accounting & Finance',
-      popularity: 30,
-      images: p.images && p.images.length > 0 ? p.images : [
+      tagline: p.tagline || (existing ? existing.tagline : 'Business Automation & Sheets Blueprint'),
+      description: p.description || (existing ? existing.description : 'Google Workspace custom blueprint, automated sheets template and deployment handbook.'),
+      icon: existing ? existing.icon : <Package className="w-8 h-8" />,
+      color: p.color || (existing ? existing.color : 'indigo'),
+      featured: existing ? existing.featured : false,
+      category: p.category || (existing ? existing.category : 'Accounting & Finance'),
+      popularity: existing ? existing.popularity : 30,
+      images: p.images && p.images.length > 0 ? p.images : (existing ? existing.images : [
         'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
-      ]
-    }))
-  ];
+      ])
+    });
+  });
+
+  const mergedProducts = Array.from(productsMap.values());
 
   const categories = ['All', ...Array.from(new Set(mergedProducts.map(p => p.category)))];
 

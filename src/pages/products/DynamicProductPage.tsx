@@ -4,11 +4,18 @@ import { motion } from 'motion/react';
 import { 
   ShoppingCart, AlertTriangle, CheckCircle2, ListChecks, 
   History, Upload, Users, ArrowRight, RefreshCcw, 
-  Copy, FileText, Check, ChevronLeft, Eye, Lock
+  Copy, FileText, Check, ChevronLeft, Eye, Lock, Youtube
 } from 'lucide-react';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
+
+function getYoutubeId(url: string | undefined): string | null {
+  if (!url) return null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
 
 export default function DynamicProductPage() {
   const { productId } = useParams<{ productId: string }>();
@@ -53,6 +60,7 @@ export default function DynamicProductPage() {
   };
 
   const steps = product.setupSteps || [];
+  const ytId = product.youtubeUrl ? getYoutubeId(product.youtubeUrl) : null;
 
   return (
     <main className="pt-24 pb-20">
@@ -300,6 +308,38 @@ export default function DynamicProductPage() {
                     <Eye className="w-5 h-5" /> Copy Google Sheet Template
                   </a>
                 </div>
+
+                {product.youtubeUrl && (
+                  <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h3 className="text-lg font-extrabold text-slate-950 mb-4 uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 pb-3">
+                      <Youtube className="w-5 h-5 text-red-600" />
+                      YouTube Setup Guide
+                    </h3>
+                    <p className="text-sm text-slate-600 mb-4 font-medium leading-relaxed">
+                      Follow our video walkthrough to configure and deploy the {product.name} template:
+                    </p>
+                    {ytId ? (
+                      <div className="relative aspect-video rounded-xl overflow-hidden border border-slate-200 mb-4 shadow-sm bg-slate-950">
+                        <iframe
+                          src={`https://www.youtube.com/embed/${ytId}`}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          className="absolute inset-0 w-full h-full"
+                        ></iframe>
+                      </div>
+                    ) : null}
+                    <a 
+                      href={product.youtubeUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full justify-center px-6 py-3.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold transition-transform hover:-translate-y-0.5 justify-center gap-2 shadow-md shadow-rose-500/10"
+                    >
+                      <Youtube className="w-5 h-5" /> Watch on YouTube
+                    </a>
+                  </div>
+                )}
 
                 <div className="bg-white p-6 rounded-2xl border border-slate-200">
                   <h3 className="text-sm font-extrabold text-slate-900 mb-4 uppercase tracking-widest flex items-center gap-2 border-b border-slate-100 pb-3">

@@ -1,0 +1,218 @@
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useUser } from '../contexts/UserContext';
+import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  Sparkles, 
+  Lock, 
+  Unlock, 
+  CheckCircle2, 
+  ArrowRight, 
+  BookOpen, 
+  Code, 
+  ShieldCheck,
+  CreditCard
+} from 'lucide-react';
+
+export default function FloatingBuyWidget() {
+  const location = useLocation();
+  const { hasPurchased, user } = useUser();
+  const [active, setActive] = useState(false);
+
+  // Parse path to find if we are on a product solution page
+  const pathParts = location.pathname.split('/');
+  const isProductPage = pathParts[1] === 'products' && pathParts[2] && pathParts[2] !== '';
+  const productId = isProductPage ? pathParts[2] : null;
+
+  // Retrieve matching configuration
+  const solution = productId ? PRODUCT_SOLUTIONS[productId] : null;
+  const isPurchased = solution ? hasPurchased(solution.id) : false;
+
+  useEffect(() => {
+    // Show widget with a subtle delay for optimal UX animation entrance
+    if (solution) {
+      const timer = setTimeout(() => setActive(true), 800);
+      return () => clearTimeout(timer);
+    } else {
+      setActive(false);
+    }
+  }, [solution]);
+
+  if (!solution || !active) return null;
+
+  const handleScrollToCheckout = () => {
+    const element = document.getElementById(`checkout-${solution.id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {/* Container wrapper */}
+      <div className="font-sans">
+        
+        {/* DESKTOP FLOATING CARD - HANGING RIGHT SIDE */}
+        <motion.div
+          key={`desktop-${solution.id}`}
+          initial={{ opacity: 0, x: 50, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 50, scale: 0.95 }}
+          transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+          className="hidden lg:flex fixed right-6 top-[25%] z-45 w-[300px] flex-col bg-slate-900/95 border border-slate-800 backdrop-blur-md rounded-2xl p-5 shadow-[0_25px_60px_rgba(0,0,0,0.5),0_0_20px_rgba(79,70,229,0.15)] hover:border-indigo-500/40 hover:shadow-[0_25px_60px_rgba(0,0,0,0.5),0_0_30px_rgba(79,70,229,0.25)] transition-all duration-300"
+        >
+          {/* Subtle accent glow top border */}
+          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+
+          {/* Tag & Status Indicator */}
+          <div className="flex justify-between items-center mb-4">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              <Sparkles className="w-3 h-3 text-indigo-400" />
+              {isPurchased ? 'Unlocked' : '70% Limited Off'}
+            </span>
+            <div className="flex items-center gap-1.5">
+              <span className={`w-2 h-2 rounded-full ${isPurchased ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400 animate-pulse'}`}></span>
+              <span className="text-[10px] font-bold text-slate-400 select-none">
+                {isPurchased ? 'Audited handbook active' : 'Audited Code'}
+              </span>
+            </div>
+          </div>
+
+          {/* Heading */}
+          <h4 className="text-sm font-bold text-slate-400 mb-1 leading-none uppercase tracking-wider">
+            {solution.name} Blueprint
+          </h4>
+          <h3 className="text-lg font-black text-white leading-tight mb-3">
+            {isPurchased ? 'Source Code Unlocked' : 'Get Complete Source Code'}
+          </h3>
+
+          {/* Short description */}
+          <p className="text-xs text-slate-400 mb-4 leading-relaxed">
+            {isPurchased 
+              ? 'Make a copy of your verified Google Spreadsheet template and import Apps Script backend code instantly.' 
+              : 'Direct Google Spreadsheet template link key-ready with 100% clean Google Apps Script backend.'}
+          </p>
+
+          {/* Specs bullet highlights */}
+          <div className="space-y-2 mb-5">
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
+              <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />
+              <span>Full Apps Script Module</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
+              <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />
+              <span>1-Click Template Setup</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
+              <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />
+              <span>Step-by-Step Guide Book</span>
+            </div>
+          </div>
+
+          {/* Price Tag & Action */}
+          <div className="w-full bg-slate-950/60 rounded-xl p-3 border border-slate-800 mb-4 flex flex-col items-center">
+            {isPurchased ? (
+              <div className="text-center py-1">
+                <span className="text-xs font-bold text-slate-400 block mb-0.5">Purchased License</span>
+                <span className="text-sm font-black text-emerald-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+                  <Unlock className="w-4 h-4 text-emerald-400" /> Ready to Run
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between w-full">
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-500 line-through">₹4,999</span>
+                  <span className="text-xl font-black text-white leading-none">{solution.price || '₹1,499'}</span>
+                </div>
+                <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded-md font-bold text-right-align">
+                  One-time buy
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* CTA Primary Action */}
+          {isPurchased ? (
+            <button
+              onClick={handleScrollToCheckout}
+              className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 hover:-translate-y-0.5 transition-all cursor-pointer"
+            >
+              <BookOpen className="w-4 h-4" />
+              View Handbook & Codes
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1" />
+            </button>
+          ) : (
+            <button
+              onClick={handleScrollToCheckout}
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 hover:shadow-indigo-605/35 hover:-translate-y-0.5 transition-all cursor-pointer"
+            >
+              <CreditCard className="w-4 h-4" />
+              Buy Code & Blueprint
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          )}
+
+          {/* Secure details */}
+          <div className="flex items-center justify-center gap-1 mt-3.5 text-[9px] font-bold text-slate-500">
+            <Lock className="w-3 h-3 shrink-0" />
+            <span>Secure 1-Click Checkout by Razorpay</span>
+          </div>
+        </motion.div>
+
+        {/* MOBILE STICKY BOTTOM BAR */}
+        <motion.div
+          key={`mobile-${solution.id}`}
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 120 }}
+          className="lg:hidden fixed bottom-0 left-0 right-0 z-45 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 py-3.5 px-5 flex items-center justify-between shadow-[0_-15px_30px_rgba(0,0,0,0.5)] safe-bottom"
+        >
+          {/* Left information snippet */}
+          <div className="flex flex-col justify-center">
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="text-[10px] font-black text-slate-400 truncate max-w-[120px]">
+                {solution.name} Source
+              </span>
+              <span className="text-[9px] bg-emerald-500 text-white font-black px-1.5 py-0.2 rounded">
+                70% OFF
+              </span>
+            </div>
+            {isPurchased ? (
+              <span className="text-xs font-black text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                <Unlock className="w-3 h-3" /> Unlocked
+              </span>
+            ) : (
+              <div className="flex items-baseline gap-1">
+                <span className="text-base font-black text-white">{solution.price || '₹1,499'}</span>
+                <span className="text-[9px] font-bold text-slate-500 line-through">₹4,999</span>
+              </div>
+            )}
+          </div>
+
+          {/* Right Action Trigger */}
+          {isPurchased ? (
+            <button
+              onClick={handleScrollToCheckout}
+              className="py-2.5 px-4 bg-emerald-600 text-white rounded-lg font-black text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              Handbook
+            </button>
+          ) : (
+            <button
+              onClick={handleScrollToCheckout}
+              className="py-2.5 px-4 bg-indigo-650 text-white rounded-lg font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+            >
+              <CreditCard className="w-3.5 h-3.5" />
+              Buy Code
+              <ArrowRight className="w-3 h-3" />
+            </button>
+          )}
+        </motion.div>
+
+      </div>
+    </AnimatePresence>
+  );
+}

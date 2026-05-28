@@ -1,9 +1,13 @@
 import { motion } from 'motion/react';
 import { Receipt, AlertTriangle, CheckCircle2, ListChecks, Search, Calculator, BrainCircuit, LayoutDashboard, FileSpreadsheet, Settings, ArrowRight, MessageSquare, Store, TrendingUp, ShieldCheck } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
 
 export default function BillSarthi() {
+  const { hasPurchased } = useUser();
+  const isPurchased = hasPurchased('billsarthi');
+
   useSEO(
     'BillSarthi | Suraj Automation',
     'Vendor Bill Management - A smart web-based billing system that helps store teams enter vendor bills correctly.',
@@ -131,15 +135,33 @@ export default function BillSarthi() {
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">No more GST mistakes</span>
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">Clean, validated bills</span>
               </div>
-              <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20BillSarthi." 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-blue-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
-              >
-                Book a Free Demo
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              <div className="flex flex-wrap gap-4">
+                {isPurchased ? (
+                  <a 
+                    href="#checkout-billsarthi" 
+                    className="inline-flex px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-emerald-500/20 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    View Setup Handbook & Codes
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                ) : (
+                  <a 
+                    href="#checkout-billsarthi" 
+                    className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-blue-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    Get instant access for ₹1,499
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                )}
+                <a 
+                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20BillSarthi." 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex px-8 py-4 bg-slate-900 border border-slate-700 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
+                >
+                  Book Free Demo On WhatsApp
+                </a>
+              </div>
             </motion.div>
             
             <motion.div

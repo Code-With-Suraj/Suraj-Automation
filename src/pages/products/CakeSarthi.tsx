@@ -1,9 +1,13 @@
 import { motion } from 'motion/react';
 import { Cake, AlertTriangle, CheckCircle2, Globe, ShoppingBag, PlusCircle, Tag, Coins, CreditCard, Lock, LayoutDashboard, BarChart3, MessageSquare, ArrowRight, Store, TrendingUp, ShieldCheck, Settings } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
 
 export default function CakeSarthi() {
+  const { hasPurchased } = useUser();
+  const isPurchased = hasPurchased('cakesarthi');
+
   useSEO(
     'CakeSarthi | Suraj Automation',
     'Online Ordering for Bakeries - Turn your local bakery into a smart online business.',
@@ -183,15 +187,33 @@ export default function CakeSarthi() {
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">UPI Payments</span>
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">Owner Dashboard</span>
               </div>
-              <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20CakeSarthi." 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex px-8 py-4 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-rose-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
-              >
-                Book a Free Demo
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              <div className="flex flex-wrap gap-4">
+                {isPurchased ? (
+                  <a 
+                    href="#checkout-cakesarthi" 
+                    className="inline-flex px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-emerald-500/20 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    View Setup Handbook & Codes
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                ) : (
+                  <a 
+                    href="#checkout-cakesarthi" 
+                    className="inline-flex px-8 py-4 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-rose-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    Get instant access for ₹1,499
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                )}
+                <a 
+                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20CakeSarthi." 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex px-8 py-4 bg-slate-900 border border-slate-750 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
+                >
+                  Book Free Demo On WhatsApp
+                </a>
+              </div>
             </motion.div>
             
             <motion.div

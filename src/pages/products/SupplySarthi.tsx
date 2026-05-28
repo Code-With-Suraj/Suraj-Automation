@@ -1,8 +1,13 @@
 import { motion } from 'motion/react';
 import { Package, AlertTriangle, CheckCircle2, ListChecks, FileSpreadsheet, Users, Receipt, Wallet, Smartphone, ShieldCheck, TrendingUp, ArrowRight, MessageSquare, Store, ExternalLink } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
+import RazorpayCheckout from '../../components/RazorpayCheckout';
 
 export default function SupplySarthi() {
+  const { hasPurchased } = useUser();
+  const isPurchased = hasPurchased('supplysarthi');
+
   useSEO(
     'SupplySarthi | Suraj Automation',
     'Complete Supply & Distribution Management System - Manage your entire supply business in one Google Sheet-based system.',
@@ -129,24 +134,31 @@ export default function SupplySarthi() {
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">Auto GST Invoices</span>
                 <span className="px-4 py-2 bg-slate-800 rounded-lg text-sm font-medium text-slate-300 border border-slate-700">Client Portal</span>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-wrap gap-4">
+                {isPurchased ? (
+                  <a 
+                    href="#checkout-supplysarthi" 
+                    className="inline-flex px-8 py-4 bg-emerald-650 hover:bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-emerald-500/20 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    View Setup Handbook & Codes
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                ) : (
+                  <a 
+                    href="#checkout-supplysarthi" 
+                    className="inline-flex px-8 py-4 bg-indigo-650 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    Get instant access for ₹1,499
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                )}
                 <a 
                   href="https://supplysarthi.surajdx.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                  className="inline-flex px-8 py-4 bg-slate-900 border border-slate-750 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
                 >
                   Visit Official Website
-                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </a>
-                <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20SupplySarthi." 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2 group hover:-translate-y-1"
-                >
-                  Book a Free Demo
-                  <MessageSquare className="w-5 h-5" />
                 </a>
               </div>
             </motion.div>
@@ -529,6 +541,17 @@ export default function SupplySarthi() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Razorpay Integration */}
+      <section className="bg-slate-50 dark:bg-slate-900/10 py-12 border-t border-b border-slate-200/50 dark:border-slate-800/50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Buy Source Code & Blueprint</h2>
+            <p className="text-slate-600 dark:text-slate-400 font-medium">Get lifetime access to the audited Google Workspace code & template setup guide instantly.</p>
+          </div>
+          <RazorpayCheckout productId="supplysarthi" />
         </div>
       </section>
 

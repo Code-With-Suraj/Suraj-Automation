@@ -5,10 +5,14 @@ import {
   ShieldCheck, Calculator, Users, PieChart, CreditCard, 
   Smartphone, LineChart, Lock, Target, ChevronLeft, ChevronRight
 } from 'lucide-react';
+import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
 
 export default function LoanSarthi() {
+  const { hasPurchased } = useUser();
+  const isPurchased = hasPurchased('loansarthi');
+
   useSEO(
     'LoanSarthi | Suraj Automation',
     'Finance business control system - Track karo. Loan do. Recovery karo - Sab kuch ek hi system me.',
@@ -168,24 +172,31 @@ export default function LoanSarthi() {
                 Small finance businesses ke liye powerful, mobile-first loan management system — jahan se aap loan create, EMI track, recovery manage aur reports sab kuch ek dashboard se control kar sakte ho.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-wrap gap-4 justify-center">
+                {isPurchased ? (
+                  <a 
+                    href="#checkout-loansarthi" 
+                    className="inline-flex px-8 py-4 bg-emerald-605 hover:bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-emerald-500/20 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    View Setup Handbook & Codes
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                ) : (
+                  <a 
+                    href="#checkout-loansarthi" 
+                    className="inline-flex px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    Get instant access for ₹1,499
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                )}
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20LoanSarthi." 
+                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%2520a%2520free%2520demo%2520of%2520LoanSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                  className="inline-flex px-8 py-4 bg-slate-900 border border-slate-750 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
                 >
-                  Start Free Demo
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20need%20details%20about%20LoanSarthi." 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700 items-center justify-center gap-2 group hover:-translate-y-1"
-                >
-                  Get WhatsApp Demo
-                  <MessageSquare className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  Book Free Demo On WhatsApp
                 </a>
               </div>
             </motion.div>

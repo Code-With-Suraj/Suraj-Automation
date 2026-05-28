@@ -29,6 +29,7 @@ import VendorSarthi from './pages/products/VendorSarthi';
 import DynamicProductPage from './pages/products/DynamicProductPage';
 import AdminPortal from './pages/AdminPortal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import FloatingBuyWidget from './components/FloatingBuyWidget';
 import ScrollToTop from './components/ScrollToTop';
 
 export default function App() {
@@ -65,6 +66,7 @@ export default function App() {
           </div>
           <Footer />
           <FloatingWhatsApp />
+          <FloatingBuyWidget />
         </div>
       </Router>
     </UserProvider>

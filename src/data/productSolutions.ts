@@ -10,6 +10,7 @@ export interface ProductSolution {
   category?: string;
   color?: string;
   images?: string[];
+  youtubeUrl?: string;
 }
 
 export const PRODUCT_SOLUTIONS: Record<string, ProductSolution> = {

@@ -27,6 +27,7 @@ export default function AdminPortal() {
   const [formSteps, setFormSteps] = useState<string[]>([]);
   const [imageInput, setImageInput] = useState('');
   const [formImages, setFormImages] = useState<string[]>([]);
+  const [formYoutubeUrl, setFormYoutubeUrl] = useState('');
 
   // Feedback states
   const [errorMsg, setErrorMsg] = useState('');
@@ -106,6 +107,7 @@ export default function AdminPortal() {
     setFormCategory(p.category || 'Accounting & Finance');
     setFormSteps(p.setupSteps || []);
     setFormImages(p.images || []);
+    setFormYoutubeUrl(p.youtubeUrl || '');
     setErrorMsg('');
     setSuccessMsg('');
   };
@@ -123,6 +125,7 @@ export default function AdminPortal() {
     setFormCategory('Accounting & Finance');
     setFormSteps([]);
     setFormImages([]);
+    setFormYoutubeUrl('');
     setStepsInput('');
     setImageInput('');
     setErrorMsg('');
@@ -152,7 +155,8 @@ export default function AdminPortal() {
         color: formColor,
         category: formCategory,
         setupSteps: formSteps,
-        images: formImages
+        images: formImages,
+        youtubeUrl: formYoutubeUrl.trim()
       });
 
       setSuccessMsg(editingId ? 'Product customized successfully!' : 'New Automation deployed successfully!');
@@ -367,6 +371,18 @@ export default function AdminPortal() {
                   className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 <p className="text-xs text-slate-500 mt-1">Make sure it has `/copy` ending so users can copy it directly onto their Drive.</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">YouTube Setup Guide Link (Only displayed post-purchase)</label>
+                <input 
+                  type="url"
+                  value={formYoutubeUrl}
+                  placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/..."
+                  onChange={(e) => setFormYoutubeUrl(e.target.value)}
+                  className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+                <p className="text-xs text-slate-500 mt-1">Enter a YouTube tutorial link detailing the setup configuration for this product.</p>
               </div>
 
               {/* Steps input */}
