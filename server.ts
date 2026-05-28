@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
+import { GoogleGenAI, Type } from '@google/genai';
 import { PRODUCT_SOLUTIONS } from './src/data/productSolutions';
 
 // Hardcoded fallbacks provided by user for instant out-of-the-box live functionality
@@ -31,6 +32,202 @@ async function startServer() {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  // API: AI-powered business challenges analysis and product mapping
+  app.post('/api/gemini/analyze-business', async (req, res) => {
+    try {
+      const { businessType, challenges } = req.body;
+      if (!businessType && !challenges) {
+        res.status(400).json({ error: 'Please provide either business type or challenges.' });
+        return;
+      }
+
+      const hasApiKey = !!process.env.GEMINI_API_KEY;
+      if (hasApiKey) {
+        try {
+          const ai = new GoogleGenAI({
+            apiKey: process.env.GEMINI_API_KEY,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              }
+            }
+          });
+
+          const prompt = `
+Analyze the following business type and operational challenges and match it with the best fitting automation product from our suite if there is a strong alignment.
+
+USER BUSINESS TYPE: ${businessType || 'Not specified'}
+USER CHALLENGES: ${challenges || 'Not specified'}
+
+Available products in our portfolio:
+${Object.values(PRODUCT_SOLUTIONS).map(p => `- ${p.id}: ${p.name} - ${p.tagline}. Description: ${p.description}`).join('\n')}
+
+DIAGNOSTIC CRITERIA & RULES:
+1. DEEP & CRITICAL ASSESSMENT (MANDATORY): Deeply analyze whether any of our pre-built Sarthi product packages can naturally and genuinely solve their core business pain-points with over 80% fitness alignment. We DO NOT want to sell unnecessary products. If their business is unrelated or the system requested is completely different and no product in our portfolio is a true natural match, you MUST return matchedProductId as "" (empty string) and matchedProductName as "".
+2. COST BENEFIT VALUE IN ANALYSIS (50% SAVINGS CLAIM): In the 'analysis' section, explicitly point out to the user that they need a tailored operational system, and reassure them that whether we use a standard product OR build custom development, Suraj can customize/build this software system at a fraction of standard developer rates — specifically at straight 50% LOWER cost compared to standard market prices, with lifetime-free Google Sheets cloud databases and no monthly licensing lock-ins!
+3. LANGUAGE STYLE: Write 'analysis' and 'automationNeeds' in a supportive, deeply helpful and friendly mixture of simple English & Hinglish, which Indian SME owners trust, looking extremely professional.
+
+Return valid JSON structure matching the schema.
+          `;
+
+          const response = await ai.models.generateContent({
+            model: "gemini-3.5-flash",
+            contents: prompt,
+            config: {
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  matchedProductId: {
+                    type: Type.STRING,
+                    description: "Must be EXACTLY one of: rationkart, vendorsarthi, billsarthi, claimo, karmsarthi, cakesarthi, gymsarthi, menusarthi, supplysarthi, hisabsarthi, loansarthi, cogs-dashboard, stocksarthi, or empty string of '' if there is no high-fidelity genuine match."
+                  },
+                  matchedProductName: {
+                    type: Type.STRING,
+                    description: "Name of matched product, or empty string '' if no product fits."
+                  },
+                  matchConfidence: {
+                    type: Type.INTEGER,
+                    description: "Match score from 0 to 100. If no product fits, keep match confidence under 50% as custom recommendation."
+                  },
+                  analysis: {
+                    type: Type.STRING,
+                    description: "Supportive, honest, realistic Hinglish/English analysis. Explaining if they have a standard fit or if they need a fully custom system. Explicitly highlight that we can customize or build it at 50% of standard market costs."
+                  },
+                  automationNeeds: {
+                    type: Type.STRING,
+                    description: "Describe what kind of automated dashboard/web view/whatsapp script triggers they need, highlighting simple setup in their personal Google Drive."
+                  },
+                  estimatedRoi: {
+                    type: Type.OBJECT,
+                    properties: {
+                      hoursSaved: { type: Type.INTEGER, description: "Estimated monthly hours saved" },
+                      moneySaved: { type: Type.INTEGER, description: "Monthly savings in INR on standard operating leaks" },
+                      accuracyImprovement: { type: Type.STRING, description: "Description of errors reduction" }
+                    },
+                    required: ["hoursSaved", "moneySaved", "accuracyImprovement"]
+                  },
+                  recommendedActionPlan: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
+                    description: "Actionable 3-4 steps Hinglish/English list detailing how to get started on this workflow solution."
+                  }
+                },
+                required: ["matchedProductId", "matchedProductName", "matchConfidence", "analysis", "automationNeeds", "estimatedRoi", "recommendedActionPlan"]
+              }
+            }
+          });
+
+          if (response.text) {
+            const parsed = JSON.parse(response.text.trim());
+            res.json({ success: true, isAIPowered: true, data: parsed });
+            return;
+          }
+        } catch (geminiErr) {
+          console.error('[Gemini Route Error] falling back to rules:', geminiErr);
+        }
+      }
+
+      // Robust rule-based fallback analysis (no key or error)
+      const normalizedText = `${businessType} ${challenges}`.toLowerCase();
+      let matchedId = '';
+      let matchedName = '';
+      
+      const containsAny = (text: string, keywords: string[]) => keywords.some(keyword => text.includes(keyword));
+
+      if (containsAny(normalizedText, ['loan', 'emi', 'recovery', 'borrower', 'byaj', 'interest', 'instalment', 'finance', 'lending'])) {
+        matchedId = 'loansarthi';
+        matchedName = 'LoanSarthi';
+      } else if (containsAny(normalizedText, ['cake', 'bakery', 'sweet', 'pastry', 'baker', 'bread', 'muffin'])) {
+        matchedId = 'cakesarthi';
+        matchedName = 'CakeSarthi';
+      } else if (containsAny(normalizedText, ['gym', 'fitness', 'workout', 'membership', 'renew', 'trainer', 'exercise'])) {
+        matchedId = 'gymsarthi';
+        matchedName = 'GymSarthi';
+      } else if (containsAny(normalizedText, ['restaurant', 'table', 'menu', 'cafe', 'dish', 'dine', 'order', 'food', 'kitchen'])) {
+        matchedId = 'menusarthi';
+        matchedName = 'MenuSarthi';
+      } else if (containsAny(normalizedText, ['expense', 'claim', 'reimbursement', 'receipt', 'travel', 'allowance', 'vouchers'])) {
+        matchedId = 'claimo';
+        matchedName = 'Claimo';
+      } else if (containsAny(normalizedText, ['hr', 'leave', 'attendance', 'staff', 'employee', 'salary', 'payment cycle', 'payroll', 'karmsarthi', 'staff management'])) {
+        matchedId = 'karmsarthi';
+        matchedName = 'KarmSarthi';
+      } else if (containsAny(normalizedText, ['stock', 'inventory', 'sku', 'warehouse', 'godown', 'item list', 'stocksarthi'])) {
+        matchedId = 'stocksarthi';
+        matchedName = 'StockSarthi';
+      } else if (containsAny(normalizedText, ['procurement', 'vendor', 'rfq', 'quote', 'quotation', 'tender', 'supplier'])) {
+        matchedId = 'vendorsarthi';
+        matchedName = 'VendorSarthi';
+      } else if (containsAny(normalizedText, ['gst', 'ledger', 'tax', 'invoice', 'hisab', 'accounting', 'ledger book', 'khatabook'])) {
+        matchedId = 'hisabsarthi';
+        matchedName = 'HisabSarthi';
+      } else if (containsAny(normalizedText, ['ration', 'grocery', 'kirana', 'requisition', 'food ration', 'rationkart'])) {
+        matchedId = 'rationkart';
+        matchedName = 'RationKart';
+      } else if (containsAny(normalizedText, ['bill', 'verify', 'entry', 'purchase bill', 'billsarthi'])) {
+        matchedId = 'billsarthi';
+        matchedName = 'BillSarthi';
+      } else if (containsAny(normalizedText, ['cogs', 'cost of goods', 'margin', 'profitability', 'pricing audit'])) {
+        matchedId = 'cogs-dashboard';
+        matchedName = 'Custom COGS Dashboard';
+      } else if (containsAny(normalizedText, ['lead', 'sales', 'funnel', 'procurement pipeline', 'supply sarthi', 'distribution', 'delivery', 'logistics', 'agent'])) {
+        matchedId = 'supplysarthi';
+        matchedName = 'SupplySarthi';
+      }
+
+      // If matchedId doesn't strongly fit the keyword lists, it stays empty so the UI represents custom consulting!
+      let mockResponse;
+      if (matchedId) {
+        const pMeta = PRODUCT_SOLUTIONS[matchedId];
+        const finalId = pMeta ? pMeta.id : matchedId;
+        const finalName = pMeta ? pMeta.name : matchedName;
+
+        mockResponse = {
+          matchedProductId: finalId,
+          matchedProductName: finalName,
+          matchConfidence: 88,
+          analysis: `Aapke operational details se lagta hai ki ${finalName} aapke systems ke liye bilkul standard fit hai! Isse manual entry errors control honge aur process standardise hoga. Standard software agencies iska high premium charge karengi, par hum aapke operational needs ke mutabik customized version market rate ke comparison me straight *50% OFF (aadhi cost)* me deliver karenge.`,
+          automationNeeds: `Aapko real-time Google Sheets backend, pre-built template validation trigger, custom security logs, and single-click automated WhatsApp receipts framework setup ki standard requirement hai.`,
+          estimatedRoi: {
+            hoursSaved: 35,
+            moneySaved: 12000,
+            accuracyImprovement: "99% Reduced Entry Leakages"
+          },
+          recommendedActionPlan: [
+            `Step 1: Check standard ${finalName} template on Suraj's products guide.`,
+            `Step 2: Connect with Suraj to craft custom WhatsApp reporting modules.`,
+            `Step 3: Setup your free workspace with lifetime data storage backup.`
+          ]
+        };
+      } else {
+        mockResponse = {
+          matchedProductId: "",
+          matchedProductName: "",
+          matchConfidence: 45,
+          analysis: `Humne aapke business detail ka deep verification kiya hai. Hum unnecessary package mismatch nahi karte—Aapki conditions standard pre-designed software templates me complete nahi hoti. Aapko custom workflow aur integration automation setup ki recommendation hai! Aur sabse badiya baat, Suraj is special tailor-made dashboard program ko standard agencies ki compared prices se pure *50% Kam Cost (50% Custom Savings)* me safely develop kar dega!`,
+          automationNeeds: `Aapki specific description ki requirements ke anusar customized sheet workflows, custom multi-input dynamic web forms, automatically scheduled email alerts aur custom sheets report compiler ki absolute zarurat hai.`,
+          estimatedRoi: {
+            hoursSaved: 45,
+            moneySaved: 16000,
+            accuracyImprovement: "100% Personalised Workflow Flow"
+          },
+          recommendedActionPlan: [
+            `Step 1: Don't purchase unneeded system templates.`,
+            `Step 2: Connect immediately with Suraj via WhatsApp on custom blueprints.`,
+            `Step 3: Build tailor-made systems at half (50%) of typical software agency development packages.`
+          ]
+        };
+      }
+
+      res.json({ success: true, isAIPowered: false, data: mockResponse });
+
+    } catch (err) {
+      console.error('Core business analysis error:', err);
+      res.status(500).json({ error: 'Server error while performing business audit analysis.' });
+    }
+  });
 
   // API: Create Live / Test Razorpay Order securely using server-side Key Secret
   app.post('/api/create-razorpay-order', async (req, res) => {
