@@ -951,9 +951,13 @@ function sendLowStockNotification(sku, name, level) {
 
 export function getNumericPrice(priceStr: string): number {
   if (!priceStr) return 0;
-  const cleaned = priceStr.replace(/[^0-9.]/g, '');
-  const parsed = parseFloat(cleaned);
-  return isNaN(parsed) ? 0 : parsed;
+  const match = priceStr.match(/(\d+[,\d]*(\.\d+)?)/);
+  if (match) {
+    const cleaned = match[0].replace(/,/g, '');
+    const parsed = parseFloat(cleaned);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
 }
 
 export function calculateDiscount(priceStr: string, marketPriceStr?: string): number {
