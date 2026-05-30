@@ -42,33 +42,33 @@ export default function Navbar() {
     : 'bg-transparent';
     
   const textClass = (!isScrolled && isHome) 
-    ? 'text-white/90 hover:text-white' 
-    : 'text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400';
+    ? 'text-white/90 hover:text-white text-sm xl:text-base whitespace-nowrap' 
+    : 'text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 text-sm xl:text-base whitespace-nowrap';
     
   const brandClass = (!isScrolled && isHome)
     ? 'text-white'
     : 'text-slate-900 dark:text-white';
     
   const activeClass = (!isScrolled && isHome)
-    ? 'text-white font-semibold'
-    : 'text-indigo-600 dark:text-indigo-400 font-semibold';
+    ? 'text-white font-semibold text-sm xl:text-base whitespace-nowrap'
+    : 'text-indigo-600 dark:text-indigo-400 font-semibold text-sm xl:text-base whitespace-nowrap';
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBgClass}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <Link to="/" className="flex-shrink-0 flex items-center gap-3 group">
+          <Link to="/" className="flex-shrink-0 flex items-center gap-3 group mr-4">
             <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-[0_4px_12px_rgba(79,70,229,0.3)] group-hover:scale-105 transition-transform">
               SA
             </div>
             <span className={`font-extrabold text-xl hidden sm:block tracking-tight transition-colors ${brandClass}`}>Suraj Automation</span>
           </Link>
           
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          <div className="hidden lg:flex flex-1 justify-end items-center space-x-3 xl:space-x-6">
             <Link to="/" className={`font-medium transition-colors ${location.pathname === '/' ? activeClass : textClass}`}>Home</Link>
             <Link to="/products" className={`font-medium transition-colors ${location.pathname.startsWith('/products') ? activeClass : textClass}`}>Products</Link>
             <Link to="/services" className={`font-medium transition-colors ${location.pathname === '/services' ? activeClass : textClass}`}>Services</Link>
-            <Link to="/roi-tool" className={`font-medium transition-colors ${location.pathname === '/roi-tool' ? activeClass : textClass} flex items-center gap-1`}>
+            <Link to="/roi-tool" className={`font-medium transition-colors ${location.pathname === '/roi-tool' ? activeClass : textClass} flex items-center gap-0.5 xl:gap-1`}>
               <Sparkles className="w-4 h-4 text-amber-500 shrink-0 fill-amber-500/20" />
               ROI & AI Match
             </Link>
@@ -83,7 +83,7 @@ export default function Navbar() {
             
             <button 
               onClick={toggleDark}
-              className={`p-2 rounded-full transition-colors ${
+              className={`p-2 rounded-full transition-colors shrink-0 ${
                 !isScrolled && isHome 
                   ? 'bg-white/10 text-white hover:bg-white/20' 
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
@@ -97,13 +97,13 @@ export default function Navbar() {
               href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold transition-all shadow-[0_4px_14px_rgba(79,70,229,0.3)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.4)] hover:-translate-y-0.5"
+              className="px-4 xl:px-6 py-2 xl:py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold transition-all shadow-[0_4px_14px_rgba(79,70,229,0.3)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.4)] hover:-translate-y-0.5 whitespace-nowrap text-sm xl:text-base shrink-0"
             >
               Book Audit
             </a>
           </div>
 
-          <div className="md:hidden flex items-center gap-4">
+          <div className="lg:hidden flex items-center gap-4">
             <button 
               onClick={toggleDark}
               className={`p-2 rounded-full transition-colors ${
@@ -126,7 +126,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-4 shadow-xl absolute w-full">
+        <div className="lg:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-4 shadow-xl absolute w-full">
           <Link to="/" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Home</Link>
           <Link to="/products" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname.startsWith('/products') ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Products</Link>
           <Link to="/services" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/services' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Services</Link>
