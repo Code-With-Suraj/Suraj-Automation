@@ -287,6 +287,21 @@ export default function Products() {
         `/images/products/vendorsarthi2.jpg`,
         `/images/products/vendorsarthi3.jpg`,
       ]
+    },
+    {
+      id: 'personalfinsarthi',
+      name: 'PersonalFin Sarthi',
+      tagline: 'India’s Smartest Personal Finance Tracker',
+      description: 'Track expenses, savings, debt, investments & subscriptions from one beautiful dashboard. Your secure, offline-first personal CFO built on Google Apps Script and Google Sheets.',
+      icon: <Wallet className="w-8 h-8" />,
+      color: 'emerald',
+      category: 'Accounting & Finance',
+      popularity: 87,
+      images: [
+        'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=800&q=80'
+      ]
     }
   ];
 

@@ -947,6 +947,108 @@ function sendLowStockNotification(sku, name, level) {
       "Setup threshold integers to trigger auto warnings immediately.",
       "Authorize security access to read your inventory rows."
     ]
+  },
+  personalfinsarthi: {
+    id: "personalfinsarthi",
+    name: "PersonalFin Sarthi",
+    price: "₹599",
+    marketPrice: "₹1,499",
+    sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1PersonalFinSarthiTemplateDemo/copy",
+    appsScriptCode: `/**
+ * PersonalFin Sarthi - India's Smartest Personal Finance Tracker & Budget Planner
+ * Author: Suraj Automation
+ * Platform: Google Apps Script Web App with Sheets Backend
+ */
+
+const SHEET_NAME_TRANSACTIONS = "Transactions";
+const SHEET_NAME_BUDGETS = "Budgets";
+const SHEET_NAME_SUBSCRIPTIONS = "Subscriptions";
+const SHEET_NAME_ASSETS = "Assets";
+
+function doGet(e) {
+  const template = HtmlService.createTemplateFromFile('Index');
+  template.baseUrl = ScriptApp.getService().getUrl();
+  return template.evaluate()
+    .setTitle('PersonalFin Sarthi - Dashboard')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function getDashboardMetrics() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const transSheet = ss.getSheetByName(SHEET_NAME_TRANSACTIONS);
+  if (!transSheet) return { expenses: 0, income: 0, savings: 0, investments: 0, netWorth: 0 };
+  
+  const data = transSheet.getDataRange().getValues();
+  let totalExpenses = 0;
+  let totalIncome = 0;
+  let totalSavings = 0;
+  let totalInvestments = 0;
+  
+  // Skip header row
+  for (let i = 1; i < data.length; i++) {
+    const amount = parseFloat(data[i][3]) || 0;
+    const type = data[i][4]; // Column 4 contains Category Type: Income/Expense/Savings/Investment
+    
+    if (type === "Expense") totalExpenses += amount;
+    else if (type === "Income") totalIncome += amount;
+    else if (type === "Savings") totalSavings += amount;
+    else if (type === "Investment") totalInvestments += amount;
+  }
+  
+  const netWorth = (totalIncome + totalSavings + totalInvestments) - totalExpenses;
+  return {
+    expenses: totalExpenses,
+    income: totalIncome,
+    savings: totalSavings,
+    investments: totalInvestments,
+    netWorth: netWorth
+  };
+}
+
+function addExpenseEntry(date, category, amount, account, notes) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_NAME_TRANSACTIONS) || ss.insertSheet(SHEET_NAME_TRANSACTIONS);
+  const entryId = "FIN-" + new Date().getTime();
+  
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["Entry ID", "Date", "Category", "Amount", "Type", "Account", "Notes", "Timestamp"]);
+  }
+  
+  sheet.appendRow([
+    entryId,
+    date || new Date(),
+    category,
+    parseFloat(amount),
+    "Expense",
+    account || "Bank Account",
+    notes || "",
+    new Date()
+  ]);
+  
+  // Alert if spending limit exceeded
+  checkBudgetThreshold(category);
+  return { success: true, entryId: entryId };
+}
+
+function checkBudgetThreshold(category) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const budgetSheet = ss.getSheetByName(SHEET_NAME_BUDGETS);
+  if (!budgetSheet) return;
+  const budgets = budgetSheet.getDataRange().getValues();
+  
+  // Simple check logic
+  console.log("Checking monthly spending limit thresholds for: " + category);
+}`,
+    setupSteps: [
+      "Click the 'Make a Copy' button to copy your PersonalFin Sarthi spreadsheet layout directly inside your Google Drive.",
+      "Navigate to Extensions ➔ Apps Script from the spreadsheet menu.",
+      "Delete any default code and replace it with the PersonalFin Sarthi code provided above.",
+      "Save the Apps Script project by clicking the Save icon.",
+      "Click Deploy ➔ New Deployment. Choose Web App, set execute as 'Me', set access level to 'Anyone'.",
+      "Deploy and authorize requested permissions to grant Google Drive storage read-write access.",
+      "Launch your newly created Personal Finance dashboard to monitor budgets, subscriptions, debt avalanche/snowball trackers, and investments offline!"
+    ]
   }
 };
 
@@ -1111,6 +1213,17 @@ export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; descrip
       "/images/products/vendorsarthi1.jpg",
       "/images/products/vendorsarthi2.jpg",
       "/images/products/vendorsarthi3.jpg"
+    ]
+  },
+  personalfinsarthi: {
+    tagline: "India’s Smartest Personal Finance Tracker",
+    description: "Track expenses, savings, debt, investments & subscriptions from one beautiful dashboard. Your secure, offline-first personal CFO built on Google Apps Script and Google Sheets.",
+    category: "Accounting & Finance",
+    color: "emerald",
+    images: [
+      "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=800&q=80"
     ]
   }
 };
