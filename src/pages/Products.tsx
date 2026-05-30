@@ -41,6 +41,7 @@ const ImageCarousel = ({ images, className = '' }: { images: string[], className
         src={images[currentIndex]} 
         alt={`Product screenshot ${currentIndex + 1}`}
         className="w-full h-full object-cover transition-all duration-500"
+        referrerPolicy="no-referrer"
         onError={(e) => {
           e.currentTarget.onerror = null;
           // When image is broken (e.g. 0 byte file or missing), hide it so the background shows instead of broken icon
@@ -119,8 +120,8 @@ export default function Products() {
       popularity: 100,
       images: [
         `/images/products/supplysarthi1.jpg`,
-        `/images/products/supplysarthi2.jpg`,
-        `/images/products/supplysarthi3.jpg`,
+        `https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -133,9 +134,9 @@ export default function Products() {
       category: 'Accounting & Finance',
       popularity: 98,
       images: [
-        `/images/products/cogs-dashboard1.jpg`,
-        `/images/products/cogs-dashboard2.jpg`,
-        `/images/products/cogs-dashboard3.jpg`,
+        `https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1543286386-7a39e859a41c?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -148,9 +149,9 @@ export default function Products() {
       category: 'Accounting & Finance',
       popularity: 95,
       images: [
-        `/images/products/hisabsarthi1.jpg`,
-        `/images/products/hisabsarthi2.jpg`,
-        `/images/products/hisabsarthi3.jpg`,
+        `https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -163,9 +164,9 @@ export default function Products() {
       category: 'Retail & Supply',
       popularity: 90,
       images: [
-        `/images/products/rationkart1.jpg`,
-        `/images/products/rationkart2.jpg`,
-        `/images/products/rationkart3.jpg`,
+        `https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -178,9 +179,9 @@ export default function Products() {
       category: 'Inventory',
       popularity: 85,
       images: [
-        `/images/products/stocksarthi1.jpg`,
-        `/images/products/stocksarthi2.jpg`,
-        `/images/products/stocksarthi3.jpg`,
+        `https://images.unsplash.com/photo-1553413719-87587ef72441?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -193,9 +194,9 @@ export default function Products() {
       category: 'Accounting & Finance',
       popularity: 80,
       images: [
-        `/images/products/billsarthi1.jpg`,
-        `/images/products/billsarthi2.jpg`,
-        `/images/products/billsarthi3.jpg`,
+        `https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -208,9 +209,9 @@ export default function Products() {
       category: 'HR & Management',
       popularity: 75,
       images: [
-        `/images/products/claimo1.jpg`,
-        `/images/products/claimo2.jpg`,
-        `/images/products/claimo3.jpg`,
+        `https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1534951009808-766178b47a4f?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -223,9 +224,9 @@ export default function Products() {
       category: 'HR & Management',
       popularity: 70,
       images: [
-        `/images/products/karmsarthi1.jpg`,
-        `/images/products/karmsarthi2.jpg`,
-        `/images/products/karmsarthi3.jpg`,
+        `https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1531535934027-667f6787eda5?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -238,9 +239,9 @@ export default function Products() {
       category: 'Food & Beverage',
       popularity: 60,
       images: [
-        `/images/products/cakesarthi1.jpg`,
-        `/images/products/cakesarthi2.jpg`,
-        `/images/products/cakesarthi3.jpg`,
+        `https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -253,9 +254,9 @@ export default function Products() {
       category: 'Health & Fitness',
       popularity: 50,
       images: [
-        `/images/products/gymsarthi1.jpg`,
-        `/images/products/gymsarthi2.jpg`,
-        `/images/products/gymsarthi3.jpg`,
+        `https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -268,9 +269,9 @@ export default function Products() {
       category: 'Food & Beverage',
       popularity: 40,
       images: [
-        `/images/products/menusarthi1.jpg`,
-        `/images/products/menusarthi2.jpg`,
-        `/images/products/menusarthi3.jpg`,
+        `https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {
@@ -283,9 +284,9 @@ export default function Products() {
       category: 'Retail & Supply',
       popularity: 88,
       images: [
-        `/images/products/vendorsarthi1.jpg`,
-        `/images/products/vendorsarthi2.jpg`,
-        `/images/products/vendorsarthi3.jpg`,
+        `https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {

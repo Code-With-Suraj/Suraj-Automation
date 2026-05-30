@@ -67,6 +67,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <Link to="/" className={`font-medium transition-colors ${location.pathname === '/' ? activeClass : textClass}`}>Home</Link>
             <Link to="/products" className={`font-medium transition-colors ${location.pathname.startsWith('/products') ? activeClass : textClass}`}>Products</Link>
+            <Link to="/services" className={`font-medium transition-colors ${location.pathname === '/services' ? activeClass : textClass}`}>Services</Link>
             <Link to="/roi-tool" className={`font-medium transition-colors ${location.pathname === '/roi-tool' ? activeClass : textClass} flex items-center gap-1`}>
               <Sparkles className="w-4 h-4 text-amber-500 shrink-0 fill-amber-500/20" />
               ROI & AI Match
@@ -128,6 +129,7 @@ export default function Navbar() {
         <div className="md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-4 shadow-xl absolute w-full">
           <Link to="/" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Home</Link>
           <Link to="/products" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname.startsWith('/products') ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Products</Link>
+          <Link to="/services" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/services' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Services</Link>
           <Link to="/roi-tool" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/roi-tool' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'} flex items-center gap-1.5`}>
             <Sparkles className="w-4 h-4 text-amber-500 shrink-0 fill-amber-500/10 animate-pulse animate-duration-1000" />
             ROI & AI Match

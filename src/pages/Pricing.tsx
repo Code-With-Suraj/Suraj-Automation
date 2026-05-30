@@ -1,7 +1,10 @@
-import { motion } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, Info, ArrowRight, ShieldCheck, Zap, Plus, Layers, MonitorSmartphone } from 'lucide-react';
 
 export default function Pricing() {
+  const [activeTab, setActiveTab ] = useState<'web' | 'data'>('web');
+
   const plans = [
     {
       badge: "Starter",
@@ -79,13 +82,76 @@ export default function Pricing() {
     }
   ];
 
-  const addons = [
-    { name: "Extra Page", price: "₹1,000" },
-    { name: "Custom Dashboard", price: "₹5,000+" },
-    { name: "Automation Setup", price: "₹3,000+" },
-    { name: "Monthly Maintenance", price: "₹999/mo" },
-    { name: "Custom Feature", price: "₹2K–10K" }
+  const dashboardPlans = [
+    {
+      badge: "Excel Analyst",
+      name: "Basic Offline Dashboard",
+      bestFor: "Best for local ledgers, structured financial models, and static spreadsheets",
+      price: "₹2,000",
+      period: "one-time setup fee",
+      color: "emerald",
+      popular: false,
+      features: [
+        "Fully Offline Excel Dashboard Layout",
+        "Pivot Tables & Dynamic Power Queries",
+        "Clean Data Modeling & Custom Formulas",
+        "User-Friendly Pivot Chart Drill-Downs",
+        "Up to 3 Custom Visual Analytics Tabs",
+        "Excel Macro & VBA Assistance (Optional)"
+      ],
+      cta: "Order Offline Setup →",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20Basic%20Offline%20Excel%20Dashboard%20starting%20at%202000."
+    },
+    {
+      badge: "Apps Script Pro",
+      name: "Basic Online Live Dashboard",
+      bestFor: "Best for teams needing real-time tracking with cloud Apps Script features",
+      price: "₹3,000",
+      period: "one-time setup fee",
+      color: "blue",
+      popular: true,
+      features: [
+        "Live Google Sheets & Apps Script System",
+        "Cloud Data Stored Directly in Google Drive",
+        "Automated Web Forms & Data Entry Tables",
+        "Real-Time Multi-User Collaboration",
+        "Auto-Trigger Email Alerts & Notifications",
+        "Full Phone & Responsive Screen Layouts",
+        "Interactive PDF Generation Scripts"
+      ],
+      cta: "Order Online Setup →",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20Basic%2520Online%20Google%20Sheets%20Dashboard%20starting%20at%203000."
+    },
+    {
+      badge: "Enterprise Analyst",
+      name: "Advanced Automation System",
+      bestFor: "Best for integrating APIs, payment gateway syncs, and custom CRM sheets",
+      price: "₹8,000",
+      period: "starting range",
+      color: "indigo",
+      popular: false,
+      features: [
+        "Automatic Syncing of Third-Party APIs",
+        "Custom Standalone Google Web App Panels",
+        "Payment Webhooks & Ingestion Flows",
+        "Advanced Multi-Database Backends",
+        "Automatic PDF Invoicing & Reports",
+        "Comprehensive Support & Performance Tuning"
+      ],
+      cta: "Let's Discuss Scope →",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20Advanced%20Automation%20Dashboard%20service."
+    }
   ];
+
+  const addons = [
+    { name: "Extra Page / Tab Module", price: "₹1,000" },
+    { name: "Custom API Sync", price: "₹3,000+" },
+    { name: "Apps Script Automation Setup", price: "₹3,000+" },
+    { name: "Monthly Maintenance Support", price: "₹999/mo" },
+    { name: "Advanced Custom Feature Integration", price: "₹2K–10K" }
+  ];
+
+  const activePlans = activeTab === 'web' ? plans : dashboardPlans;
 
   return (
     <main className="pt-24 pb-20 dark:bg-slate-950 transition-colors duration-300">
@@ -105,18 +171,46 @@ export default function Pricing() {
               Simple, Clear <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-sky-400">Pricing</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 font-medium mb-8">
-              No hidden costs. No surprises. Pick your level.
+              No hidden costs. No surprises. Choose the scope that fits your needs.
             </p>
             
             <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-4 rounded-xl border border-white/20 text-left">
               <Info className="w-6 h-6 text-indigo-300 shrink-0" />
               <p className="text-sm md:text-base text-slate-200">
-                <strong className="text-white">Note:</strong> Domain and hosting charges are separate and will apply as per the selected website service.
+                <strong className="text-white">Note:</strong> Third-party server hosting or API credentials separate from Sarthi Google Drive systems will apply as per actual project usage.
               </p>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Tab Switcher */}
+      <div className="flex justify-center -mt-8 relative z-20">
+        <div className="bg-white dark:bg-slate-900 p-2 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 flex gap-2">
+          <button
+            onClick={() => setActiveTab('web')}
+            className={`px-6 py-3 rounded-xl font-bold text-sm md:text-base flex items-center gap-2 transition-all ${
+              activeTab === 'web'
+                ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
+            }`}
+          >
+            <MonitorSmartphone className="w-5 h-5" />
+            Websites & Apps
+          </button>
+          <button
+            onClick={() => setActiveTab('data')}
+            className={`px-6 py-3 rounded-xl font-bold text-sm md:text-base flex items-center gap-2 transition-all ${
+              activeTab === 'data'
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
+            }`}
+          >
+            <Layers className="w-5 h-5" />
+            Dashboards & Data Analysis
+          </button>
+        </div>
+      </div>
 
       {/* Pricing Plans */}
       <section className="py-24 relative overflow-hidden transition-colors duration-300">
@@ -124,12 +218,19 @@ export default function Pricing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors">Business pricing and project planning</h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 transition-colors">Clear packages for websites, systems, dashboards, and automation</p>
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors">
+              {activeTab === 'web' ? 'Business System Pricing and Project Planning' : 'Custom Dashboard Design & Data Analysis Pricing'}
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 transition-colors">
+              {activeTab === 'web' 
+                ? 'Clear packages for modern websites, automation, and backend business applications'
+                : 'Professional analytics dashboards using Excel or Google Sheets & Apps Script'
+              }
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {plans.map((plan, idx) => {
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto gap-8">
+            {activePlans.map((plan, idx) => {
               const colorMaps: any = {
                 emerald: {
                   badgeBg: "bg-emerald-100 dark:bg-emerald-500/20",
@@ -173,7 +274,7 @@ export default function Pricing() {
                 >
                   {plan.popular && (
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase shadow-md z-20 whitespace-nowrap">
-                      💥 Most Popular
+                      💥 Highly Recommended
                     </div>
                   )}
 
@@ -220,18 +321,18 @@ export default function Pricing() {
       <section className="py-20 bg-indigo-50 dark:bg-slate-900/40 relative transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-12 gap-12 items-center">
-            <div className="md:col-span-5 text-center md:text-left">
-              <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/50 rounded-2xl flex items-center justify-center mb-6 mx-auto md:mx-0">
+            <div className="md:col-span-12 lg:col-span-5 text-center lg:text-left mb-8 lg:mb-0">
+              <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/50 rounded-2xl flex items-center justify-center mb-6 mx-auto lg:mx-0">
                 <Plus className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-4 transition-colors">Add-Ons</h2>
               <p className="text-xl text-indigo-600 dark:text-indigo-400 font-semibold mb-3">Power Up Your Package</p>
-              <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-md transition-colors">
-                Add exactly what you need — nothing more. Customize your chosen package with specific capabilities.
+              <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-md transition-colors mx-auto lg:mx-0">
+                Add exactly what you need — nothing more. Customize your chosen setup with custom integrations.
               </p>
             </div>
             
-            <div className="md:col-span-7">
+            <div className="md:col-span-12 lg:col-span-7">
               <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-xl shadow-indigo-100/50 dark:shadow-none border border-slate-200 dark:border-slate-800 transition-colors">
                 <div className="space-y-4">
                   {addons.map((addon, idx) => (
@@ -253,10 +354,10 @@ export default function Pricing() {
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 md:p-16 rounded-[2.5rem] shadow-2xl shadow-indigo-100/50 dark:shadow-none relative overflow-hidden transition-colors">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-blue-500"></div>
             
-            <p className="text-2xl font-bold text-slate-900 dark:text-white mb-10 transition-colors">Have questions about which plan fits your business?</p>
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mb-10 transition-colors">Have questions about custom dashboards or systems?</p>
             
             <a 
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20have%20questions%20about%20the%20pricing%20plans." 
+              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%252520have%2520questions%2520about%2520your%2520websites%2520or%2520dashboard%2520packages." 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xl transition-all shadow-xl shadow-indigo-200 dark:shadow-none items-center justify-center gap-3 mx-auto group hover:-translate-y-1"
