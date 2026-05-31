@@ -323,6 +323,61 @@ Return valid JSON structure matching the schema.
 
   let vite: any = null;
 
+  // Dynamic XML Sitemap Generation for automated SEO tracking
+  app.get('/sitemap.xml', (req, res) => {
+    try {
+      const host = 'https://surajdx.com';
+      
+      const baseRoutes = [
+        { loc: '', changefreq: 'weekly', priority: '1.0' },
+        { loc: '/about', changefreq: 'monthly', priority: '0.8' },
+        { loc: '/services', changefreq: 'weekly', priority: '0.9' },
+        { loc: '/contact', changefreq: 'monthly', priority: '0.8' },
+        { loc: '/pricing', changefreq: 'weekly', priority: '0.9' },
+        { loc: '/products', changefreq: 'weekly', priority: '0.9' },
+        { loc: '/reviews', changefreq: 'weekly', priority: '0.8' },
+        { loc: '/portal', changefreq: 'monthly', priority: '0.7' },
+        { loc: '/roi-tool', changefreq: 'monthly', priority: '0.8' },
+        { loc: '/terms', changefreq: 'monthly', priority: '0.5' },
+        { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.5' }
+      ];
+
+      let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+      xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+      // 1. Dynamic base routes appending
+      baseRoutes.forEach(route => {
+        xml += `  <url>\n`;
+        xml += `    <loc>${host}${route.loc}</loc>\n`;
+        xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
+        xml += `    <priority>${route.priority}</priority>\n`;
+        xml += `  </url>\n`;
+      });
+
+      // 2. Dynamic products appending from data solutions mapping automatically
+      if (typeof PRODUCT_SOLUTIONS === 'object' && PRODUCT_SOLUTIONS !== null) {
+        Object.keys(PRODUCT_SOLUTIONS).forEach(key => {
+          const product = PRODUCT_SOLUTIONS[key];
+          if (product && !product.isHidden) {
+            xml += `  <url>\n`;
+            xml += `    <loc>${host}/products/${product.id}</loc>\n`;
+            xml += `    <changefreq>weekly</changefreq>\n`;
+            xml += `    <priority>0.8</priority>\n`;
+            xml += `  </url>\n`;
+          }
+        });
+      }
+
+      xml += `</urlset>\n`;
+
+      res.header('Content-Type', 'application/xml');
+      res.status(200).send(xml);
+    } catch (e) {
+      console.error('Error generating sitemap dynamically:', e);
+      res.status(500).send('Error generating sitemap');
+    }
+  });
+
   // Intercept product routes to dynamically inject SEO Meta tags for social media preview indexers
   app.get('/products/:id', async (req, res, next) => {
     try {
