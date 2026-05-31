@@ -29,7 +29,11 @@ import {
   Loader2, 
   Info,
   Check,
-  Award
+  Award,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
@@ -63,6 +67,10 @@ export default function Reviews() {
   const [showFormModal, setShowFormModal] = useState(false);
   const [ratingFilter, setRatingFilter] = useState<number | 'all'>('all');
   const [sortBy, setSortBy] = useState<'newest' | 'highest' | 'lowest'>('newest');
+  
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   
   // Form state
   const [rating, setRating] = useState(5);
@@ -314,6 +322,25 @@ export default function Reviews() {
     return r.rating === ratingFilter;
   });
 
+  // Reset currentPage to 1 when filters, sorting, or page size change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [ratingFilter, sortBy, itemsPerPage]);
+
+  const totalFilteredCount = filterReviews.length;
+  const totalPages = Math.ceil(totalFilteredCount / itemsPerPage) || 1;
+
+  // Safe bounds check
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage]);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentReviews = filterReviews.slice(indexOfFirstItem, indexOfLastItem);
+
   // Calculate rating percentage stats
   const ratingCounts = [0, 0, 0, 0, 0]; // 1, 2, 3, 4, 5 stars
   publicReviews.forEach(r => {
@@ -501,7 +528,7 @@ export default function Reviews() {
               /* Feed Wrapper */
               <div className="flex flex-col gap-6">
                 <AnimatePresence mode="popLayout">
-                  {filterReviews.map((item, idx) => (
+                  {currentReviews.map((item, idx) => (
                     <motion.div
                       key={item.id}
                       initial={{ opacity: 0, y: 15 }}
@@ -617,6 +644,112 @@ export default function Reviews() {
                     </motion.div>
                   ))}
                 </AnimatePresence>
+
+                {/* Modern & Professional Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 px-6 py-4 rounded-3xl shadow-sm transition-all animate-fade-in">
+                    {/* Items per Page selector & counter */}
+                    <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-bold order-2 sm:order-1">
+                      <span>Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, totalFilteredCount)} of {totalFilteredCount} reviews</span>
+                      <span className="text-slate-250 dark:text-slate-800">|</span>
+                      <div className="flex items-center gap-1.5">
+                        <span>Show:</span>
+                        <select
+                          value={itemsPerPage}
+                          onChange={(e) => {
+                            setItemsPerPage(Number(e.target.value));
+                            setCurrentPage(1);
+                          }}
+                          className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 rounded-xl px-2.5 py-1 font-extrabold focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs cursor-pointer"
+                        >
+                          <option value={5}>5</option>
+                          <option value={10}>10</option>
+                          <option value={15}>15</option>
+                          <option value={20}>20</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    <div className="flex items-center gap-1.5 order-1 sm:order-2">
+                      {/* First Page */}
+                      <button
+                        onClick={() => setCurrentPage(1)}
+                        disabled={currentPage === 1}
+                        className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                        title="First Page"
+                      >
+                        <ChevronsLeft className="w-4 h-4" />
+                      </button>
+
+                      {/* Prev Page */}
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                        title="Previous Page"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+
+                      {/* Explicit Page buttons */}
+                      <div className="flex items-center gap-1.5 scrollbar-none px-1">
+                        {Array.from({ length: totalPages }).map((_, pageIdx) => {
+                          const pageNum = pageIdx + 1;
+                          // Show smart range if totalPages is large to prevent layout spill
+                          if (
+                            totalPages > 5 &&
+                            pageNum !== 1 &&
+                            pageNum !== totalPages &&
+                            Math.abs(pageNum - currentPage) > 1
+                          ) {
+                            if (pageNum === 2 && currentPage > 3) {
+                              return <span key="dots1" className="text-slate-400 dark:text-slate-500 text-xs px-1 font-black">...</span>;
+                            }
+                            if (pageNum === totalPages - 1 && currentPage < totalPages - 2) {
+                              return <span key="dots2" className="text-slate-400 dark:text-slate-500 text-xs px-1 font-black">...</span>;
+                            }
+                            return null;
+                          }
+
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+                                currentPage === pageNum
+                                  ? 'bg-indigo-600 border border-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                                  : 'border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-650 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-850'
+                              }`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Next Page */}
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                        title="Next Page"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+
+                      {/* Last Page */}
+                      <button
+                        onClick={() => setCurrentPage(totalPages)}
+                        disabled={currentPage === totalPages}
+                        className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                        title="Last Page"
+                      >
+                        <ChevronsRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

@@ -251,8 +251,8 @@ const contactDetails = [
   {
     icon: Mail,
     title: "Email",
-    content: "surajsingh.noida98@gmail.com",
-    link: "mailto:surajsingh.noida98@gmail.com"
+    content: "suraj.gasdeveloper@gmail.com",
+    link: "mailto:suraj.gasdeveloper@gmail.com"
   },
   {
     icon: MapPin,
