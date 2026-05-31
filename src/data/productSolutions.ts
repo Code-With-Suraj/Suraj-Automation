@@ -857,14 +857,14 @@ function generateLoanAccount(borrowerName, principal, annualInterestPct, tenureM
       "Save and authorize spreadsheet permissions."
     ]
   },
-  "cogs-dashboard": {
-    id: "cogs-dashboard",
-    name: "Custom COGS Dashboard",
-    price: "₹1,499",
-    marketPrice: "₹4,999",
+  "cogs-analytics-dashboard": {
+    id: "cogs-analytics-dashboard",
+    name: "COGS Analytics Dashboard",
+    price: "₹3,999",
+    marketPrice: "₹9,999",
     sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1CogsDashboardTemplateDemo/copy",
     appsScriptCode: `/**
- * Custom COGS Dashboard Aggregator
+ * COGS Analytics Dashboard Aggregator
  * Author: Suraj Automation
  */
 
@@ -898,6 +898,27 @@ function calculateConsolidatedCOGS() {
       "Paste the dashboard aggregator engine functions above.",
       "Ensure Branch Sheets correspond to headers specified in the template.",
       "Execute once to verify consolidated balance sums."
+    ]
+  },
+  "cfo-dashboard": {
+    id: "cfo-dashboard",
+    name: "CFO Dashboard",
+    price: "₹1,499",
+    marketPrice: "₹4,999",
+    sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1CFODashboardTemplateDemo/copy",
+    appsScriptCode: `/**
+ * CFO Dashboard Engine
+ * Author: Suraj Automation
+ */
+
+function calculateCashPosition() {
+  return { success: true };
+}`,
+    setupSteps: [
+      "Click the 'Make a Copy' button to open your personalized copy of the Google Sheets template.",
+      "Authorize any requested permissions to grant Google Drive access.",
+      "Connect your bank statements.",
+      "Start tracking your cash flow and financial health."
     ]
   },
   stocksarthi: {
@@ -1094,7 +1115,7 @@ export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; descrip
       "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80"
     ]
   },
-  "cogs-dashboard": {
+  "cogs-analytics-dashboard": {
     tagline: "Automated COGS Reporting & AI Profit Dashboard",
     description: "Stop guessing your profit margins. A highly powerful COGS reporting web application built on Google Workspace that automates multi-branch cost tracking with AI-driven insights.",
     category: "Accounting & Finance",
@@ -1103,6 +1124,17 @@ export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; descrip
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1543286386-7a39e859a41c?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  "cfo-dashboard": {
+    tagline: "Your Entire Business Financial Health. One Dashboard.",
+    description: "The CFO Dashboard gives you a complete financial command center for your business to see your cash position instantly and forecast cash flow.",
+    category: "Accounting & Finance",
+    color: "blue",
+    images: [
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80"
     ]
   },
   hisabsarthi: {

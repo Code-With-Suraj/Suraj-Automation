@@ -22,7 +22,8 @@ const PRODUCT_SOLUTIONS_BACKEND: Record<string, { name: string; price: number }>
   supplysarthi: { name: "SupplySarthi", price: 1499 },
   hisabsarthi: { name: "HisabSarthi", price: 1499 },
   loansarthi: { name: "LoanSarthi", price: 1499 },
-  "cogs-dashboard": { name: "Custom COGS Dashboard", price: 1499 },
+  "cogs-analytics-dashboard": { name: "COGS Analytics Dashboard", price: 3999 },
+  "cfo-dashboard": { name: "CFO Dashboard", price: 1499 },
   stocksarthi: { name: "StockSarthi", price: 1499 }
 };
 
@@ -81,7 +82,7 @@ Return valid JSON structure matching the schema.
                 properties: {
                   matchedProductId: {
                     type: Type.STRING,
-                    description: "Must be EXACTLY one of: rationkart, vendorsarthi, billsarthi, claimo, karmsarthi, cakesarthi, gymsarthi, menusarthi, supplysarthi, hisabsarthi, loansarthi, cogs-dashboard, stocksarthi, or empty string of '' if there is no high-fidelity genuine match."
+                    description: "Must be EXACTLY one of: rationkart, vendorsarthi, billsarthi, claimo, karmsarthi, cakesarthi, gymsarthi, menusarthi, supplysarthi, hisabsarthi, loansarthi, cogs-analytics-dashboard, stocksarthi, or empty string of '' if there is no high-fidelity genuine match."
                   },
                   matchedProductName: {
                     type: Type.STRING,
@@ -170,8 +171,11 @@ Return valid JSON structure matching the schema.
         matchedId = 'billsarthi';
         matchedName = 'BillSarthi';
       } else if (containsAny(normalizedText, ['cogs', 'cost of goods', 'margin', 'profitability', 'pricing audit'])) {
-        matchedId = 'cogs-dashboard';
-        matchedName = 'Custom COGS Dashboard';
+        matchedId = 'cogs-analytics-dashboard';
+        matchedName = 'COGS Analytics Dashboard';
+      } else if (containsAny(normalizedText, ['cfo', 'cash position', 'vendors', 'cash reserve', 'cfo dashboard'])) {
+        matchedId = 'cfo-dashboard';
+        matchedName = 'CFO Dashboard';
       } else if (containsAny(normalizedText, ['lead', 'sales', 'funnel', 'procurement pipeline', 'supply sarthi', 'distribution', 'delivery', 'logistics', 'agent'])) {
         matchedId = 'supplysarthi';
         matchedName = 'SupplySarthi';

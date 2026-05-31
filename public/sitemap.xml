@@ -36,7 +36,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://surajdx.com/products/cogs-dashboard</loc>
+    <loc>https://surajdx.com/products/cogs-analytics-dashboard</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://surajdx.com/products/cfo-dashboard</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -56,6 +56,22 @@ service cloud.firestore {
         && data.createdAt is timestamp;
     }
 
+    // ServiceReview validation function
+    function isValidReview(data) {
+      return data.keys().hasAll(['id', 'authorName', 'authorEmail', 'authorPhotoURL', 'authorTitle', 'rating', 'comment', 'serviceUsed', 'isApproved', 'createdAt'])
+        && data.keys().size() == 10
+        && data.id is string && data.id.size() <= 128
+        && data.authorName is string && data.authorName.size() <= 256
+        && data.authorEmail is string && data.authorEmail.size() <= 256
+        && data.authorPhotoURL is string && data.authorPhotoURL.size() <= 2048
+        && data.authorTitle is string && data.authorTitle.size() <= 256
+        && data.rating is int && data.rating >= 1 && data.rating <= 5
+        && data.comment is string && data.comment.size() <= 5000
+        && data.serviceUsed is string && data.serviceUsed.size() <= 256
+        && data.isApproved is bool
+        && data.createdAt is timestamp;
+    }
+
     // Match users profile documents
     match /users/{userId} {
       allow get: if isOwner(userId);
@@ -96,6 +112,24 @@ service cloud.firestore {
       allow read: if true;
       // Write (create, update, delete) is strictly restricted to verified admin
       allow create, update: if isAdmin() && isValidId(productId);
+      allow delete: if isAdmin();
+    }
+
+    // Match service reviews
+    match /reviews/{reviewId} {
+      // Read approved reviews publicly, or any review by a verified admin
+      allow read: if (resource.data.isApproved == true) || isAdmin();
+
+      // Clients can create unapproved reviews. Admin can create pre-approved ones.
+      allow create: if isValidId(reviewId)
+        && isValidReview(incoming())
+        && (
+          (isAdmin()) || 
+          (isSignedIn() && incoming().isApproved == false && incoming().authorEmail == request.auth.token.email)
+        );
+
+      // Only Admin can update or delete reviews
+      allow update: if isAdmin() && isValidReview(incoming());
       allow delete: if isAdmin();
     }
   }

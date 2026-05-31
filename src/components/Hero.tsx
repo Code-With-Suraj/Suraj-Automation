@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight, Calendar, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   const containerVariants = {
@@ -83,18 +84,26 @@ export default function Hero() {
               variants={itemVariants}
               className="mt-16 flex items-center justify-center gap-5 pt-8 border-t border-white/10"
             >
-              <div className="flex -space-x-3">
-                <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=100&auto=format&fit=crop" alt="Client" />
-                <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=100&auto=format&fit=crop" alt="Client" />
-                <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=100&auto=format&fit=crop" alt="Client" />
-                <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shadow-inner">+50</div>
-              </div>
-              <div className="text-left">
-                <div className="flex text-amber-400 text-sm">
-                  ★★★★★
+              <Link to="/reviews" className="flex items-center gap-5 hover:bg-white/5 px-6 py-3.5 rounded-2xl border border-white/5 hover:border-white/10 transition-all duration-300 group">
+                <div className="flex -space-x-3">
+                  <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=100&auto=format&fit=crop" alt="Client" />
+                  <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=100&auto=format&fit=crop" alt="Client" />
+                  <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=100&auto=format&fit=crop" alt="Client" />
+                  <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shadow-inner">+50</div>
                 </div>
-                <span className="text-sm font-medium text-slate-300">Trusted by 10+ growing businesses</span>
-              </div>
+                <div className="text-left">
+                  <div className="flex text-amber-450 items-center gap-0.5 mb-0.5">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 group-hover:scale-110 transition-transform" />
+                    ))}
+                    <span className="text-white text-xs font-bold ml-1.5 font-mono">4.9/5 Rating</span>
+                  </div>
+                  <span className="text-sm font-medium text-slate-300 group-hover:text-indigo-400 transition-colors flex items-center gap-1.5">
+                    Trusted by 50+ clients • View Verified Reviews
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

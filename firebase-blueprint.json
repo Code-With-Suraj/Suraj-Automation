@@ -58,6 +58,24 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["id", "name", "price", "sheetTemplateUrl", "appsScriptCode", "setupSteps", "tagline", "description", "category", "color", "images", "createdAt"]
+    },
+    "ServiceReview": {
+      "title": "ServiceReview",
+      "description": "Client feedback and service ratings for Google search integration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorEmail": { "type": "string" },
+        "authorPhotoURL": { "type": "string" },
+        "authorTitle": { "type": "string" },
+        "rating": { "type": "integer" },
+        "comment": { "type": "string" },
+        "serviceUsed": { "type": "string" },
+        "isApproved": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "authorName", "authorEmail", "rating", "comment", "isApproved", "createdAt"]
     }
   },
   "firestore": {
@@ -72,6 +90,10 @@
     "/custom_products/{productId}": {
       "schema": "CustomProduct",
       "description": "Dynamically hosted custom product sheets and core script configurations"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "ServiceReview",
+      "description": "Client reviews & testimonials collection for service ratings and rich search result displays"
     }
   }
 }

@@ -17,72 +17,31 @@ import {
   Clock,
   ExternalLink
 } from 'lucide-react';
+import { CORE_SERVICES } from '../data/servicesData';
 
 export default function Services() {
   const [dashboardType, setDashboardType] = useState<'excel' | 'sheets'>('excel');
 
-  const coreServices = [
-    {
-      id: "mis-reporting",
-      title: "MIS & Reporting",
-      subtitle: "MIS Reports & Business Intelligence",
-      description: "Scattered data ko ek jagah laao. Daily, weekly, monthly reports jo automatically ban jayein — bina copy-paste ke.",
-      icon: BarChart3,
-      color: "from-indigo-500 to-blue-600",
-      darkColor: "group-hover:text-indigo-400 border-indigo-500/20",
-      points: [
-        "Custom MIS report design & automation",
-        "Multi-branch & department-wise reporting",
-        "KPI tracking & business health summaries",
-        "Excel + Google Sheets based delivery"
-      ]
-    },
-    {
-      id: "process-automation",
-      title: "Process Automation",
-      subtitle: "Google Apps Script Automation",
-      description: "Gmail, Sheets, Forms, Drive — sab ek system mein connect karo. Manual kaam ko automate karo bina ek rupee extra kharche ke.",
-      icon: Cpu,
-      color: "from-emerald-500 to-teal-600",
-      darkColor: "group-hover:text-emerald-400 border-emerald-500/20",
-      points: [
-        "Auto email alerts & WhatsApp triggers",
-        "Form-to-sheet data pipelines",
-        "Scheduled report delivery",
-        "Custom workflow automation for your business"
-      ]
-    },
-    {
-      id: "sql-data",
-      title: "Data & SQL",
-      subtitle: "SQL & Data Analytics",
-      description: "Raw data se real insights nikalo. Sales trends, inventory gaps, customer patterns — sab kuch numbers mein clearly dikhao.",
-      icon: Database,
-      color: "from-blue-500 to-cyan-600",
-      darkColor: "group-hover:text-blue-400 border-blue-500/20",
-      points: [
-        "SQL query writing & database management",
-        "Data cleaning & transformation",
-        "Sales, inventory & ops analytics",
-        "Power BI dashboard development"
-      ]
-    },
-    {
-      id: "web-apps",
-      title: "Web Apps",
-      subtitle: "Lightweight Web Apps (Google Ecosystem)",
-      description: "Chote business ke liye full-featured apps — UdharSarthi, StockSarthi, BillSarthi jaise systems jo Google Sheets pe chalte hain.",
-      icon: Layers,
-      color: "from-purple-500 to-pink-600",
-      darkColor: "group-hover:text-purple-400 border-purple-500/20",
-      points: [
-        "Custom apps for your exact workflow",
-        "Mobile-friendly & multi-user access",
-        "No server cost — runs on Google Drive",
-        "Training & onboarding included"
-      ]
-    }
-  ];
+  const serviceIcons: Record<string, any> = {
+    "mis-reporting": BarChart3,
+    "process-automation": Cpu,
+    "sql-data": Database,
+    "web-apps": Layers
+  };
+
+  const serviceColors: Record<string, { color: string; darkColor: string }> = {
+    "mis-reporting": { color: "from-indigo-500 to-blue-600", darkColor: "group-hover:text-indigo-400 border-indigo-500/20" },
+    "process-automation": { color: "from-emerald-500 to-teal-600", darkColor: "group-hover:text-emerald-400 border-emerald-500/20" },
+    "sql-data": { color: "from-blue-500 to-cyan-600", darkColor: "group-hover:text-blue-400 border-blue-500/20" },
+    "web-apps": { color: "from-purple-500 to-pink-600", darkColor: "group-hover:text-purple-400 border-purple-500/20" }
+  };
+
+  const coreServices = CORE_SERVICES.map(s => ({
+    ...s,
+    icon: serviceIcons[s.id] || Cpu,
+    color: serviceColors[s.id]?.color || "from-indigo-500 to-blue-600",
+    darkColor: serviceColors[s.id]?.darkColor || "group-hover:text-indigo-400 border-indigo-500/20"
+  }));
 
   const excelPlans = [
     {

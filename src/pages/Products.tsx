@@ -125,8 +125,8 @@ export default function Products() {
       ]
     },
     {
-      id: 'cogs-dashboard',
-      name: 'Custom COGS Dashboard',
+      id: 'cogs-analytics-dashboard',
+      name: 'COGS Analytics Dashboard',
       tagline: 'Automated COGS Reporting & AI Profit Dashboard',
       description: 'Stop guessing your profit margins. A highly powerful COGS reporting web application built on Google Workspace that automates multi-branch cost tracking with AI-driven insights.',
       icon: <PieChart className="w-8 h-8" />,
@@ -137,6 +137,21 @@ export default function Products() {
         `https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80`,
         `https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80`,
         `https://images.unsplash.com/photo-1543286386-7a39e859a41c?auto=format&fit=crop&w=800&q=80`,
+      ]
+    },
+    {
+      id: 'cfo-dashboard',
+      name: 'CFO Dashboard for Indian SMBs',
+      tagline: 'Your Entire Business Financial Health. One Dashboard.',
+      description: 'The CFO Dashboard gives you a complete financial command center for your business to see your cash position instantly and forecast cash flow.',
+      icon: <PieChart className="w-8 h-8" />,
+      color: 'blue',
+      category: 'Accounting & Finance',
+      popularity: 97,
+      images: [
+        `https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80`,
+        `https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80`,
       ]
     },
     {

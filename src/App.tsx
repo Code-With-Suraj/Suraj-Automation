@@ -24,13 +24,15 @@ import GymSarthi from './pages/products/GymSarthi';
 import MenuSarthi from './pages/products/MenuSarthi';
 import SupplySarthi from './pages/products/SupplySarthi';
 import HisabSarthi from './pages/products/HisabSarthi';
-import CogsDashboard from './pages/products/CogsDashboard';
+import CogsAnalyticsDashboard from './pages/products/CogsAnalyticsDashboard';
 import LoanSarthi from './pages/products/LoanSarthi';
 import VendorSarthi from './pages/products/VendorSarthi';
 import PersonalFinSarthi from './pages/products/PersonalFinSarthi';
+import CfoDashboard from './pages/products/CfoDashboard';
 import DynamicProductPage from './pages/products/DynamicProductPage';
 import AdminPortal from './pages/AdminPortal';
 import RoiTool from './pages/RoiTool';
+import Reviews from './pages/Reviews';
 import Terms from './pages/Terms';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
@@ -53,7 +55,9 @@ export default function App() {
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/products" element={<Products />} />
               <Route path="/portal" element={<Portal />} />
-              <Route path="/products/cogs-dashboard" element={<CogsDashboard />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/products/cogs-analytics-dashboard" element={<CogsAnalyticsDashboard />} />
+              <Route path="/products/cfo-dashboard" element={<CfoDashboard />} />
               <Route path="/products/rationkart" element={<RationKart />} />
               <Route path="/products/stocksarthi" element={<StockSarthi />} />
               <Route path="/products/billsarthi" element={<BillSarthi />} />
