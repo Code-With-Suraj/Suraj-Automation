@@ -399,7 +399,7 @@ export default function Reviews() {
             {/* Custom Bar Breakdown */}
             <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
               {[5, 4, 3, 2, 1].map((stars) => {
-                const count = ratingCounts[stars - 1] || (stars === 5 ? 12 : stars === 4 ? 3 : 0); // fallback visual structure if empty
+                const count = publicReviews.length > 0 ? ratingCounts[stars - 1] : (stars === 5 ? 12 : stars === 4 ? 3 : 0);
                 const total = publicReviews.length > 0 ? publicReviews.length : 15;
                 const percent = Math.round((count / total) * 100);
                 
