@@ -1,7 +1,7 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks, Search } from 'lucide-react';
+import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks, Search, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 import { useUser } from '../contexts/UserContext';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
@@ -90,6 +90,10 @@ export default function Products() {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<'popularity' | 'alphabetical'>('popularity');
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
 
   const products = [
     {
@@ -378,6 +382,25 @@ export default function Products() {
       return a.name.localeCompare(b.name);
     });
 
+  // Reset currentPage to 1 when filters, sorting, or page size change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, searchTerm, sortBy, itemsPerPage]);
+
+  const totalFilteredCount = filteredAndSortedProducts.length;
+  const totalPages = Math.ceil(totalFilteredCount / itemsPerPage) || 1;
+
+  // Safe bounds check
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage]);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = filteredAndSortedProducts.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <main className="pt-24 pb-20">
       <section className="relative py-20 lg:py-32 bg-slate-50 overflow-hidden">
@@ -461,7 +484,7 @@ export default function Products() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence mode="popLayout">
-              {filteredAndSortedProducts.map((product, idx) => {
+              {currentProducts.map((product, idx) => {
                 const styles = colorStyles[product.color];
                 const isFeatured = product.featured;
                 
@@ -601,6 +624,112 @@ export default function Products() {
               })}
             </AnimatePresence>
           </div>
+
+          {/* Modern & Professional Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200/60 shadow-sm px-6 py-4 rounded-3xl transition-all animate-fade-in">
+              {/* Items per Page selector & counter */}
+              <div className="flex items-center gap-3 text-sm text-slate-500 font-semibold order-2 sm:order-1">
+                <span>Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, totalFilteredCount)} of {totalFilteredCount} products</span>
+                <span className="text-slate-200">|</span>
+                <div className="flex items-center gap-1.5">
+                  <span>Show:</span>
+                  <select
+                    value={itemsPerPage}
+                    onChange={(e) => {
+                      setItemsPerPage(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                    className="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-2.5 py-1 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm cursor-pointer"
+                  >
+                    <option value={6}>6</option>
+                    <option value={9}>9</option>
+                    <option value={12}>12</option>
+                    <option value={24}>24</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Navigation Buttons */}
+              <div className="flex items-center gap-1.5 order-1 sm:order-2">
+                {/* First Page */}
+                <button
+                  onClick={() => setCurrentPage(1)}
+                  disabled={currentPage === 1}
+                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                  title="First Page"
+                >
+                  <ChevronsLeft className="w-4 h-4" />
+                </button>
+
+                {/* Prev Page */}
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                  title="Previous Page"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                {/* Explicit Page buttons */}
+                <div className="flex items-center gap-1.5 scrollbar-none px-1">
+                  {Array.from({ length: totalPages }).map((_, pageIdx) => {
+                    const pageNum = pageIdx + 1;
+                    // Show smart range if totalPages is large to prevent layout spill
+                    if (
+                      totalPages > 5 &&
+                      pageNum !== 1 &&
+                      pageNum !== totalPages &&
+                      Math.abs(pageNum - currentPage) > 1
+                    ) {
+                      if (pageNum === 2 && currentPage > 3) {
+                        return <span key="dots1" className="text-slate-400 text-sm px-1 font-black">...</span>;
+                      }
+                      if (pageNum === totalPages - 1 && currentPage < totalPages - 2) {
+                        return <span key="dots2" className="text-slate-400 text-sm px-1 font-black">...</span>;
+                      }
+                      return null;
+                    }
+
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => setCurrentPage(pageNum)}
+                        className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+                          currentPage === pageNum
+                            ? 'bg-indigo-600 border border-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                            : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Next Page */}
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                  title="Next Page"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+
+                {/* Last Page */}
+                <button
+                  onClick={() => setCurrentPage(totalPages)}
+                  disabled={currentPage === totalPages}
+                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
+                  title="Last Page"
+                >
+                  <ChevronsRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </main>
