@@ -249,9 +249,22 @@ export default function Reviews() {
         setShowFormModal(false);
       }, 4000);
       
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error submitting review:", err);
-      alert("Could not save review. Please check your credentials.");
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      
+      if (errorMessage.includes("permission-denied") || errorMessage.includes("Missing or insufficient permissions")) {
+        alert("Permission Denied: Your review could not be saved because of security rule restrictions or unauthorized parameters. Please log out and sign in again.");
+      } else {
+        alert(`Could not save review: ${errorMessage}`);
+      }
+      
+      // Follow the custom firebase-integration error handling pattern precisely
+      try {
+        handleFirestoreError(err, OperationType.WRITE, `reviews/${reviewId}`);
+      } catch (nestedErr) {
+        // Log original thrown error wrapper safely
+      }
     } finally {
       setIsSubmitting(false);
     }
