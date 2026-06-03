@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, User, Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Mail, Phone, User, Linkedin, Twitter, Facebook, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -16,9 +16,12 @@ export default function Footer() {
             <p className="text-sm leading-relaxed mb-6">
               Custom business systems and automation using Google Apps Script for SMBs.
             </p>
-            <div className="flex items-center gap-4 text-slate-400">
+            <div className="flex items-center gap-3 text-slate-400">
               <a href="https://www.linkedin.com/in/surajautomation" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all border border-slate-700/50" aria-label="LinkedIn">
                 <Linkedin className="w-4 h-4" />
+              </a>
+              <a href="https://share.google/8ZMNA3jACemzsznJ7" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#4285F4] hover:text-white transition-all border border-slate-700/50" aria-label="Google Business Profile">
+                <MapPin className="w-4 h-4 text-slate-350 hover:text-white" />
               </a>
               <a href="#" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky-500 hover:text-white transition-all border border-slate-700/50" aria-label="Twitter">
                 <Twitter className="w-4 h-4" />
@@ -35,7 +38,7 @@ export default function Footer() {
               <li><Link to="/products" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Products</Link></li>
               <li><Link to="/services" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Services</Link></li>
               <li><Link to="/about" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>About</Link></li>
-              <li><Link to="/pricing" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Pricing</Link></li>
+              <li><Link to="/services" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Pricing & Plans</Link></li>
             </ul>
           </div>
           <div>

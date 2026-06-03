@@ -11,7 +11,6 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
-import Pricing from './pages/Pricing';
 import Products from './pages/Products';
 import Portal from './pages/Portal';
 import RationKart from './pages/products/RationKart';
@@ -52,7 +51,7 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/pricing" element={<Services />} />
               <Route path="/products" element={<Products />} />
               <Route path="/portal" element={<Portal />} />
               <Route path="/reviews" element={<Reviews />} />

@@ -76,6 +76,33 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["id", "authorName", "authorEmail", "rating", "comment", "isApproved", "createdAt"]
+    },
+    "Quotation": {
+      "title": "Quotation",
+      "description": "User requested dynamic project quotations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "company": { "type": "string" },
+        "hasLandingPage": { "type": "boolean" },
+        "hasDynamicPages": { "type": "boolean" },
+        "hasSheetsSync": { "type": "boolean" },
+        "hasAppsScript": { "type": "boolean" },
+        "hasWhatsAppNotification": { "type": "boolean" },
+        "hasPdfGenerator": { "type": "boolean" },
+        "hasDashboard": { "type": "boolean" },
+        "hasAdminPanel": { "type": "boolean" },
+        "hasMaintenance": { "type": "boolean" },
+        "totalPrice": { "type": "integer" },
+        "notes": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "email", "phone", "totalPrice", "status", "createdAt"]
     }
   },
   "firestore": {
@@ -94,6 +121,10 @@
     "/reviews/{reviewId}": {
       "schema": "ServiceReview",
       "description": "Client reviews & testimonials collection for service ratings and rich search result displays"
+    },
+    "/quotations/{quotationId}": {
+      "schema": "Quotation",
+      "description": "Client dynamic quotations database"
     }
   }
 }

@@ -72,6 +72,30 @@ service cloud.firestore {
         && data.createdAt is timestamp;
     }
 
+    // Quotation validation function
+    function isValidQuotation(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'phone', 'totalPrice', 'status', 'createdAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 256
+        && data.email is string && data.email.size() <= 256
+        && data.phone is string && data.phone.size() <= 100
+        && data.totalPrice is int
+        && data.status is string && data.status.size() <= 64
+        && data.createdAt is timestamp
+        && (!data.keys().hasAny(['userId']) || data.userId is string)
+        && (!data.keys().hasAny(['company']) || data.company is string)
+        && (!data.keys().hasAny(['notes']) || data.notes is string)
+        && (!data.keys().hasAny(['hasLandingPage']) || data.hasLandingPage is bool)
+        && (!data.keys().hasAny(['hasDynamicPages']) || data.hasDynamicPages is bool)
+        && (!data.keys().hasAny(['hasSheetsSync']) || data.hasSheetsSync is bool)
+        && (!data.keys().hasAny(['hasAppsScript']) || data.hasAppsScript is bool)
+        && (!data.keys().hasAny(['hasWhatsAppNotification']) || data.hasWhatsAppNotification is bool)
+        && (!data.keys().hasAny(['hasPdfGenerator']) || data.hasPdfGenerator is bool)
+        && (!data.keys().hasAny(['hasDashboard']) || data.hasDashboard is bool)
+        && (!data.keys().hasAny(['hasAdminPanel']) || data.hasAdminPanel is bool)
+        && (!data.keys().hasAny(['hasMaintenance']) || data.hasMaintenance is bool);
+    }
+
     // Match users profile documents
     match /users/{userId} {
       allow get: if isOwner(userId);
@@ -130,6 +154,22 @@ service cloud.firestore {
 
       // Only Admin can update or delete reviews
       allow update: if isAdmin() && isValidReview(incoming());
+      allow delete: if isAdmin();
+    }
+
+    // Match service quotations
+    match /quotations/{quotationId} {
+      // Anyone can get their own quotation by ID to view/download PDF
+      allow get: if true;
+      // Listing are strictly restricted to admin users (for the panel)
+      allow list: if isAdmin();
+      
+      // Anyone can create a quotation for their needs
+      allow create: if isValidId(quotationId)
+        && isValidQuotation(incoming());
+
+      // Only Admin can update/delete quotations
+      allow update: if isAdmin() && isValidQuotation(incoming());
       allow delete: if isAdmin();
     }
   }

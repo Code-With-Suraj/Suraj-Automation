@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
 import { motion } from 'motion/react';
-import { Mail, MapPin, Phone, Send, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Loader2, AlertCircle, CheckCircle2, Star, CheckCircle, ExternalLink, Sparkles } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -111,15 +111,93 @@ export default function Contact() {
                 </div>
               ))}
 
-              <div className="hidden lg:block mt-12 bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-[40px]"></div>
-                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10">
-                  Business Hours
-                </h4>
-                <p className="text-slate-600 dark:text-slate-400 relative z-10">
-                  Monday - Friday<br />
-                  10:00 AM - 7:00 PM IST
-                </p>
+              {/* Business Hours & Google Profile workspace */}
+              <div className="space-y-6 mt-12">
+                <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-[40px]"></div>
+                  <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10">
+                    Business Hours
+                  </h4>
+                  <p className="text-slate-600 dark:text-slate-400 relative z-10 text-sm">
+                    Monday - Friday<br />
+                    10:00 AM - 7:00 PM IST
+                  </p>
+                </div>
+
+                {/* Google Business Profile card */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 sm:p-7 rounded-[2rem] shadow-xl relative overflow-hidden flex flex-col gap-5 group">
+                  <div className="absolute bottom-0 left-0 right-0 h-1 flex">
+                    <div className="w-1/4 h-full bg-[#4285F4]"></div>
+                    <div className="w-1/4 h-full bg-[#EA4335]"></div>
+                    <div className="w-1/4 h-full bg-[#FBBC05]"></div>
+                    <div className="w-1/4 h-full bg-[#34A853]"></div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 flex items-center justify-center font-extrabold text-sm shadow-sm shrink-0">
+                        <span className="text-lg tracking-tight">
+                          <span className="text-[#4285F4]">G</span>
+                          <span className="text-[#EA4335]">o</span>
+                          <span className="text-[#FBBC05]">o</span>
+                          <span className="text-[#4285F4]">g</span>
+                          <span className="text-[#34A853]">l</span>
+                          <span className="text-[#EA4335]">e</span>
+                        </span>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-extrabold text-slate-800 dark:text-white flex items-center gap-1 leading-none mb-1">
+                          Business Profile
+                          <CheckCircle className="w-3.5 h-3.5 text-blue-500 fill-blue-500/10 shrink-0" />
+                        </h3>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-extrabold">Verified Profile</p>
+                      </div>
+                    </div>
+
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 rounded-full text-indigo-600 dark:text-indigo-400 text-[10px] font-bold">
+                      Map Location
+                    </span>
+                  </div>
+
+                  <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-200/50 dark:border-slate-800 rounded-2xl p-4 flex flex-col gap-3">
+                    <div>
+                      <h4 className="text-sm font-extrabold text-slate-900 dark:text-white leading-tight">Suraj Automation</h4>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 font-semibold leading-relaxed">Enterprise workflow, ERP, CRM, and custom Sheets automations.</p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <div className="flex text-amber-500 shrink-0">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star key={star} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                        ))}
+                      </div>
+                      <span className="font-mono text-xs font-bold text-slate-800 dark:text-white">5.0 Rating</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <a 
+                      href="https://share.google/8ZMNA3jACemzsznJ7" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#4285F4] hover:bg-[#3574DE] text-white font-extrabold text-xs rounded-xl shadow-md transition-all cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
+                    >
+                      <MapPin className="w-4 h-4 shrink-0" />
+                      View on Google Maps
+                      <ExternalLink className="w-3" />
+                    </a>
+                    
+                    <a 
+                      href="https://share.google/8ZMNA3jACemzsznJ7" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 font-extrabold text-xs rounded-xl transition-all cursor-pointer"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                      Write Google Review
+                    </a>
+                  </div>
+                </div>
               </div>
             </motion.div>
 
@@ -258,6 +336,6 @@ const contactDetails = [
     icon: MapPin,
     title: "Location",
     content: "Noida, India",
-    link: null
+    link: "https://share.google/8ZMNA3jACemzsznJ7"
   }
 ];

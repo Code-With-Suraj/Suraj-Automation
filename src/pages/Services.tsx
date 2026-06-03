@@ -15,12 +15,16 @@ import {
   Shield,
   HelpCircle,
   Clock,
-  ExternalLink
+  ExternalLink,
+  Plus,
+  MonitorSmartphone,
+  PhoneCall
 } from 'lucide-react';
 import { CORE_SERVICES } from '../data/servicesData';
+import QuotationTool from '../components/QuotationTool';
 
 export default function Services() {
-  const [dashboardType, setDashboardType] = useState<'excel' | 'sheets'>('excel');
+  const [activeTab, setActiveTab] = useState<'web' | 'data'>('web');
 
   const serviceIcons: Record<string, any> = {
     "mis-reporting": BarChart3,
@@ -43,88 +47,139 @@ export default function Services() {
     darkColor: serviceColors[s.id]?.darkColor || "group-hover:text-indigo-400 border-indigo-500/20"
   }));
 
-  const excelPlans = [
+  const webPlans = [
     {
-      badge: "Local & Efficient",
-      name: "Excel Basic Dashboard",
-      description: "Single-source, single-view dashboard for daily tracking and monitoring.",
-      price: "₹2,000",
-      period: "one-time",
-      color: "indigo",
+      badge: "Starter",
+      name: "Basic Website Setup",
+      bestFor: "Best for local stores or simple pages looking to grow online",
+      price: "₹3,999",
+      period: "one-time payment",
+      color: "emerald",
+      popular: false,
       features: [
-        "1–2 data sources connected",
-        "Charts: bar, line, pie (up to 5)",
-        "Auto-refresh via Excel formulas",
-        "Filter by date, category, branch",
-        "Pre-built for sales / stock / expenses",
-        "1 revision included"
+        "1-Page Structured Landing Page",
+        "100% Mobile & Touch Friendly Layouts",
+        "About, Services List, Core Dynamic Gallery",
+        "WhatsApp Chat Button Sync Integrations",
+        "Secure Contact Leads Verification Form",
+        "SEO Header Metadata Tag Adjustments"
       ],
-      cta: "Setup Basic Excel Dashboard",
-      msg: "Hi Suraj, I am interested in the Basic Excel Dashboard setup starting at ₹2,000."
+      cta: "Setup Basic Website",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%2520I%27m%2520interested%2520in%2520the%2520Starter%2520Basic%252520Website%2520package."
     },
     {
-      badge: "Power Query Powered",
-      name: "Excel Advanced Dashboard",
-      description: "Multi-source, dynamic dashboard with deep drill-downs and business logic.",
-      price: "₹5,000+",
-      period: "quote based",
-      color: "indigo",
+      badge: "Standard",
+      name: "Professional System Website",
+      bestFor: "Best for growing regional operations that want professional reach",
+      price: "₹9,999",
+      period: "one-time payment",
+      color: "blue",
       popular: true,
       features: [
-        "Multiple data sheets connected via Power Query",
-        "10+ chart types + sparklines",
-        "Dynamic slicers & interactive filters",
-        "Branch-wise / category-wise views",
-        "VBA macros for automation & alerts",
-        "COGS, P&L, inventory use cases",
-        "Training session + 2 revisions"
+            "4–5 Fully Dynamic Web Page Structures",
+            "Automatic Lead Tracker Ingestion Module",
+            "Sleek Header Transitions & Interactive UI",
+            "WhatsApp Chat Alerts & Call Link Buttons",
+            "Basic On-Page SEO Routing Configurations",
+            "Administrative Panel (simple text edits)",
+            "1-Week Standard QA & Revisions Handover"
       ],
-      cta: "Setup Advanced Excel System",
-      msg: "Hi Suraj, I want to discuss the Excel Advanced Dashboard setup for my business."
+      cta: "Build Standard System",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%2520I%27m%2520interested%2520in%2520the%2520Standard%252520Website%2520package."
+    },
+    {
+      badge: "Corporate Elite",
+      name: "Custom Enterprise Portal",
+      bestFor: "Best for companies needing complete automation + payment gateway tracker",
+      price: "₹19,999",
+      period: "+ scope-based details",
+      color: "indigo",
+      popular: false,
+      features: [
+            "Everything in Standard Plans",
+            "Razorpay Payment Tracking & Validation Module",
+            "Automated Invoice Generator & Logger Setup",
+            "Client Contacts Management System CRM",
+            "Google Drive/Sheets Real-time Synchronizations",
+            "Auto-Generated PDF Dispatch Scripts",
+            "Comprehensive 1-Month Diagnostics Support"
+      ],
+      cta: "Get Enterprise Quote",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%2520I%27m%2520interested%2520in%2520the%2520Business%252520System%2520package."
     }
   ];
 
-  const googlePlans = [
+  const dataPlans = [
     {
-      badge: "Form & Sheets Sync",
-      name: "Google Sheets Basic Dashboard",
-      description: "Straightforward live dashboard for small teams using Google ecosystem.",
-      price: "₹3,000",
-      period: "one-time",
+      badge: "Local Excel Setup",
+      name: "Basic Offline Excel Dashboard",
+      bestFor: "Best for static sheet ledgers, offline financial sheets or files",
+      price: "₹2,000",
+      period: "one-time system fee",
       color: "emerald",
+      popular: false,
       features: [
-        "Google Forms → Sheets data pipeline",
-        "Live charts that auto-update",
-        "Date & category filters",
-        "Shared access for team members",
-        "Email summary alert (1 trigger)",
-        "Mobile-friendly view"
+        "1–2 Data Worksheet Sources connected",
+        "Interactive Charts: bar, line, pie (up to 5)",
+        "Pivot Table Layouts & Data Modeling",
+        "Slicer Filters: filter by date & manager",
+        "Clean formulas setup (VLOOKUP, SUMIFS, Pivot)",
+        "No internet required - 100% private offline file"
       ],
-      cta: "Setup Live Sheets Dashboard",
-      msg: "Hi Suraj, I am interested in the Basic Google Sheets Live Dashboard starting at ₹3,000."
+      cta: "Order Offline Excel Dashboard",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%2520I%2520am%2520interested%2520in%2520the%2520Basic%2520Excel%2520Dashboard%2520setup%2520starting%2520at%2520%E2%82%B92,000."
     },
     {
-      badge: "Apps Script Automation",
-      name: "Google Sheets + Apps Script Advanced",
-      description: "Fully automated, multi-source live dashboard with custom logic and alerts.",
-      price: "₹8,000+",
-      period: "quote based",
-      color: "emerald",
+      badge: "Cloud Automation",
+      name: "Live Google Sheets Dashboard",
+      bestFor: "Best for multi-branch teams needing real-time cloud data access",
+      price: "₹3,000",
+      period: "one-time system fee",
+      color: "blue",
       popular: true,
       features: [
-        "Apps Script custom backend logic",
-        "Multi-sheet / multi-branch data merge",
-        "Scheduled auto-refresh & reporting",
-        "WhatsApp / Email alert triggers",
-        "Role-based views (owner vs staff)",
-        "Custom KPI cards & live summary",
-        "Embedded web app interface option",
-        "Training + documentation + 3 revisions"
+        "Google Forms → Google Sheets linked pipeline",
+        "Real-Time Multi-User Collaboration dashboard",
+        "Automated Summary metrics & dynamic cards",
+        "Date ranges, category, and personnel filters",
+        "Auto Email Alerts trigger (1 configuration)",
+        "Fully responsive on mobile Google Sheets app",
+        "1-Hour team call walkthrough training session"
       ],
-      cta: "Build Custom Automation Suite",
-      msg: "Hi Suraj, I want the Advanced Google Sheets + Apps Script Custom System. Let's discuss."
+      cta: "Deploy Google Sheets Dashboard",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%2520I%2520am%2520interested%2520in%252520the%2520Google%2520Sheets%2520Basic%2520Dashboard%2520setup%2520starting%2520at%2520%E2%82%B93,000."
+    },
+    {
+      badge: "System Pro",
+      name: "Advanced Sheets + Apps Script Suite",
+      bestFor: "Best for complete background workflow alerts, PDF generation and notifications",
+      price: "₹8,000+",
+      period: "quote based pricing",
+      color: "indigo",
+      popular: false,
+      features: [
+        "Google Apps Script custom backend compiler",
+        "Bi-directional WhatsApp / Email notification triggers",
+        "Scheduled background automated spreadsheet refreshers",
+        "Interactive automated PDF reporter (Drive Dispatcher)",
+        "Role-based view filters (Staff vs Administrative)",
+        "Third-party API webhook ingest integrations",
+        "Team instructions manuals + 3 scope iterations"
+      ],
+      cta: "Design Custom Automation Suite",
+      link: "https://wa.me/918851666208?text=Hi%20Suraj,%2520I%2520need%2520the%2520Advanced%2520Google%252520Sheets%2520%2B%2520Apps%2520Script%2520System."
     }
   ];
+
+  const addonsList = [
+    { name: "Extra Page / Spreadsheet Tab Module", price: "₹1,000" },
+    { name: "Custom Third-Party API Webhook Sync", price: "₹3,000+" },
+    { name: "Google Apps Script Automated PDF Dispatch", price: "₹1,999" },
+    { name: "Direct WhatsApp Message Trigger Gateway", price: "₹2,999" },
+    { name: "Premium Support & Configuration Modifications", price: "₹999 / mo" }
+  ];
+
+  const activePlansSet = activeTab === 'web' ? webPlans : dataPlans;
 
   return (
     <main className="pt-24 pb-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -142,36 +197,34 @@ export default function Services() {
             <div className="md:col-span-8 lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-indigo-300 border border-white/10 text-xs font-semibold uppercase tracking-widest">
                 <Sparkles className="w-3.5 h-3.5" />
-                Suraj Automation — www.surajdx.com
+                Suraj Automation — Professional Pricing & Services
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                Apne Business ko <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400">System</span> mein Convert karo
+                All-In-One <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400 font-black">Services</span> & Flexible Plans
               </h1>
               
               <p className="text-xl text-slate-300 font-medium">
-                Practical. Affordable. Made for Indian SMBs.
+                No expensive ERP subscriptions. No massive monthly overheads. Reasonable one-time costs.
               </p>
               
               <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl">
-                Excel dashboards se lekar Google Sheets automation tak — hum aapke liye custom systems banate hain jo actually kaam karte hain. <span className="text-white font-semibold">No expensive ERPs. No IT team needed.</span>
+                Elevate your everyday operations. Explore our pre-packaged plans or configure a customized quotation instantly below with our interactive calculator.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 justify-center md:justify-start">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%2520to%2520convert%2520my%2520business%2520into%2520an%2520automated%2520system."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#quick-quotation-tool"
                   className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-indigo-600/30 hover:-translate-y-0.5 transition-all text-base"
                 >
-                  <MessageSquare className="w-5 h-5 fill-current" />
-                  Free System Audit Book Karo
+                  <FileSpreadsheet className="w-5 h-5" />
+                  Instant Quotation Generator
                 </a>
                 <a 
-                  href="#core-services"
+                  href="#plans-section"
                   className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/15 text-white rounded-xl font-bold border border-white/10 flex items-center justify-center gap-2 hover:-translate-y-0.5 transition-all text-base"
                 >
-                  Explore Services
+                  View Packages List
                   <ArrowRight className="w-5 h-5" />
                 </a>
               </div>
@@ -186,18 +239,18 @@ export default function Services() {
                     <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   </div>
-                  <span className="text-xs text-slate-500 font-mono">system_flow.sh</span>
+                  <span className="text-xs text-slate-500 font-mono">service_overview.sh</span>
                 </div>
                 <div className="space-y-4 font-mono text-xs text-indigo-300">
-                  <p><span className="text-emerald-400"># Check business status</span></p>
-                  <p className="text-slate-400">$ check_data_pipelines --smb</p>
+                  <p><span className="text-emerald-400"># Check system integration</span></p>
+                  <p className="text-slate-400">$ fetch_merged_services_pricing</p>
                   <div className="pl-4 text-slate-300 space-y-1 border-l border-slate-700">
-                    <p className="text-yellow-400">● Core Data: Scattered on WhatsApp/Paper</p>
-                    <p className="text-indigo-400">💡 Solution Suggested: Suraj Automation</p>
-                    <p className="text-emerald-400">✓ Excel + Sheets Auto Sync Activated</p>
+                    <p className="text-yellow-400">● Website Pricing: Merged & Active</p>
+                    <p className="text-sky-400">● Dashboard Pricing: Live & Configured</p>
+                    <p className="text-emerald-400">✓ Interactive Quotation Tool Online</p>
                   </div>
-                  <p className="text-slate-400">$ run automation_agent</p>
-                  <p className="text-white animate-pulse">⚙ Processing 100% of manual entries automated...</p>
+                  <p className="text-slate-400">$ load quotes_firestore</p>
+                  <p className="text-white animate-pulse">⚙ Waiting for your custom configuration submit...</p>
                 </div>
               </div>
             </div>
@@ -211,14 +264,14 @@ export default function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-3">
+            <h2 className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-3_">
                What We Offer
             </h2>
             <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-6">
-              Our Core Services
+              Our Professional Services
             </h3>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400">
-              Scattered paper records, manual entries, and fragmented WhatsApp tools ko efficient dashboards mein transform karein.
+              Turn your business manual registers, phone logs, and files into 100% automated systems that grow organically.
             </p>
           </div>
 
@@ -263,7 +316,7 @@ export default function Services() {
                   {/* Feature Points */}
                   <ul className="space-y-3 pt-2">
                     {service.points.map((point, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-slate-700 dark:text-slate-300 text-sm">
+                      <li key={idx} className="flex items-start gap-2 text-slate-700 dark:text-slate-300 text-sm font-semibold">
                         <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0 mt-0.5" />
                         <span>{point}</span>
                       </li>
@@ -275,7 +328,7 @@ export default function Services() {
                 <div className="relative z-10 pt-8 border-t border-slate-100 dark:border-slate-800/80 mt-6 flex justify-between items-center">
                   <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Custom delivery & support included</span>
                   <a
-                    href={`https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%2520in%2520your%2520${encodeURIComponent(service.subtitle)}%2520service.`}
+                    href={`https://wa.me/918851666208?text=Hi%20Suraj,%2520I%27m%2520interested%2520in%2520your%2520${encodeURIComponent(service.subtitle)}%2520service.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 group/link"
@@ -292,222 +345,260 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Interactive Dashboards Section */}
-      <section className="py-24 bg-indigo-50/50 dark:bg-slate-900/30 border-y border-slate-200/50 dark:border-slate-800/50 relative">
+      {/* Merged Pricing & Standard Packages Section */}
+      <section id="plans-section" className="py-24 bg-indigo-50/50 dark:bg-slate-900/30 border-y border-slate-200/50 dark:border-slate-800/50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-3">
-              Dashboard Services
+            <h2 className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-3_">
+              Standard Packages & Pricing
             </h2>
             <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
-              Interactive Dashboard Plans
+              Select Your Operational Scope
             </h3>
             <p className="text-lg text-slate-600 dark:text-slate-400">
-              Apne convenience ke anusar pick karein: Ek offline dynamic spreadsheet ya fir ek pure automatic live Google platform setup.
+              Whether you need scalable cloud-integrated websites or local business spreadsheets, select a preset plan to get started.
             </p>
 
-            {/* Toggle Switch */}
+            {/* Toggle Tab Switcher */}
             <div className="inline-flex bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1.5 rounded-2xl shadow-sm mt-8">
               <button
-                onClick={() => setDashboardType('excel')}
+                onClick={() => setActiveTab('web')}
                 className={`px-6 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 transition-all ${
-                  dashboardType === 'excel'
-                    ? 'bg-indigo-600 text-white shadow-md'
+                  activeTab === 'web'
+                    ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <MonitorSmartphone className="w-4 h-4" />
+                Website & Dynamic Frontend Portals
+              </button>
+              <button
+                onClick={() => setActiveTab('data')}
+                className={`px-6 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 transition-all ${
+                  activeTab === 'data'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <FileSpreadsheet className="w-4 h-4" />
-                Offline but Live — Excel
-              </button>
-              <button
-                onClick={() => setDashboardType('sheets')}
-                className={`px-6 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 transition-all ${
-                  dashboardType === 'sheets'
-                    ? 'bg-emerald-600 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <Layers className="w-4 h-4" />
-                Online & Live — Google Sheets
+                Live Spreadsheet & Automation Systems
               </button>
             </div>
           </div>
 
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* Header Description of Selected Type */}
             <AnimatePresence mode="wait">
-              {dashboardType === 'excel' ? (
+              {activeTab === 'web' ? (
                 <motion.div
-                  key="excel-desc"
+                  key="web-desc"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center mb-10 shadow-sm"
+                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center mb-12 shadow-sm"
                 >
-                  <p className="text-slate-700 dark:text-slate-300 text-base font-semibold max-w-3xl mx-auto leading-relaxed">
-                    🌟 <strong className="text-indigo-600 dark:text-indigo-400">Internet ki zaroorat nahi.</strong> Excel mein powerful, real-time updating dashboards — jo aapki local files se seedha connect hote hain. Perfect for businesses with limited connectivity or sensitive internal data.
+                  <p className="text-slate-700 dark:text-slate-300 transform font-semibold max-w-3xl mx-auto leading-relaxed">
+                    🌟 <strong className="text-indigo-600 dark:text-indigo-400">Dynamic UI, Lead Capture, Security.</strong> From simple corporate landing pages to full multi-role management dashboards tailored for Indian business operations.
                   </p>
                 </motion.div>
               ) : (
                 <motion.div
-                  key="sheets-desc"
+                  key="data-desc"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center mb-10 shadow-sm"
+                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center mb-12 shadow-sm"
                 >
-                  <p className="text-slate-700 dark:text-slate-300 text-base font-semibold max-w-3xl mx-auto leading-relaxed">
-                    ☁ <strong className="text-emerald-600 dark:text-emerald-400">Real-time. Cloud-based. Anywhere access.</strong> Google Sheets aur Apps Script ki power se dashboards jo automatically update hote hain — multiple users, multiple locations, ek hi view.
+                  <p className="text-slate-700 dark:text-slate-300 transform font-semibold max-w-3xl mx-auto leading-relaxed">
+                    ☁ <strong className="text-emerald-600 dark:text-emerald-400">Offline Pivot Tools & Google Drive Scripting.</strong> Connect sheets, create WhatsApp notification hooks, automate invoicing and auto-save raw files.
                   </p>
                 </motion.div>
               )}
             </AnimatePresence>
 
             {/* Plan Cards Grid */}
-            <div className="grid md:grid-cols-2 gap-8 items-stretch">
-              <AnimatePresence mode="wait">
-                {(dashboardType === 'excel' ? excelPlans : googlePlans).map((plan, idx) => (
+            <div className="grid md:grid-cols-3 gap-8 items-stretch">
+              {activePlansSet.map((plan, idx) => {
+                const isPopular = !!plan.popular;
+                return (
                   <motion.div
                     key={plan.name}
                     initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    className={`relative bg-white dark:bg-slate-900 rounded-3xl p-8 border ${
-                      plan.popular 
-                        ? 'border-indigo-500 shadow-xl dark:shadow-none' 
-                        : 'border-slate-200 dark:border-slate-800 shadow-sm'
-                    } flex flex-col justify-between`}
+                    className={`relative bg-white dark:bg-slate-900 rounded-3xl p-8 border hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between ${
+                      isPopular 
+                        ? 'border-indigo-500/80 shadow-xl ring-2 ring-indigo-500/10' 
+                        : 'border-slate-250 dark:border-slate-800 shadow-sm'
+                    }`}
                   >
-                    
-                    {plan.popular && (
+                    {isPopular && (
                       <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md">
                         💥 Highly Recommended
                       </span>
                     )}
 
                     <div className="space-y-6">
-                      
-                      {/* Badge and Name */}
                       <div>
-                        <span className={`inline-block px-3 py-1 text-[11px] font-mono font-bold tracking-wider rounded-lg uppercase ${
-                          dashboardType === 'excel' 
-                            ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' 
-                            : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                        }`}>
+                        <span className="inline-block px-2.5 py-0.5 text-[10px] font-bold tracking-widest rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 uppercase font-mono">
                           {plan.badge}
                         </span>
                         
-                        <h4 className="text-2xl font-extrabold text-slate-900 dark:text-white mt-3">
+                        <h4 className="text-2xl font-extrabold text-slate-900 dark:text-white mt-3 leading-tight">
                           {plan.name}
                         </h4>
                         
-                        <p className="text-slate-500 text-sm mt-2 leading-relaxed">
-                          {plan.description}
+                        <p className="text-slate-500 dark:text-slate-400 text-xs mt-2 leading-relaxed min-h-[40px] font-medium">
+                          {plan.bestFor}
                         </p>
                       </div>
 
-                      {/* Pricing Tier */}
-                      <div className="flex items-baseline gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-                        <span className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                      {/* Pricing */}
+                      <div className="flex items-baseline gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+                        <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                           {plan.price}
                         </span>
-                        <span className="text-slate-500 text-xs font-medium uppercase tracking-wide">
+                        <span className="text-slate-400 text-xs font-mono font-semibold lowercase">
                           / {plan.period}
                         </span>
                       </div>
 
                       {/* Feature Checklist */}
-                      <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800/80">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                          Includes Features:
-                        </p>
-                        <ul className="space-y-3.5">
+                      <div className="space-y-3.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+                        <ul className="space-y-3">
                           {plan.features.map((feat, fIdx) => (
-                            <li key={fIdx} className="flex items-start gap-2.5 text-slate-700 dark:text-slate-300 text-xs sm:text-sm">
-                              <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                            <li key={fIdx} className="flex items-start gap-2 text-slate-705 dark:text-slate-300 text-xs sm:text-sm font-semibold">
+                              <Check className="w-4.5 h-4.5 text-emerald-500 shrink-0 mt-0.5" />
                               <span>{feat}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
-
                     </div>
 
-                    {/* Action Button */}
-                    <div className="pt-8 mt-8 border-t border-slate-100 dark:border-slate-800">
+                    <div className="pt-6 border-t border-slate-100 dark:border-slate-800 mt-6">
                       <a
-                        href={`https://wa.me/918851666208?text=${encodeURIComponent(plan.msg)}`}
+                        href={plan.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`w-full py-4 px-6 rounded-xl font-bold text-center block transition-all hover:-translate-y-0.5 ${
-                          plan.popular 
-                            ? dashboardType === 'excel'
-                              ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20'
-                              : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20'
-                            : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white'
+                        className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm text-center block transition-all ${
+                          isPopular 
+                            ? 'bg-indigo-650 hover:bg-indigo-600 text-white shadow-lg' 
+                            : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-800 dark:text-white'
                         }`}
                       >
-                        {plan.cta}
+                        {plan.cta} →
                       </a>
                     </div>
 
                   </motion.div>
-                ))}
-              </AnimatePresence>
+                );
+              })}
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* Trust & Methodology Section */}
-      <section className="py-24 relative overflow-hidden transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Bento Add-Ons Section */}
+      <section className="py-20 bg-white dark:bg-slate-950 transition-colors duration-300 border-b border-slate-200/50 dark:border-slate-850">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 text-center lg:text-left space-y-4">
+              <div className="w-14 h-14 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto lg:mx-0 border border-indigo-100 dark:border-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+                <Plus className="w-8 h-8" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Modular Add-Ons</h2>
+              <p className="text-xl text-indigo-650 dark:text-indigo-400 font-extrabold">Reinforce Your Automation Package</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-md font-semibold">
+                Pay only for the exact capabilities you actually require. Add standard script tasks, notifications alerts, and support modules.
+              </p>
+            </div>
+            
+            <div className="lg:col-span-7">
+              <div className="bg-slate-50 dark:bg-slate-900/40 p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 transition-colors shadow-inner">
+                <div className="space-y-4">
+                  {addonsList.map((addon, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`flex justify-between items-center p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800/80 shadow-sm transition-transform hover:scale-[1.01]`}
+                    >
+                      <span className="font-extrabold text-sm text-slate-800 dark:text-slate-200">{addon.name}</span>
+                      <span className="font-black text-indigo-600 dark:text-indigo-400 text-sm whitespace-nowrap bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 rounded-lg">
+                        {addon.price}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INTERACTIVE CUSTOM QUOTATION PLANNER SECTION */}
+      <section id="quick-quotation-tool" className="py-24 relative overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-3">
-              Why Work With Us
+            <h2 className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-3 font-mono">
+              ₹ Dynamic Planning
             </h2>
             <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
-              Designed For Real Growth
+              Instant Price Estimator
             </h3>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
-              Sarthi products are trusted by 50+ business entities across India due to simplified execution and flat upfront rates.
+            <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
+              Answer the simple Yes/No questions regarding what modules you require. Click <strong>Generate Proposal</strong> to instantly secure a corporate proposal copy and download the PDF list.
             </p>
           </div>
 
+          <QuotationTool />
+        </div>
+      </section>
+
+      {/* Trust & Methodology Section */}
+      <section className="py-20 relative overflow-hidden transition-colors border-t border-slate-200/40 dark:border-slate-850">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono block mb-2">Our Standard Guidelines</span>
+            <h3 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+              A Platform Engineered For Growth
+            </h3>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl space-y-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 p-8 rounded-3xl space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
                 <Shield className="w-6 h-6" />
               </div>
-              <h4 className="text-xl font-bold text-slate-900 dark:text-white">Zero Server Cost Overhead</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                App humare secure templates use karke complete backend automation free Google Drive structures pe chalta hai, protecting your operational costs.
+              <h4 className="text-xl font-extrabold text-slate-900 dark:text-white">Zero Server Cost Overhead</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-semibold">
+                Deployments run on stable Google Apps Script structures directly hosted on your Google Drive accounts, completely avoiding month-on-month server hosting charges.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl space-y-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 p-8 rounded-3xl space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                 <Clock className="w-6 h-6" />
               </div>
-              <h4 className="text-xl font-bold text-slate-900 dark:text-white">Same-Week Deployments</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                Custom complex systems require months, whereas basic worksheets or triggers are configured ready-to-test and launched in less than 7 days.
+              <h4 className="text-xl font-extrabold text-slate-900 dark:text-white">Same-Week Ready Launches</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-semibold">
+                No endless multi-month development loops. Standard custom worksheets or automatic scripts are completely ready to deploy within 4 to 7 calendar working days.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl space-y-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 p-8 rounded-3xl space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                 <HelpCircle className="w-6 h-6" />
               </div>
-              <h4 className="text-xl font-bold text-slate-900 dark:text-white">100% Onboarding Training</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                Har system setup ke saath manual setup docs, video clips, and 1-on-1 team screenshare onboarding session default package ka hissa hain.
+              <h4 className="text-xl font-extrabold text-slate-900 dark:text-white">100% Onboarding Training</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-semibold">
+                Every project handoff incorporates comprehensive video tutorials manuals, plain-English setup instruction guides and a 1-on-1 team onboarding setup call.
               </p>
             </div>
           </div>
@@ -516,21 +607,21 @@ export default function Services() {
       </section>
 
       {/* Call To Action Banner */}
-      <section className="py-12 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+      <section className="py-12 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-indigo-900 to-slate-900 rounded-[2.5rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-xl">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-emerald-500/10 via-transparent to-transparent"></div>
             
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-              Ready to automate your workflows?
+              Need custom modifications?
             </h2>
-            <p className="text-slate-300 max-w-2xl mx-auto text-base sm:text-lg mb-8 leading-relaxed">
-              Ek WhatsApp ping kariye, simple requirements discuss kariye, static excel registers update kariye, and actual automatic solution payein starting ₹2,000.
+            <p className="text-slate-300 max-w-2xl mx-auto text-base sm:text-lg mb-8 leading-relaxed font-medium">
+              Join 50+ businesses automating their registers. Start a quick WhatsApp chat to discuss specific workflow requirements today starting at ₹2,000.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20have%20reviewed%20your%20services%20and%20want%2520to%2520discuss%2520a%2520project."
+                href="https://wa.me/918851666208?text=Hi%20Suraj,%2520I%27ve%2520used%252520your%2520Pricing%2520calculator%2520and%2520want%2520to%2520discuss%2520a%2520project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-base shadow-lg transition-all hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
