@@ -1,8 +1,50 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Calendar, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Hero() {
+  const words = [
+    "Building website",
+    "Building Landing Pages",
+    "Building Custom web app using Google ecosystem",
+    "Create Excel Dashboard",
+    "Creating AI Automations for SMBs"
+  ];
+
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [reverse, setReverse] = useState(false);
+  const [blink, setBlink] = useState(true);
+
+  // Typewriter typing & deleting speed controls
+  useEffect(() => {
+    if (subIndex === words[index].length + 1 && !reverse) {
+      const timeout = setTimeout(() => setReverse(true), 1850);
+      return () => clearTimeout(timeout);
+    }
+
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (reverse ? -1 : 1));
+    }, reverse ? 25 : 55);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse]);
+
+  // Caret blinking animation state helper
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBlink((prev) => !prev);
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -54,6 +96,17 @@ export default function Hero() {
                 Smart Automation
               </span>
             </motion.h1>
+
+            <motion.div 
+              variants={itemVariants}
+              className="min-h-[6.5rem] sm:min-h-[4rem] md:min-h-[4.5rem] flex flex-col sm:flex-row items-center justify-center text-lg sm:text-xl md:text-2xl lg:text-3xl text-indigo-200/95 font-medium max-w-3xl mx-auto mb-10 font-sans bg-white/5 backdrop-blur-md py-4 px-6 rounded-2xl border border-white/10 shadow-lg"
+            >
+              <span className="text-slate-400 mr-0 sm:mr-3 select-none font-semibold shrink-0 mb-2 sm:mb-0">I specialize in:</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-blue-300 to-indigo-300 font-extrabold tracking-tight relative text-center sm:text-left px-2">
+                {words[index].substring(0, subIndex)}
+                <span className={`inline-block w-[3px] h-[0.95em] ml-1.5 bg-sky-300 align-middle ${blink ? 'opacity-100' : 'opacity-0'}`} />
+              </span>
+            </motion.div>
             
             <motion.p variants={itemVariants} className="mt-6 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed font-body">
               I build custom web apps and automation systems for ambitious SMBs. Get a premium, low-cost ERP alternative that cuts manual multi-tasking by <span className="font-semibold text-white">50%</span>.
