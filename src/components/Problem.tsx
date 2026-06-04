@@ -65,80 +65,25 @@ export default function Problem() {
 
         <div className="grid lg:grid-cols-12 gap-12 items-stretch">
           
-          {/* Left Side: Live Server Trace exceptions */}
+          {/* Left Side: Current Pain Points list */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-6 flex flex-col justify-center"
+            className="lg:col-span-6 space-y-6 flex flex-col justify-center"
           >
-            <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 md:p-8 font-mono shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/5 rounded-full blur-2xl pointer-events-none"></div>
-              
-              {/* Header block with fake developer tabs */}
-              <div className="flex items-center justify-between pb-6 border-b border-slate-800/80 mb-6">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
-                  <span className="w-3 h-3 rounded-full bg-indigo-500/80 inline-block"></span>
-                  <span className="text-[11px] text-slate-500 font-bold ml-2">STDOUT_ERROR_STREAM.LOG</span>
+            {problems.map((prob, idx) => (
+              <div key={idx} className="flex items-start gap-4 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl shrink-0 animate-pulse">
+                  {prob.icon}
                 </div>
-                <span className="text-[10px] bg-red-500/10 text-red-400 font-bold px-2 py-1 rounded border border-red-500/20 uppercase tracking-widest">
-                  CRITICAL ALERTS
-                </span>
-              </div>
-
-              {/* Stack traces logs */}
-              <div className="space-y-6">
-                <div className="group border-l-2 border-red-500/40 hover:border-red-500 pl-4 transition-all py-1">
-                  <div className="text-[10px] text-red-500 font-bold tracking-widest flex items-center gap-1.5 uppercase">
-                    <span>[0x009A1F: FATAL_EXCEPTION]</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-                  </div>
-                  <h3 className="font-extrabold text-slate-200 text-sm mt-1.5 mb-1 tracking-tight">WhatsApp Order Loss & Scattered Data</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Customer orders scattered in several chats. Invoices lost on system crashes. Manual count mismatch on 24.5% of inventories.
-                  </p>
-                </div>
-
-                <div className="group border-l-2 border-amber-500/40 hover:border-amber-500 pl-4 transition-all py-1">
-                  <div className="text-[10px] text-amber-500 font-bold tracking-widest uppercase">
-                    [0x00A40C: RUNTIME_TIMEOUT]
-                  </div>
-                  <h3 className="font-extrabold text-slate-200 text-sm mt-1.5 mb-1 tracking-tight">Manual Report Compilations Exceeding 4.5 Hours/Day</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    System hanging awaiting manual input of invoices and stock statuses. Staff spends late nights syncing cash books.
-                  </p>
-                </div>
-
-                <div className="group border-l-2 border-red-550/40 hover:border-red-500/80 pl-4 transition-all py-1">
-                  <div className="text-[10px] text-rose-450 font-bold tracking-widest uppercase text-rose-400">
-                    [0x00B55E: MEMORY_LEAK]
-                  </div>
-                  <h3 className="font-extrabold text-slate-200 text-sm mt-1.5 mb-1 tracking-tight">Outstanding Payment Dues Left Untracked</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Zero automated reminders for overdue EMIs. Cash liquidity depletes due to lack of dynamic transaction logs.
-                  </p>
-                </div>
-
-                <div className="group border-l-2 border-slate-700 hover:border-indigo-500 pl-4 transition-all py-1">
-                  <div className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">
-                    [0x00C71A: COMPILING_WARNING]
-                  </div>
-                  <h3 className="font-extrabold text-slate-300 text-sm mt-1.5 mb-1 tracking-tight">Human Errors & Overwritten Excel Formulas</h3>
-                  <p className="text-xs text-slate-450 leading-relaxed">
-                    Rigid dashboards allow unauthorized overwrites. Staff misenters tax rates. System suffers high error logging counts.
-                  </p>
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2">{prob.title}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{prob.text}</p>
                 </div>
               </div>
-
-              {/* Logger footer */}
-              <div className="pt-6 border-t border-slate-800/80 mt-6 flex items-center justify-between text-[10px] text-slate-500">
-                <span>SYSTEM DIAGNOSIS: OVERLOADED_LEGACY_STACK</span>
-                <span className="font-bold text-slate-400">RE-ROUTE RECOMMENDED</span>
-              </div>
-            </div>
+            ))}
           </motion.div>
 
           {/* Right Side: Interactive Workflow Comparison (Visual Playground) */}
