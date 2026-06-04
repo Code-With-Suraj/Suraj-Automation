@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
 import { motion } from 'motion/react';
-import { Mail, MapPin, Phone, Send, Loader2, AlertCircle, CheckCircle2, Star, CheckCircle, ExternalLink, Sparkles } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Loader2, AlertCircle, CheckCircle2, Star, CheckCircle, ExternalLink, Sparkles, User } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -72,13 +72,13 @@ export default function Contact() {
               transition={{ duration: 0.5 }}
             >
               <div className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 text-sm font-bold tracking-wide mb-6 border border-indigo-100 dark:border-indigo-500/20">
-                Let's Talk
+                Free Diagnostic Audit
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
-                Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500">Automate?</span>
+                Let's Automate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500">Business Smartly.</span>
               </h1>
-              <p className="text-lg text-slate-600 dark:text-slate-400">
-                Send a message below, and let's turn your messy workflows into streamlined systems.
+              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Stop searching through chats and manually compiling reports. Leverage custom code and AI to run your business on autopilot. Reach out today for a free diagnostic audit.
               </p>
             </motion.div>
           </div>
@@ -91,112 +91,62 @@ export default function Contact() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:col-span-4 space-y-8"
             >
-              {contactDetails.map((detail, idx) => (
-                <div key={idx} className="flex gap-4">
+              <div>
+                <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-4">Get In Touch</h2>
+                <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                  Whether you need a custom Google Sheets system, an AI-powered WhatsApp bot, or a complete web app like SupplySarthi or LoanSarthi, we are here to help.
+                </p>
+              </div>
+            
+              <div className="space-y-6 mt-8">
+                <div className="flex gap-4 items-center">
                   <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm border border-indigo-100/50 dark:border-slate-700">
-                    <detail.icon className="w-6 h-6" />
+                    <User className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
-                      {detail.title}
-                    </h3>
-                    {detail.link ? (
-                      <a href={detail.link} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                        {detail.content}
-                      </a>
-                    ) : (
-                      <p className="text-slate-600 dark:text-slate-400">{detail.content}</p>
-                    )}
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Founder & Lead Developer</p>
+                    <p className="text-lg font-bold text-slate-900 dark:text-white">Suraj Singh</p>
                   </div>
                 </div>
-              ))}
-
-              {/* Business Hours & Google Profile workspace */}
-              <div className="space-y-6 mt-12">
-                <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-[40px]"></div>
-                  <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10">
-                    Business Hours
-                  </h4>
-                  <p className="text-slate-600 dark:text-slate-400 relative z-10 text-sm">
-                    Monday - Friday<br />
-                    10:00 AM - 7:00 PM IST
+                
+                <div className="flex gap-4 items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm border border-indigo-100/50 dark:border-slate-700">
+                    <Phone className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Phone / WhatsApp</p>
+                    <a href="https://wa.me/918851666208" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">+91-8851666208</a>
+                  </div>
+                </div>
+            
+                <div className="flex gap-4 items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm border border-indigo-100/50 dark:border-slate-700">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Email</p>
+                    <a href="mailto:suraj.gasdeveloper@gmail.com" className="text-lg font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">suraj.gasdeveloper@gmail.com</a>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4 items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm border border-indigo-100/50 dark:border-slate-700">
+                    <MapPin className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Location</p>
+                    <p className="text-base font-bold text-slate-900 dark:text-white">Proudly serving Indian SMBs nationwide.</p>
+                  </div>
+                </div>
+              </div>
+            
+              <div className="mt-12 bg-indigo-50/80 dark:bg-slate-900/80 rounded-[2rem] p-6 border border-indigo-100 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-[40px]"></div>
+                <div className="flex gap-4 relative z-10">
+                  <CheckCircle2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                  <p className="text-slate-700 dark:text-slate-300 text-sm font-medium leading-relaxed">
+                    <strong className="text-slate-900 dark:text-white">Zero commitment required.</strong> Our systems are powered by modern tech and AI, but tuned for Indian local staff workflows to ensure easy adoption and high ROI.
                   </p>
-                </div>
-
-                {/* Google Business Profile card */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 sm:p-7 rounded-[2rem] shadow-xl relative overflow-hidden flex flex-col gap-5 group">
-                  <div className="absolute bottom-0 left-0 right-0 h-1 flex">
-                    <div className="w-1/4 h-full bg-[#4285F4]"></div>
-                    <div className="w-1/4 h-full bg-[#EA4335]"></div>
-                    <div className="w-1/4 h-full bg-[#FBBC05]"></div>
-                    <div className="w-1/4 h-full bg-[#34A853]"></div>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 flex items-center justify-center font-extrabold text-sm shadow-sm shrink-0">
-                        <span className="text-lg tracking-tight">
-                          <span className="text-[#4285F4]">G</span>
-                          <span className="text-[#EA4335]">o</span>
-                          <span className="text-[#FBBC05]">o</span>
-                          <span className="text-[#4285F4]">g</span>
-                          <span className="text-[#34A853]">l</span>
-                          <span className="text-[#EA4335]">e</span>
-                        </span>
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-extrabold text-slate-800 dark:text-white flex items-center gap-1 leading-none mb-1">
-                          Business Profile
-                          <CheckCircle className="w-3.5 h-3.5 text-blue-500 fill-blue-500/10 shrink-0" />
-                        </h3>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-extrabold">Verified Profile</p>
-                      </div>
-                    </div>
-
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 rounded-full text-indigo-600 dark:text-indigo-400 text-[10px] font-bold">
-                      Map Location
-                    </span>
-                  </div>
-
-                  <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-200/50 dark:border-slate-800 rounded-2xl p-4 flex flex-col gap-3">
-                    <div>
-                      <h4 className="text-sm font-extrabold text-slate-900 dark:text-white leading-tight">Suraj Automation</h4>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 font-semibold leading-relaxed">Enterprise workflow, ERP, CRM, and custom Sheets automations.</p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <div className="flex text-amber-500 shrink-0">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star key={star} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                        ))}
-                      </div>
-                      <span className="font-mono text-xs font-bold text-slate-800 dark:text-white">5.0 Rating</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <a 
-                      href="https://share.google/8ZMNA3jACemzsznJ7" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#4285F4] hover:bg-[#3574DE] text-white font-extrabold text-xs rounded-xl shadow-md transition-all cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
-                    >
-                      <MapPin className="w-4 h-4 shrink-0" />
-                      View on Google Maps
-                      <ExternalLink className="w-3" />
-                    </a>
-                    
-                    <a 
-                      href="https://share.google/8ZMNA3jACemzsznJ7" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 font-extrabold text-xs rounded-xl transition-all cursor-pointer"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                      Write Google Review
-                    </a>
-                  </div>
                 </div>
               </div>
             </motion.div>
@@ -318,24 +268,3 @@ export default function Contact() {
     </main>
   );
 }
-
-const contactDetails = [
-  {
-    icon: Phone,
-    title: "Call or WhatsApp",
-    content: "+91 88516 66208",
-    link: "https://wa.me/918851666208"
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    content: "suraj.gasdeveloper@gmail.com",
-    link: "mailto:suraj.gasdeveloper@gmail.com"
-  },
-  {
-    icon: MapPin,
-    title: "Location",
-    content: "Noida, India",
-    link: "https://share.google/8ZMNA3jACemzsznJ7"
-  }
-];
