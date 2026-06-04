@@ -140,15 +140,15 @@ export default function DiagnosticSimulator() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-bold tracking-widest uppercase mb-6 border border-indigo-500/20">
-            <Sparkles className="w-3.5 h-3.5 animate-pulse text-indigo-400" />
-            Interactive ROI Tool
+          <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-mono font-bold tracking-widest uppercase mb-6 border border-emerald-500/20">
+            <Sparkles className="w-3.5 h-3.5 animate-pulse text-emerald-400" />
+            ROI & PIPELINE TELEMETRY SIMULATOR
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight leading-tight">
-            Apne Business Ka <span className="bg-gradient-to-r from-indigo-400 via-blue-300 to-emerald-400 bg-clip-text text-transparent">Automation Score</span> Check Karein
+          <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight leading-tight text-white">
+            Simulate Your <span className="bg-gradient-to-r from-indigo-400 via-blue-300 to-emerald-400 bg-clip-text text-transparent">Automation Score</span> Live
           </h2>
           <p className="text-lg text-slate-300 max-w-xl mx-auto leading-relaxed">
-            See how much time, money, and staff errors you can save in 2 minutes. Fill the quick details below to simulate your personalized business system.
+            Measure operational bottlenecks, time leaks, and estimated employee time recovery rates with our live Google Workspace scripting simulator.
           </p>
         </div>
 
