@@ -8,6 +8,7 @@ import ProductsSection from '../components/ProductsSection';
 import WhyAppsScript from '../components/WhyAppsScript';
 import WhyMe from '../components/WhyMe';
 import WhoIsThisFor from '../components/WhoIsThisFor';
+import TestimonialCarousel from '../components/TestimonialCarousel';
 import Process from '../components/Process';
 import FinalCTA from '../components/FinalCTA';
 
@@ -25,6 +26,7 @@ export default function Home() {
       <WhyMe />
       <WhoIsThisFor />
       <Process />
+      <TestimonialCarousel />
       <FinalCTA />
     </main>
   );
