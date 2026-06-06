@@ -478,7 +478,7 @@ export default function SupplySarthi() {
                 <div className="mb-8">
                   <p className="text-slate-400 line-through mb-1">Market Rate: ₹60,000+</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-extrabold text-white">₹15,999</span>
+                    <span className="text-5xl font-extrabold text-white">₹19,999</span>
                     <span className="text-indigo-200 font-medium">One-time setup fee</span>
                   </div>
                   <p className="text-indigo-300 mt-2 font-medium">No subscription ever · No hidden fees · Works on any Google account</p>
@@ -487,7 +487,7 @@ export default function SupplySarthi() {
                 <div className="space-y-6 mb-8">
                   <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
                     <h4 className="font-bold text-lg text-white mb-3 flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Included in ₹15,999
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Included in ₹19,999
                     </h4>
                     <ul className="space-y-2">
                       <li className="text-slate-300 flex items-start gap-2"><span className="text-emerald-400 mt-1">•</span> Complete SupplySarthi system</li>
@@ -511,8 +511,8 @@ export default function SupplySarthi() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Lifetime%20Access%20for%20₹15,999." target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-xl font-bold text-lg transition-all shadow-xl items-center justify-center gap-2 group">
-                  Get Lifetime Access — ₹15,999
+                <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20SupplySarthi%20Lifetime%20Access%20for%20₹19,999." target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-xl font-bold text-lg transition-all shadow-xl items-center justify-center gap-2 group">
+                  Get Lifetime Access — ₹19,999
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>

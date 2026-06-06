@@ -1,5 +1,6 @@
 import Hero from '../components/Hero';
 import Stats from '../components/Stats';
+import SolutionsHighlight from '../components/SolutionsHighlight';
 import Problem from '../components/Problem';
 import DiagnosticSimulator from '../components/DiagnosticSimulator';
 import WhatIDo from '../components/WhatIDo';
@@ -17,6 +18,7 @@ export default function Home() {
     <main>
       <Hero />
       <Stats />
+      <SolutionsHighlight />
       <Problem />
       <DiagnosticSimulator />
       <WhatIDo />
