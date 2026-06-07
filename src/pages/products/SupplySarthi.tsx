@@ -209,6 +209,35 @@ export default function SupplySarthi() {
         </div>
       </section>
 
+      {/* Punchy Taglines Section */}
+      <section className="py-12 bg-indigo-950 text-white border-y border-indigo-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-xs font-bold text-amber-400 uppercase tracking-widest">The Ultimate 'One-Line' Taglines for Your B2B Business</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-slate-900/65 p-6 rounded-2xl border border-indigo-500/20">
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wide block mb-2">For The Hero Section</span>
+              <p className="text-base text-slate-100 font-bold italic leading-relaxed">
+                "WhatsApp orders aur manual billing ka jhanjhat chhoriye. SupplySarthi ke saath apna B2B supply business automate karein."
+              </p>
+            </div>
+            <div className="bg-slate-900/65 p-6 rounded-2xl border border-indigo-500/20">
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wide block mb-2">For Operations</span>
+              <p className="text-base text-slate-100 font-bold italic leading-relaxed">
+                "Client khud order karega, Invoice khud banega. Aap sirf delivery pe focus karein."
+              </p>
+            </div>
+            <div className="bg-slate-900/65 p-6 rounded-2xl border border-indigo-500/20">
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wide block mb-2">For Finance & Ledger</span>
+              <p className="text-base text-slate-100 font-bold italic leading-relaxed">
+                "Har party ka alag rate, har party ki fix udhaari. 100% control aapke haath mein."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* The Problem */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -359,8 +388,155 @@ export default function SupplySarthi() {
         </div>
       </section>
 
+      {/* ROI of SupplySarthi */}
+      <section id="roi-section" className="py-24 bg-white dark:bg-slate-950 text-slate-900 dark:text-white border-t border-slate-200 dark:border-slate-800 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-sm font-bold tracking-wide mb-6 border border-emerald-100 dark:border-emerald-500/20">
+              <TrendingUp className="w-4 h-4" />
+              ROI of SupplySarthi
+            </div>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
+              Software that Pays for Itself
+            </h2>
+            <p className="text-xl text-slate-600 dark:text-slate-300">
+              We don’t believe software should be an expense. It should be a revenue-generating investment. By eliminating WhatsApp chaos, manual data entry, and verbal pricing errors, SupplySarthi directly impacts your bottom line.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-12 items-start mb-16">
+            <div className="lg:col-span-4 space-y-6">
+              <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800">
+                <h3 className="text-2xl font-bold mb-4">Where Does Your Money Go Today?</h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-semibold">
+                  If you are managing 20+ active clients using WhatsApp, paper challans, and manual Tally entries, your business is leaking money through hidden inefficiencies.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-8 rounded-[2rem] shadow-xl">
+                <h3 className="text-2xl font-bold mb-4">The Bottom Line: Your Return on Investment</h3>
+                <p className="text-emerald-100 mb-6 leading-relaxed">
+                  Let's look at the numbers using our Pro Plan (₹1,499/month):
+                </p>
+                <div className="space-y-4 border-t border-emerald-500/30 pt-4">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-emerald-100 font-medium">Value Created:</span>
+                    <span className="font-mono font-bold text-lg">₹9,700 / mo</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-emerald-100 font-medium">Software Cost:</span>
+                    <span className="font-mono font-bold text-lg">₹1,499 / mo</span>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-emerald-500/50 pt-3 text-base">
+                    <span className="font-bold">Net Monthly Profit:</span>
+                    <span className="font-mono font-bold text-xl text-amber-300">₹8,201</span>
+                  </div>
+                  <div className="flex justify-between items-center text-base">
+                    <span className="font-bold">Annual ROI:</span>
+                    <span className="font-mono font-bold text-xl text-amber-300">547%</span>
+                  </div>
+                </div>
+                <div className="mt-6 bg-emerald-900/50 rounded-xl p-4 border border-emerald-500/20 text-xs text-emerald-100 leading-relaxed">
+                  <strong>Speed to ROI: Under 5 Days.</strong> SupplySarthi recovers its own subscription cost by the end of the first week of every month. Everything saved after that goes directly into your profit margins.
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8">
+              <div className="bg-slate-50 dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
+                <div className="p-6 md:p-8 border-b border-slate-200 dark:border-slate-800">
+                  <h3 className="text-xl font-bold">The Monthly Savings Breakdown</h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Based on average Indian SMB benchmarks, here is the real financial impact of switching:</p>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-slate-150 dark:bg-slate-950 text-xs font-bold uppercase tracking-wider text-slate-505 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                        <th className="py-4 px-6">Business Impact Area</th>
+                        <th className="py-4 px-6">The Old Way (Manual)</th>
+                        <th className="py-4 px-6">The SupplySarthi Way</th>
+                        <th className="py-4 px-6 text-right">Estimated Savings*</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                      <tr className="hover:bg-slate-100/30 dark:hover:bg-slate-950/20 transition-colors">
+                        <td className="py-4 px-6 font-bold text-slate-900 dark:text-white">Order Entry</td>
+                        <td className="py-4 px-6 text-slate-500 dark:text-slate-400">40+ hours/month spent writing down WhatsApp/phone orders</td>
+                        <td className="py-4 px-6 text-emerald-600 dark:text-emerald-400 font-medium">0 hours. Clients place orders directly via their self-serve portal.</td>
+                        <td className="py-4 px-6 text-right font-mono font-bold text-emerald-600 dark:text-emerald-400">₹2,400</td>
+                      </tr>
+                      <tr className="hover:bg-slate-100/30 dark:hover:bg-slate-950/20 transition-colors">
+                        <td className="py-4 px-6 font-bold text-slate-900 dark:text-white">GST Invoicing</td>
+                        <td className="py-4 px-6 text-slate-500 dark:text-slate-400">5 hours/month typing out bills and calculating taxes</td>
+                        <td className="py-4 px-6 text-emerald-600 dark:text-emerald-400 font-medium">5 minutes. Auto-generated daily/monthly invoices with correct GST.</td>
+                        <td className="py-4 px-6 text-right font-mono font-bold text-emerald-600 dark:text-emerald-400">₹300</td>
+                      </tr>
+                      <tr className="hover:bg-slate-100/30 dark:hover:bg-slate-950/20 transition-colors">
+                        <td className="py-4 px-6 font-bold text-slate-900 dark:text-white">Account Reconciliation</td>
+                        <td className="py-4 px-6 text-slate-500 dark:text-slate-400">10 hours/month of the owner's time arguing over missing items or payments</td>
+                        <td className="py-4 px-6 text-emerald-600 dark:text-emerald-400 font-medium">Zero disputes. Live, transparent ledger visible to both parties.</td>
+                        <td className="py-4 px-6 text-right font-mono font-bold text-emerald-600 dark:text-emerald-400">₹3,000</td>
+                      </tr>
+                      <tr className="hover:bg-slate-100/30 dark:hover:bg-slate-950/20 transition-colors">
+                        <td className="py-4 px-6 font-bold text-slate-900 dark:text-white">Pricing Accuracy</td>
+                        <td className="py-4 px-6 text-slate-500 dark:text-slate-400">Verbal misquotes and forgotten customized rates</td>
+                        <td className="py-4 px-6 text-emerald-600 dark:text-emerald-400 font-medium">100% accurate. Hardcoded, client-wise custom price lists.</td>
+                        <td className="py-4 px-6 text-right font-mono font-bold text-emerald-600 dark:text-emerald-400">₹1,500</td>
+                      </tr>
+                      <tr className="hover:bg-slate-100/30 dark:hover:bg-slate-950/20 transition-colors">
+                        <td className="py-4 px-6 font-bold text-slate-900 dark:text-white">Credit Control</td>
+                        <td className="py-4 px-6 text-slate-500 dark:text-slate-400">Blindly supplying goods past the credit limit</td>
+                        <td className="py-4 px-6 text-emerald-600 dark:text-emerald-400 font-medium">Automated. System blocks the cart when limits are breached.</td>
+                        <td className="py-4 px-6 text-right font-mono font-bold text-emerald-600 dark:text-emerald-400">₹2,500</td>
+                      </tr>
+                      <tr className="bg-slate-100 dark:bg-slate-950/80 font-bold">
+                        <td className="py-4 px-6 font-black uppercase text-slate-950 dark:text-white">TOTAL MONTHLY SAVINGS</td>
+                        <td className="py-4 px-6"></td>
+                        <td className="py-4 px-6"></td>
+                        <td className="py-4 px-6 text-right font-mono text-emerald-650 dark:text-emerald-400 text-base">₹9,700/mo</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="p-4 bg-slate-100/70 dark:bg-slate-950/50 border-t border-slate-200 dark:border-slate-800">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    *Estimates based on a team of 2-5 staff processing 20 daily orders. Staff cost calculated at ₹15,000/month; Owner time valued at ₹300/hour.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-indigo-950 text-white rounded-[2.5rem] p-8 md:p-12 text-center border border-indigo-500/20 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl"></div>
+            <div className="relative z-10 max-w-3xl mx-auto">
+              <h3 className="text-2xl md:text-3xl font-black mb-4">Stop Paying for Chaos.</h3>
+              <p className="text-lg text-slate-300 mb-8">
+                Upgrade your business operations today and plug the leaks in your profit margins.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <a 
+                  href="#pricing"
+                  className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-all shadow-md"
+                >
+                  View Pricing Plans
+                </a>
+                <a 
+                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20trial%20of%20SupplySarthi."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3.5 bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-300 font-bold rounded-xl text-sm transition-all"
+                >
+                  Start Your Free Trial
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
-      <section className="py-24 relative overflow-hidden bg-slate-50">
+      <section id="pricing" className="py-24 relative overflow-hidden bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Transparent Pricing</h2>
