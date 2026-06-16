@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Sun, Moon, Sparkles, ChevronDown, Tag, FileSpreadsheet, BarChart3, Workflow, MonitorSmartphone } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDarkMode } from '../hooks/useDarkMode';
@@ -13,6 +13,30 @@ export default function Navbar() {
   const [isMobileOffersOpen, setIsMobileOffersOpen] = useState(false);
   const location = useLocation();
   const { isDark, toggleDark } = useDarkMode();
+
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | number | null>(null);
+
+  const handleMouseEnter = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current as number);
+    }
+    setIsServicesDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setIsServicesDropdownOpen(false);
+    }, 250);
+  };
+
+  // Clean up timers on unmount or route change
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current as number);
+      }
+    };
+  }, [location]);
 
   const isHome = location.pathname === '/';
 
@@ -73,8 +97,8 @@ export default function Navbar() {
             {/* Services & Offers Dropdown */}
             <div 
               className="relative self-stretch flex items-center"
-              onMouseEnter={() => setIsServicesDropdownOpen(true)}
-              onMouseLeave={() => setIsServicesDropdownOpen(false)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <button 
                 className={`font-medium transition-colors ${location.pathname.startsWith('/services') || location.pathname.startsWith('/offers') ? activeClass : textClass} flex items-center gap-1 cursor-pointer h-full border-none bg-transparent`}
