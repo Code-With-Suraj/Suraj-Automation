@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, Sparkles } from 'lucide-react';
+import { Menu, X, Sun, Moon, Sparkles, ChevronDown, Tag, FileSpreadsheet, BarChart3, Workflow, MonitorSmartphone } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { useUser } from '../contexts/UserContext';
@@ -9,6 +9,8 @@ export default function Navbar() {
   const { isAdmin } = useUser();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isMobileOffersOpen, setIsMobileOffersOpen] = useState(false);
   const location = useLocation();
   const { isDark, toggleDark } = useDarkMode();
 
@@ -67,7 +69,109 @@ export default function Navbar() {
           <div className="hidden lg:flex flex-1 justify-end items-center space-x-3 xl:space-x-6">
             <Link to="/" className={`font-medium transition-colors ${location.pathname === '/' ? activeClass : textClass}`}>Home</Link>
             <Link to="/products" className={`font-medium transition-colors ${location.pathname.startsWith('/products') ? activeClass : textClass}`}>Products</Link>
-            <Link to="/services" className={`font-medium transition-colors ${location.pathname === '/services' ? activeClass : textClass}`}>Services</Link>
+            
+            {/* Services & Offers Dropdown */}
+            <div 
+              className="relative self-stretch flex items-center"
+              onMouseEnter={() => setIsServicesDropdownOpen(true)}
+              onMouseLeave={() => setIsServicesDropdownOpen(false)}
+            >
+              <button 
+                className={`font-medium transition-colors ${location.pathname.startsWith('/services') || location.pathname.startsWith('/offers') ? activeClass : textClass} flex items-center gap-1 cursor-pointer h-full border-none bg-transparent`}
+                onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                id="btn-navbar-services-dropdown"
+              >
+                Services
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-250 ${isServicesDropdownOpen ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}`} />
+              </button>
+              
+              {isServicesDropdownOpen && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-16 w-80 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xl py-3 z-50 transform origin-top transition-all duration-200">
+                  <div className="px-4 pb-2 border-b border-slate-100 dark:border-slate-800/80 mb-2 flex justify-between items-center">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Special Offers & Plans</span>
+                    <Link to="/offers" onClick={() => setIsServicesDropdownOpen(false)} className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline">View All</Link>
+                  </div>
+                  <div className="space-y-0.5">
+                    <Link 
+                      to="/offers/google-sheets-automation" 
+                      onClick={() => setIsServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      id="dropdown-link-sheets"
+                    >
+                      <div className="p-1.5 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-lg shrink-0">
+                        <FileSpreadsheet className="w-4 h-4" />
+                      </div>
+                      <div className="flex-grow min-w-0">
+                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Google Sheets Automation</p>
+                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹1,499</p>
+                      </div>
+                    </Link>
+                    
+                    <Link 
+                      to="/offers/custom-excel-dashboard-mis" 
+                      onClick={() => setIsServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      id="dropdown-link-excel"
+                    >
+                      <div className="p-1.5 bg-indigo-50 dark:bg-indigo-505/10 text-indigo-650 dark:text-indigo-405 rounded-lg shrink-0">
+                        <BarChart3 className="w-4 h-4" />
+                      </div>
+                      <div className="flex-grow min-w-0">
+                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Custom Excel Dashboard</p>
+                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹1,999</p>
+                      </div>
+                    </Link>
+                    
+                    <Link 
+                      to="/offers/google-apps-script-automation" 
+                      onClick={() => setIsServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      id="dropdown-link-appsscript"
+                    >
+                      <div className="p-1.5 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-450 rounded-lg shrink-0">
+                        <Workflow className="w-4 h-4" />
+                      </div>
+                      <div className="flex-grow min-w-0">
+                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Google Apps Script</p>
+                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹2,999</p>
+                      </div>
+                    </Link>
+                    
+                    <Link 
+                      to="/offers/custom-web-app" 
+                      onClick={() => setIsServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      id="dropdown-link-webapp"
+                    >
+                      <div className="p-1.5 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-450 rounded-lg shrink-0">
+                        <MonitorSmartphone className="w-4 h-4" />
+                      </div>
+                      <div className="flex-grow min-w-0">
+                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Custom Web App & Website</p>
+                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹3,999</p>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="border-t border-slate-100 dark:border-slate-800/80 mt-2 pt-2 px-4 flex justify-between items-center gap-2">
+                    <Link 
+                      to="/services" 
+                      onClick={() => setIsServicesDropdownOpen(false)}
+                      className="text-[10px] font-bold text-slate-650 dark:text-slate-350 hover:text-indigo-650 dark:hover:text-indigo-400"
+                    >
+                      Core Plans Page
+                    </Link>
+                    <Link 
+                      to="/offers" 
+                      onClick={() => setIsServicesDropdownOpen(false)}
+                      className="text-[10px] font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline"
+                    >
+                      All Dynamic Offers
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <Link to="/roi-tool" className={`font-medium transition-colors ${location.pathname === '/roi-tool' ? activeClass : textClass} flex items-center gap-0.5 xl:gap-1`}>
               <Sparkles className="w-4 h-4 text-amber-500 shrink-0 fill-amber-500/20" />
               ROI & AI Match
@@ -129,7 +233,31 @@ export default function Navbar() {
         <div className="lg:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-4 shadow-xl absolute w-full">
           <Link to="/" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Home</Link>
           <Link to="/products" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname.startsWith('/products') ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Products</Link>
-          <Link to="/services" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/services' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Services</Link>
+          
+          {/* Mobile Services & Offers Accordion */}
+          <div className="space-y-1">
+            <button 
+              onClick={() => setIsMobileOffersOpen(!isMobileOffersOpen)}
+              className="w-full flex items-center justify-between px-3 py-2 text-base font-medium rounded-md text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 border-none bg-transparent cursor-pointer"
+            >
+              <span className={location.pathname.startsWith('/services') || location.pathname.startsWith('/offers') ? 'text-indigo-600 dark:text-indigo-400 font-bold' : ''}>
+                Services & Offers
+              </span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMobileOffersOpen ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}`} />
+            </button>
+            {isMobileOffersOpen && (
+              <div className="pl-4 space-y-1 mt-1 bg-slate-50/50 dark:bg-slate-850/25 p-2 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                <Link to="/services" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-650">Core Plans Page</Link>
+                <Link to="/offers" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-sm font-extrabold text-indigo-600 dark:text-indigo-400 hover:text-indigo-650">Special Deals Hub</Link>
+                <div className="h-[1px] bg-slate-200/50 dark:bg-slate-800 my-1.5" />
+                <Link to="/offers/google-sheets-automation" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Sheets Automation (₹1,499)</Link>
+                <Link to="/offers/custom-excel-dashboard-mis" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Excel MIS Dashboard (₹1,999)</Link>
+                <Link to="/offers/google-apps-script-automation" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Apps Script Workflow (₹2,999)</Link>
+                <Link to="/offers/custom-web-app" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Web App & Site (₹3,999)</Link>
+              </div>
+            )}
+          </div>
+
           <Link to="/roi-tool" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/roi-tool' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'} flex items-center gap-1.5`}>
             <Sparkles className="w-4 h-4 text-amber-500 shrink-0 fill-amber-500/10 animate-pulse animate-duration-1000" />
             ROI & AI Match

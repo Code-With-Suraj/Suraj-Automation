@@ -34,6 +34,8 @@ import RoiTool from './pages/RoiTool';
 import Reviews from './pages/Reviews';
 import Terms from './pages/Terms';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import OffersHub from './pages/OffersHub';
+import OfferDetailPage from './pages/OfferDetailPage';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FloatingBuyWidget from './components/FloatingBuyWidget';
 import ScrollToTop from './components/ScrollToTop';
@@ -50,6 +52,8 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
+              <Route path="/offers" element={<OffersHub />} />
+              <Route path="/offers/:slug" element={<OfferDetailPage />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pricing" element={<Services />} />
               <Route path="/products" element={<Products />} />
