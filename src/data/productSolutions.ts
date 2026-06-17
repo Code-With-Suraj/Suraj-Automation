@@ -1189,6 +1189,128 @@ function completeOnboarding(onboardId, employeeName, panCard, bankingDetails, ve
       "Save modifications, then click on Deploy ➔ New deployment. Set 'Web App', execute as 'Me', who has access as 'Anyone'.",
       "Copy your secure production Web App production endpoint to map internal HR dashboards, and proceed!"
     ]
+  },
+  budgetsarthi: {
+    id: "budgetsarthi",
+    name: "BudgetSarthi",
+    price: "₹3,999",
+    marketPrice: "₹9,999",
+    sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1BudgetSarthiTemplateDemo/copy",
+    appsScriptCode: `/**
+ * BudgetSarthi - Expense Control & Departmental Finance Governance System
+ * Author: Suraj Automation
+ * Platform: Google Apps Script Web App with Sheets Backend
+ */
+
+const SHEET_BUDGETS = "Budgets";
+const SHEET_EXPENSES = "Expenses";
+const SHEET_AUDIT_LOG = "Audit_Log";
+const SHEET_SETTINGS = "Settings";
+
+function doGet(e) {
+  const template = HtmlService.createTemplateFromFile('Index');
+  template.baseUrl = ScriptApp.getService().getUrl();
+  return template.evaluate()
+    .setTitle('BudgetSarthi Finance Portal')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function getBudgetMetrics() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const budgetSheet = ss.getSheetByName(SHEET_BUDGETS);
+  const expenseSheet = ss.getSheetByName(SHEET_EXPENSES);
+  
+  if (!budgetSheet || !expenseSheet) return { totalAllocated: 0, totalSpent: 0, utilization: 0 };
+  
+  const budgets = budgetSheet.getDataRange().getValues();
+  const expenses = expenseSheet.getDataRange().getValues();
+  
+  let totalAllocated = 0;
+  for (let i = 1; i < budgets.length; i++) {
+    totalAllocated += parseFloat(budgets[i][2]) || 0; // Allocation column
+  }
+  
+  let totalSpent = 0;
+  for (let j = 1; j < expenses.length; j++) {
+    totalSpent += parseFloat(expenses[j][3]) || 0; // Amount column
+  }
+  
+  return {
+    totalAllocated: totalAllocated,
+    totalSpent: totalSpent,
+    utilization: totalAllocated > 0 ? (totalSpent / totalAllocated) * 100 : 0
+  };
+}
+
+function addExpense(dept, costCenter, amount, desc, userEmail) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  
+  // Verify budget period lock status
+  if (isPeriodLocked()) {
+    throw new Error("Financial period is locked. No expense modifications are permitted.");
+  }
+  
+  const budgetSheet = ss.getSheetByName(SHEET_BUDGETS);
+  const expenseSheet = ss.getSheetByName(SHEET_EXPENSES);
+  
+  // Save expense
+  const expenseId = "EXP-" + new Date().getTime();
+  const timestamp = new Date();
+  
+  if (expenseSheet.getLastRow() === 0) {
+    expenseSheet.appendRow(["Expense ID", "Timestamp", "Department", "Cost Center", "Amount", "Description", "Submitter Email"]);
+  }
+  
+  expenseSheet.appendRow([expenseId, timestamp, dept, costCenter, amount, desc, userEmail]);
+  
+  // Log inside Audit Trails
+  logAuditEvent(userEmail, "ADD_EXPENSE", \`Added transaction \${expenseId} of ₹\${amount} to \${dept} / \${costCenter}\`);
+  
+  // Perform alert checks
+  checkDepartmentThresholdAlert(dept);
+  
+  return { success: true, expenseId: expenseId };
+}
+
+function isPeriodLocked() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const settingsSheet = ss.getSheetByName(SHEET_SETTINGS);
+  if (!settingsSheet) return false;
+  const rows = settingsSheet.getDataRange().getValues();
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i][0] === "PERIOD_LOCKED") {
+      return rows[i][1] === true || rows[i][1] === "TRUE";
+    }
+  }
+  return false;
+}
+
+function logAuditEvent(user, action, details) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_AUDIT_LOG) || ss.insertSheet(SHEET_AUDIT_LOG);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["Timestamp", "User Email", "Action", "Details"]);
+  }
+  sheet.appendRow([new Date(), user, action, details]);
+}
+
+function checkDepartmentThresholdAlert(dept) {
+  // Checks spending and triggers email to Finance if > 80% or 100%
+  const metrics = getBudgetMetrics();
+  if (metrics.utilization >= 100) {
+    MailApp.sendEmail(Session.getActiveUser().getEmail(), "CRITICAL: Budget Exhausted", \`Department \${dept} has exceeded its allocated limit.\`);
+  } else if (metrics.utilization >= 80) {
+    MailApp.sendEmail(Session.getActiveUser().getEmail(), "WARNING: Budget Limit Approaching", \`Department \${dept} has consumed over 80% of its allocation.\`);
+  }
+}`,
+    setupSteps: [
+      "Click the 'Make a Copy' button to open your pre-formatted Google Sheets system with custom tabs ('Budgets', 'Expenses', 'Audit_Log', 'Settings').",
+      "Go to Extensions ➔ Apps Script from the top-level menu.",
+      "Replace any default template functions with the modern BudgetSarthi expense control and finance governance script shared above.",
+      "Save project modifications, then click on Deploy ➔ New deployment. Set 'Web App', execute as 'Me', who has access as 'Anyone'.",
+      "Copy your secure production Web App endpoint URL. Your team is ready to securely log expenses, monitor cost-centers, and receive overspending alerts!"
+    ]
   }
 };
 
@@ -1386,6 +1508,17 @@ export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; descrip
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  budgetsarthi: {
+    tagline: "Expense Control & Departmental Finance Governance",
+    description: "A surprisingly serious finance governance system focused on budget discipline and spend visibility before overspending happens. Built on Google Workspace.",
+    category: "Accounting & Finance",
+    color: "blue",
+    images: [
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80"
     ]
   }
 };

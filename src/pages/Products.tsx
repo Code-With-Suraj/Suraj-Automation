@@ -338,6 +338,21 @@ export default function Products() {
         'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
         'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80'
       ]
+    },
+    {
+      id: 'budgetsarthi',
+      name: 'BudgetSarthi',
+      tagline: 'Expense Control & Departmental Finance Governance',
+      description: 'A finance governance system focused on budget discipline and spend visibility before overspending happens. Sitting one layer above accounting systems to stop manual budget chaos.',
+      icon: <Calculator className="w-8 h-8" />,
+      color: 'blue',
+      category: 'Accounting & Finance',
+      popularity: 94,
+      images: [
+        'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80'
+      ]
     }
   ];
 

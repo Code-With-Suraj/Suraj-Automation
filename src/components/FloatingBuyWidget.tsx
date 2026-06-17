@@ -92,7 +92,7 @@ export default function FloatingBuyWidget() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 50, scale: 0.95 }}
             transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-            className="hidden lg:flex fixed right-6 top-[25%] z-45 w-[300px] flex-col bg-slate-900/95 border border-slate-800 backdrop-blur-md rounded-2xl p-5 shadow-[0_25px_60px_rgba(0,0,0,0.5),0_0_20px_rgba(79,70,229,0.15)] hover:border-indigo-500/40 hover:shadow-[0_25px_60px_rgba(0,0,0,0.5),0_0_30px_rgba(79,70,229,0.25)] transition-all duration-300 relative"
+            className="hidden lg:flex fixed right-6 top-[25%] z-45 w-[300px] flex-col bg-slate-900/95 border border-slate-800 backdrop-blur-md rounded-2xl p-5 shadow-[0_25px_60px_rgba(0,0,0,0.5),0_0_20px_rgba(79,70,229,0.15)] hover:border-indigo-500/40 hover:shadow-[0_25px_60px_rgba(0,0,0,0.5),0_0_30px_rgba(79,70,229,0.25)] transition-all duration-300"
           >
             {/* Collapse toggle handle */}
             <button
