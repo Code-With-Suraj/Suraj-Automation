@@ -322,6 +322,22 @@ export default function Products() {
         'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80',
         'https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=800&q=80'
       ]
+    },
+    {
+      id: 'hiresarthi',
+      name: 'HireSarthi',
+      tagline: 'Hire Faster. Onboard Smarter. Manage Employees in One Place.',
+      description: 'HireSarthi helps growing businesses streamline recruitment, offer letter generation, employee onboarding, and workforce management from a single platform. Track candidates, automate hiring workflows, issue digital offer letters, and maintain a complete employee database.',
+      icon: <Users className="w-8 h-8" />,
+      color: 'indigo',
+      featured: true,
+      category: 'HR & Management',
+      popularity: 110,
+      images: [
+        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80'
+      ]
     }
   ];
 

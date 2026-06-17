@@ -1070,6 +1070,125 @@ function checkBudgetThreshold(category) {
       "Deploy and authorize requested permissions to grant Google Drive storage read-write access.",
       "Launch your newly created Personal Finance dashboard to monitor budgets, subscriptions, debt avalanche/snowball trackers, and investments offline!"
     ]
+  },
+  hiresarthi: {
+    id: "hiresarthi",
+    name: "HireSarthi",
+    price: "₹9,999",
+    marketPrice: "₹24,999",
+    sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1HireSarthiTemplateDemo/copy",
+    appsScriptCode: `/**
+ * HireSarthi - Recruitment, Professional Offer Letter Generation & Onboarding Suite
+ * Author: Suraj Automation
+ * Platform: Google Apps Script Web App with Sheets Backend
+ */
+
+const SHEET_CANDIDATES = "Candidates";
+const SHEET_EMPLOYEES = "Employees_Database";
+const SHEET_OFFERS = "Offer_Letters";
+
+function doGet(e) {
+  const template = HtmlService.createTemplateFromFile('Index');
+  template.baseUrl = ScriptApp.getService().getUrl();
+  return template.evaluate()
+    .setTitle('HireSarthi Employer Workspace')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function getHRMetrics() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const candSheet = ss.getSheetByName(SHEET_CANDIDATES);
+  const empSheet = ss.getSheetByName(SHEET_EMPLOYEES);
+  const offerSheet = ss.getSheetByName(SHEET_OFFERS);
+  
+  return {
+    totalCandidates: candSheet ? candSheet.getLastRow() - 1 : 0,
+    totalEmployees: empSheet ? empSheet.getLastRow() - 1 : 0,
+    offersIssued: offerSheet ? offerSheet.getLastRow() - 1 : 0
+  };
+}
+
+function submitCandidate(name, email, mobile, position, timeline_stage, notes) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_CANDIDATES) || ss.insertSheet(SHEET_CANDIDATES);
+  const candId = "CAND-" + new Date().getTime();
+  
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["Candidate ID", "Submission Timestamp", "Full Name", "Email Address", "Mobile Number", "Applied Position", "Hiring Stage", "Internal Notes"]);
+  }
+  
+  sheet.appendRow([
+    candId,
+    new Date(),
+    name,
+    email,
+    mobile,
+    position,
+    timeline_stage || "Applied",
+    notes || ""
+  ]);
+  
+  return { success: true, candidateId: candId };
+}
+
+function createOfferLetter(candidateName, email, position, annualSalary, joiningDate) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_OFFERS) || ss.insertSheet(SHEET_OFFERS);
+  const offerId = "OFR-" + new Date().getTime();
+  
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["Offer ID", "Candidate Name", "Email Address", "Designation", "Annual Salary (INR)", "Joining Date", "Acceptance Status", "Sent Timestamp"]);
+  }
+  
+  sheet.appendRow([
+    offerId,
+    candidateName,
+    email,
+    position,
+    annualSalary,
+    joiningDate,
+    "Pending Review",
+    new Date()
+  ]);
+  
+  sendOfferEmail(candidateName, email, position, annualSalary, joiningDate, offerId);
+  return { success: true, offerId: offerId };
+}
+
+function sendOfferEmail(name, email, pos, sal, date, offerId) {
+  const subject = \`Employment Offer Letter - \${pos} - \${name}\`;
+  const acceptLink = \`\${ScriptApp.getService().getUrl()}?offerId=\${offerId}&action=Accept\`;
+  const body = \`Dear \${name},\\n\\nCongratulations! We are delighted to offer you the position of \${pos}.\\n\\nKey terms of the offer are:\\n- Annual Compensation: INR \${sal}\\n- Expected Joining Date: \${date}\\n\\nPlease click the secure link below to accept this offer letter digitally:\\n\${acceptLink}\\n\\nShould you have any queries, please reply directly. We look forward to welcome you to the team.\\n\\nSincerely,\\nHuman Resources Group\`;
+  MailApp.sendEmail(email, subject, body);
+}
+
+function completeOnboarding(onboardId, employeeName, panCard, bankingDetails, verificationDocs) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_EMPLOYEES) || ss.insertSheet(SHEET_EMPLOYEES);
+  
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["Employee Reference", "Full Name", "PAN Number", "Bank Details", "Verification Documents", "Onboarded Timestamp"]);
+  }
+  
+  sheet.appendRow([
+    onboardId || "EMP-" + new Date().getTime(),
+    employeeName,
+    panCard,
+    bankingDetails,
+    verificationDocs || "Provided",
+    new Date()
+  ]);
+  
+  return { success: true };
+}`,
+    setupSteps: [
+      "Click the 'Make a Copy' button to open your pre-formatted Google Sheets system with custom tabs ('Candidates', 'Offer_Letters', 'Employees_Database').",
+      "Go to Extensions ➔ Apps Script from the top-level menu.",
+      "Replace any default template functions with the modern HireSarthi server side engine code shared above.",
+      "Save modifications, then click on Deploy ➔ New deployment. Set 'Web App', execute as 'Me', who has access as 'Anyone'.",
+      "Copy your secure production Web App production endpoint to map internal HR dashboards, and proceed!"
+    ]
   }
 };
 
@@ -1256,6 +1375,17 @@ export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; descrip
       "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  hiresarthi: {
+    tagline: "Hire Faster. Onboard Smarter. Manage Employees in One Place.",
+    description: "HireSarthi helps growing businesses streamline recruitment, offer letter generation, employee onboarding, and workforce management from a single platform. Track candidates, automate hiring workflows, issue digital offer letters, and maintain a complete employee database.",
+    category: "HR & Management",
+    color: "indigo",
+    images: [
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
     ]
   }
 };

@@ -27,6 +27,7 @@ import CogsAnalyticsDashboard from './pages/products/CogsAnalyticsDashboard';
 import LoanSarthi from './pages/products/LoanSarthi';
 import VendorSarthi from './pages/products/VendorSarthi';
 import PersonalFinSarthi from './pages/products/PersonalFinSarthi';
+import HireSarthi from './pages/products/HireSarthi';
 import CfoDashboard from './pages/products/CfoDashboard';
 import DynamicProductPage from './pages/products/DynamicProductPage';
 import AdminPortal from './pages/AdminPortal';
@@ -74,6 +75,7 @@ export default function App() {
               <Route path="/products/loansarthi" element={<LoanSarthi />} />
               <Route path="/products/vendorsarthi" element={<VendorSarthi />} />
               <Route path="/products/personalfinsarthi" element={<PersonalFinSarthi />} />
+              <Route path="/products/hiresarthi" element={<HireSarthi />} />
               <Route path="/admin" element={<AdminPortal />} />
               <Route path="/roi-tool" element={<RoiTool />} />
               <Route path="/products/:productId" element={<DynamicProductPage />} />

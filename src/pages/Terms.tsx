@@ -456,8 +456,25 @@ export default function Terms() {
       )
     },
     {
-      id: 'refusal-service',
+      id: 'refund-policy',
       num: 17,
+      title: 'Refund Policy',
+      icon: RefreshCw,
+      category: 'financial',
+      content: (
+        <div className="space-y-3">
+          <p>
+            Refund parameters are governed by the digitised and custom delivery structure of our deliverables:
+          </p>
+          <p className="text-sm border-l-4 border-indigo-500 pl-3 italic text-slate-500">
+            "Due to the digital nature of the product and implementation effort involved, payments are generally non-refundable once project setup and deployment have started. Any refund requests before project initiation will be reviewed on a case-by-case basis."
+          </p>
+        </div>
+      )
+    },
+    {
+      id: 'refusal-service',
+      num: 18,
       title: 'Refusal or Termination of Service',
       icon: Ban,
       category: 'general',
@@ -479,7 +496,7 @@ export default function Terms() {
     },
     {
       id: 'changes-to-terms',
-      num: 18,
+      num: 19,
       title: 'Changes to Terms',
       icon: Hourglass,
       category: 'general',
@@ -491,7 +508,7 @@ export default function Terms() {
     },
     {
       id: 'governing-law',
-      num: 19,
+      num: 20,
       title: 'Governing Law',
       icon: Scale,
       category: 'general',
@@ -508,7 +525,7 @@ export default function Terms() {
     },
     {
       id: 'contact-info',
-      num: 20,
+      num: 21,
       title: 'Contact Information',
       icon: Mail,
       category: 'general',
