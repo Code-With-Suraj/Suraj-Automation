@@ -1311,6 +1311,27 @@ function checkDepartmentThresholdAlert(dept) {
       "Save project modifications, then click on Deploy ➔ New deployment. Set 'Web App', execute as 'Me', who has access as 'Anyone'.",
       "Copy your secure production Web App endpoint URL. Your team is ready to securely log expenses, monitor cost-centers, and receive overspending alerts!"
     ]
+  },
+  salarysarthi: {
+    id: "salarysarthi",
+    name: "SalarySarthi",
+    price: "₹15,000",
+    marketPrice: "₹25,000",
+    sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1SalarySarthiTemplateDemo/copy",
+    appsScriptCode: `/**
+ * SalarySarthi - HRMS & Payroll Management System
+ * Author: Suraj Automation
+ */
+// Contact support for the full source code and setup instructions
+function doGet() {
+  return HtmlService.createHtmlOutput('SalarySarthi Portal');
+}`,
+    setupSteps: [
+      "Book a demo using the link below to see SalarySarthi in action.",
+      "Our team will deploy the customized instance for your organization.",
+      "Complete onboarding and train your HR team.",
+      "Process your first automated payroll!"
+    ]
   }
 };
 
@@ -1519,6 +1540,17 @@ export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; descrip
       "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  salarysarthi: {
+    tagline: "HRMS + Payroll Management System",
+    description: "SalarySarthi isn't trying to be another bloated HRMS—it focuses on solving payroll and attendance pain for SMBs surprisingly well.",
+    category: "HR & Management",
+    color: "indigo",
+    images: [
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
     ]
   }
 };

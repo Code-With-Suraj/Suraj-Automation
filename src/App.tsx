@@ -30,6 +30,7 @@ import PersonalFinSarthi from './pages/products/PersonalFinSarthi';
 import HireSarthi from './pages/products/HireSarthi';
 import BudgetSarthi from './pages/products/BudgetSarthi';
 import CfoDashboard from './pages/products/CfoDashboard';
+import SalarySarthi from './pages/products/SalarySarthi';
 import DynamicProductPage from './pages/products/DynamicProductPage';
 import AdminPortal from './pages/AdminPortal';
 import RoiTool from './pages/RoiTool';
@@ -78,6 +79,7 @@ export default function App() {
               <Route path="/products/personalfinsarthi" element={<PersonalFinSarthi />} />
               <Route path="/products/hiresarthi" element={<HireSarthi />} />
               <Route path="/products/budgetsarthi" element={<BudgetSarthi />} />
+              <Route path="/products/salarysarthi" element={<SalarySarthi />} />
               <Route path="/admin" element={<AdminPortal />} />
               <Route path="/roi-tool" element={<RoiTool />} />
               <Route path="/products/:productId" element={<DynamicProductPage />} />
