@@ -1,7 +1,7 @@
 import { useState, MouseEvent, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks, Search, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator, PieChart, ChevronLeft, ChevronRight, Filter, ListChecks, Search, ChevronsLeft, ChevronsRight, Sparkles, LayoutGrid } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 import { useUser } from '../contexts/UserContext';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
@@ -449,165 +449,205 @@ export default function Products() {
   const currentProducts = filteredAndSortedProducts.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
-    <main className="pt-24 pb-20">
-      <section className="relative py-20 lg:py-32 bg-slate-50 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100/80 via-white to-white"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold tracking-wide mb-6 border border-indigo-100 shadow-sm">
-              Custom Web Apps for Business
+    <main className="pt-24 pb-20 bg-slate-50 min-h-screen">
+      {/* Modern Hero */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
+        <div className="bg-slate-950 rounded-[3rem] p-8 md:p-12 lg:p-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-10 shadow-2xl">
+          <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none" />
+          
+          <div className="relative z-10 max-w-2xl text-center md:text-left">
+            <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-indigo-500/10 text-indigo-400 text-sm font-bold tracking-wide mb-6 border border-indigo-500/20 backdrop-blur-sm">
+              <Sparkles className="w-4 h-4" />
+              Automate Your Business
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
-              Ready-to-Deploy <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                Automation Systems for SMBs
-              </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+              Work <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Smarter.</span> Not Harder.
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-12">
-              Powerful, customizable web applications and small business automation tools designed specifically to solve the most common operational challenges.
+            <p className="text-lg text-slate-400 font-medium leading-relaxed">
+              Discover our collection of premium, ready-to-deploy web applications built to solve your operational chaos.
             </p>
-          </motion.div>
+          </div>
+          
+          <div className="relative z-10 w-full md:w-80 shrink-0">
+             <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-2 rounded-2xl flex items-center shadow-xl focus-within:border-indigo-500/50 transition-colors">
+              <Search className="w-5 h-5 text-slate-400 ml-3 shrink-0" />
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-transparent border-none text-white focus:ring-0 placeholder-slate-500 font-medium px-3 py-2 outline-none"
+              />
+              {searchTerm && (
+                <button 
+                  onClick={() => setSearchTerm('')} 
+                  className="p-2 text-slate-400 hover:text-white transition-colors"
+                >
+                  <span className="sr-only">Clear search</span>
+                  ×
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Interactive Modern Search Bar */}
-          <div className="mb-10 max-w-2xl mx-auto relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-500 transition-colors">
-              <Search className="w-5 h-5" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search products by title, industry, or features (e.g. 'loan', 'GST', 'billing')..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-12 pr-16 py-4.5 border border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-2xl bg-slate-50 text-slate-900 placeholder-slate-400 shadow-sm focus:shadow-md transition-all outline-none font-medium text-base"
-            />
-            {searchTerm && (
-              <button 
-                onClick={() => setSearchTerm('')} 
-                className="absolute inset-y-0 right-0 pr-5 flex items-center text-xs font-black text-rose-500 hover:text-rose-600 transition-colors uppercase tracking-widest"
-              >
-                Clear
-              </button>
-            )}
+      {/* Main Content: Sidebar + Grid */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 flex flex-col lg:flex-row gap-10">
+        
+        {/* Left Sidebar */}
+        <aside className="w-full lg:w-64 shrink-0">
+          <div className="sticky top-32 space-y-10">
+             {/* Categories */}
+             <div>
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <LayoutGrid className="w-4 h-4" /> Categories
+                </h3>
+                <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 scrollbar-none">
+                   {categories.map(category => (
+                    <button
+                      key={category}
+                      onClick={() => {
+                        setActiveCategory(category);
+                        setCurrentPage(1);
+                      }}
+                      className={`px-4 py-3 rounded-xl text-sm font-bold transition-all text-left whitespace-nowrap shrink-0 group flex items-center justify-between ${
+                        activeCategory === category 
+                          ? 'bg-slate-900 text-white shadow-md' 
+                          : 'bg-white text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      {category}
+                      {activeCategory === category && <ChevronRight className="w-4 h-4 text-indigo-400" />}
+                    </button>
+                   ))}
+                </div>
+             </div>
+
+             {/* Sort By */}
+             <div className="hidden lg:block">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <Filter className="w-4 h-4" /> Sort By
+                </h3>
+                <div className="bg-white rounded-xl p-1.5 border border-slate-200 shadow-sm flex flex-col gap-1">
+                  <button
+                    onClick={() => setSortBy('popularity')}
+                    className={`px-4 py-2.5 rounded-lg text-sm font-bold text-left transition-colors ${sortBy === 'popularity' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                  >
+                    Popularity
+                  </button>
+                  <button
+                    onClick={() => setSortBy('alphabetical')}
+                    className={`px-4 py-2.5 rounded-lg text-sm font-bold text-left transition-colors ${sortBy === 'alphabetical' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                  >
+                    Alphabetical (A-Z)
+                  </button>
+                </div>
+             </div>
           </div>
-          
-          {/* Filter and Sort UI */}
-          <div className="mb-12 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-              <div className="hidden sm:flex items-center gap-2 text-slate-500 mr-2">
-                <Filter className="w-4 h-4" />
-                <span className="text-sm font-semibold uppercase tracking-wider">Filter:</span>
-              </div>
-              {categories.map(category => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${activeCategory === category ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-indigo-300 hover:text-indigo-600'}`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 hidden sm:inline-block">Sort by:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as 'popularity' | 'alphabetical')}
-                className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 outline-none font-bold shadow-sm cursor-pointer"
-              >
-                <option value="popularity">Popularity</option>
-                <option value="alphabetical">Alphabetical (A-Z)</option>
-              </select>
-            </div>
+        </aside>
+
+        {/* Right Product Grid */}
+        <div className="flex-grow flex flex-col min-h-[50vh]">
+          {/* Mobile Sort */}
+          <div className="flex lg:hidden items-center justify-between mb-6 bg-white p-3 rounded-xl border border-slate-200">
+            <span className="text-sm font-bold text-slate-500 ml-2">Sort By</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'popularity' | 'alphabetical')}
+              className="bg-slate-50 border-none text-slate-900 text-sm rounded-lg focus:ring-0 font-bold outline-none cursor-pointer py-2 px-3"
+            >
+              <option value="popularity">Popularity</option>
+              <option value="alphabetical">Alphabetical (A-Z)</option>
+            </select>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence mode="popLayout">
-              {currentProducts.map((product, idx) => {
-                const styles = colorStyles[product.color];
-                const isFeatured = product.featured;
-                
-                return isFeatured && activeCategory === 'All' ? (
-                  <motion.div
-                    layout
-                    key={product.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
+          {currentProducts.length === 0 ? (
+            <div className="flex-grow flex flex-col items-center justify-center text-center p-12 bg-white rounded-[2rem] border border-slate-200 border-dashed">
+              <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mb-4 text-slate-400">
+                <Search className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-extrabold text-slate-900 mb-2">No products found</h3>
+              <p className="text-slate-500 font-medium max-w-md">Try adjusting your search terms or filters to find what you're looking for.</p>
+              <button 
+                onClick={() => { setSearchTerm(''); setActiveCategory('All'); }}
+                className="mt-6 px-6 py-2.5 bg-indigo-50 text-indigo-600 font-bold rounded-xl hover:bg-indigo-100 transition-colors"
+              >
+                Clear all filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6 lg:gap-8 auto-rows-max">
+              <AnimatePresence mode="popLayout">
+                {currentProducts.map((product) => {
+                  const styles = colorStyles[product.color];
+                  const isFeatured = product.featured;
+                  
+                  return isFeatured && activeCategory === 'All' ? (
+                    <motion.div
+                      layout
+                      key={product.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.4 }}
-                      className="bg-slate-950 rounded-[2.5rem] p-8 lg:p-12 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] border border-slate-800 flex flex-col lg:flex-row gap-10 lg:gap-16 items-center group relative overflow-hidden md:col-span-2 lg:col-span-3 text-white transition-all duration-500 hover:border-indigo-500/50 hover:shadow-[0_20px_60px_-10px_rgba(79,70,229,0.3)] mb-4"
+                      className="bg-slate-900 rounded-[2rem] p-6 lg:p-10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] border border-slate-800 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center group relative overflow-hidden md:col-span-2 text-white transition-all duration-500 hover:border-indigo-500/40 hover:shadow-[0_20px_60px_-10px_rgba(79,70,229,0.3)]"
                     >
                       {/* Background Glow */}
-                      <div className={`absolute -top-40 -right-40 w-[40rem] h-[40rem] ${styles.buttonBg} rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+                      <div className={`absolute -bottom-40 -left-40 w-[40rem] h-[40rem] ${styles.buttonBg} rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
                       
-                      <div className="absolute top-6 left-6 z-10 hidden md:flex gap-3">
-                        <span className="bg-gradient-to-r from-indigo-500 to-cyan-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                          FEATURED SYSTEM
-                        </span>
-                        <span className="text-xs uppercase tracking-wider font-bold px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 backdrop-blur-md text-slate-300">
-                          {product.category}
-                        </span>
-                      </div>
-
-                      <div className="w-full lg:w-[50%] xl:w-[55%] flex flex-col z-10 pt-4 md:pt-10 lg:pt-0">
-                        <div className="flex md:hidden gap-2 mb-6">
-                          <span className="bg-gradient-to-r from-indigo-500 to-cyan-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <div className="w-full lg:w-1/2 flex flex-col z-10">
+                        <div className="flex gap-2 mb-6">
+                          <span className="bg-indigo-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 tracking-wider">
+                            <Sparkles className="w-3 h-3" />
                             FEATURED
                           </span>
+                          <span className="text-[10px] uppercase tracking-wider font-bold px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300">
+                            {product.category}
+                          </span>
                         </div>
-                        <div className="flex items-center gap-5 mb-6">
-                          <div className={`rounded-2xl bg-slate-900 border border-slate-800 p-4 shrink-0 shadow-2xl text-white w-16 h-16 lg:w-20 lg:h-20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                        
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className={`rounded-2xl bg-slate-950 border border-slate-800 p-4 shrink-0 shadow-2xl text-white w-14 h-14 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
                             {product.icon}
                           </div>
                           <div>
-                            <h3 className="font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2">{product.name}</h3>
-                            <p className="text-xs md:text-sm font-bold text-indigo-400 uppercase tracking-widest">{product.tagline}</p>
+                            <h3 className="font-extrabold text-3xl md:text-4xl tracking-tight leading-none mb-1">{product.name}</h3>
                           </div>
                         </div>
                         
-                        <p className="text-slate-300 mb-6 text-base md:text-lg lg:text-xl leading-relaxed font-medium">
+                        <p className={`text-xs md:text-sm font-bold text-indigo-400 uppercase tracking-widest mb-4 leading-relaxed`}>{product.tagline}</p>
+                        <p className="text-slate-400 mb-8 text-base md:text-lg leading-relaxed font-medium">
                           {product.description}
                         </p>
                         
-                        {/* Price details with Market Price comparison discount */}
-                        <div className="flex items-center gap-3 bg-slate-900/50 border border-slate-800/80 p-3.5 px-5 rounded-2xl mb-8 flex-wrap w-fit">
-                          <span className="text-2xl font-black text-white">{product.price || "₹1,499"}</span>
-                          {product.marketPrice && (
-                            <>
-                              <span className="text-base text-slate-500 line-through font-bold">{product.marketPrice}</span>
-                              <span className="text-xs font-black text-emerald-400 bg-emerald-500/15 border border-emerald-500/20 px-2.5 py-1 rounded-lg">
-                                {calculateDiscount(product.price || "₹1,499", product.marketPrice)}% OFF
-                              </span>
-                            </>
-                          )}
-                        </div>
-                        
-                        <div className="mt-auto">
-                          <Link
+                        <div className="flex items-center justify-between mt-auto gap-4 flex-wrap">
+                           <div className="flex flex-col">
+                             <span className="text-xs font-black text-slate-500 uppercase tracking-widest mb-1">One-time Price</span>
+                             <div className="flex items-end gap-3">
+                               <span className="text-3xl font-black text-white leading-none">{product.price || "₹1,499"}</span>
+                               {product.marketPrice && (
+                                 <div className="flex items-center gap-2 pb-0.5">
+                                   <span className="text-sm text-slate-500 line-through font-bold">{product.marketPrice}</span>
+                                 </div>
+                               )}
+                             </div>
+                           </div>
+                           
+                           <Link
                             to={`/products/${product.id}`}
-                            className="inline-flex items-center justify-center px-8 py-4 bg-white text-slate-950 rounded-xl font-bold transition-all shadow-xl hover:bg-indigo-50 hover:-translate-y-1 group/btn w-full sm:w-auto text-lg"
+                            className="inline-flex items-center justify-center px-6 py-3.5 bg-white text-slate-950 rounded-xl font-black transition-all shadow-xl hover:bg-indigo-50 group/btn"
                           >
-                            Explore {product.name}
+                            Explore Product
                             <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                           </Link>
                         </div>
                       </div>
                       
-                      {/* Product Image */}
-                      <div className="w-full lg:w-[50%] xl:w-[45%] z-10 relative">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/30 to-transparent rounded-2xl z-10 pointer-events-none" />
-                        <div className="rounded-2xl border border-slate-800/80 p-1.5 md:p-3 bg-slate-900/50 backdrop-blur-sm shadow-2xl relative group-hover:border-indigo-500/30 transition-colors duration-500">
-                          <ImageCarousel images={product.images} className="h-60 sm:h-80 lg:h-[26rem]" />
+                      <div className="w-full lg:w-1/2 z-10 relative">
+                        <div className="rounded-2xl border border-slate-700/50 p-2 bg-slate-800/50 backdrop-blur-sm shadow-2xl relative group-hover:border-indigo-500/30 transition-colors duration-500">
+                          <ImageCarousel images={product.images} className="h-64 sm:h-72 lg:h-[22rem]" />
                         </div>
                       </div>
                     </motion.div>
@@ -615,164 +655,97 @@ export default function Products() {
                     <motion.div
                       layout
                       key={product.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
+                      initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.4 }}
-                      className="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col hover:scale-[1.02] hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:border-indigo-200 transition-all duration-300 group relative overflow-hidden"
+                      className="bg-white rounded-3xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-200/80 flex flex-col hover:shadow-xl hover:border-indigo-200/60 transition-all duration-300 group relative overflow-hidden h-full"
                     >
-                      {/* Category Tag */}
-                      <div className="absolute top-4 left-4 z-10">
-                        <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-md ${styles.bg} ${styles.text} shadow-sm backdrop-blur-md bg-white/70`}>
+                      <div className="absolute top-4 left-4 z-10 flex gap-2">
+                         {isFeatured && (
+                           <span className="text-[10px] uppercase tracking-wider font-black px-2.5 py-1 rounded-lg bg-indigo-600 text-white shadow-sm">
+                             Star
+                           </span>
+                         )}
+                        <span className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-lg ${styles.bg} ${styles.text} shadow-sm backdrop-blur-md`}>
                           {product.category}
                         </span>
                       </div>
 
-                      <div className="w-full pt-4">
-                        <ImageCarousel images={product.images} />
+                      <div className="w-full mb-6">
+                        <ImageCarousel images={product.images} className="h-56 rounded-[1.25rem]" />
                       </div>
                       
                       <div className="flex flex-col flex-grow">
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className={`rounded-xl border border-slate-100 shadow-sm ${styles.bg} flex items-center justify-center ${styles.text} shrink-0 w-12 h-12`}>
+                        <div className="flex items-center gap-4 mb-3">
+                          <div className={`rounded-xl ${styles.bg} flex items-center justify-center ${styles.text} shrink-0 w-12 h-12`}>
                             {product.icon}
                           </div>
-                          <h3 className="font-extrabold text-slate-900 tracking-tight text-xl md:text-2xl">{product.name}</h3>
+                          <h3 className="font-extrabold text-slate-900 tracking-tight text-xl leading-tight">{product.name}</h3>
                         </div>
-                        <p className={`text-xs font-bold ${styles.text} mb-4 uppercase tracking-wider`}>{product.tagline}</p>
-                        <p className="text-slate-600 mb-4 font-body leading-relaxed flex-grow text-sm md:text-base">
+                        <p className={`text-[11px] font-black ${styles.text} mb-3 uppercase tracking-wider leading-relaxed line-clamp-2`}>{product.tagline}</p>
+                        <p className="text-slate-600 mb-6 font-medium leading-relaxed flex-grow text-sm line-clamp-3">
                           {product.description}
                         </p>
                         
-                        {/* Price details with Market Price comparison discount */}
-                        <div className="flex items-center gap-2 mb-6 flex-wrap">
-                          <span className="text-2xl font-black text-slate-900">{product.price || "₹1,499"}</span>
-                          {product.marketPrice && (
-                            <>
-                              <span className="text-sm text-slate-400 line-through font-bold">{product.marketPrice}</span>
-                              <span className={`text-[10px] font-black px-2 py-0.5 rounded ${styles.bg} ${styles.text} border border-slate-150`}>
-                                {calculateDiscount(product.price || "₹1,499", product.marketPrice)}% OFF
-                              </span>
-                            </>
-                          )}
-                        </div>
-                        <div>
+                        <div className="mt-auto border-t border-slate-100 pt-5 flex items-center justify-between">
+                          <div className="flex flex-col">
+                             <div className="flex items-center gap-2">
+                               <span className="text-xl font-black text-slate-900 leading-none">{product.price || "₹1,499"}</span>
+                             </div>
+                             {product.marketPrice && (
+                               <div className="flex items-center gap-1.5 mt-1">
+                                 <span className="text-[11px] text-slate-400 line-through font-bold">{product.marketPrice}</span>
+                                 <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                   {calculateDiscount(product.price || "₹1,499", product.marketPrice)}% OFF
+                                 </span>
+                               </div>
+                             )}
+                          </div>
                           <Link
                             to={`/products/${product.id}`}
-                            className="inline-flex items-center justify-center px-6 py-3 bg-slate-950 text-white rounded-xl font-bold transition-all shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:-translate-y-0.5 group/btn w-full"
+                            className="w-10 h-10 rounded-full bg-slate-950 text-white flex items-center justify-center transition-transform hover:scale-110 hover:bg-indigo-600 group/link"
+                            aria-label={`View ${product.name}`}
                           >
-                            View Details
-                            <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                            <ArrowRight className="w-4 h-4 group-hover/link:-rotate-45 transition-transform duration-300" />
                           </Link>
                         </div>
                       </div>
                     </motion.div>
                   );
-              })}
-            </AnimatePresence>
-          </div>
+                })}
+              </AnimatePresence>
+            </div>
+          )}
 
-          {/* Modern & Professional Pagination Controls */}
+          {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200/60 shadow-sm px-6 py-4 rounded-3xl transition-all animate-fade-in">
-              {/* Items per Page selector & counter */}
-              <div className="flex items-center gap-3 text-sm text-slate-500 font-semibold order-2 sm:order-1">
-                <span>Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, totalFilteredCount)} of {totalFilteredCount} products</span>
-                <span className="text-slate-200">|</span>
-                <div className="flex items-center gap-1.5">
-                  <span>Show:</span>
-                  <select
-                    value={itemsPerPage}
-                    onChange={(e) => {
-                      setItemsPerPage(Number(e.target.value));
-                      setCurrentPage(1);
-                    }}
-                    className="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-2.5 py-1 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm cursor-pointer"
-                  >
-                    <option value={6}>6</option>
-                    <option value={9}>9</option>
-                    <option value={12}>12</option>
-                    <option value={24}>24</option>
-                  </select>
-                </div>
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200/80 shadow-sm px-6 py-4 rounded-2xl w-full">
+              <div className="text-sm text-slate-500 font-bold order-2 sm:order-1">
+                Showing {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, totalFilteredCount)} of {totalFilteredCount}
               </div>
 
-              {/* Navigation Buttons */}
-              <div className="flex items-center gap-1.5 order-1 sm:order-2">
-                {/* First Page */}
-                <button
-                  onClick={() => setCurrentPage(1)}
-                  disabled={currentPage === 1}
-                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
-                  title="First Page"
-                >
-                  <ChevronsLeft className="w-4 h-4" />
-                </button>
-
-                {/* Prev Page */}
+              <div className="flex items-center gap-1 order-1 sm:order-2">
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
-                  title="Previous Page"
+                  className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all mr-1"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-
-                {/* Explicit Page buttons */}
-                <div className="flex items-center gap-1.5 scrollbar-none px-1">
-                  {Array.from({ length: totalPages }).map((_, pageIdx) => {
-                    const pageNum = pageIdx + 1;
-                    // Show smart range if totalPages is large to prevent layout spill
-                    if (
-                      totalPages > 5 &&
-                      pageNum !== 1 &&
-                      pageNum !== totalPages &&
-                      Math.abs(pageNum - currentPage) > 1
-                    ) {
-                      if (pageNum === 2 && currentPage > 3) {
-                        return <span key="dots1" className="text-slate-400 text-sm px-1 font-black">...</span>;
-                      }
-                      if (pageNum === totalPages - 1 && currentPage < totalPages - 2) {
-                        return <span key="dots2" className="text-slate-400 text-sm px-1 font-black">...</span>;
-                      }
-                      return null;
-                    }
-
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold transition-all cursor-pointer hover:scale-105 active:scale-95 ${
-                          currentPage === pageNum
-                            ? 'bg-indigo-600 border border-indigo-600 text-white shadow-md shadow-indigo-600/20'
-                            : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    );
-                  })}
+                
+                <div className="flex items-center px-2">
+                   <span className="text-sm font-black text-slate-900 bg-slate-100 min-w-[2rem] text-center py-1 rounded-md">{currentPage}</span>
+                   <span className="text-sm font-bold text-slate-400 mx-2">/</span>
+                   <span className="text-sm font-bold text-slate-500">{totalPages}</span>
                 </div>
 
-                {/* Next Page */}
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
-                  title="Next Page"
+                  className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all ml-1"
                 >
                   <ChevronRight className="w-4 h-4" />
-                </button>
-
-                {/* Last Page */}
-                <button
-                  onClick={() => setCurrentPage(totalPages)}
-                  disabled={currentPage === totalPages}
-                  className="p-2 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer hover:scale-105 active:scale-95"
-                  title="Last Page"
-                >
-                  <ChevronsRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
