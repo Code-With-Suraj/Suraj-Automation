@@ -22,8 +22,12 @@ import {
   Settings,
   Search,
   X,
-  Youtube
+  Youtube,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useUser } from '../contexts/UserContext';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 import { useSEO } from '../hooks/useSEO';
@@ -38,10 +42,11 @@ export default function Portal() {
 
   const { user, userProfile, purchases, customProducts, loading, login, logout, hasPurchased, isAdmin, getProductSolution } = useUser();
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'blueprint' | 'guide' | 'code'>('blueprint');
+  const [activeTab, setActiveTab] = useState<'guide' | 'code'>('guide');
   const [activeClientFileIndex, setActiveClientFileIndex] = useState<number>(0);
   const [copied, setCopied] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFullScreenGuide, setIsFullScreenGuide] = useState(false);
   const location = useLocation();
   const detailsRef = useRef<HTMLDivElement>(null);
 
@@ -287,7 +292,7 @@ export default function Portal() {
                             onClick={() => {
                               if (unlocked) {
                                 setSelectedProductId(sol.id);
-                                setActiveTab('blueprint');
+                                setActiveTab('guide');
                               }
                             }}
                             className={`p-4 md:p-5 rounded-2xl border-2 transition-all flex justify-between items-center gap-4 ${
@@ -328,7 +333,7 @@ export default function Portal() {
                                 <button
                                   onClick={() => {
                                     setSelectedProductId(sol.id);
-                                    setActiveTab('blueprint');
+                                    setActiveTab('guide');
                                   }}
                                   className={`px-4 py-2 rounded-lg font-bold text-xs shadow-sm transition-all text-center shrink-0 flex items-center gap-1.5 cursor-pointer ${
                                     isSelected 
@@ -371,17 +376,6 @@ export default function Portal() {
                         {/* Selector Tab */}
                         <div className="flex border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-2.5">
                           <button
-                            onClick={() => setActiveTab('blueprint')}
-                            className={`flex-1 px-4 py-3 rounded-lg font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                              activeTab === 'blueprint'
-                                ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-white shadow'
-                                : 'text-slate-500 hover:text-indigo-500'
-                            }`}
-                          >
-                            <Sparkles className="w-3.5 h-3.5" />
-                            Blueprint URL
-                          </button>
-                          <button
                             onClick={() => setActiveTab('guide')}
                             className={`flex-1 px-4 py-3 rounded-lg font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                               activeTab === 'guide'
@@ -408,83 +402,84 @@ export default function Portal() {
                         {/* Contents */}
                         <div className="p-6 md:p-8 space-y-6">
                           
-                          {activeTab === 'blueprint' && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="space-y-5"
-                            >
-                              <div>
-                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-black uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 mb-2">
-                                  Verified Purchase
-                                </span>
-                                <h3 className="text-2xl font-black text-slate-900 dark:text-white">
-                                  {activeSolution.name} Master Blueprint Link
-                                </h3>
-                                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                                  Open and copy the preconfigured master spreadsheet containing all the structured tables, validations, dashboards, and triggers definitions:
-                                </p>
-                              </div>
-
-                              <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-dashed border-slate-350 dark:border-slate-800 flex flex-col items-center justify-center text-center space-y-4">
-                                <div className="p-4 bg-indigo-50 dark:bg-indigo-500/10 rounded-full text-indigo-600 dark:text-indigo-400">
-                                  <ExternalLink className="w-8 h-8" />
-                                </div>
-                                <div>
-                                  <h4 className="font-bold text-slate-800 dark:text-white mb-1">Make 1-Click Copy into Drive</h4>
-                                  <p className="text-xs text-slate-550 dark:text-slate-400 max-w-sm">This master template contains structural formulas. Hit "File" &gt; "Make a copy" to initialize on your own workspace.</p>
-                                </div>
-                                <div className="flex flex-col sm:flex-row gap-3">
-                                  <a
-                                    href={activeSolution.sheetTemplateUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-sm tracking-wide flex items-center gap-2 shadow shadow-indigo-650/15"
-                                  >
-                                    Open Google Sheets Template
-                                    <ExternalLink className="w-4 h-4" />
-                                  </a>
-                                  
-                                  {activeSolution.youtubeUrl && (
-                                    <a
-                                      href={activeSolution.youtubeUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="px-6 py-3 bg-red-50 hover:bg-red-100 dark:bg-red-500/10 dark:hover:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/20 rounded-xl font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
-                                    >
-                                      <Youtube className="w-4 h-4" />
-                                      Watch Video Tutorial
-                                    </a>
-                                  )}
-                                </div>
-                              </div>
-                            </motion.div>
-                          )}
-
                           {activeTab === 'guide' && (
                             <motion.div
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               className="space-y-4"
                             >
-                              <div>
-                                <h3 className="text-xl font-black text-slate-900 dark:text-white">
-                                  Product Setup Document & Guide
-                                </h3>
-                                <p className="text-xs font-semibold text-slate-550 dark:text-slate-400">Follow these instructions to link spreadsheet backend automation triggers:</p>
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 dark:bg-slate-950/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+                                <div>
+                                  <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                                    <span>Product Setup Document & Guide</span>
+                                    {activeSolution.setupMarkdown && (
+                                      <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400 px-2 py-0.5 rounded-full font-mono">MD Docs</span>
+                                    )}
+                                  </h3>
+                                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Click the button to enter full focus reader view</p>
+                                </div>
+                                
+                                <button
+                                  onClick={() => setIsFullScreenGuide(true)}
+                                  className="self-start sm:self-auto px-4 py-2 border border-indigo-205 hover:border-indigo-300 dark:border-indigo-505/20 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/15 rounded-xl text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-sm shadow-indigo-600/5 hover:-translate-y-0.5"
+                                >
+                                  <Maximize2 className="w-3.5 h-3.5" />
+                                  <span>View Full Screen</span>
+                                </button>
                               </div>
 
-                              <div className="space-y-3.5 overflow-y-auto max-h-[340px] pr-1">
-                                {activeSolution.setupSteps.map((step, sIdx) => (
-                                  <div key={sIdx} className="flex gap-3.5 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/85">
-                                    <span className="w-6 h-6 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-650 dark:text-indigo-400 text-xs font-black rounded-full flex items-center justify-center shrink-0">
-                                      {sIdx + 1}
-                                    </span>
-                                    <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
-                                      {step}
-                                    </span>
+                              <div className="overflow-y-auto max-h-[350px] pr-1.5 space-y-3">
+                                {activeSolution.setupMarkdown ? (
+                                  <div className="p-5 bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-205 dark:border-slate-800/80 shadow-sm leading-relaxed text-sm">
+                                    <div className="markdown-body text-slate-800 dark:text-slate-200 space-y-4">
+                                      <Markdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={{
+                                          h1: ({ children }) => <h1 className="text-xl font-black text-indigo-600 dark:text-indigo-400 border-b border-indigo-100 dark:border-indigo-500/20 pb-1.5 mt-5 mb-3">{children}</h1>,
+                                          h2: ({ children }) => <h2 className="text-lg font-bold text-slate-900 dark:text-white mt-4 mb-2">{children}</h2>,
+                                          h3: ({ children }) => <h3 className="text-base font-bold text-slate-900 dark:text-white mt-3.5 mb-2">{children}</h3>,
+                                          p: ({ children }) => <p className="mb-3 text-slate-600 dark:text-slate-350 leading-relaxed font-semibold text-xs md:text-sm">{children}</p>,
+                                          ul: ({ children }) => <ul className="list-disc pl-5 mb-3 space-y-1">{children}</ul>,
+                                          ol: ({ children }) => <ol className="list-decimal pl-5 mb-3 space-y-1">{children}</ol>,
+                                          li: ({ children }) => <li className="text-slate-600 dark:text-slate-300 font-semibold text-xs md:text-sm">{children}</li>,
+                                          code: ({ children }) => <code className="px-1.5 py-0.5 bg-slate-105 dark:bg-slate-950/80 border border-slate-250 dark:border-slate-800 rounded text-xs font-mono text-pink-600 dark:text-pink-400 break-all">{children}</code>,
+                                          blockquote: ({ children }) => <blockquote className="border-l-4 border-indigo-500 pl-3 py-1 my-3 bg-indigo-55/50 dark:bg-indigo-950/10 italic text-slate-600 dark:text-slate-400 rounded-r-lg text-xs font-medium">{children}</blockquote>,
+                                          table: ({ children }) => (
+                                            <div className="overflow-x-auto my-3 rounded-xl border border-slate-205 dark:border-slate-800/80 shadow-sm">
+                                              <table className="w-full text-left border-collapse text-xs min-w-[500px]">{children}</table>
+                                            </div>
+                                          ),
+                                          thead: ({ children }) => <thead className="bg-slate-50 dark:bg-slate-950/60 text-slate-800 dark:text-slate-200 font-extrabold border-b border-slate-200 dark:border-slate-800 uppercase tracking-wider text-[10px]">{children}</thead>,
+                                          tbody: ({ children }) => <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50 bg-white dark:bg-slate-900/20">{children}</tbody>,
+                                          tr: ({ children }) => <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-850/20 transition-colors">{children}</tr>,
+                                          th: ({ children }) => <th className="p-3 font-bold border-b border-slate-200 dark:border-slate-850">{children}</th>,
+                                          td: ({ children }) => <td className="p-3 text-slate-600 dark:text-slate-300 font-medium leading-relaxed border-b border-slate-100 dark:border-slate-850/40">{children}</td>,
+                                        }}
+                                      >
+                                        {activeSolution.setupMarkdown}
+                                      </Markdown>
+                                    </div>
                                   </div>
-                                ))}
+                                ) : (
+                                  <div className="space-y-3.5">
+                                    {activeSolution.setupSteps && activeSolution.setupSteps.length > 0 ? (
+                                      activeSolution.setupSteps.map((step, sIdx) => (
+                                        <div key={sIdx} className="flex gap-3.5 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-205 dark:border-slate-800/85">
+                                          <span className="w-6 h-6 bg-indigo-50 dark:bg-indigo-505/10 text-indigo-650 dark:text-indigo-400 text-xs font-black rounded-full flex items-center justify-center shrink-0 font-mono">
+                                            {sIdx + 1}
+                                          </span>
+                                          <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            {step}
+                                          </span>
+                                        </div>
+                                      ))
+                                    ) : (
+                                      <div className="p-8 text-center bg-white dark:bg-slate-900/10 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+                                        <p className="text-slate-400 text-xs font-semibold">No setup guide has been written for this product yet.</p>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                               </div>
                             </motion.div>
                           )}
@@ -641,6 +636,107 @@ export default function Portal() {
         </AnimatePresence>
 
       </div>
+
+      {/* Full Screen Immersive Markdown Reader Modal */}
+      <AnimatePresence>
+        {isFullScreenGuide && activeSolution && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 md:p-8"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              className="bg-white dark:bg-slate-905 w-full max-w-5xl h-[85vh] md:h-[90vh] rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col overflow-hidden"
+            >
+              {/* Header */}
+              <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between bg-slate-50/50 dark:bg-slate-950/20">
+                <div className="flex items-center gap-3">
+                  <span className="p-2 bg-indigo-50 dark:bg-indigo-505/10 text-indigo-650 dark:text-indigo-400 rounded-xl">
+                    <BookOpen className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <h3 className="font-extrabold text-base md:text-lg text-slate-900 dark:text-white leading-tight">
+                      {activeSolution.name} — Full Setup Guide
+                    </h3>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">Focus Reader Mode</p>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={() => setIsFullScreenGuide(false)}
+                  className="px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-750 dark:hover:text-slate-200 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold border border-transparent hover:border-slate-200 dark:hover:border-slate-700 shadow-sm"
+                  title="Close Reader"
+                >
+                  <Minimize2 className="w-4 h-4 text-slate-500" />
+                  <span>Back to Dashboard</span>
+                </button>
+              </div>
+
+              {/* Content Body */}
+              <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-white dark:bg-slate-900">
+                <div className="max-w-3xl mx-auto">
+                  {activeSolution.setupMarkdown ? (
+                    <div className="markdown-body text-slate-800 dark:text-slate-200 leading-relaxed text-sm space-y-5 pb-12">
+                      <Markdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          h1: ({ children }) => <h1 className="text-3xl font-black text-indigo-650 dark:text-indigo-400 border-b border-indigo-100 dark:border-indigo-505/20 pb-3 mt-8 mb-5 leading-tight">{children}</h1>,
+                          h2: ({ children }) => <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-6 mb-4 leading-tight">{children}</h2>,
+                          h3: ({ children }) => <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-5 mb-3 leading-tight">{children}</h3>,
+                          p: ({ children }) => <p className="mb-5 text-slate-605 dark:text-slate-350 leading-relaxed font-semibold text-sm md:text-base">{children}</p>,
+                          ul: ({ children }) => <ul className="list-disc pl-6 mb-5 space-y-2">{children}</ul>,
+                          ol: ({ children }) => <ol className="list-decimal pl-6 mb-5 space-y-2">{children}</ol>,
+                          li: ({ children }) => <li className="text-slate-605 dark:text-slate-300 font-semibold text-sm md:text-base leading-relaxed">{children}</li>,
+                          code: ({ children }) => <code className="px-2 py-0.5 bg-slate-105 dark:bg-slate-950/80 border border-slate-250 dark:border-slate-800 rounded text-xs font-mono text-pink-600 dark:text-pink-450 break-all">{children}</code>,
+                          blockquote: ({ children }) => <blockquote className="border-l-4 border-indigo-550 pl-4 py-2 my-5 bg-indigo-55/50 dark:bg-indigo-950/10 italic text-slate-605 dark:text-slate-400 rounded-r-lg">{children}</blockquote>,
+                          table: ({ children }) => (
+                            <div className="overflow-x-auto my-5 rounded-2xl border border-slate-205 dark:border-slate-800/80 shadow-md">
+                              <table className="w-full text-left border-collapse text-xs md:text-sm min-w-[600px]">{children}</table>
+                            </div>
+                          ),
+                          thead: ({ children }) => <thead className="bg-slate-50 dark:bg-slate-950/60 text-slate-800 dark:text-slate-200 font-extrabold border-b border-slate-202 dark:border-slate-800 uppercase tracking-wider text-xs">{children}</thead>,
+                          tbody: ({ children }) => <tbody className="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900/10">{children}</tbody>,
+                          tr: ({ children }) => <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-850/20 transition-colors">{children}</tr>,
+                          th: ({ children }) => <th className="p-4 font-bold border-b border-slate-200 dark:border-slate-850">{children}</th>,
+                          td: ({ children }) => <td className="p-4 text-slate-600 dark:text-slate-300 font-medium leading-relaxed border-b border-slate-100 dark:border-slate-850/40">{children}</td>,
+                        }}
+                      >
+                        {activeSolution.setupMarkdown}
+                      </Markdown>
+                    </div>
+                  ) : (
+                    <div className="space-y-4 pb-12">
+                      <h4 className="text-xl font-bold text-slate-900 dark:text-white">Installation Handbook Steps</h4>
+                      <div className="space-y-3.5">
+                        {activeSolution.setupSteps && activeSolution.setupSteps.length > 0 ? (
+                          activeSolution.setupSteps.map((step, sIdx) => (
+                            <div key={sIdx} className="flex gap-4 p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-205 dark:border-slate-800/85">
+                              <span className="w-8 h-8 bg-indigo-50 dark:bg-indigo-505/10 text-indigo-650 dark:text-indigo-400 text-sm font-black rounded-full flex items-center justify-center shrink-0 font-mono">
+                                {sIdx + 1}
+                              </span>
+                              <span className="text-sm font-semibold text-slate-705 dark:text-slate-300 leading-relaxed font-sans">
+                                {step}
+                              </span>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="p-12 text-center bg-slate-50 dark:bg-slate-950/20 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl text-slate-400">
+                            No precise steps have been entered for this automation template yet.
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

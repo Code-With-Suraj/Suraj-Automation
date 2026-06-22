@@ -677,7 +677,7 @@ export default function Reviews() {
                         
                         <span className="text-slate-400 dark:text-slate-500 flex items-center gap-1">
                           <Clock className="w-3.5 h-3.5" />
-                          {item.createdAt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          {new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </span>
 
                         {!item.isApproved && (

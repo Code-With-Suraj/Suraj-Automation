@@ -51,6 +51,7 @@ export default function AdminPortal() {
   const [formImages, setFormImages] = useState<string[]>([]);
   const [formYoutubeUrl, setFormYoutubeUrl] = useState('');
   const [formIsHidden, setFormIsHidden] = useState(false);
+  const [formSetupMarkdown, setFormSetupMarkdown] = useState('');
 
   // General feedback states
   const [errorMsg, setErrorMsg] = useState('');
@@ -193,6 +194,7 @@ export default function AdminPortal() {
     setFormImages(p.images || []);
     setFormYoutubeUrl(p.youtubeUrl || '');
     setFormIsHidden(!!p.isHidden);
+    setFormSetupMarkdown(p.setupMarkdown || '');
     setErrorMsg('');
     setSuccessMsg('');
   };
@@ -217,6 +219,7 @@ export default function AdminPortal() {
     setStepsInput('');
     setImageInput('');
     setFormIsHidden(false);
+    setFormSetupMarkdown('');
     setErrorMsg('');
     setSuccessMsg('');
   };
@@ -253,7 +256,8 @@ export default function AdminPortal() {
         setupSteps: formSteps,
         images: formImages,
         youtubeUrl: formYoutubeUrl.trim(),
-        isHidden: formIsHidden
+        isHidden: formIsHidden,
+        setupMarkdown: formSetupMarkdown.trim()
       });
 
       setSuccessMsg(editingId ? 'Product customized successfully!' : 'New Automation deployed successfully!');
@@ -557,6 +561,21 @@ export default function AdminPortal() {
                       onChange={(e) => setFormYoutubeUrl(e.target.value)}
                       className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center justify-between">
+                      <span>Product Setup Guide (Markdown Format)</span>
+                      <span className="text-[10px] bg-indigo-50 dark:bg-indigo-500/10 px-2 py-0.5 rounded-full text-indigo-600 dark:text-indigo-400 font-bold font-mono">Pristine Setup Docs</span>
+                    </label>
+                    <textarea 
+                      rows={6}
+                      value={formSetupMarkdown}
+                      placeholder="# Apps Script Setup Guide&#10;&#10;Here are the steps to deploy the application successfully:&#10;&#10;1. Copy the Google CSS & Index structure.&#10;2. Configure your properties.&#10;3. Run initialization from menus.&#10;&#10;Happy automating!"
+                      onChange={(e) => setFormSetupMarkdown(e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs leading-relaxed"
+                    />
+                    <p className="text-[11px] text-slate-500 mt-1">Write beautiful markdown setup guides. Supports titles, list items, bold texts, and tables that will render brilliantly inside the User Portal.</p>
                   </div>
 
                   {/* Visibility Toggle */}

@@ -53,16 +53,16 @@ export default function Hero() {
         staggerChildren: 0.15,
       },
     },
-  };
+  } as const;
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8, ease: "easeOut" as const },
     },
-  };
+  } as const;
 
   return (
     <section className="relative min-h-[100svh] flex items-center pt-20 pb-20 overflow-hidden">

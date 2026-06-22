@@ -119,7 +119,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
             youtubeUrl: data.youtubeUrl || '',
             marketPrice: data.marketPrice || '',
             isHidden: !!data.isHidden,
-            codeFiles: data.codeFiles || []
+            codeFiles: data.codeFiles || [],
+            setupMarkdown: data.setupMarkdown || ''
           });
         });
         setCustomProducts(list);
@@ -452,6 +453,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
       marketPrice: product?.marketPrice || '',
       isHidden: !!product.isHidden,
       codeFiles: product.codeFiles || [],
+      setupMarkdown: product.setupMarkdown || '',
       createdAt: new Date()
     });
   };

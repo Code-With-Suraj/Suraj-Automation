@@ -14,6 +14,7 @@ export interface ProductSolution {
   marketPrice?: string;
   isHidden?: boolean;
   codeFiles?: { filename: string; code: string }[];
+  setupMarkdown?: string;
 }
 
 export const PRODUCT_SOLUTIONS: Record<string, ProductSolution> = {
