@@ -42,6 +42,17 @@
         "price": { "type": "string" },
         "sheetTemplateUrl": { "type": "string" },
         "appsScriptCode": { "type": "string" },
+        "codeFiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filename": { "type": "string" },
+              "code": { "type": "string" }
+            },
+            "required": ["filename", "code"]
+          }
+        },
         "setupSteps": { 
           "type": "array",
           "items": { "type": "string" }

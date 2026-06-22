@@ -604,7 +604,7 @@ export default function QuotationTool() {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="block text-xs font-extrabold text-slate-505 dark:text-slate-400 uppercase tracking-widest font-mono">
+                <label className="block text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono">
                   Your Full Name <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -615,13 +615,13 @@ export default function QuotationTool() {
                     placeholder="e.g. Rahul Sharma"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-205 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="block text-xs font-extrabold text-slate-505 dark:text-slate-400 uppercase tracking-widest font-mono">
+                <label className="block text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono">
                   Email Address <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -632,7 +632,7 @@ export default function QuotationTool() {
                     placeholder="e.g. rahul@company.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-205 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -640,7 +640,7 @@ export default function QuotationTool() {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="block text-xs font-extrabold text-slate-505 dark:text-slate-400 uppercase tracking-widest font-mono">
+                <label className="block text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono">
                   Mobile / WhatsApp Number <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -652,13 +652,13 @@ export default function QuotationTool() {
                     maxLength={15}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/[^\d+]/g, ''))}
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-205 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="block text-xs font-extrabold text-slate-505 dark:text-slate-400 uppercase tracking-widest font-mono">
+                <label className="block text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono">
                   Company / Organization <span className="text-slate-405 font-normal">(Optional)</span>
                 </label>
                 <div className="relative">
@@ -668,7 +668,7 @@ export default function QuotationTool() {
                     placeholder="e.g. Sharma Logistics"
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-205 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -683,7 +683,7 @@ export default function QuotationTool() {
                 placeholder="Give details about your existing spreadsheet files, business models, or specific workflows you want to automate..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-205 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all leading-relaxed"
+                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none transition-all leading-relaxed"
               />
             </div>
 
@@ -775,7 +775,7 @@ export default function QuotationTool() {
             </div>
 
             {/* Quick Estimator Panel (Hidden custom value calculations until step 3) */}
-            <div className="bg-slate-50 dark:bg-slate-950/40 p-6 rounded-2xl border border-slate-205 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="bg-slate-50 dark:bg-slate-950/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <div className="space-y-1">
                 <span className="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-mono">Module Selection Summary</span>
                 <h5 className="text-base font-bold text-slate-900 dark:text-white">

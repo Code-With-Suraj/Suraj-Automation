@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   LogIn, 
@@ -20,7 +20,9 @@ import {
   ShieldAlert,
   HelpCircle,
   Settings,
-  Youtube // Add Youtube icon
+  Search,
+  X,
+  Youtube
 } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
@@ -36,9 +38,26 @@ export default function Portal() {
 
   const { user, userProfile, purchases, customProducts, loading, login, logout, hasPurchased, isAdmin, getProductSolution } = useUser();
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'blueprint' | 'guide'>('blueprint');
+  const [activeTab, setActiveTab] = useState<'blueprint' | 'guide' | 'code'>('blueprint');
+  const [activeClientFileIndex, setActiveClientFileIndex] = useState<number>(0);
   const [copied, setCopied] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
+  const detailsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setActiveClientFileIndex(0);
+  }, [selectedProductId]);
+
+  // Scroll to active product section dynamically when product is selected (requirement 3)
+  useEffect(() => {
+    if (selectedProductId) {
+      const timer = setTimeout(() => {
+        detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedProductId]);
 
   // Filter solutions into purchased vs explore list without duplicates.
   // Custom products with the same id will override the static PRODUCT_SOLUTIONS.
@@ -50,6 +69,15 @@ export default function Portal() {
     solutionsMap.set(sol.id, sol);
   });
   const allSolutions = Array.from(solutionsMap.values());
+  const filteredSolutions = allSolutions.filter(sol => {
+    const q = searchQuery.toLowerCase();
+    return (
+      (sol.name || '').toLowerCase().includes(q) ||
+      (sol.id || '').toLowerCase().includes(q) ||
+      (sol.category || '').toLowerCase().includes(q) ||
+      (sol.tagline || '').toLowerCase().includes(q)
+    );
+  });
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -113,7 +141,7 @@ export default function Portal() {
               exit={{ opacity: 0, y: -15 }}
               className="max-w-2xl mx-auto my-12 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-[2.5rem] shadow-2xl overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-indigo-505 via-purple-550 to-pink-500"></div>
+              <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
               
               <div className="p-8 md:p-12 text-center space-y-6">
                 <div className="w-16 h-16 mx-auto rounded-3xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-100 dark:border-indigo-500/20">
@@ -188,7 +216,7 @@ export default function Portal() {
                   {isAdmin && (
                     <Link
                       to="/admin"
-                      className="px-5 py-3 border border-indigo-200 text-indigo-750 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-55/10 dark:text-indigo-400 dark:border-indigo-505/20 rounded-xl text-sm font-bold flex items-center gap-2 transition-colors cursor-pointer"
+                      className="px-5 py-3 border border-indigo-200 text-indigo-750 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-55/10 dark:text-indigo-400 dark:border-indigo-500/20 rounded-xl text-sm font-bold flex items-center gap-2 transition-colors cursor-pointer"
                     >
                       <Settings className="w-4 h-4 text-indigo-500" />
                       Admin Panel
@@ -214,78 +242,123 @@ export default function Portal() {
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">Total: {allSolutions.length}</span>
                   </div>
 
+                  {/* left-pane Search Input bar */}
+                  <div className="relative px-1">
+                    <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
+                      <Search className="w-4 h-4" />
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Search blueprints or categories..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-10 pr-9 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500 text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-sm"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery('')}
+                        className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                        title="Clear search"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+
                   <div className="space-y-3.5">
-                    {allSolutions.map((sol) => {
-                      const unlocked = hasPurchased(sol.id);
-                      const isSelected = selectedProductId === sol.id;
-
-                      return (
-                        <div
-                          key={sol.id}
-                          className={`p-4 md:p-5 rounded-2xl border-2 transition-all flex justify-between items-center gap-4 ${
-                            isSelected 
-                              ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg' 
-                              : unlocked 
-                                ? 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
-                                : 'bg-slate-105/40 dark:bg-slate-900/40 border-slate-200/50 dark:border-slate-800/50 opacity-75 hover:opacity-100 hover:border-slate-300 dark:hover:border-slate-700'
-                          }`}
+                    {filteredSolutions.length === 0 ? (
+                      <div className="p-8 text-center bg-white dark:bg-slate-900/20 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+                        <p className="text-slate-500 dark:text-slate-400 text-xs font-semibold">No templates match your search.</p>
+                        <button 
+                          onClick={() => setSearchQuery('')}
+                          className="mt-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
                         >
-                          <div className="space-y-1.5 min-w-0">
-                            <span className={`text-[10px] uppercase font-black tracking-wider ${isSelected ? 'text-indigo-150' : unlocked ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400'}`}>
-                              {sol.id}
-                            </span>
-                            <h4 className="font-bold text-[15px] truncate max-w-[200px] leading-snug">
-                              {sol.name}
-                            </h4>
-                            <p className={`text-xs font-semibold ${isSelected ? 'text-indigo-205' : 'text-slate-500 dark:text-slate-400'} flex items-center flex-wrap gap-1`}>
-                              <span>Blueprint Price:</span> 
-                              <span className={`font-black ${isSelected ? 'text-white' : 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 px-1.5 py-0.5 rounded-md'}`}>{sol.price || "₹1,499"}</span>
-                              {sol.marketPrice && (
-                                <>
-                                  <span className="text-[10px] line-through opacity-70">{sol.marketPrice}</span>
-                                  <span className={`text-[9px] font-black px-1 rounded ${isSelected ? 'bg-indigo-500 text-white' : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-430'}`}>
-                                    {calculateDiscount(sol.price || "₹1,499", sol.marketPrice)}% OFF
-                                  </span>
-                                </>
-                              )}
-                            </p>
-                          </div>
+                          Clear search filter
+                        </button>
+                      </div>
+                    ) : (
+                      filteredSolutions.map((sol) => {
+                        const unlocked = hasPurchased(sol.id);
+                        const isSelected = selectedProductId === sol.id;
 
-                          <div className="shrink-0">
-                            {unlocked ? (
-                              <button
-                                onClick={() => {
-                                  setSelectedProductId(sol.id);
-                                  setActiveTab('blueprint');
-                                }}
-                                className={`px-4 py-2 rounded-lg font-bold text-xs shadow-sm transition-all text-center shrink-0 flex items-center gap-1.5 cursor-pointer ${
-                                  isSelected 
-                                    ? 'bg-white text-indigo-600 hover:bg-slate-105' 
-                                    : 'bg-indigo-50 dark:bg-indigo-505/15 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100'
-                                }`}
-                              >
-                                <Unlock className="w-3.5 h-3.5" />
-                                {isSelected ? 'Viewing' : 'Open'}
-                              </button>
-                            ) : (
-                              <a
-                                href={`/products/${sol.id}`}
-                                className="px-3.5 py-2.5 border-2 border-indigo-600 dark:border-indigo-400/30 hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white dark:hover:text-white rounded-xl font-black text-xs text-indigo-600 dark:text-indigo-400 flex items-center gap-1 cursor-pointer transition-all shadow-md shadow-indigo-600/5 hover:-translate-y-0.5 shrink-0"
-                              >
-                                <Lock className="w-3 h-3" />
-                                Get @ {sol.price || "₹1,499"}
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </a>
-                            )}
+                        return (
+                          <div
+                            key={sol.id}
+                            onClick={() => {
+                              if (unlocked) {
+                                setSelectedProductId(sol.id);
+                                setActiveTab('blueprint');
+                              }
+                            }}
+                            className={`p-4 md:p-5 rounded-2xl border-2 transition-all flex justify-between items-center gap-4 ${
+                              unlocked 
+                                ? 'cursor-pointer hover:scale-[1.01]' 
+                                : ''
+                            } ${
+                              isSelected 
+                                ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg scale-[1.01]' 
+                                : unlocked 
+                                  ? 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-indigo-600/50 dark:hover:border-indigo-500/50 shadow-sm'
+                                  : 'bg-slate-100/40 dark:bg-slate-900/40 border-slate-200/50 dark:border-slate-800/50 opacity-75 hover:opacity-100 hover:border-slate-300 dark:hover:border-slate-700'
+                            }`}
+                          >
+                            <div className="space-y-1.5 min-w-0">
+                              <span className={`text-[10px] uppercase font-black tracking-wider ${isSelected ? 'text-indigo-200' : unlocked ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400'}`}>
+                                {sol.id}
+                              </span>
+                              <h4 className="font-bold text-[15px] truncate max-w-[200px] leading-snug">
+                                {sol.name}
+                              </h4>
+                              <p className={`text-xs font-semibold ${isSelected ? 'text-indigo-200' : 'text-slate-500 dark:text-slate-400'} flex items-center flex-wrap gap-1`}>
+                                <span>Blueprint Price:</span> 
+                                <span className={`font-black ${isSelected ? 'text-white' : 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 px-1.5 py-0.5 rounded-md'}`}>{sol.price || "₹1,499"}</span>
+                                {sol.marketPrice && (
+                                  <>
+                                    <span className="text-[10px] line-through opacity-70">{sol.marketPrice}</span>
+                                    <span className={`text-[9px] font-black px-1 rounded ${isSelected ? 'bg-indigo-500 text-white' : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'}`}>
+                                      {calculateDiscount(sol.price || "₹1,499", sol.marketPrice)}% OFF
+                                    </span>
+                                  </>
+                                )}
+                              </p>
+                            </div>
+
+                            <div className="shrink-0" onClick={(e) => { if (unlocked) { e.stopPropagation(); } }}>
+                              {unlocked ? (
+                                <button
+                                  onClick={() => {
+                                    setSelectedProductId(sol.id);
+                                    setActiveTab('blueprint');
+                                  }}
+                                  className={`px-4 py-2 rounded-lg font-bold text-xs shadow-sm transition-all text-center shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                                    isSelected 
+                                      ? 'bg-white text-indigo-600 hover:bg-slate-100' 
+                                      : 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100'
+                                  }`}
+                                >
+                                  <Unlock className="w-3.5 h-3.5" />
+                                  {isSelected ? 'Viewing' : 'Open'}
+                                </button>
+                              ) : (
+                                <a
+                                  href={`/products/${sol.id}`}
+                                  className="px-3.5 py-2.5 border-2 border-indigo-600 dark:border-indigo-400/30 hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white dark:hover:text-white rounded-xl font-black text-xs text-indigo-600 dark:text-indigo-400 flex items-center gap-1 cursor-pointer transition-all shadow-md shadow-indigo-600/5 hover:-translate-y-0.5 shrink-0"
+                                >
+                                  <Lock className="w-3 h-3" />
+                                  Get @ {sol.price || "₹1,499"}
+                                  <ArrowRight className="w-3.5 h-3.5" />
+                                </a>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })
+                    )}
                   </div>
                 </div>
 
                 {/* Right hand expanded view of the active purchase */}
-                <div className="lg:col-span-7">
+                <div ref={detailsRef} className="lg:col-span-7 scroll-mt-28" id="portal-details-panel">
                   <AnimatePresence mode="wait">
                     {activeSolution ? (
                       <motion.div
@@ -317,7 +390,18 @@ export default function Portal() {
                             }`}
                           >
                             <BookOpen className="w-3.5 h-3.5" />
-                            Handbook Guide
+                            Open Product Setup Document
+                          </button>
+                          <button
+                            onClick={() => setActiveTab('code')}
+                            className={`flex-1 px-4 py-3 rounded-lg font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                              activeTab === 'code'
+                                ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-white shadow'
+                                : 'text-slate-500 hover:text-indigo-500'
+                            }`}
+                          >
+                            <FileCode className="w-3.5 h-3.5" />
+                            Source Code
                           </button>
                         </div>
 
@@ -385,7 +469,7 @@ export default function Portal() {
                             >
                               <div>
                                 <h3 className="text-xl font-black text-slate-900 dark:text-white">
-                                  Detailed Installation Handbook
+                                  Product Setup Document & Guide
                                 </h3>
                                 <p className="text-xs font-semibold text-slate-550 dark:text-slate-400">Follow these instructions to link spreadsheet backend automation triggers:</p>
                               </div>
@@ -402,6 +486,93 @@ export default function Portal() {
                                   </div>
                                 ))}
                               </div>
+                            </motion.div>
+                          )}
+
+                          {activeTab === 'code' && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="space-y-5"
+                            >
+                              <div>
+                                <h3 className="text-xl font-black text-slate-900 dark:text-white">
+                                  Deployable Apps Script Source Code
+                                </h3>
+                                <p className="text-xs font-semibold text-slate-550 dark:text-slate-400 mt-1">
+                                  Copy and paste these script files into your Apps Script editor (found under Extensions &gt; Apps Script in your copied Google Sheet) to activate automation:
+                                </p>
+                              </div>
+
+                              {(() => {
+                                const files = activeSolution.codeFiles && activeSolution.codeFiles.length > 0 
+                                  ? activeSolution.codeFiles 
+                                  : [{ filename: 'Code.gs', code: activeSolution.appsScriptCode || '' }];
+                                const currentFile = files[activeClientFileIndex] || files[0] || { filename: 'Code.gs', code: '' };
+
+                                return (
+                                  <div className="space-y-4">
+                                    {/* Small file list tags */}
+                                    <div className="flex flex-wrap gap-2 p-1.5 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200/50 dark:border-slate-850">
+                                      {files.map((file, fIdx) => (
+                                        <button
+                                          key={fIdx}
+                                          onClick={() => setActiveClientFileIndex(fIdx)}
+                                          className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                                            activeClientFileIndex === fIdx
+                                              ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-white shadow border border-slate-200/60 dark:border-indigo-500/20'
+                                              : 'text-slate-550 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-900 border border-transparent dark:text-slate-400'
+                                          }`}
+                                        >
+                                          <FileCode className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+                                          {file.filename}
+                                        </button>
+                                      ))}
+                                    </div>
+
+                                    {/* Beautiful layout-aware Code snippet container */}
+                                    <div className="bg-slate-950 rounded-2xl overflow-hidden border border-slate-850 shadow-xl">
+                                      <div className="flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-slate-850">
+                                        <div className="flex items-center gap-2">
+                                          <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+                                          <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+                                          <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+                                          <span className="font-mono text-xs text-slate-350 ml-4 font-black">{currentFile.filename}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2.5">
+                                          <button
+                                            type="button"
+                                            onClick={() => handleDownloadCode(currentFile.code, `${activeSolution.id}-${currentFile.filename.replace(/\.[^/.]+$/, '')}`)}
+                                            className="p-1.5 rounded bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors cursor-pointer"
+                                            title="Download File"
+                                          >
+                                            <Download className="w-3.5 h-3.5" />
+                                          </button>
+                                          <button
+                                            type="button"
+                                            onClick={() => copyCode(currentFile.code)}
+                                            className="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors font-bold font-mono text-[10px] rounded-lg uppercase tracking-wider cursor-pointer"
+                                          >
+                                            {copied ? (
+                                              <>
+                                                <Check className="w-3.5 h-3.5 text-emerald-400" /> Copied!
+                                              </>
+                                            ) : (
+                                              <>
+                                                <Copy className="w-3.5 h-3.5" /> Copy Code
+                                              </>
+                                            )}
+                                          </button>
+                                        </div>
+                                      </div>
+
+                                      <div className="p-5 font-mono text-xs leading-relaxed text-slate-200 overflow-x-auto max-h-[350px] bg-slate-950">
+                                        <pre className="whitespace-pre-wrap word-break-all select-all">{currentFile.code || "/* No content found for this file */"}</pre>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })()}
                             </motion.div>
                           )}
 

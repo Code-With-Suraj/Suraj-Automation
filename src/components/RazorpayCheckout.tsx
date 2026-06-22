@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
 import { useUser } from '../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 interface RazorpayCheckoutProps {
   productId: string;
@@ -31,6 +32,7 @@ declare global {
 
 export default function RazorpayCheckout({ productId }: RazorpayCheckoutProps) {
   const { user, login, hasPurchased, addPurchaseRecord, getProductSolution } = useUser();
+  const navigate = useNavigate();
   const solution = getProductSolution(productId);
   const [isPurchased, setIsPurchased] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -205,6 +207,11 @@ export default function RazorpayCheckout({ productId }: RazorpayCheckoutProps) {
     }
     setIsPurchased(true);
     setLoading(false);
+    
+    // Automatically redirect to My Portal showing the purchased product (requirement 2)
+    setTimeout(() => {
+      navigate(`/portal?product=${productId}`);
+    }, 800);
   };
 
   const copyCode = () => {

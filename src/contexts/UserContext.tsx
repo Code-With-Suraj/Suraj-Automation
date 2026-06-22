@@ -118,7 +118,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
             images: data.images || [],
             youtubeUrl: data.youtubeUrl || '',
             marketPrice: data.marketPrice || '',
-            isHidden: !!data.isHidden
+            isHidden: !!data.isHidden,
+            codeFiles: data.codeFiles || []
           });
         });
         setCustomProducts(list);
@@ -450,6 +451,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
       youtubeUrl: product?.youtubeUrl || '',
       marketPrice: product?.marketPrice || '',
       isHidden: !!product.isHidden,
+      codeFiles: product.codeFiles || [],
       createdAt: new Date()
     });
   };

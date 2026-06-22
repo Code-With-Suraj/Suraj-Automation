@@ -23,6 +23,7 @@ export default function AdminPortal() {
   const [quotesLoading, setQuotesLoading] = useState(false);
   const [selectedQuote, setSelectedQuote] = useState<any | null>(null);
   const [searchQuote, setSearchQuote] = useState('');
+  const [searchCatalog, setSearchCatalog] = useState('');
   const [quoteSuccessMsg, setQuoteSuccessMsg] = useState('');
   const [quoteErrorMsg, setQuoteErrorMsg] = useState('');
 
@@ -40,6 +41,8 @@ export default function AdminPortal() {
   const [formDescription, setFormDescription] = useState('');
   const [formSheetUrl, setFormSheetUrl] = useState('');
   const [formCode, setFormCode] = useState('');
+  const [formCodeFiles, setFormCodeFiles] = useState<{ filename: string; code: string }[]>([{ filename: 'Code.gs', code: '' }]);
+  const [activeFileFormIndex, setActiveFileFormIndex] = useState<number>(0);
   const [formColor, setFormColor] = useState('indigo');
   const [formCategory, setFormCategory] = useState('Accounting & Finance');
   const [stepsInput, setStepsInput] = useState('');
@@ -179,6 +182,11 @@ export default function AdminPortal() {
     setFormDescription(p.description || '');
     setFormSheetUrl(p.sheetTemplateUrl || '');
     setFormCode(p.appsScriptCode || '');
+    const loadedFiles = p.codeFiles && p.codeFiles.length > 0 
+      ? p.codeFiles 
+      : [{ filename: 'Code.gs', code: p.appsScriptCode || '' }];
+    setFormCodeFiles(loadedFiles);
+    setActiveFileFormIndex(0);
     setFormColor(p.color || 'indigo');
     setFormCategory(p.category || 'Accounting & Finance');
     setFormSteps(p.setupSteps || []);
@@ -199,6 +207,8 @@ export default function AdminPortal() {
     setFormDescription('');
     setFormSheetUrl('');
     setFormCode('');
+    setFormCodeFiles([{ filename: 'Code.gs', code: '' }]);
+    setActiveFileFormIndex(0);
     setFormColor('indigo');
     setFormCategory('Accounting & Finance');
     setFormSteps([]);
@@ -213,8 +223,13 @@ export default function AdminPortal() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!formId.trim() || !formName.trim() || !formPrice.trim() || !formSheetUrl.trim() || !formCode.trim()) {
+    if (!formId.trim() || !formName.trim() || !formPrice.trim() || !formSheetUrl.trim()) {
       setErrorMsg('All main fields must be specified.');
+      return;
+    }
+
+    if (formCodeFiles.length === 0 || formCodeFiles.some(f => !f.filename.trim() || !f.code.trim())) {
+      setErrorMsg('All code files must have a valid filename and script content.');
       return;
     }
 
@@ -231,7 +246,8 @@ export default function AdminPortal() {
         tagline: formTagline.trim(),
         description: formDescription.trim(),
         sheetTemplateUrl: formSheetUrl.trim(),
-        appsScriptCode: formCode.trim(),
+        appsScriptCode: formCodeFiles[0]?.code || formCode.trim(),
+        codeFiles: formCodeFiles,
         color: formColor,
         category: formCategory,
         setupSteps: formSteps,
@@ -595,17 +611,116 @@ export default function AdminPortal() {
                     )}
                   </div>
 
-                  {/* Apps Script code Editor */}
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Raw Apps Script Core Code (Code.gs) <span className="text-red-500">*</span></label>
-                    <textarea 
-                      rows={8}
-                      required
-                      value={formCode}
-                      placeholder="function onEdit(e) { ... }"
-                      onChange={(e) => setFormCode(e.target.value)}
-                      className="w-full font-mono text-xs px-4 py-3 border border-slate-800 bg-slate-900 text-indigo-200 rounded-2xl focus:outline-none"
-                    />
+                   {/* Multiple Apps Script Code Files Editor */}
+                  <div className="space-y-4 bg-slate-50 dark:bg-slate-900/10 p-5 rounded-2xl border border-slate-200/65 dark:border-slate-800">
+                    <div className="flex justify-between items-center bg-slate-100 dark:bg-slate-800/40 p-2 rounded-xl">
+                      <span className="text-sm font-bold text-slate-800 dark:text-slate-300">
+                        Configure Source Code Files ({formCodeFiles.length}) <span className="text-red-500">*</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newFiles = [...formCodeFiles, { filename: `File${formCodeFiles.length + 1}.gs`, code: '' }];
+                          setFormCodeFiles(newFiles);
+                          setActiveFileFormIndex(newFiles.length - 1);
+                        }}
+                        className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm transition-colors"
+                      >
+                        + Add File
+                      </button>
+                    </div>
+
+                    {/* File Tabs */}
+                    <div className="flex flex-wrap gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+                      {formCodeFiles.map((file, idx) => {
+                        const isActive = activeFileFormIndex === idx;
+                        return (
+                          <div
+                            key={idx}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer border transition-all ${
+                              isActive
+                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-md scale-102'
+                                : 'bg-white dark:bg-slate-900 text-slate-650 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-850'
+                            }`}
+                            onClick={() => setActiveFileFormIndex(idx)}
+                          >
+                            <span>{file.filename || `File ${idx + 1}`}</span>
+                            
+                            {formCodeFiles.length > 1 && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const confirmDelete = window.confirm(`Are you sure you want to remove this code file (${file.filename || `File ${idx + 1}`})?`);
+                                  if (!confirmDelete) return;
+                                  
+                                  const newFiles = formCodeFiles.filter((_, fIdx) => fIdx !== idx);
+                                  setFormCodeFiles(newFiles);
+                                  
+                                  // Adjusting active tab safely
+                                  if (activeFileFormIndex >= newFiles.length) {
+                                    setActiveFileFormIndex(newFiles.length - 1);
+                                  } else if (activeFileFormIndex === idx) {
+                                    // if we delete current, lock on first available
+                                    setActiveFileFormIndex(0);
+                                  }
+                                }}
+                                className={`text-[15px] font-black leading-none px-1 rounded hover:bg-black/15 transition-colors shrink-0 ${
+                                  isActive ? 'text-white' : 'text-red-500'
+                                }`}
+                              >
+                                &times;
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Active File Input Area */}
+                    {formCodeFiles[activeFileFormIndex] && (
+                      <div className="space-y-3 bg-white dark:bg-slate-950 p-4 border border-slate-150 dark:border-slate-800 rounded-xl shadow-xs">
+                        <div>
+                          <label className="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                            File Name
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formCodeFiles[activeFileFormIndex].filename}
+                            placeholder="e.g. Code.gs, index.html, helpers.gs"
+                            onChange={(e) => {
+                              const nextFiles = [...formCodeFiles];
+                              nextFiles[activeFileFormIndex].filename = e.target.value;
+                              setFormCodeFiles(nextFiles);
+                            }}
+                            className="w-full px-3 py-2 border border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900 font-mono text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                            Script / Source Code
+                          </label>
+                          <textarea
+                            rows={8}
+                            required
+                            value={formCodeFiles[activeFileFormIndex].code}
+                            placeholder="Paste or write the Apps Script code of this file here..."
+                            onChange={(e) => {
+                              const nextFiles = [...formCodeFiles];
+                              nextFiles[activeFileFormIndex].code = e.target.value;
+                              setFormCodeFiles(nextFiles);
+                              // Sync legacy formCode attribute for simple operations of first index
+                              if (activeFileFormIndex === 0) {
+                                setFormCode(e.target.value);
+                              }
+                            }}
+                            className="w-full font-mono text-xs px-4 py-3 border border-slate-800 bg-slate-900 text-indigo-200 rounded-xl focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Images configuration */}
@@ -666,12 +781,59 @@ export default function AdminPortal() {
                     Products & Codes Catalog
                   </h3>
 
+                  {/* Catalog Search Bar */}
+                  <div className="relative mb-6">
+                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <Search className="w-4 h-4" />
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Search catalog products..."
+                      value={searchCatalog}
+                      onChange={(e) => setSearchCatalog(e.target.value)}
+                      className="w-full pl-10 pr-9 py-2 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500 text-xs font-semibold text-slate-800 dark:text-white"
+                    />
+                    {searchCatalog && (
+                      <button
+                        type="button"
+                        onClick={() => setSearchCatalog('')}
+                        className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+
                   {/* SECTION A: Predefined / Legacy Products */}
                   <div className="space-y-4 mb-8">
                     <h4 className="text-xs font-bold uppercase text-slate-500 tracking-wider">
-                      Legacy / Predefined Products ({Object.keys(PRODUCT_SOLUTIONS).length})
+                      Legacy / Predefined Products ({
+                        Object.values(PRODUCT_SOLUTIONS).filter(legacyProd => {
+                          const dbOverride = customProducts.find((cp) => cp.id === legacyProd.id);
+                          const displayProduct = dbOverride || legacyProd;
+                          const q = searchCatalog.toLowerCase();
+                          return (
+                            displayProduct.name.toLowerCase().includes(q) ||
+                            displayProduct.id.toLowerCase().includes(q) ||
+                            (displayProduct.category || '').toLowerCase().includes(q) ||
+                            (displayProduct.tagline || '').toLowerCase().includes(q)
+                          );
+                        }).length
+                      })
                     </h4>
-                    {Object.values(PRODUCT_SOLUTIONS).map((legacyProd) => {
+                    {Object.values(PRODUCT_SOLUTIONS)
+                      .filter(legacyProd => {
+                        const dbOverride = customProducts.find((cp) => cp.id === legacyProd.id);
+                        const displayProduct = dbOverride || legacyProd;
+                        const q = searchCatalog.toLowerCase();
+                        return (
+                          displayProduct.name.toLowerCase().includes(q) ||
+                          displayProduct.id.toLowerCase().includes(q) ||
+                          (displayProduct.category || '').toLowerCase().includes(q) ||
+                          (displayProduct.tagline || '').toLowerCase().includes(q)
+                        );
+                      })
+                      .map((legacyProd) => {
                       const dbOverride = customProducts.find((cp) => cp.id === legacyProd.id);
                       const isActiveOverride = !!dbOverride;
                       const displayProduct = dbOverride || legacyProd;
@@ -748,14 +910,43 @@ export default function AdminPortal() {
                   {/* SECTION B: Brand New Dynamic Products */}
                   <div className="space-y-4">
                     <h4 className="text-xs font-bold uppercase text-slate-500 tracking-wider">
-                      Purely Dynamic Products ({customProducts.filter(cp => !PRODUCT_SOLUTIONS[cp.id]).length})
+                      Purely Dynamic Products ({
+                        customProducts.filter(cp => {
+                          if (PRODUCT_SOLUTIONS[cp.id]) return false;
+                          const q = searchCatalog.toLowerCase();
+                          return (
+                            cp.name.toLowerCase().includes(q) ||
+                            cp.id.toLowerCase().includes(q) ||
+                            (cp.category || '').toLowerCase().includes(q) ||
+                            (cp.tagline || '').toLowerCase().includes(q)
+                          );
+                        }).length
+                      })
                     </h4>
-                    {customProducts.filter(cp => !PRODUCT_SOLUTIONS[cp.id]).length === 0 ? (
+                    {customProducts.filter(cp => {
+                      if (PRODUCT_SOLUTIONS[cp.id]) return false;
+                      const q = searchCatalog.toLowerCase();
+                      return (
+                        cp.name.toLowerCase().includes(q) ||
+                        cp.id.toLowerCase().includes(q) ||
+                        (cp.category || '').toLowerCase().includes(q) ||
+                        (cp.tagline || '').toLowerCase().includes(q)
+                      );
+                    }).length === 0 ? (
                       <div className="p-6 text-center bg-white dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850 border-dashed">
-                        <p className="text-slate-500 text-xs">No custom products found in database.</p>
+                        <p className="text-slate-500 text-xs">No matching custom products found in database.</p>
                       </div>
                     ) : (
-                      customProducts.filter(cp => !PRODUCT_SOLUTIONS[cp.id]).map((p) => (
+                      customProducts.filter(cp => {
+                        if (PRODUCT_SOLUTIONS[cp.id]) return false;
+                        const q = searchCatalog.toLowerCase();
+                        return (
+                          cp.name.toLowerCase().includes(q) ||
+                          cp.id.toLowerCase().includes(q) ||
+                          (cp.category || '').toLowerCase().includes(q) ||
+                          (cp.tagline || '').toLowerCase().includes(q)
+                        );
+                      }).map((p) => (
                         <div key={p.id} className="bg-white dark:bg-slate-950 p-5 rounded-2xl border border-slate-200 dark:border-slate-850 shadow-sm flex flex-col gap-3">
                           <div>
                             <div className="flex items-center justify-between">
@@ -859,7 +1050,7 @@ export default function AdminPortal() {
                   placeholder="Search quotes by Client Name, Email, Phone or Project..."
                   value={searchQuote}
                   onChange={(e) => setSearchQuote(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-205 dark:border-slate-800 rounded-xl focus:outline-none text-slate-800 dark:text-white"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none text-slate-800 dark:text-white"
                 />
               </div>
 
@@ -970,7 +1161,7 @@ export default function AdminPortal() {
               {/* Quotation Detail Sidebar Card */}
               <div className="lg:col-span-12 xl:col-span-5">
                 {selectedQuote ? (
-                  <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 rounded-3xl p-6 md:p-8 space-y-6 shadow-sm sticky top-24">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-8 space-y-6 shadow-sm sticky top-24">
                     <div className="flex justify-between items-start border-b border-slate-100 dark:border-slate-800 pb-4">
                       <div>
                         <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-800 px-2.5 py-0.5 rounded-full uppercase tracking-wider font-mono">
@@ -1086,7 +1277,7 @@ export default function AdminPortal() {
 
                   </div>
                 ) : (
-                  <div className="bg-slate-50 dark:bg-slate-900 border border-slate-205 dark:border-slate-800 border-dashed rounded-3xl p-12 text-center text-slate-400 space-y-3">
+                  <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-dashed rounded-3xl p-12 text-center text-slate-400 space-y-3">
                     <Eye className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto" />
                     <h5 className="font-extrabold text-slate-700 dark:text-slate-350 text-sm">No Document Selected</h5>
                     <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed font-semibold">

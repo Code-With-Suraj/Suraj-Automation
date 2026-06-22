@@ -13,6 +13,7 @@ export interface ProductSolution {
   youtubeUrl?: string;
   marketPrice?: string;
   isHidden?: boolean;
+  codeFiles?: { filename: string; code: string }[];
 }
 
 export const PRODUCT_SOLUTIONS: Record<string, ProductSolution> = {

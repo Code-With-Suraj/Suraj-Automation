@@ -25,6 +25,7 @@ export default function DynamicProductPage() {
   const navigate = useNavigate();
   const { getProductSolution, hasPurchased, user, login } = useUser();
   const [copied, setCopied] = useState(false);
+  const [activeFileIndex, setActiveFileIndex] = useState(0);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const product = productId ? getProductSolution(productId) : null;
@@ -64,8 +65,13 @@ export default function DynamicProductPage() {
     );
   }
 
+  const files = product.codeFiles && product.codeFiles.length > 0
+    ? product.codeFiles
+    : [{ filename: 'Code.gs', code: product.appsScriptCode || '' }];
+  const currentFile = files[activeFileIndex] || files[0] || { filename: 'Code.gs', code: '' };
+
   const handleCopyCode = () => {
-    navigator.clipboard.writeText(product.appsScriptCode);
+    navigator.clipboard.writeText(currentFile.code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -385,18 +391,42 @@ export default function DynamicProductPage() {
               </div>
 
               {/* Advanced Core Code Script Engine */}
-              <div className="lg:col-span-7">
+              <div className="lg:col-span-7 space-y-4">
+                {/* Tabs selection */}
+                {files.length > 1 && (
+                  <div className="flex flex-wrap gap-2 p-1.5 bg-slate-900 border border-slate-805 rounded-xl">
+                    {files.map((file, fIdx) => {
+                      const isActive = activeFileIndex === fIdx;
+                      return (
+                        <button
+                          key={fIdx}
+                          type="button"
+                          onClick={() => setActiveFileIndex(fIdx)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                            isActive
+                              ? 'bg-indigo-600 text-white'
+                              : 'text-slate-400 hover:text-white hover:bg-slate-805'
+                          }`}
+                        >
+                          {file.filename}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
                 <div className="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
                   <div className="flex items-center justify-between px-6 py-4 bg-slate-900 border-b border-slate-800">
                     <div className="flex items-center gap-2.5">
                       <div className="w-3 h-3 rounded-full bg-red-400"></div>
                       <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                       <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                      <span className="font-mono text-xs text-slate-400 ml-4 font-bold tracking-wide">src/Code.gs</span>
+                      <span className="font-mono text-xs text-slate-400 ml-4 font-bold tracking-wide">src/{currentFile.filename}</span>
                     </div>
                     <button
+                      type="button"
                       onClick={handleCopyCode}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors font-bold font-mono text-xs rounded-lg uppercase tracking-wider"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors font-bold font-mono text-xs rounded-lg uppercase tracking-wider cursor-pointer"
                     >
                       {copied ? (
                         <>
@@ -410,8 +440,8 @@ export default function DynamicProductPage() {
                     </button>
                   </div>
 
-                  <div className="p-6 overflow-x-auto max-h-[550px] font-mono text-[13px] leading-relaxed text-indigo-200">
-                    <pre>{product.appsScriptCode}</pre>
+                  <div className="p-6 overflow-x-auto max-h-[550px] font-mono text-[13px] leading-relaxed text-indigo-200 bg-slate-950">
+                    <pre className="whitespace-pre-wrap select-all">{currentFile.code || "/* File Empty */"}</pre>
                   </div>
                 </div>
               </div>
