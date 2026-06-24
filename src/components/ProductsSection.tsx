@@ -38,6 +38,14 @@ export default function ProductsSection() {
       featured: true,
     },
     {
+      id: 'bookingsarthi',
+      name: 'BookingSarthi',
+      tagline: 'Appointment Booking & Service Automation',
+      description: 'A complete micro-SaaS platform built specifically for Indian service businesses, managing appointments, staff scheduling, CRM, and marketing.',
+      icon: <ShoppingCart className="w-8 h-8" />,
+      color: 'purple',
+    },
+    {
       id: 'hisabsarthi',
       name: 'HisabSarthi',
       tagline: 'Google Sheets-based GST Accounting Tool',

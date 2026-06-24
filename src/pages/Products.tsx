@@ -369,6 +369,22 @@ export default function Products() {
         'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
         'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80'
       ]
+    },
+    {
+      id: 'bookingsarthi',
+      name: 'BookingSarthi',
+      tagline: 'Appointment Booking & Service Business Automation',
+      description: 'A complete micro-SaaS platform built specifically for Indian service businesses, managing appointments, staff scheduling, CRM, and marketing.',
+      icon: <ShoppingCart className="w-8 h-8" />,
+      color: 'purple',
+      featured: true,
+      category: 'Operations & Booking',
+      popularity: 120,
+      images: [
+        'https://images.unsplash.com/photo-1521590832167-7bfcbaa6362d?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=800&q=80'
+      ]
     }
   ];
 

@@ -8,7 +8,6 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { useUser } from '../contexts/UserContext';
 import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
 interface FeatureOption {
   id: string;

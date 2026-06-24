@@ -1334,6 +1334,27 @@ function doGet() {
       "Complete onboarding and train your HR team.",
       "Process your first automated payroll!"
     ]
+  },
+  bookingsarthi: {
+    id: "bookingsarthi",
+    name: "BookingSarthi",
+    price: "₹499",
+    marketPrice: "₹2,499",
+    sheetTemplateUrl: "https://docs.google.com/spreadsheets/d/1BookingSarthiTemplateDemo/copy",
+    appsScriptCode: `/**
+ * BookingSarthi - Appointment Booking & Service Automation
+ * Author: Suraj Automation
+ */
+// Contact support for the full source code and setup instructions
+function doGet() {
+  return HtmlService.createHtmlOutput('BookingSarthi Portal');
+}`,
+    setupSteps: [
+      "Book a demo using the link below to see BookingSarthi in action.",
+      "Our team will deploy the customized booking portal for your business.",
+      "Set up your staff schedules and service catalog.",
+      "Start accepting automated appointments!"
+    ]
   }
 };
 
@@ -1553,6 +1574,17 @@ export const PRODUCT_CATALOG_METADATA: Record<string, { tagline: string; descrip
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  bookingsarthi: {
+    tagline: "Appointment Booking & Service Business Automation",
+    description: "A complete micro-SaaS platform built specifically for Indian service businesses, managing appointments, staff scheduling, CRM, and marketing.",
+    category: "Operations & Booking",
+    color: "purple",
+    images: [
+      "https://images.unsplash.com/photo-1521590832167-7bfcbaa6362d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=800&q=80"
     ]
   }
 };
