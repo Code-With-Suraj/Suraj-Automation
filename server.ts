@@ -378,6 +378,197 @@ Return valid JSON structure matching the schema.
     }
   });
 
+  // API: Smart Blog Enrichment & Product Linking
+  app.post('/api/gemini/enrich-blog', async (req, res) => {
+    try {
+      const { title, content, category } = req.body;
+      if (!title || !content) {
+        res.status(400).json({ error: 'Please provide both blog title and content.' });
+        return;
+      }
+
+      const hasApiKey = !!process.env.GEMINI_API_KEY;
+      
+      const availableProducts = Object.values(PRODUCT_SOLUTIONS).map(p => ({
+        id: p.id,
+        name: p.name,
+        category: p.category || '',
+        tagline: p.tagline || '',
+        description: p.description || ''
+      }));
+
+      if (hasApiKey) {
+        try {
+          const ai = new GoogleGenAI({
+            apiKey: process.env.GEMINI_API_KEY,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              }
+            }
+          });
+
+          const prompt = `
+You are a brilliant AI content optimizer and SEO strategist. Your job is to analyze the provided blog post (title and content) and enrich it by finding and linking relevant business automation products from our platform.
+
+BLOG TITLE: ${title}
+BLOG CATEGORY: ${category || 'General'}
+BLOG CONTENT:
+${content}
+
+AVAILABLE PRODUCTS ON THE WEBSITE:
+${JSON.stringify(availableProducts, null, 2)}
+
+DIRECTIONS & RULES:
+1. SMART PRODUCT LINK INSERTIONS:
+   - Identify which of our available products are directly related to or discussed in this blog post.
+   - Smartly insert descriptive markdown hyperlinks to those product pages (use exact URL format "/products/[id]") naturally in the blog content. E.g., if HisabSarthi is mentioned, change it to "[HisabSarthi](/products/hisabsarthi)". Do this naturally in a way that feels helpful and SEO-optimized, not spammy.
+   - DO NOT make up fake products or URLs. Only use URLs with "/products/[id]" where [id] is from the list above.
+2. RECOMMEND RELATED PRODUCTS (SAME CATEGORY) IN MIDDLE/BOTTOM:
+   - Identify products from the same category as the primary matched product or the blog category itself.
+   - Prepare a list of matched and related products.
+3. CUSTOM AUTOMATION SUGGESTION / BLUEPRINT:
+   - Create a professional, highly actionable "Automation Suggestion Blueprint" specific to the blog's topic.
+   - Explain how the business owner can automate this workflow using Google Sheets + Apps Script + custom WhatsApp triggers (Suraj's speciality).
+   - Write this in a helpful, supportive, and business-focused tone using a mixture of professional Hinglish & English (highly trusted by Indian SME business owners).
+   - Keep the advice realistic, encouraging them to book a consulting call or buy the pre-built tool to save 50% on standard software development agency costs.
+
+Return valid JSON structure matching this schema:
+{
+  "enrichedContent": "The entire blog markdown content with naturally inserted markdown product links (e.g. [VendorSarthi](/products/vendorsarthi)). Ensure you return the FULL updated content.",
+  "primaryMatchedProductId": "The ID of the primary matching product from the available products, or '' if none fits.",
+  "relatedProductIds": ["Array of product IDs from same category or relevant to this blog"],
+  "customAutomationSuggestion": "Detailed markdown content for the custom automation suggestion box. Explain exactly how they can set up a Google Sheet and Apps Script automation for this specific usecase."
+}
+`;
+
+          const response = await ai.models.generateContent({
+            model: "gemini-3.5-flash",
+            contents: prompt,
+            config: {
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  enrichedContent: {
+                    type: Type.STRING,
+                    description: "Complete updated blog markdown content with natural product links embedded seamlessly."
+                  },
+                  primaryMatchedProductId: {
+                    type: Type.STRING,
+                    description: "Single best matching product ID from the list, or empty string."
+                  },
+                  relatedProductIds: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
+                    description: "Other product IDs from same category or related topics."
+                  },
+                  customAutomationSuggestion: {
+                    type: Type.STRING,
+                    description: "Actionable Hinglish/English markdown guide about Apps Script, Google Sheets and WhatsApp triggers automation for this specific blog topic."
+                  }
+                },
+                required: ["enrichedContent", "primaryMatchedProductId", "relatedProductIds", "customAutomationSuggestion"]
+              }
+            }
+          });
+
+          if (response.text) {
+            const parsed = JSON.parse(response.text.trim());
+            res.json({ success: true, isAIPowered: true, ...parsed });
+            return;
+          }
+        } catch (geminiErr) {
+          console.error('[Gemini Blog Enrichment Error] falling back:', geminiErr);
+        }
+      }
+
+      // Robust Rule-based Fallback (if no API key or Gemini fails)
+      const normalizedContent = `${title} ${content}`.toLowerCase();
+      let primaryMatchedProductId = '';
+      const relatedProductIds: string[] = [];
+
+      // Simple keyword matching for fallbacks
+      if (normalizedContent.includes('vendorsarthi') || normalizedContent.includes('procurement') || normalizedContent.includes('quotation') || normalizedContent.includes('vendor')) {
+        primaryMatchedProductId = 'vendorsarthi';
+      } else if (normalizedContent.includes('hisabsarthi') || normalizedContent.includes('accounting') || normalizedContent.includes('ledger') || normalizedContent.includes('gst')) {
+        primaryMatchedProductId = 'hisabsarthi';
+      } else if (normalizedContent.includes('rationkart') || normalizedContent.includes('grocery') || normalizedContent.includes('kirana')) {
+        primaryMatchedProductId = 'rationkart';
+      } else if (normalizedContent.includes('billsarthi') || normalizedContent.includes('billing') || normalizedContent.includes('invoice')) {
+        primaryMatchedProductId = 'billsarthi';
+      } else if (normalizedContent.includes('karmsarthi') || normalizedContent.includes('staff') || normalizedContent.includes('attendance') || normalizedContent.includes('salary')) {
+        primaryMatchedProductId = 'karmsarthi';
+      } else if (normalizedContent.includes('claimo') || normalizedContent.includes('expense') || normalizedContent.includes('reimbursement')) {
+        primaryMatchedProductId = 'claimo';
+      } else if (normalizedContent.includes('cakesarthi') || normalizedContent.includes('bakery') || normalizedContent.includes('cake')) {
+        primaryMatchedProductId = 'cakesarthi';
+      } else if (normalizedContent.includes('gymsarthi') || normalizedContent.includes('gym') || normalizedContent.includes('fitness')) {
+        primaryMatchedProductId = 'gymsarthi';
+      } else if (normalizedContent.includes('menusarthi') || normalizedContent.includes('restaurant') || normalizedContent.includes('menu')) {
+        primaryMatchedProductId = 'menusarthi';
+      } else if (normalizedContent.includes('supplysarthi') || normalizedContent.includes('lead') || normalizedContent.includes('sales')) {
+        primaryMatchedProductId = 'supplysarthi';
+      } else if (normalizedContent.includes('loansarthi') || normalizedContent.includes('loan') || normalizedContent.includes('interest')) {
+        primaryMatchedProductId = 'loansarthi';
+      } else if (normalizedContent.includes('stocksarthi') || normalizedContent.includes('inventory') || normalizedContent.includes('stock')) {
+        primaryMatchedProductId = 'stocksarthi';
+      }
+
+      // Auto-populate related products of same category
+      if (primaryMatchedProductId) {
+        const refProduct = PRODUCT_SOLUTIONS[primaryMatchedProductId];
+        if (refProduct && refProduct.category) {
+          Object.values(PRODUCT_SOLUTIONS).forEach(p => {
+            if (p.id !== primaryMatchedProductId && p.category === refProduct.category && !p.isHidden) {
+              relatedProductIds.push(p.id);
+            }
+          });
+        }
+      }
+
+      // Limit related to max 3
+      const finalRelated = relatedProductIds.slice(0, 3);
+
+      // Smart link insertion fallback (Regex-based search and replace)
+      let enrichedContent = content;
+      availableProducts.forEach(prod => {
+        // Replace occurrences of product name with markdown link if not already linked
+        const regex = new RegExp(`\\b${prod.name}\\b(?!\\s*\\))`, 'gi');
+        enrichedContent = enrichedContent.replace(regex, `[${prod.name}](/products/${prod.id})`);
+      });
+
+      // Simple fallback automation suggestions
+      let customAutomationSuggestion = `### 💡 Suraj's Automation Suggestion for ${title}\n\n`;
+      if (primaryMatchedProductId) {
+        const prodName = PRODUCT_SOLUTIONS[primaryMatchedProductId].name;
+        customAutomationSuggestion += `Aap is blog topic ko manage karne ke liye humara pre-built **${prodName}** utility pack check kar sakte hain. Isme aapko milta hai:\n\n`;
+        customAutomationSuggestion += `1. **Google Sheets Dashboard**: Centralized cloud backup jo clear reports deta hai.\n`;
+        customAutomationSuggestion += `2. **Apps Script System**: Ek button click karte hi custom triggers run honge.\n`;
+        customAutomationSuggestion += `3. **WhatsApp Auto Alerts**: Client/Staff ko real-time status notifications send karne ki facility.\n\n`;
+        customAutomationSuggestion += `👉 Aap typical developers ko ₹20,000+ dene ke bajaye humare system ko standard **50% Discount** rate me direct download kar sakte hain! Koi recurring fee ya data tracking nahi.`;
+      } else {
+        customAutomationSuggestion += `Aap is problem statement ko fully automate karne ke liye humare Google Sheets + App Script system ko implement kar sakte hain.\n\n`;
+        customAutomationSuggestion += `- **Automated Workflow**: Excel templates ko cloud sheet setup se connect karke alerts chalu karein.\n`;
+        customAutomationSuggestion += `- **Hinglish/English Customization Support**: Suraj se direct consult karke customized trigger code likhwayein.\n\n`;
+        customAutomationSuggestion += `📞 Niche "Request Custom Demo" click karke direct discuss karein, standard cost se full 50% ki bachat hogi!`;
+      }
+
+      res.json({
+        success: true,
+        isAIPowered: false,
+        enrichedContent,
+        primaryMatchedProductId,
+        relatedProductIds: finalRelated,
+        customAutomationSuggestion
+      });
+
+    } catch (err) {
+      console.error('Core blog enrichment error:', err);
+      res.status(500).json({ error: 'Server error while performing blog content enrichment.' });
+    }
+  });
+
   // Intercept product routes to dynamically inject SEO Meta tags for social media preview indexers
   app.get('/products/:id', async (req, res, next) => {
     try {

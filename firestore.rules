@@ -17,7 +17,7 @@ service cloud.firestore {
     }
 
     function isValidId(id) {
-      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_-]+$');
     }
 
     function incoming() {
@@ -96,6 +96,35 @@ service cloud.firestore {
         && (!data.keys().hasAny(['hasMaintenance']) || data.hasMaintenance is bool);
     }
 
+    // BlogPost validation function
+    function isValidBlogPost(data) {
+      return data.keys().hasAll(['id', 'title', 'slug', 'summary', 'content', 'createdAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.title is string && data.title.size() <= 2048
+        && data.slug is string && data.slug.size() <= 2048
+        && data.summary is string && data.summary.size() <= 10000
+        && data.content is string && data.content.size() <= 500000
+        && data.createdAt is timestamp
+        && (!data.keys().hasAny(['category']) || data.category is string)
+        && (!data.keys().hasAny(['image']) || data.image is string)
+        && (!data.keys().hasAny(['tags']) || data.tags is list)
+        && (!data.keys().hasAny(['readTime']) || data.readTime is string)
+        && (!data.keys().hasAny(['isPublished']) || data.isPublished is bool)
+        && (!data.keys().hasAny(['updatedAt']) || data.updatedAt is timestamp);
+    }
+
+    // BlogComment validation function
+    function isValidBlogComment(data) {
+      return data.keys().hasAll(['id', 'userId', 'userName', 'content', 'createdAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.userId is string && data.userId.size() <= 128
+        && data.userName is string && data.userName.size() <= 256
+        && data.content is string && data.content.size() <= 5000
+        && data.createdAt is timestamp
+        && (!data.keys().hasAny(['userPhoto']) || data.userPhoto is string)
+        && (!data.keys().hasAny(['parentId']) || data.parentId is string);
+    }
+
     // Match users profile documents
     match /users/{userId} {
       allow get: if isOwner(userId);
@@ -127,7 +156,9 @@ service cloud.firestore {
 
     // Checking for administrator capabilities
     function isAdmin() {
-      return isSignedIn() && request.auth.token.email == "surajsingh.noida98@gmail.com";
+      return isSignedIn() 
+        && 'email' in request.auth.token 
+        && request.auth.token.email.lower() == "surajsingh.noida98@gmail.com";
     }
 
     // Match dynamic custom products
@@ -149,7 +180,7 @@ service cloud.firestore {
         && isValidReview(incoming())
         && (
           (isAdmin()) || 
-          (isSignedIn() && incoming().isApproved == false && incoming().authorEmail == request.auth.token.email)
+          (isSignedIn() && 'email' in request.auth.token && incoming().isApproved == false && incoming().authorEmail == request.auth.token.email)
         );
 
       // Only Admin can update or delete reviews
@@ -171,6 +202,32 @@ service cloud.firestore {
       // Only Admin can update/delete quotations
       allow update: if isAdmin() && isValidQuotation(incoming());
       allow delete: if isAdmin();
+    }
+
+    // Match blog posts
+    match /blogs/{blogId} {
+      // Anyone can read blog posts if they are published, or if the user is a verified admin
+      allow read: if (resource.data.isPublished == true) || isAdmin();
+      
+      // Only Admin can create, update, or delete blog posts
+      allow create: if isAdmin() && isValidId(blogId) && isValidBlogPost(incoming());
+      allow update: if isAdmin() && isValidBlogPost(incoming());
+      allow delete: if isAdmin();
+
+      // Nested subcollection for comments
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isSignedIn()
+          && isValidId(commentId)
+          && isValidBlogComment(incoming())
+          && incoming().userId == request.auth.uid;
+        allow update: if isSignedIn()
+          && resource.data.userId == request.auth.uid
+          && isValidBlogComment(incoming())
+          && incoming().userId == request.auth.uid
+          && incoming().createdAt == existing().createdAt;
+        allow delete: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      }
     }
   }
 }

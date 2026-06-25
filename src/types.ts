@@ -32,3 +32,22 @@ export interface ServiceReview {
   isApproved: boolean;
   createdAt: Date | string;
 }
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  content: string;
+  category: string;
+  image?: string;
+  tags?: string[];
+  createdAt: Date | string;
+  updatedAt?: Date | string;
+  readTime?: string;
+  isPublished?: boolean;
+  primaryMatchedProductId?: string;
+  relatedProductIds?: string[];
+  customAutomationSuggestion?: string;
+}
+

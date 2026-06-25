@@ -4,19 +4,46 @@ import { useSEO } from '../hooks/useSEO';
 import { 
   Plus, Settings, Trash2, Edit3, Clipboard, FileText, 
   Code2, Sparkles, Check, AlertCircle, X, ArrowLeft, ArrowUpRight,
-  Eye, Phone, Mail, FolderHeart, Calendar, Search, MessageSquare, Download
+  Eye, Phone, Mail, FolderHeart, Calendar, Search, MessageSquare, Download,
+  BookOpen
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
+import { FALLBACK_BLOGS } from '../data/fallbackBlogs';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
-import { collection, query, getDocs, orderBy, deleteDoc, doc, Timestamp } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy, deleteDoc, doc, Timestamp, setDoc } from 'firebase/firestore';
 
 export default function AdminPortal() {
   const { user, isAdmin, customProducts, saveCustomProduct, deleteCustomProduct, loading: authLoading } = useUser();
   useSEO('Admin Workspace | Suraj Automation', 'Manage custom products, code bases, and installation manuals.');
 
   // Workspace subtab selection
-  const [adminTab, setAdminTab] = useState<'catalog' | 'quotations'>('catalog');
+  const [adminTab, setAdminTab] = useState<'catalog' | 'quotations' | 'blogs'>('catalog');
+
+  // BlogPost States
+  const [blogsList, setBlogsList] = useState<any[]>([]);
+  const [blogsLoading, setBlogsLoading] = useState(false);
+  const [blogEditingId, setBlogEditingId] = useState<string | null>(null);
+  const [blogDeletingId, setBlogDeletingId] = useState<string | null>(null);
+  const [searchBlog, setSearchBlog] = useState('');
+
+  // Blog Form Fields
+  const [blogTitle, setBlogTitle] = useState('');
+  const [blogSlug, setBlogSlug] = useState('');
+  const [blogSummary, setBlogSummary] = useState('');
+  const [blogContent, setBlogContent] = useState('');
+  const [blogCategory, setBlogCategory] = useState('Apps Script & Automation');
+  const [blogImage, setBlogImage] = useState('');
+  const [blogTagsInput, setBlogTagsInput] = useState('');
+  const [blogTags, setBlogTags] = useState<string[]>([]);
+  const [blogReadTime, setBlogReadTime] = useState('5 min read');
+  const [blogIsPublished, setBlogIsPublished] = useState(true);
+  const [blogSuccessMsg, setBlogSuccessMsg] = useState('');
+  const [blogErrorMsg, setBlogErrorMsg] = useState('');
+  const [blogPrimaryMatchedProductId, setBlogPrimaryMatchedProductId] = useState('');
+  const [blogRelatedProductIds, setBlogRelatedProductIds] = useState<string[]>([]);
+  const [blogCustomAutomationSuggestion, setBlogCustomAutomationSuggestion] = useState('');
+  const [isEnriching, setIsEnriching] = useState(false);
 
   // Quotation States
   const [quotations, setQuotations] = useState<any[]>([]);
@@ -111,6 +138,200 @@ export default function AdminPortal() {
       setQuoteDeletingId(null);
       setTimeout(() => setQuoteErrorMsg(''), 5000);
     }
+  };
+
+  // Fetch admin blogs from Firestore
+  useEffect(() => {
+    if (user && user.email === 'surajsingh.noida98@gmail.com' && isAdmin && adminTab === 'blogs') {
+      fetchBlogs();
+    }
+  }, [user, isAdmin, adminTab]);
+
+  const fetchBlogs = async () => {
+    setBlogsLoading(true);
+    setBlogErrorMsg('');
+    try {
+      const snapshot = await getDocs(collection(db, 'blogs'));
+      const list: any[] = [];
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        list.push({
+          id: docSnap.id,
+          ...data,
+          createdAt: data.createdAt instanceof Timestamp ? data.createdAt.toDate().toISOString() : (data.createdAt || new Date().toISOString())
+        });
+      });
+      // Sort in-memory by createdAt descending
+      list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      setBlogsList(list);
+    } catch (err: any) {
+      console.error("Failed to list blogs:", err);
+      setBlogErrorMsg('Failed to query blogs database. Loading fallback assets.');
+      setBlogsList(FALLBACK_BLOGS);
+      handleFirestoreError(err, OperationType.LIST, 'blogs');
+    } finally {
+      setBlogsLoading(false);
+    }
+  };
+
+  const handleSaveBlog = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!blogTitle.trim() || !blogSlug.trim() || !blogSummary.trim() || !blogContent.trim()) {
+      setBlogErrorMsg('All fields (Title, Slug, Summary, Content) are required.');
+      return;
+    }
+
+    setLoading(true);
+    setBlogErrorMsg('');
+    setBlogSuccessMsg('');
+
+    const finalSlug = blogSlug.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '-').replace(/(^-|-$)+/g, '');
+    const finalId = blogEditingId || finalSlug;
+
+    const postData = {
+      id: finalId,
+      title: blogTitle.trim(),
+      slug: finalSlug,
+      summary: blogSummary.trim(),
+      content: blogContent.trim(),
+      category: blogCategory,
+      image: blogImage.trim() || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop',
+      tags: blogTags,
+      readTime: blogReadTime.trim() || '5 min read',
+      isPublished: blogIsPublished,
+      primaryMatchedProductId: blogPrimaryMatchedProductId,
+      relatedProductIds: blogRelatedProductIds,
+      customAutomationSuggestion: blogCustomAutomationSuggestion,
+      createdAt: blogEditingId 
+        ? Timestamp.fromDate(new Date(blogsList.find(b => b.id === blogEditingId)?.createdAt || new Date().toISOString())) 
+        : Timestamp.now(),
+      updatedAt: Timestamp.now()
+    };
+
+    try {
+      // Create or update the blog post
+      await setDoc(doc(db, 'blogs', finalId), postData);
+      setBlogSuccessMsg(blogEditingId ? 'Blog article updated successfully!' : 'Blog post published live!');
+      clearBlogForm();
+      fetchBlogs();
+      setTimeout(() => setBlogSuccessMsg(''), 4000);
+    } catch (err: any) {
+      console.error("Failed to save blog post:", err);
+      setBlogErrorMsg(`Save failed: ${err.message || err}`);
+      handleFirestoreError(err, blogEditingId ? OperationType.UPDATE : OperationType.CREATE, `blogs/${finalId}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearBlogForm = () => {
+    setBlogEditingId(null);
+    setBlogTitle('');
+    setBlogSlug('');
+    setBlogSummary('');
+    setBlogContent('');
+    setBlogCategory('Apps Script & Automation');
+    setBlogImage('');
+    setBlogTags([]);
+    setBlogTagsInput('');
+    setBlogReadTime('5 min read');
+    setBlogIsPublished(true);
+    setBlogErrorMsg('');
+    setBlogPrimaryMatchedProductId('');
+    setBlogRelatedProductIds([]);
+    setBlogCustomAutomationSuggestion('');
+  };
+
+  const handleEditBlog = (b: any) => {
+    setBlogEditingId(b.id);
+    setBlogTitle(b.title);
+    setBlogSlug(b.slug);
+    setBlogSummary(b.summary);
+    setBlogContent(b.content);
+    setBlogCategory(b.category);
+    setBlogImage(b.image || '');
+    setBlogTags(b.tags || []);
+    setBlogReadTime(b.readTime || '5 min read');
+    setBlogIsPublished(b.isPublished !== false);
+    setBlogPrimaryMatchedProductId(b.primaryMatchedProductId || '');
+    setBlogRelatedProductIds(b.relatedProductIds || []);
+    setBlogCustomAutomationSuggestion(b.customAutomationSuggestion || '');
+    setBlogErrorMsg('');
+    setBlogSuccessMsg('');
+  };
+
+  const handleEnrichBlog = async () => {
+    if (!blogTitle.trim() || !blogContent.trim()) {
+      setBlogErrorMsg('Please fill in Article Title and Article Content before running smart enrichment.');
+      return;
+    }
+    setIsEnriching(true);
+    setBlogErrorMsg('');
+    setBlogSuccessMsg('');
+    try {
+      const res = await fetch('/api/gemini/enrich-blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: blogTitle.trim(),
+          content: blogContent.trim(),
+          category: blogCategory
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBlogContent(data.enrichedContent);
+        setBlogPrimaryMatchedProductId(data.primaryMatchedProductId || '');
+        setBlogRelatedProductIds(data.relatedProductIds || []);
+        setBlogCustomAutomationSuggestion(data.customAutomationSuggestion || '');
+        setBlogSuccessMsg(data.isAIPowered 
+          ? '✨ Gemini AI successfully analyzed, linked relevant products, and generated custom code recommendations!'
+          : '⚠️ Enriched using high-precision fallback matches (no Gemini key configured).'
+        );
+        setTimeout(() => setBlogSuccessMsg(''), 6000);
+      } else {
+        setBlogErrorMsg(data.error || 'Failed to enrich blog content.');
+      }
+    } catch (err: any) {
+      console.error('Enrichment error:', err);
+      setBlogErrorMsg('Failed to connect to enrichment endpoint.');
+    } finally {
+      setIsEnriching(false);
+    }
+  };
+
+  const handleDeleteBlog = async (id: string) => {
+    if (blogDeletingId !== id) {
+      setBlogDeletingId(id);
+      setTimeout(() => {
+        setBlogDeletingId(prev => prev === id ? null : prev);
+      }, 5000);
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, 'blogs', id));
+      setBlogSuccessMsg('Blog article permanently deleted.');
+      setBlogDeletingId(null);
+      fetchBlogs();
+      setTimeout(() => setBlogSuccessMsg(''), 4000);
+    } catch (err: any) {
+      console.error("Failed to delete blog:", err);
+      setBlogErrorMsg(`Deletion failed: ${err.message || err}`);
+      setBlogDeletingId(null);
+      handleFirestoreError(err, OperationType.DELETE, `blogs/${id}`);
+    }
+  };
+
+  const handleAddBlogTag = () => {
+    if (blogTagsInput.trim() && !blogTags.includes(blogTagsInput.trim())) {
+      setBlogTags([...blogTags, blogTagsInput.trim()]);
+      setBlogTagsInput('');
+    }
+  };
+
+  const handleRemoveBlogTag = (indexToRemove: number) => {
+    setBlogTags(blogTags.filter((_, idx) => idx !== indexToRemove));
   };
 
   if (authLoading) {
@@ -337,10 +558,10 @@ export default function AdminPortal() {
         </div>
 
         {/* Tab Selection Row */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 mb-8 space-x-6">
+        <div className="flex border-b border-slate-200 dark:border-slate-800 mb-8 space-x-6 overflow-x-auto scrollbar-none">
           <button
             onClick={() => setAdminTab('catalog')}
-            className={`pb-4 px-2 font-bold text-sm md:text-base transition-all relative flex items-center gap-2 ${
+            className={`pb-4 px-2 font-bold text-sm md:text-base transition-all relative flex items-center gap-2 shrink-0 ${
               adminTab === 'catalog'
                 ? 'text-indigo-600 dark:text-indigo-400'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
@@ -354,7 +575,7 @@ export default function AdminPortal() {
           </button>
           <button
             onClick={() => setAdminTab('quotations')}
-            className={`pb-4 px-2 font-bold text-sm md:text-base transition-all relative flex items-center gap-2 ${
+            className={`pb-4 px-2 font-bold text-sm md:text-base transition-all relative flex items-center gap-2 shrink-0 ${
               adminTab === 'quotations'
                 ? 'text-indigo-600 dark:text-indigo-400'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
@@ -369,6 +590,20 @@ export default function AdminPortal() {
               <span className="bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse">
                 {quotations.length}
               </span>
+            )}
+          </button>
+          <button
+            onClick={() => setAdminTab('blogs')}
+            className={`pb-4 px-2 font-bold text-sm md:text-base transition-all relative flex items-center gap-2 shrink-0 ${
+              adminTab === 'blogs'
+                ? 'text-indigo-600 dark:text-indigo-400'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
+            }`}
+          >
+            <BookOpen className="w-4 h-4" />
+            Blog Publisher
+            {adminTab === 'blogs' && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 rounded-full" />
             )}
           </button>
         </div>
@@ -1043,7 +1278,7 @@ export default function AdminPortal() {
 
             </div>
           </div>
-        ) : (
+        ) : adminTab === 'quotations' ? (
           /* ==================== TAB 2: QUOTATIONS MONITOR ==================== */
           <div>
             {quoteSuccessMsg && (
@@ -1308,9 +1543,456 @@ export default function AdminPortal() {
 
             </div>
           </div>
+        ) : (
+          /* ==================== TAB 3: BLOGS PUBLISHER ==================== */
+          <div>
+            {blogSuccessMsg && (
+              <div className="mb-8 p-4 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-400 rounded-xl font-medium text-sm flex items-center gap-3 animate-fade-in">
+                <Check className="w-5 h-5 shrink-0" /> {blogSuccessMsg}
+              </div>
+            )}
+
+            {blogErrorMsg && (
+              <div className="mb-8 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-400 rounded-xl font-medium text-sm flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 shrink-0" /> {blogErrorMsg}
+              </div>
+            )}
+
+            <div className="grid lg:grid-cols-12 gap-12 items-start">
+              
+              {/* Blog Form (Create / Edit) */}
+              <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div className="flex items-center justify-between border-b border-slate-150 dark:border-slate-800 pb-4 mb-6">
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+                    <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    {blogEditingId ? `Edit Post: ${blogTitle}` : 'Draft New Educational Article'}
+                  </h2>
+                  {blogEditingId && (
+                    <button 
+                      onClick={clearBlogForm}
+                      className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500 font-bold text-xs uppercase cursor-pointer"
+                    >
+                      Cancel Edit
+                    </button>
+                  )}
+                </div>
+
+                <form onSubmit={handleSaveBlog} className="space-y-6">
+                  
+                  {/* Title and Slug */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Article Title *</label>
+                      <input 
+                        type="text"
+                        required
+                        value={blogTitle}
+                        placeholder="e.g. Mastering VLOOKUP alternative in Sheets"
+                        onChange={(e) => {
+                          setBlogTitle(e.target.value);
+                          if (!blogEditingId) {
+                            const generated = e.target.value.toLowerCase()
+                              .replace(/[^a-z0-9]+/g, '-')
+                              .replace(/(^-|-$)+/g, '');
+                            setBlogSlug(generated);
+                          }
+                        }}
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Slug URL Path *</label>
+                      <input 
+                        type="text"
+                        required
+                        disabled={!!blogEditingId}
+                        placeholder="e.g. mastering-vlookup-alternative"
+                        value={blogSlug}
+                        onChange={(e) => setBlogSlug(e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, '-'))}
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-950 disabled:text-slate-550 disabled:bg-slate-100 dark:disabled:bg-slate-900/50 focus:outline-none"
+                      />
+                      <p className="text-[10px] text-slate-500 mt-1">Saves as `/blog/mastering-vlookup-alternative`.</p>
+                    </div>
+                  </div>
+
+                  {/* Category, Banner Image, and Reading Time */}
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div>
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Category *</label>
+                      <select
+                        value={blogCategory}
+                        onChange={(e) => setBlogCategory(e.target.value)}
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="Apps Script & Automation">Apps Script & Automation</option>
+                        <option value="Tutorials & Guides">Tutorials & Guides</option>
+                        <option value="Productivity Hacks">Productivity Hacks</option>
+                        <option value="General">General News</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Read Time</label>
+                      <input 
+                        type="text"
+                        value={blogReadTime}
+                        placeholder="e.g. 5 min read"
+                        onChange={(e) => setBlogReadTime(e.target.value)}
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Cover Image URL</label>
+                      <input 
+                        type="text"
+                        value={blogImage}
+                        placeholder="Unsplash / custom url"
+                        onChange={(e) => setBlogImage(e.target.value)}
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Summary Textarea */}
+                  <div>
+                    <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Brief Summary * (Visible on cards)</label>
+                    <textarea 
+                      required
+                      rows={3}
+                      value={blogSummary}
+                      placeholder="Type a catchy 2-sentence summary of what users will learn..."
+                      onChange={(e) => setBlogSummary(e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  {/* Content Markdown Area */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500">Article Content * (Supports Markdown)</label>
+                      <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 font-mono"># Heading, **Bold**, \`Code\`</span>
+                    </div>
+                    <textarea 
+                      required
+                      rows={12}
+                      value={blogContent}
+                      placeholder="# Why you need this guide...&#10;&#10;Write detailed steps using Markdown format here..."
+                      onChange={(e) => setBlogContent(e.target.value)}
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm leading-relaxed"
+                    />
+                  </div>
+
+                  {/* Tags Builder */}
+                  <div>
+                    <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Tags</label>
+                    <div className="flex gap-2 mb-3">
+                      <input 
+                        type="text"
+                        value={blogTagsInput}
+                        placeholder="e.g. ERP"
+                        onChange={(e) => setBlogTagsInput(e.target.value.replace(/[^a-zA-Z0-9\s-]/g, ''))}
+                        onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddBlogTag(); } }}
+                        className="flex-grow px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddBlogTag}
+                        className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold rounded-xl text-xs cursor-pointer border-none"
+                      >
+                        Add Tag
+                      </button>
+                    </div>
+
+                    {/* Tag Pills List */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {blogTags.map((tag, i) => (
+                        <span 
+                          key={tag}
+                          className="inline-flex items-center gap-1 text-[11px] font-bold bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md"
+                        >
+                          #{tag}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveBlogTag(i)}
+                            className="text-slate-400 hover:text-red-500 focus:outline-none text-[10px] font-bold cursor-pointer"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Smart AI Content Optimizer / Product Recommendation */}
+                  <div className="p-6 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl space-y-6">
+                    <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-150 dark:border-slate-800 pb-4">
+                      <div>
+                        <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Sparkles className="w-4 h-4 text-amber-500 fill-amber-500/25" />
+                          Smart AI Content Optimizer
+                        </h4>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Powered by Google Gemini AI Model</p>
+                      </div>
+                      
+                      <button
+                        type="button"
+                        onClick={handleEnrichBlog}
+                        disabled={isEnriching || !blogTitle.trim() || !blogContent.trim()}
+                        className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-650 disabled:from-indigo-400 disabled:to-indigo-450 text-white text-xs font-black rounded-xl shadow-md uppercase tracking-wider flex items-center gap-2 cursor-pointer border-none"
+                      >
+                        {isEnriching ? (
+                          <>
+                            <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            Optimizing Content...
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300/10" />
+                            Smart Enrich & Link Products
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                      This smart optimizer will automatically scan your article title and content to find relevant business automation tools, naturally insert markdown product page links, recommend similar category items, and draft an Apps Script suggestion code blueprint.
+                    </p>
+
+                    {/* AI / Manual Inputs */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      
+                      {/* Primary Product Selector */}
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-450 dark:text-slate-550 mb-2">Primary Matched Product</label>
+                        <select
+                          value={blogPrimaryMatchedProductId}
+                          onChange={(e) => setBlogPrimaryMatchedProductId(e.target.value)}
+                          className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none"
+                        >
+                          <option value="">-- No matching product --</option>
+                          <option value="vendorsarthi">VendorSarthi (Procurement / Quotations)</option>
+                          <option value="hisabsarthi">HisabSarthi (GST Billing / Accounting)</option>
+                          <option value="rationkart">RationKart (Grocery Kirana billing)</option>
+                          <option value="billsarthi">BillSarthi (Point of Sales & Invoices)</option>
+                          <option value="karmsarthi">KarmSarthi (Staff Attendance & Payroll)</option>
+                          <option value="claimo">ClaimO (Expense Reimbursements)</option>
+                          <option value="cakesarthi">CakeSarthi (Bakery order sheets)</option>
+                          <option value="gymsarthi">GymSarthi (Fitness Club logs)</option>
+                          <option value="menusarthi">MenuSarthi (Digital Restaurant menus)</option>
+                          <option value="supplysarthi">SupplySarthi (Lead capture & Sales CRM)</option>
+                          <option value="loansarthi">LoanSarthi (Interest Ledger calculator)</option>
+                          <option value="stocksarthi">StockSarthi (Inventory sheets)</option>
+                        </select>
+                      </div>
+
+                      {/* Related Products Selector */}
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-450 dark:text-slate-550 mb-2">Related Products (Showcase in Spotlight)</label>
+                        <div className="flex flex-wrap gap-2 p-2.5 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-950 max-h-36 overflow-y-auto">
+                          {[
+                            { id: 'vendorsarthi', name: 'VendorSarthi' },
+                            { id: 'hisabsarthi', name: 'HisabSarthi' },
+                            { id: 'rationkart', name: 'RationKart' },
+                            { id: 'billsarthi', name: 'BillSarthi' },
+                            { id: 'karmsarthi', name: 'KarmSarthi' },
+                            { id: 'claimo', name: 'ClaimO' },
+                            { id: 'cakesarthi', name: 'CakeSarthi' },
+                            { id: 'gymsarthi', name: 'GymSarthi' },
+                            { id: 'menusarthi', name: 'MenuSarthi' },
+                            { id: 'supplysarthi', name: 'SupplySarthi' },
+                            { id: 'loansarthi', name: 'LoanSarthi' },
+                            { id: 'stocksarthi', name: 'StockSarthi' }
+                          ].map(prod => {
+                            const isChecked = blogRelatedProductIds.includes(prod.id);
+                            return (
+                              <label key={prod.id} className="inline-flex items-center gap-1.5 px-2 py-1 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+                                <input
+                                  type="checkbox"
+                                  checked={isChecked}
+                                  onChange={() => {
+                                    if (isChecked) {
+                                      setBlogRelatedProductIds(prev => prev.filter(id => id !== prod.id));
+                                    } else {
+                                      setBlogRelatedProductIds(prev => [...prev, prod.id]);
+                                    }
+                                  }}
+                                  className="w-3 h-3 text-indigo-650"
+                                />
+                                {prod.name}
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* Custom Automation suggestion blueprint content */}
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-450 dark:text-slate-550">Custom Apps Script Suggestion Blueprint (Markdown)</label>
+                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Shown in dark blueprint box</span>
+                      </div>
+                      <textarea
+                        rows={6}
+                        value={blogCustomAutomationSuggestion}
+                        placeholder="### 💡 Suraj's Suggestion...&#10;&#10;Write Apps Script or custom Sheet triggers step-by-step suggestions here..."
+                        onChange={(e) => setBlogCustomAutomationSuggestion(e.target.value)}
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs leading-relaxed"
+                      />
+                    </div>
+
+                  </div>
+
+                  {/* Publish Status Toggle */}
+                  <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-100 dark:border-slate-900">
+                    <input 
+                      type="checkbox"
+                      id="blogIsPublished"
+                      checked={blogIsPublished}
+                      onChange={(e) => setBlogIsPublished(e.target.checked)}
+                      className="w-4 h-4 text-indigo-600 focus:ring-indigo-500 rounded border-slate-350"
+                    />
+                    <label htmlFor="blogIsPublished" className="text-xs font-extrabold text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+                      Publish Live immediately (Check this to make visible on public website)
+                    </label>
+                  </div>
+
+                  {/* Submission Row */}
+                  <div className="flex gap-4 border-t border-slate-150 dark:border-slate-800/80 pt-6">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-400 text-white font-bold rounded-xl text-sm transition-all shadow-md cursor-pointer"
+                    >
+                      {loading ? 'Saving Post...' : blogEditingId ? 'Update Article' : 'Publish Article'}
+                    </button>
+                    {blogEditingId && (
+                      <button
+                        type="button"
+                        onClick={clearBlogForm}
+                        className="py-3 px-6 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold rounded-xl text-sm transition-all cursor-pointer border-none"
+                      >
+                        Reset
+                      </button>
+                    )}
+                  </div>
+
+                </form>
+              </div>
+
+              {/* Published Posts Sidebar (Real-time + Seed lists) */}
+              <div className="lg:col-span-5 space-y-6">
+                
+                {/* Search / Filter bar */}
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <h3 className="font-extrabold text-slate-950 dark:text-white text-sm uppercase tracking-wider mb-3">Published Catalog ({blogsList.length})</h3>
+                  <div className="relative">
+                    <input 
+                      type="text"
+                      placeholder="Search posts..."
+                      value={searchBlog}
+                      onChange={(e) => setSearchBlog(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-white focus:outline-none"
+                    />
+                    <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
+                  </div>
+                </div>
+
+                {/* Article Cards Grid scrollbar */}
+                <div className="space-y-4 max-h-[700px] overflow-y-auto pr-2 scrollbar-none">
+                  {blogsLoading && blogsList.length === 0 ? (
+                    <div className="text-center py-10 bg-white dark:bg-slate-900 rounded-2xl border border-slate-150 dark:border-slate-850">
+                      <div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+                      <p className="text-slate-500 font-mono text-xs">Loading database guides...</p>
+                    </div>
+                  ) : blogsList.length === 0 ? (
+                    <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-250 text-slate-500">
+                      <BookOpen className="w-12 h-12 text-slate-350 mx-auto mb-3" />
+                      <h4 className="font-bold text-sm text-slate-800 dark:text-white mb-1">No guides in cloud database</h4>
+                      <p className="text-xs text-slate-400 mb-4">You have not published any guides yet. Publish your first post, or view fallbacks on live page.</p>
+                    </div>
+                  ) : (
+                    blogsList.filter(b => {
+                      const q = searchBlog.toLowerCase();
+                      return b.title.toLowerCase().includes(q) || b.slug.toLowerCase().includes(q) || b.category.toLowerCase().includes(q);
+                    }).map((b) => (
+                      <div key={b.id} className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-3 group">
+                        
+                        <div>
+                          <div className="flex items-center justify-between gap-2">
+                            <h5 className="font-extrabold text-slate-950 dark:text-white text-sm line-clamp-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                              {b.title}
+                            </h5>
+                            
+                            <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                              b.isPublished !== false
+                                ? 'bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50'
+                                : 'bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400 border border-amber-200/50 dark:border-amber-900/50'
+                            }`}>
+                              {b.isPublished !== false ? 'Live' : 'Draft'}
+                            </span>
+                          </div>
+                          
+                          <p className="text-[10px] text-slate-500 font-mono mt-1">/{b.slug} • {b.category}</p>
+                        </div>
+
+                        <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                          {b.summary}
+                        </p>
+
+                        <div className="flex justify-between items-center border-t border-slate-100 dark:border-slate-850 pt-3 mt-1 text-xs">
+                          <Link 
+                            to={`/blog/${b.slug}`}
+                            target="_blank"
+                            className="hover:text-indigo-650 font-bold flex items-center gap-1 text-slate-500 dark:text-slate-400 transition-colors"
+                          >
+                            Read Article <ArrowUpRight className="w-3.5 h-3.5" />
+                          </Link>
+
+                          <div className="flex items-center gap-3">
+                            <button
+                              onClick={() => handleEditBlog(b)}
+                              className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-bold cursor-pointer"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" /> Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteBlog(b.id)}
+                              className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 font-bold cursor-pointer"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                              {blogDeletingId === b.id ? 'Confirm?' : 'Delete'}
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                <div className="bg-slate-950 p-6 rounded-3xl text-indigo-200 border border-slate-800">
+                  <h4 className="font-extrabold text-white text-xs mb-2 uppercase tracking-wider font-mono">Content Management Guide</h4>
+                  <p className="text-slate-350 text-xs leading-relaxed mb-4">
+                    Blogs are synchronized in real-time from your Firestore. If your cloud collection has zero posts, the public page seamlessly populates high-quality hardcoded fallback assets.
+                  </p>
+                  <div className="border-t border-slate-800 pt-3 flex flex-col gap-1 text-[10px] text-slate-550 font-mono">
+                    <div>• Drafts remain invisible to search engines and guest accounts.</div>
+                    <div>• Cover images can be sourced from high-resolution Unsplash URLs.</div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
         )}
 
       </div>
     </main>
   );
 }
+

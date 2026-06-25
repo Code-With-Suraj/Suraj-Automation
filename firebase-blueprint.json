@@ -114,6 +114,44 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["id", "name", "email", "phone", "totalPrice", "status", "createdAt"]
+    },
+    "BlogPost": {
+      "title": "BlogPost",
+      "description": "An article or tutorial published by the administrator",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string" },
+        "image": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "readTime": { "type": "string" },
+        "isPublished": { "type": "boolean" }
+      },
+      "required": ["id", "title", "slug", "summary", "content", "createdAt"]
+    },
+    "BlogComment": {
+      "title": "BlogComment",
+      "description": "User comment or reply on a specific blog post",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "content": { "type": "string" },
+        "parentId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "userName", "content", "createdAt"]
     }
   },
   "firestore": {
@@ -136,6 +174,14 @@
     "/quotations/{quotationId}": {
       "schema": "Quotation",
       "description": "Client dynamic quotations database"
+    },
+    "/blogs/{blogId}": {
+      "schema": "BlogPost",
+      "description": "Educational blog posts and technical tutorials database"
+    },
+    "/blogs/{blogId}/comments/{commentId}": {
+      "schema": "BlogComment",
+      "description": "Interactive user comments and structured replies for community engagement"
     }
   }
 }

@@ -21,6 +21,8 @@ import Terms from './pages/Terms';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import OffersHub from './pages/OffersHub';
 import OfferDetailPage from './pages/OfferDetailPage';
+import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FloatingBuyWidget from './components/FloatingBuyWidget';
 import ScrollToTop from './components/ScrollToTop';
@@ -92,6 +94,8 @@ export default function App() {
               <Route path="/offers" element={<OffersHub />} />
               <Route path="/offers/:slug" element={<OfferDetailPage />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
               <Route path="/pricing" element={<Services />} />
               <Route path="/products" element={<Products />} />
               <Route path="/portal" element={<Portal />} />

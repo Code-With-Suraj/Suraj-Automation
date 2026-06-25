@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Mail, Phone, User, Linkedin, Twitter, Facebook, MapPin } from 'lucide-react';
 import RecommendedProducts from './RecommendedProducts';
+import NewsletterSignup from './NewsletterSignup';
 
 export default function Footer() {
   const location = useLocation();
@@ -15,8 +16,8 @@ export default function Footer() {
       {isProductPage && <RecommendedProducts currentProductId={productId} />}
       <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-          <div>
+        <div className="grid md:grid-cols-12 gap-8 mb-12">
+          <div className="md:col-span-6 lg:col-span-3">
             <Link to="/" className="flex items-center gap-2 mb-4 group">
               <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-white font-bold shadow-[0_4px_12px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform border border-slate-700/50">
                 SA
@@ -41,24 +42,25 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          <div>
+          <div className="md:col-span-3 lg:col-span-2">
             <h4 className="text-white font-semibold mb-4 tracking-wide uppercase text-sm">Quick Links</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Home</Link></li>
               <li><Link to="/products" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Products</Link></li>
               <li><Link to="/services" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Services</Link></li>
               <li><Link to="/about" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>About</Link></li>
+              <li><Link to="/blog" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Blog & Guides</Link></li>
               <li><Link to="/services" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Pricing & Plans</Link></li>
             </ul>
           </div>
-          <div>
+          <div className="md:col-span-3 lg:col-span-2">
             <h4 className="text-white font-semibold mb-4 tracking-wide uppercase text-sm">Legal</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/terms" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Terms and Policy</Link></li>
               <li><Link to="/privacy-policy" className="hover:text-indigo-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-indigo-500"></span>Privacy Policy</Link></li>
             </ul>
           </div>
-          <div>
+          <div className="md:col-span-6 lg:col-span-2">
             <h4 className="text-white font-semibold mb-4 tracking-wide uppercase text-sm">Contact</h4>
             <ul className="space-y-4 text-sm">
               <li className="flex items-center gap-3">
@@ -80,6 +82,9 @@ export default function Footer() {
                 <a href="mailto:suraj.gasdeveloper@gmail.com" className="hover:text-indigo-400 transition-colors font-medium text-slate-300">suraj.gasdeveloper@gmail.com</a>
               </li>
             </ul>
+          </div>
+          <div className="md:col-span-6 lg:col-span-3">
+            <NewsletterSignup />
           </div>
         </div>
 
