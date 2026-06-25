@@ -2,8 +2,14 @@ import { useState } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
 import { motion } from 'motion/react';
 import { Mail, MapPin, Phone, Send, Loader2, AlertCircle, CheckCircle2, Star, CheckCircle, ExternalLink, Sparkles, User } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 export default function Contact() {
+  useSEO(
+    'Contact Us | Suraj Automation - Noida\'s Automation Company',
+    'Get in touch with Suraj Automation, a top-ranked AI automation company in Noida. Let\'s build custom automation tools, MIS dashboards, and Apps Script triggers for your business.',
+    'ai automation companies, mis dashboards, ai automation company, custom automation, apps script triggers, ai automation websites, ai automation softwares, automation company in noida'
+  );
   const [formData, setFormData] = useState({
     name: '',
     email: '',

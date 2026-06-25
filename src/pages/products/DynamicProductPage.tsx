@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
+import RecommendedProducts from '../../components/RecommendedProducts';
 import { 
   ShoppingCart, AlertTriangle, CheckCircle2, ListChecks, 
   History, Upload, Users, ArrowRight, RefreshCcw, 

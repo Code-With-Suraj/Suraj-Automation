@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import { UserProvider } from './contexts/UserContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -13,26 +14,6 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Products from './pages/Products';
 import Portal from './pages/Portal';
-import RationKart from './pages/products/RationKart';
-import StockSarthi from './pages/products/StockSarthi';
-import BillSarthi from './pages/products/BillSarthi';
-import Claimo from './pages/products/Claimo';
-import KarmSarthi from './pages/products/KarmSarthi';
-import CakeSarthi from './pages/products/CakeSarthi';
-import GymSarthi from './pages/products/GymSarthi';
-import MenuSarthi from './pages/products/MenuSarthi';
-import SupplySarthi from './pages/products/SupplySarthi';
-import HisabSarthi from './pages/products/HisabSarthi';
-import CogsAnalyticsDashboard from './pages/products/CogsAnalyticsDashboard';
-import LoanSarthi from './pages/products/LoanSarthi';
-import VendorSarthi from './pages/products/VendorSarthi';
-import PersonalFinSarthi from './pages/products/PersonalFinSarthi';
-import HireSarthi from './pages/products/HireSarthi';
-import BudgetSarthi from './pages/products/BudgetSarthi';
-import CfoDashboard from './pages/products/CfoDashboard';
-import SalarySarthi from './pages/products/SalarySarthi';
-import BookingSarthi from './pages/products/BookingSarthi';
-import DynamicProductPage from './pages/products/DynamicProductPage';
 import AdminPortal from './pages/AdminPortal';
 import RoiTool from './pages/RoiTool';
 import Reviews from './pages/Reviews';
@@ -43,6 +24,58 @@ import OfferDetailPage from './pages/OfferDetailPage';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FloatingBuyWidget from './components/FloatingBuyWidget';
 import ScrollToTop from './components/ScrollToTop';
+import Breadcrumb from './components/Breadcrumb';
+
+// Lazy loaded product pages
+const RationKart = lazy(() => import('./pages/products/RationKart'));
+const StockSarthi = lazy(() => import('./pages/products/StockSarthi'));
+const BillSarthi = lazy(() => import('./pages/products/BillSarthi'));
+const Claimo = lazy(() => import('./pages/products/Claimo'));
+const KarmSarthi = lazy(() => import('./pages/products/KarmSarthi'));
+const CakeSarthi = lazy(() => import('./pages/products/CakeSarthi'));
+const GymSarthi = lazy(() => import('./pages/products/GymSarthi'));
+const MenuSarthi = lazy(() => import('./pages/products/MenuSarthi'));
+const SupplySarthi = lazy(() => import('./pages/products/SupplySarthi'));
+const HisabSarthi = lazy(() => import('./pages/products/HisabSarthi'));
+const CogsAnalyticsDashboard = lazy(() => import('./pages/products/CogsAnalyticsDashboard'));
+const LoanSarthi = lazy(() => import('./pages/products/LoanSarthi'));
+const VendorSarthi = lazy(() => import('./pages/products/VendorSarthi'));
+const PersonalFinSarthi = lazy(() => import('./pages/products/PersonalFinSarthi'));
+const HireSarthi = lazy(() => import('./pages/products/HireSarthi'));
+const BudgetSarthi = lazy(() => import('./pages/products/BudgetSarthi'));
+const CfoDashboard = lazy(() => import('./pages/products/CfoDashboard'));
+const SalarySarthi = lazy(() => import('./pages/products/SalarySarthi'));
+const BookingSarthi = lazy(() => import('./pages/products/BookingSarthi'));
+const DynamicProductPage = lazy(() => import('./pages/products/DynamicProductPage'));
+
+function PageLoader() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center bg-slate-950 text-white py-12">
+      <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+      <p className="mt-4 text-slate-400 font-semibold tracking-wider uppercase text-xs animate-pulse">Loading Sarthi System...</p>
+    </div>
+  );
+}
+
+function ProductsLayout() {
+  const location = useLocation();
+  const showBreadcrumb = location.pathname !== '/products' && location.pathname !== '/products/';
+
+  return (
+    <div className="relative">
+      {showBreadcrumb && (
+        <div className="absolute top-24 left-0 right-0 z-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-none pt-4">
+          <div className="pointer-events-auto">
+            <Breadcrumb theme="dark" />
+          </div>
+        </div>
+      )}
+      <Suspense fallback={<PageLoader />}>
+        <Outlet />
+      </Suspense>
+    </div>
+  );
+}
 
 export default function App() {
   return (
@@ -63,28 +96,33 @@ export default function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/portal" element={<Portal />} />
               <Route path="/reviews" element={<Reviews />} />
-              <Route path="/products/cogs-analytics-dashboard" element={<CogsAnalyticsDashboard />} />
-              <Route path="/products/cfo-dashboard" element={<CfoDashboard />} />
-              <Route path="/products/rationkart" element={<RationKart />} />
-              <Route path="/products/stocksarthi" element={<StockSarthi />} />
-              <Route path="/products/billsarthi" element={<BillSarthi />} />
-              <Route path="/products/claimo" element={<Claimo />} />
-              <Route path="/products/karmsarthi" element={<KarmSarthi />} />
-              <Route path="/products/cakesarthi" element={<CakeSarthi />} />
-              <Route path="/products/gymsarthi" element={<GymSarthi />} />
-              <Route path="/products/menusarthi" element={<MenuSarthi />} />
-              <Route path="/products/supplysarthi" element={<SupplySarthi />} />
-              <Route path="/products/hisabsarthi" element={<HisabSarthi />} />
-              <Route path="/products/loansarthi" element={<LoanSarthi />} />
-              <Route path="/products/vendorsarthi" element={<VendorSarthi />} />
-              <Route path="/products/personalfinsarthi" element={<PersonalFinSarthi />} />
-              <Route path="/products/hiresarthi" element={<HireSarthi />} />
-              <Route path="/products/budgetsarthi" element={<BudgetSarthi />} />
-              <Route path="/products/salarysarthi" element={<SalarySarthi />} />
-              <Route path="/products/bookingsarthi" element={<BookingSarthi />} />
+              
+              {/* Product specific pages wrapped in dynamic Breadcrumbs and Suspense layout */}
+              <Route element={<ProductsLayout />}>
+                <Route path="/products/cogs-analytics-dashboard" element={<CogsAnalyticsDashboard />} />
+                <Route path="/products/cfo-dashboard" element={<CfoDashboard />} />
+                <Route path="/products/rationkart" element={<RationKart />} />
+                <Route path="/products/stocksarthi" element={<StockSarthi />} />
+                <Route path="/products/billsarthi" element={<BillSarthi />} />
+                <Route path="/products/claimo" element={<Claimo />} />
+                <Route path="/products/karmsarthi" element={<KarmSarthi />} />
+                <Route path="/products/cakesarthi" element={<CakeSarthi />} />
+                <Route path="/products/gymsarthi" element={<GymSarthi />} />
+                <Route path="/products/menusarthi" element={<MenuSarthi />} />
+                <Route path="/products/supplysarthi" element={<SupplySarthi />} />
+                <Route path="/products/hisabsarthi" element={<HisabSarthi />} />
+                <Route path="/products/loansarthi" element={<LoanSarthi />} />
+                <Route path="/products/vendorsarthi" element={<VendorSarthi />} />
+                <Route path="/products/personalfinsarthi" element={<PersonalFinSarthi />} />
+                <Route path="/products/hiresarthi" element={<HireSarthi />} />
+                <Route path="/products/budgetsarthi" element={<BudgetSarthi />} />
+                <Route path="/products/salarysarthi" element={<SalarySarthi />} />
+                <Route path="/products/bookingsarthi" element={<BookingSarthi />} />
+                <Route path="/products/:productId" element={<DynamicProductPage />} />
+              </Route>
+
               <Route path="/admin" element={<AdminPortal />} />
               <Route path="/roi-tool" element={<RoiTool />} />
-              <Route path="/products/:productId" element={<DynamicProductPage />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>

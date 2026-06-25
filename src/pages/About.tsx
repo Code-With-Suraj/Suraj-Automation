@@ -10,8 +10,14 @@ import {
   Cpu,
   Target
 } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 export default function About() {
+  useSEO(
+    'About Us | Suraj Automation - AI Automation Company in Noida',
+    'Learn how Suraj Automation, a top-rated AI automation company in Noida, designs custom automation tools, MIS dashboards, and Apps Script triggers to replace spreadsheets and manual work.',
+    'ai automation companies, mis dashboards, ai automation company, custom automation, apps script triggers, ai automation websites, ai automation softwares, automation company in noida'
+  );
   const whatWeDo = [
     {
       icon: <Bot className="w-8 h-8 text-indigo-500" />,

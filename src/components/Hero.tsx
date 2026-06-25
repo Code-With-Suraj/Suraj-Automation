@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 
 export default function Hero() {
   const words = [
-    "Building website",
-    "Building Landing Pages",
-    "Building Custom web app using Google ecosystem",
-    "Create Excel Dashboard",
-    "Creating AI Automations for SMBs"
+    "Custom Automation Solutions",
+    "Interactive MIS Dashboards",
+    "Intelligent Apps Script Triggers",
+    "AI Automation Softwares & Tools",
+    "High-Performance Custom Web Apps"
   ];
 
   const [index, setIndex] = useState(0);
