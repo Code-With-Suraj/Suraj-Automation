@@ -44,15 +44,10 @@ export default function Blog() {
           .filter(b => b.isPublished !== false)
           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-        if (publishedBlogs.length > 0) {
-          setBlogs(publishedBlogs);
-        } else {
-          // Fallback if collection is empty
-          setBlogs(FALLBACK_BLOGS);
-        }
+        setBlogs(publishedBlogs);
       } catch (error) {
-        console.warn('Error fetching blogs from Firestore, falling back to local blog assets:', error);
-        setBlogs(FALLBACK_BLOGS);
+        console.error('Error fetching blogs from Firestore:', error);
+        setBlogs([]);
       } finally {
         setLoading(false);
       }

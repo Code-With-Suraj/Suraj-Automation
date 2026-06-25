@@ -33,6 +33,74 @@ export default function AdminPortal() {
   const [seoSearchQuery, setSeoSearchQuery] = useState('');
   const [activeSeoTypeFilter, setActiveSeoTypeFilter] = useState<'all' | 'base' | 'offers' | 'products' | 'blogs'>('all');
 
+  const generateClientSideSeoUrls = async () => {
+    const host = 'https://surajdx.com';
+    const baseUrls = [
+      { url: `${host}`, type: 'Base Page', priority: '1.0' },
+      { url: `${host}/about`, type: 'Base Page', priority: '0.8' },
+      { url: `${host}/services`, type: 'Base Page', priority: '0.9' },
+      { url: `${host}/contact`, type: 'Base Page', priority: '0.8' },
+      { url: `${host}/pricing`, type: 'Base Page', priority: '0.9' },
+      { url: `${host}/products`, type: 'Base Page', priority: '0.9' },
+      { url: `${host}/reviews`, type: 'Base Page', priority: '0.8' },
+      { url: `${host}/portal`, type: 'Base Page', priority: '0.7' },
+      { url: `${host}/roi-tool`, type: 'Base Page', priority: '0.8' },
+      { url: `${host}/terms`, type: 'Base Page', priority: '0.5' },
+      { url: `${host}/privacy-policy`, type: 'Base Page', priority: '0.5' },
+      { url: `${host}/offers`, type: 'Base Page', priority: '0.9' },
+      { url: `${host}/blog`, type: 'Base Page', priority: '0.9' }
+    ];
+
+    const specialOffers = [
+      { url: `${host}/offers/google-sheets-automation`, type: 'Special Offer', priority: '0.85' },
+      { url: `${host}/offers/custom-excel-dashboard-mis`, type: 'Special Offer', priority: '0.85' },
+      { url: `${host}/offers/google-apps-script-automation`, type: 'Special Offer', priority: '0.85' },
+      { url: `${host}/offers/custom-web-app`, type: 'Special Offer', priority: '0.85' }
+    ];
+
+    const productUrls: { url: string; type: string; priority: string; name: string }[] = [];
+    if (typeof PRODUCT_SOLUTIONS === 'object' && PRODUCT_SOLUTIONS !== null) {
+      Object.keys(PRODUCT_SOLUTIONS).forEach(key => {
+        const product = PRODUCT_SOLUTIONS[key];
+        if (product && !product.isHidden) {
+          productUrls.push({
+            url: `${host}/products/${product.id}`,
+            type: 'Product',
+            priority: '0.8',
+            name: product.name
+          });
+        }
+      });
+    }
+
+    const blogUrls: { url: string; type: string; priority: string; title: string }[] = [];
+    try {
+      const snapshot = await getDocs(collection(db, 'blogs'));
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        if (data.isPublished) {
+          const slug = data.slug || docSnap.id;
+          const title = data.title || slug;
+          blogUrls.push({
+            url: `${host}/blog/${slug}`,
+            type: 'Blog Post',
+            priority: '0.7',
+            title
+          });
+        }
+      });
+    } catch (blogErr) {
+      console.error('Failed to fetch client side blog urls for SEO:', blogErr);
+    }
+
+    return {
+      baseUrls,
+      specialOffers,
+      productUrls,
+      blogUrls
+    };
+  };
+
   const fetchSeoUrls = async () => {
     try {
       setSeoLoading(true);
@@ -42,11 +110,19 @@ export default function AdminPortal() {
         const data = await res.json();
         setSeoUrls(data);
       } else {
-        setSeoError('Failed to fetch SEO URLs list.');
+        console.warn('Backend SEO API returned non-ok status, falling back to client-side SEO generation.');
+        const clientData = await generateClientSideSeoUrls();
+        setSeoUrls(clientData);
       }
     } catch (err) {
-      console.error('Error in fetchSeoUrls:', err);
-      setSeoError('Failed to connect to backend SEO API.');
+      console.warn('Failed to connect to backend SEO API, falling back to client-side SEO generation:', err);
+      try {
+        const clientData = await generateClientSideSeoUrls();
+        setSeoUrls(clientData);
+      } catch (fallbackErr) {
+        console.error('Error in client-side fallback fetchSeoUrls:', fallbackErr);
+        setSeoError('Failed to generate SEO URLs list.');
+      }
     } finally {
       setSeoLoading(false);
     }
@@ -204,8 +280,8 @@ export default function AdminPortal() {
       setBlogsList(list);
     } catch (err: any) {
       console.error("Failed to list blogs:", err);
-      setBlogErrorMsg('Failed to query blogs database. Loading fallback assets.');
-      setBlogsList(FALLBACK_BLOGS);
+      setBlogErrorMsg('Failed to query blogs database.');
+      setBlogsList([]);
       handleFirestoreError(err, OperationType.LIST, 'blogs');
     } finally {
       setBlogsLoading(false);
@@ -298,6 +374,85 @@ export default function AdminPortal() {
     setBlogSuccessMsg('');
   };
 
+  const clientSideEnrichBlog = (title: string, content: string) => {
+    const normalizedContent = `${title} ${content}`.toLowerCase();
+    let primaryMatchedProductId = '';
+    const relatedProductIds: string[] = [];
+
+    // Simple keyword matching for fallbacks
+    if (normalizedContent.includes('vendorsarthi') || normalizedContent.includes('procurement') || normalizedContent.includes('quotation') || normalizedContent.includes('vendor')) {
+      primaryMatchedProductId = 'vendorsarthi';
+    } else if (normalizedContent.includes('hisabsarthi') || normalizedContent.includes('accounting') || normalizedContent.includes('ledger') || normalizedContent.includes('gst')) {
+      primaryMatchedProductId = 'hisabsarthi';
+    } else if (normalizedContent.includes('rationkart') || normalizedContent.includes('grocery') || normalizedContent.includes('kirana')) {
+      primaryMatchedProductId = 'rationkart';
+    } else if (normalizedContent.includes('billsarthi') || normalizedContent.includes('billing') || normalizedContent.includes('invoice')) {
+      primaryMatchedProductId = 'billsarthi';
+    } else if (normalizedContent.includes('karmsarthi') || normalizedContent.includes('staff') || normalizedContent.includes('attendance') || normalizedContent.includes('salary')) {
+      primaryMatchedProductId = 'karmsarthi';
+    } else if (normalizedContent.includes('claimo') || normalizedContent.includes('expense') || normalizedContent.includes('reimbursement')) {
+      primaryMatchedProductId = 'claimo';
+    } else if (normalizedContent.includes('cakesarthi') || normalizedContent.includes('bakery') || normalizedContent.includes('cake')) {
+      primaryMatchedProductId = 'cakesarthi';
+    } else if (normalizedContent.includes('gymsarthi') || normalizedContent.includes('gym') || normalizedContent.includes('fitness')) {
+      primaryMatchedProductId = 'gymsarthi';
+    } else if (normalizedContent.includes('menusarthi') || normalizedContent.includes('restaurant') || normalizedContent.includes('menu')) {
+      primaryMatchedProductId = 'menusarthi';
+    } else if (normalizedContent.includes('supplysarthi') || normalizedContent.includes('lead') || normalizedContent.includes('sales')) {
+      primaryMatchedProductId = 'supplysarthi';
+    } else if (normalizedContent.includes('loansarthi') || normalizedContent.includes('loan') || normalizedContent.includes('interest')) {
+      primaryMatchedProductId = 'loansarthi';
+    } else if (normalizedContent.includes('stocksarthi') || normalizedContent.includes('inventory') || normalizedContent.includes('stock')) {
+      primaryMatchedProductId = 'stocksarthi';
+    }
+
+    // Auto-populate related products of same category
+    if (primaryMatchedProductId) {
+      const refProduct = PRODUCT_SOLUTIONS[primaryMatchedProductId];
+      if (refProduct && refProduct.category) {
+        Object.values(PRODUCT_SOLUTIONS).forEach((p: any) => {
+          if (p.id !== primaryMatchedProductId && p.category === refProduct.category && !p.isHidden) {
+            relatedProductIds.push(p.id);
+          }
+        });
+      }
+    }
+
+    const finalRelated = relatedProductIds.slice(0, 3);
+
+    // Smart link insertion fallback (Regex-based search and replace)
+    let enrichedContent = content;
+    Object.values(PRODUCT_SOLUTIONS).forEach((prod: any) => {
+      const regex = new RegExp(`\\b${prod.name}\\b(?!\\s*\\))`, 'gi');
+      enrichedContent = enrichedContent.replace(regex, `[${prod.name}](/products/${prod.id})`);
+    });
+
+    // Simple fallback automation suggestions
+    let customAutomationSuggestion = `### 💡 Suraj's Automation Suggestion for ${title}\n\n`;
+    if (primaryMatchedProductId) {
+      const prodName = PRODUCT_SOLUTIONS[primaryMatchedProductId].name;
+      customAutomationSuggestion += `Aap is blog topic ko manage karne ke liye humara pre-built **${prodName}** utility pack check kar sakte hain. Isme aapko milta hai:\n\n`;
+      customAutomationSuggestion += `1. **Google Sheets Dashboard**: Centralized cloud backup jo clear reports deta hai.\n`;
+      customAutomationSuggestion += `2. **Apps Script System**: Ek button click karte hi custom triggers run honge.\n`;
+      customAutomationSuggestion += `3. **WhatsApp Auto Alerts**: Client/Staff ko real-time status notifications send karne ki facility.\n\n`;
+      customAutomationSuggestion += `👉 Aap typical developers ko ₹20,000+ dene ke bajaye humare system ko standard **50% Discount** rate me direct download kar sakte hain! Koi recurring fee ya data tracking nahi.`;
+    } else {
+      customAutomationSuggestion += `Aap is problem statement ko fully automate karne ke liye humare Google Sheets + App Script system ko implement kar sakte hain.\n\n`;
+      customAutomationSuggestion += `- **Automated Workflow**: Excel templates ko cloud sheet setup se connect karke alerts chalu karein.\n`;
+      customAutomationSuggestion += `- **Hinglish/English Customization Support**: Suraj se direct consult karke customized trigger code likhwayein.\n\n`;
+      customAutomationSuggestion += `📞 Niche "Request Custom Demo" click karke direct discuss karein, standard cost se full 50% ki bachat hogi!`;
+    }
+
+    return {
+      success: true,
+      isAIPowered: false,
+      enrichedContent,
+      primaryMatchedProductId,
+      relatedProductIds: finalRelated,
+      customAutomationSuggestion
+    };
+  };
+
   const handleEnrichBlog = async () => {
     if (!blogTitle.trim() || !blogContent.trim()) {
       setBlogErrorMsg('Please fill in Article Title and Article Content before running smart enrichment.');
@@ -316,23 +471,45 @@ export default function AdminPortal() {
           category: blogCategory
         })
       });
-      const data = await res.json();
-      if (data.success) {
-        setBlogContent(data.enrichedContent);
-        setBlogPrimaryMatchedProductId(data.primaryMatchedProductId || '');
-        setBlogRelatedProductIds(data.relatedProductIds || []);
-        setBlogCustomAutomationSuggestion(data.customAutomationSuggestion || '');
-        setBlogSuccessMsg(data.isAIPowered 
-          ? '✨ Gemini AI successfully analyzed, linked relevant products, and generated custom code recommendations!'
-          : '⚠️ Enriched using high-precision fallback matches (no Gemini key configured).'
-        );
-        setTimeout(() => setBlogSuccessMsg(''), 6000);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          setBlogContent(data.enrichedContent);
+          setBlogPrimaryMatchedProductId(data.primaryMatchedProductId || '');
+          setBlogRelatedProductIds(data.relatedProductIds || []);
+          setBlogCustomAutomationSuggestion(data.customAutomationSuggestion || '');
+          setBlogSuccessMsg(data.isAIPowered 
+            ? '✨ Gemini AI successfully analyzed, linked relevant products, and generated custom code recommendations!'
+            : '⚠️ Enriched using high-precision fallback matches (no Gemini key configured).'
+          );
+          setTimeout(() => setBlogSuccessMsg(''), 6000);
+        } else {
+          setBlogErrorMsg(data.error || 'Failed to enrich blog content.');
+        }
       } else {
-        setBlogErrorMsg(data.error || 'Failed to enrich blog content.');
+        console.warn('Backend blog enrichment API returned non-ok status, falling back to client-side enrichment.');
+        const clientData = clientSideEnrichBlog(blogTitle.trim(), blogContent.trim());
+        setBlogContent(clientData.enrichedContent);
+        setBlogPrimaryMatchedProductId(clientData.primaryMatchedProductId);
+        setBlogRelatedProductIds(clientData.relatedProductIds);
+        setBlogCustomAutomationSuggestion(clientData.customAutomationSuggestion);
+        setBlogSuccessMsg('⚠️ Enriched using client-side high-precision matches (fallback mode).');
+        setTimeout(() => setBlogSuccessMsg(''), 6000);
       }
     } catch (err: any) {
-      console.error('Enrichment error:', err);
-      setBlogErrorMsg('Failed to connect to enrichment endpoint.');
+      console.warn('Failed to connect to enrichment endpoint, falling back to client-side enrichment:', err);
+      try {
+        const clientData = clientSideEnrichBlog(blogTitle.trim(), blogContent.trim());
+        setBlogContent(clientData.enrichedContent);
+        setBlogPrimaryMatchedProductId(clientData.primaryMatchedProductId);
+        setBlogRelatedProductIds(clientData.relatedProductIds);
+        setBlogCustomAutomationSuggestion(clientData.customAutomationSuggestion);
+        setBlogSuccessMsg('⚠️ Enriched using client-side high-precision matches (fallback mode).');
+        setTimeout(() => setBlogSuccessMsg(''), 6000);
+      } catch (fallbackErr: any) {
+        console.error('Error during client-side fallback enrichment:', fallbackErr);
+        setBlogErrorMsg('Failed to enrich blog content.');
+      }
     } finally {
       setIsEnriching(false);
     }

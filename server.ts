@@ -323,6 +323,32 @@ Return valid JSON structure matching the schema.
 
   let vite: any = null;
 
+  async function fetchBlogsFromFirestoreREST() {
+    const urls = [
+      'https://firestore.googleapis.com/v1/projects/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/databases/(default)/documents/blogs',
+      'https://firestore.googleapis.com/v1/projects/gen-lang-client-0416530773/databases/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/documents/blogs',
+      'https://firestore.googleapis.com/v1/projects/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/databases/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/documents/blogs'
+    ];
+
+    for (const url of urls) {
+      try {
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.documents) {
+            console.log(`Successfully fetched blogs from Firestore REST API: ${url}`);
+            return data.documents;
+          }
+        } else {
+          console.warn(`Firestore REST API returned non-ok status ${response.status} for URL: ${url}`);
+        }
+      } catch (err) {
+        console.error(`Error fetching from Firestore REST API URL: ${url}`, err);
+      }
+    }
+    return [];
+  }
+
   // Dynamic XML Sitemap Generation for automated SEO tracking
   app.get('/sitemap.xml', async (req, res) => {
     try {
@@ -388,32 +414,26 @@ Return valid JSON structure matching the schema.
 
       // 4. Dynamic blogs from Firestore
       try {
-        const firestoreUrl = 'https://firestore.googleapis.com/v1/projects/gen-lang-client-0416530773/databases/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/documents/blogs';
-        const response = await fetch(firestoreUrl);
-        if (response.ok) {
-          const data = await response.json();
-          if (data && data.documents) {
-            data.documents.forEach((doc: any) => {
-              const fields = doc.fields || {};
-              // Only include published blogs
-              const isPublished = fields.isPublished?.booleanValue ?? false;
-              if (isPublished) {
-                let slug = fields.slug?.stringValue;
-                if (!slug) {
-                  const parts = doc.name.split('/');
-                  slug = parts[parts.length - 1];
-                }
-                if (slug) {
-                  xml += `  <url>\n`;
-                  xml += `    <loc>${host}/blog/${slug}</loc>\n`;
-                  xml += `    <changefreq>weekly</changefreq>\n`;
-                  xml += `    <priority>0.7</priority>\n`;
-                  xml += `  </url>\n`;
-                }
-              }
-            });
+        const documents = await fetchBlogsFromFirestoreREST();
+        documents.forEach((doc: any) => {
+          const fields = doc.fields || {};
+          // Only include published blogs
+          const isPublished = fields.isPublished?.booleanValue ?? false;
+          if (isPublished) {
+            let slug = fields.slug?.stringValue;
+            if (!slug) {
+              const parts = doc.name.split('/');
+              slug = parts[parts.length - 1];
+            }
+            if (slug) {
+              xml += `  <url>\n`;
+              xml += `    <loc>${host}/blog/${slug}</loc>\n`;
+              xml += `    <changefreq>weekly</changefreq>\n`;
+              xml += `    <priority>0.7</priority>\n`;
+              xml += `  </url>\n`;
+            }
           }
-        }
+        });
       } catch (blogErr) {
         console.error('Failed to append blogs to dynamic sitemap:', blogErr);
       }
@@ -472,33 +492,27 @@ Return valid JSON structure matching the schema.
 
       const blogUrls: { url: string; type: string; priority: string; title: string }[] = [];
       try {
-        const firestoreUrl = 'https://firestore.googleapis.com/v1/projects/gen-lang-client-0416530773/databases/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/documents/blogs';
-        const response = await fetch(firestoreUrl);
-        if (response.ok) {
-          const data = await response.json();
-          if (data && data.documents) {
-            data.documents.forEach((doc: any) => {
-              const fields = doc.fields || {};
-              const isPublished = fields.isPublished?.booleanValue ?? false;
-              if (isPublished) {
-                let slug = fields.slug?.stringValue;
-                if (!slug) {
-                  const parts = doc.name.split('/');
-                  slug = parts[parts.length - 1];
-                }
-                const title = fields.title?.stringValue || slug;
-                if (slug) {
-                  blogUrls.push({
-                    url: `${host}/blog/${slug}`,
-                    type: 'Blog Post',
-                    priority: '0.7',
-                    title
-                  });
-                }
-              }
-            });
+        const documents = await fetchBlogsFromFirestoreREST();
+        documents.forEach((doc: any) => {
+          const fields = doc.fields || {};
+          const isPublished = fields.isPublished?.booleanValue ?? false;
+          if (isPublished) {
+            let slug = fields.slug?.stringValue;
+            if (!slug) {
+              const parts = doc.name.split('/');
+              slug = parts[parts.length - 1];
+            }
+            const title = fields.title?.stringValue || slug;
+            if (slug) {
+              blogUrls.push({
+                url: `${host}/blog/${slug}`,
+                type: 'Blog Post',
+                priority: '0.7',
+                title
+              });
+            }
           }
-        }
+        });
       } catch (blogErr) {
         console.error('Failed to fetch blog urls for SEO API:', blogErr);
       }

@@ -336,18 +336,11 @@ export default function BlogDetail() {
             customAutomationSuggestion: data.customAutomationSuggestion || ''
           });
         } else {
-          // Check fallbacks
-          const localBlog = FALLBACK_BLOGS.find(b => b.slug === slug);
-          if (localBlog) {
-            setBlog(localBlog);
-          } else {
-            setBlog(null);
-          }
+          setBlog(null);
         }
       } catch (error) {
-        console.warn('Error fetching blog details from Firestore, finding from local fallbacks:', error);
-        const localBlog = FALLBACK_BLOGS.find(b => b.slug === slug);
-        setBlog(localBlog || null);
+        console.error('Error fetching blog details from Firestore:', error);
+        setBlog(null);
       } finally {
         setLoading(false);
       }
