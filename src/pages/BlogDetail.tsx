@@ -29,6 +29,10 @@ export default function BlogDetail() {
   const [copied, setCopied] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
 
+  // Recommended Blogs States
+  const [recommendedBlogs, setRecommendedBlogs] = useState<BlogPost[]>([]);
+  const [recLoading, setRecLoading] = useState(false);
+
   // Comments and replies system state
   const { user, login, isAdmin } = useUser();
   const [comments, setComments] = useState<BlogComment[]>([]);
@@ -348,6 +352,53 @@ export default function BlogDetail() {
 
     fetchBlogDetail();
   }, [slug]);
+
+  // Fetch Recommended Blogs
+  useEffect(() => {
+    async function fetchRecommended() {
+      if (!blog) return;
+      setRecLoading(true);
+      try {
+        const blogsRef = collection(db, 'blogs');
+        // Fetch up to 4 published blogs to find 3 that are not the current one
+        const q = query(
+          blogsRef,
+          where('isPublished', '==', true),
+          limit(4)
+        );
+        const snapshot = await getDocs(q);
+        const loaded: BlogPost[] = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.slug !== blog.slug) {
+            loaded.push({
+              id: doc.id,
+              title: data.title || '',
+              slug: data.slug || doc.id,
+              summary: data.summary || '',
+              content: data.content || '',
+              category: data.category || 'General',
+              image: data.image,
+              tags: data.tags || [],
+              createdAt: data.createdAt ? (typeof data.createdAt.toDate === 'function' ? data.createdAt.toDate().toISOString() : data.createdAt) : new Date().toISOString(),
+              readTime: data.readTime || '3 min read',
+              isPublished: data.isPublished,
+              primaryMatchedProductId: data.primaryMatchedProductId || '',
+              relatedProductIds: data.relatedProductIds || [],
+              customAutomationSuggestion: data.customAutomationSuggestion || ''
+            });
+          }
+        });
+        setRecommendedBlogs(loaded.slice(0, 3));
+      } catch (error) {
+        console.error('Error fetching recommended blogs:', error);
+      } finally {
+        setRecLoading(false);
+      }
+    }
+
+    fetchRecommended();
+  }, [blog?.id, blog?.slug]);
 
   // Track Reading Progress
   useEffect(() => {
@@ -693,6 +744,75 @@ export default function BlogDetail() {
               </div>
             )}
           </article>
+
+          {/* Recommended Blog Posts Section */}
+          {recommendedBlogs.length > 0 && (
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400">
+                  <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-wider">
+                    Recommended Blog Posts
+                  </h3>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Expand your knowledge with our top automation articles</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {recommendedBlogs.map((recBlog) => (
+                  <Link 
+                    key={recBlog.id}
+                    to={`/blog/${recBlog.slug}`}
+                    className="group flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                  >
+                    {/* Featured Image */}
+                    <div className="aspect-[16/9] bg-slate-100 dark:bg-slate-950 overflow-hidden relative">
+                      {recBlog.image ? (
+                        <img 
+                          src={recBlog.image} 
+                          alt={recBlog.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-indigo-50 dark:bg-indigo-950/20 text-indigo-500 font-extrabold text-xs">
+                          {recBlog.category}
+                        </div>
+                      )}
+                      <span className="absolute top-3 left-3 px-2 py-0.5 bg-indigo-600 text-white rounded-lg text-[9px] font-black uppercase tracking-wider">
+                        {recBlog.category}
+                      </span>
+                    </div>
+
+                    {/* Meta & Title */}
+                    <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                      <div className="space-y-1.5">
+                        <div className="flex items-center gap-2 text-[10px] text-slate-400 dark:text-slate-500 font-bold">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {formatDate(recBlog.createdAt)}
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {recBlog.readTime}
+                          </span>
+                        </div>
+                        <h4 className="font-extrabold text-slate-900 dark:text-white text-sm leading-snug group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+                          {recBlog.title}
+                        </h4>
+                      </div>
+                      <span className="text-[11px] font-black text-indigo-600 dark:text-indigo-400 flex items-center gap-0.5 mt-auto group-hover:translate-x-1 transition-transform">
+                        Read Guide →
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Comments and Engagement Hub card */}
           <div className="bg-white dark:bg-slate-900 p-6 sm:p-10 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm space-y-8">

@@ -720,6 +720,114 @@ Return valid JSON structure matching this schema:
     }
   });
 
+  // Intercept blog routes to dynamically inject SEO Meta tags for social media preview indexers
+  app.get('/blog/:slug', async (req, res, next) => {
+    try {
+      const requestedSlug = req.params.slug;
+      if (!requestedSlug) {
+        return next();
+      }
+
+      // Fetch the blogs list from Firestore REST API
+      const documents = await fetchBlogsFromFirestoreREST();
+      let matchedDoc: any = null;
+
+      for (const doc of documents) {
+        const fields = doc.fields || {};
+        let slug = fields.slug?.stringValue;
+        if (!slug) {
+          const parts = doc.name.split('/');
+          slug = parts[parts.length - 1];
+        }
+        if (slug === requestedSlug) {
+          matchedDoc = doc;
+          break;
+        }
+      }
+
+      if (!matchedDoc) {
+        return next();
+      }
+
+      const fields = matchedDoc.fields || {};
+      const title = fields.title?.stringValue || 'Expert Automation Insights';
+      const summary = fields.summary?.stringValue || 'Expert Google Sheets & Google Apps Script automations for Indian SMBs.';
+      const category = fields.category?.stringValue || 'General';
+      const featuredImage = fields.image?.stringValue || 'https://blogger.googleusercontent.com/img/a/AVvXsEh5zZHbpxiw_k6uVI42WF3xsmx5ufKvjLCZmmNF7Wx1w3JXIFvgHSu6IQuiigrjGxnmzU99q-ZLe143TGx1uqJwdDWgBGzvwXLdcatbImKrD8TRKda9y4PnW6m_88uEs9JmwklolKLHhMnD4dFrJ3fxBXKncoDZyu4YPXgZ5vGfLE2vSbNUXEH-iHeUVbw=s16000';
+
+      const isProd = process.env.NODE_ENV === "production";
+      const htmlPath = isProd 
+        ? path.join(process.cwd(), 'dist', 'index.html')
+        : path.join(process.cwd(), 'index.html');
+
+      if (!fs.existsSync(htmlPath)) {
+        return next();
+      }
+
+      let html = fs.readFileSync(htmlPath, 'utf-8');
+
+      // Resolve development Vite compilation wrapper
+      if (!isProd && vite) {
+        html = await vite.transformIndexHtml(req.originalUrl, html);
+      }
+
+      const host = req.headers.host || 'surajdx.com';
+      const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+      const origin = `${protocol}://${host}`;
+      
+      const absoluteImgUrl = featuredImage.startsWith('http') 
+        ? featuredImage 
+        : `${origin}${featuredImage}`;
+      const absoluteBlogUrl = `${origin}/blog/${requestedSlug}`;
+
+      const titleStr = `${title} | Suraj Automation Blog`;
+      const descriptionStr = summary;
+      const keywordsStr = `${category}, google sheets automation, google apps script, workflows, business automation`;
+
+      // Open Graph structure for WhatsApp, LinkedIn, Facebook, Discord, Slack
+      const seoMetaTags = `
+    <!-- Dynamic Social Media SEO Injection -->
+    <title>${titleStr}</title>
+    <meta name="description" content="${descriptionStr}" />
+    <meta name="keywords" content="${keywordsStr}" />
+    
+    <meta property="og:title" content="${titleStr}" />
+    <meta property="og:description" content="${descriptionStr}" />
+    <meta property="og:image" content="${absoluteImgUrl}" />
+    <meta property="og:image:secure_url" content="${absoluteImgUrl}" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="${absoluteBlogUrl}" />
+    <meta property="og:site_name" content="Suraj Automation" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${titleStr}" />
+    <meta name="twitter:description" content="${descriptionStr}" />
+    <meta name="twitter:image" content="${absoluteImgUrl}" />
+      `;
+
+      // Clean existing tags to prevent dual title/descriptions
+      html = html.replace(/<title>[\s\S]*?<\/title>/i, '');
+      html = html.replace(/<meta\s+name="description"[\s\S]*?\/>/i, '');
+      html = html.replace(/<meta\s+name="keywords"[\s\S]*?\/>/i, '');
+
+      // Inject clean SEO tags at top of <head> block
+      if (html.includes('<head>')) {
+        html = html.replace('<head>', `<head>\n${seoMetaTags}`);
+      } else {
+        html = html.replace('</head>', `${seoMetaTags}\n</head>`);
+      }
+
+      res.setHeader('Content-Type', 'text/html');
+      res.send(html);
+    } catch (err) {
+      console.error(`Error servicing dynamic blog SEO for ${req.params.slug}:`, err);
+      next();
+    }
+  });
+
   // Intercept product routes to dynamically inject SEO Meta tags for social media preview indexers
   app.get('/products/:id', async (req, res, next) => {
     try {
