@@ -1,6 +1,26 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function() {
+        try {
+          var originalFetch = window.fetch;
+          var currentFetch = originalFetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return currentFetch;
+            },
+            set: function(value) {
+              currentFetch = value;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          console.warn('Failed to define fetch setter:', e);
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Suraj Automation is Noida's premier AI automation company specializing in custom automation, interactive MIS dashboards, advanced apps script triggers, and AI automation software. We provide low-cost custom web apps and Google Sheets transitions for SMBs." />

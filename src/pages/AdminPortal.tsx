@@ -5,7 +5,7 @@ import {
   Plus, Settings, Trash2, Edit3, Clipboard, FileText, 
   Code2, Sparkles, Check, AlertCircle, X, ArrowLeft, ArrowUpRight,
   Eye, Phone, Mail, FolderHeart, Calendar, Search, MessageSquare, Download,
-  BookOpen
+  BookOpen, Globe
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PRODUCT_SOLUTIONS, calculateDiscount } from '../data/productSolutions';
@@ -18,7 +18,45 @@ export default function AdminPortal() {
   useSEO('Admin Workspace | Suraj Automation', 'Manage custom products, code bases, and installation manuals.');
 
   // Workspace subtab selection
-  const [adminTab, setAdminTab] = useState<'catalog' | 'quotations' | 'blogs'>('catalog');
+  const [adminTab, setAdminTab] = useState<'catalog' | 'quotations' | 'blogs' | 'seo'>('catalog');
+
+  // SEO & Search Console Tab states
+  const [seoUrls, setSeoUrls] = useState<{
+    baseUrls: { url: string; type: string; priority: string }[];
+    specialOffers: { url: string; type: string; priority: string }[];
+    productUrls: { url: string; type: string; priority: string; name: string }[];
+    blogUrls: { url: string; type: string; priority: string; title: string }[];
+  } | null>(null);
+  const [seoLoading, setSeoLoading] = useState(false);
+  const [seoError, setSeoError] = useState<string | null>(null);
+  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+  const [seoSearchQuery, setSeoSearchQuery] = useState('');
+  const [activeSeoTypeFilter, setActiveSeoTypeFilter] = useState<'all' | 'base' | 'offers' | 'products' | 'blogs'>('all');
+
+  const fetchSeoUrls = async () => {
+    try {
+      setSeoLoading(true);
+      setSeoError(null);
+      const res = await fetch('/api/seo/urls');
+      if (res.ok) {
+        const data = await res.json();
+        setSeoUrls(data);
+      } else {
+        setSeoError('Failed to fetch SEO URLs list.');
+      }
+    } catch (err) {
+      console.error('Error in fetchSeoUrls:', err);
+      setSeoError('Failed to connect to backend SEO API.');
+    } finally {
+      setSeoLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (adminTab === 'seo') {
+      fetchSeoUrls();
+    }
+  }, [adminTab]);
 
   // BlogPost States
   const [blogsList, setBlogsList] = useState<any[]>([]);
@@ -603,6 +641,20 @@ export default function AdminPortal() {
             <BookOpen className="w-4 h-4" />
             Blog Publisher
             {adminTab === 'blogs' && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 rounded-full" />
+            )}
+          </button>
+          <button
+            onClick={() => setAdminTab('seo')}
+            className={`pb-4 px-2 font-bold text-sm md:text-base transition-all relative flex items-center gap-2 shrink-0 ${
+              adminTab === 'seo'
+                ? 'text-indigo-600 dark:text-indigo-400'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
+            }`}
+          >
+            <Globe className="w-4 h-4" />
+            Google Indexing & SEO
+            {adminTab === 'seo' && (
               <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 rounded-full" />
             )}
           </button>
@@ -1543,7 +1595,7 @@ export default function AdminPortal() {
 
             </div>
           </div>
-        ) : (
+        ) : adminTab === 'blogs' ? (
           /* ==================== TAB 3: BLOGS PUBLISHER ==================== */
           <div>
             {blogSuccessMsg && (
@@ -1982,6 +2034,355 @@ export default function AdminPortal() {
                   <div className="border-t border-slate-800 pt-3 flex flex-col gap-1 text-[10px] text-slate-550 font-mono">
                     <div>• Drafts remain invisible to search engines and guest accounts.</div>
                     <div>• Cover images can be sourced from high-resolution Unsplash URLs.</div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        ) : (
+          /* ==================== TAB 4: GOOGLE INDEXING & SEO TOOL ==================== */
+          <div>
+            <div className="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                  <Globe className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                  Google Indexing & SEO Dashboard
+                </h2>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                  Monitor, manage, and push your dynamically generated pages, products, and blogs directly to Google.
+                </p>
+              </div>
+              <button
+                onClick={fetchSeoUrls}
+                disabled={seoLoading}
+                className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-900 dark:hover:bg-slate-850 text-indigo-600 dark:text-indigo-400 font-bold rounded-xl text-xs flex items-center gap-2 border border-indigo-100 dark:border-slate-800 transition-all cursor-pointer disabled:opacity-50"
+              >
+                {seoLoading ? 'Refreshing...' : 'Refresh URL list'}
+              </button>
+            </div>
+
+            {seoError && (
+              <div className="mb-8 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-400 rounded-xl font-medium text-sm flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 shrink-0" /> {seoError}
+              </div>
+            )}
+
+            {/* Quick Stats Grid */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <span className="text-[10px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider">Total Sitemap URLs</span>
+                <span className="text-3xl font-black text-indigo-600 dark:text-indigo-400 block mt-1">
+                  {seoUrls ? (
+                    seoUrls.baseUrls.length +
+                    seoUrls.specialOffers.length +
+                    seoUrls.productUrls.length +
+                    seoUrls.blogUrls.length
+                  ) : '...'}
+                </span>
+              </div>
+              <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <span className="text-[10px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider">Base Pages</span>
+                <span className="text-3xl font-black text-slate-900 dark:text-white block mt-1">
+                  {seoUrls ? seoUrls.baseUrls.length : '...'}
+                </span>
+              </div>
+              <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <span className="text-[10px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider">Dynamic Products</span>
+                <span className="text-3xl font-black text-slate-900 dark:text-white block mt-1">
+                  {seoUrls ? seoUrls.productUrls.length : '...'}
+                </span>
+              </div>
+              <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <span className="text-[10px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider">Published Blogs</span>
+                <span className="text-3xl font-black text-slate-900 dark:text-white block mt-1">
+                  {seoUrls ? seoUrls.blogUrls.length : '...'}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid lg:grid-cols-12 gap-8 items-start">
+              
+              {/* Left Column: List of Sitemap URLs */}
+              <div className="lg:col-span-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-150 dark:border-slate-800 pb-4 mb-6 gap-4">
+                  <div>
+                    <h3 className="font-extrabold text-slate-900 dark:text-white text-base">Active Sitemap Pages</h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">All of these URLs are generated dynamic and live at <a href="/sitemap.xml" target="_blank" className="text-indigo-600 hover:underline">/sitemap.xml</a></p>
+                  </div>
+                  
+                  {/* Actions */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        if (!seoUrls) return;
+                        const allUrls = [
+                          ...seoUrls.baseUrls,
+                          ...seoUrls.specialOffers,
+                          ...seoUrls.productUrls,
+                          ...seoUrls.blogUrls
+                        ].map(item => item.url).join('\n');
+                        navigator.clipboard.writeText(allUrls);
+                        setCopiedUrl('all');
+                        setTimeout(() => setCopiedUrl(null), 2000);
+                      }}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 font-bold rounded-lg text-xs flex items-center gap-1 transition-all cursor-pointer"
+                    >
+                      {copiedUrl === 'all' ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-600" /> Copied list!
+                        </>
+                      ) : (
+                        <>
+                          <Clipboard className="w-3.5 h-3.5" /> Copy all URLs
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (!seoUrls) return;
+                        const allUrls = [
+                          ...seoUrls.baseUrls,
+                          ...seoUrls.specialOffers,
+                          ...seoUrls.productUrls,
+                          ...seoUrls.blogUrls
+                        ].map(item => item.url).join('\n');
+                        const blob = new Blob([allUrls], { type: 'text/plain' });
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = 'sitemap-urls.txt';
+                        link.click();
+                      }}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 font-bold rounded-lg text-xs flex items-center gap-1 transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" /> Download TXT
+                    </button>
+                  </div>
+                </div>
+
+                {/* Filter & Search */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-6 justify-between">
+                  {/* Tabs */}
+                  <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl gap-1 overflow-x-auto scrollbar-none self-start">
+                    {(['all', 'base', 'offers', 'products', 'blogs'] as const).map(filter => (
+                      <button
+                        key={filter}
+                        onClick={() => setActiveSeoTypeFilter(filter)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all capitalize shrink-0 cursor-pointer ${
+                          activeSeoTypeFilter === filter
+                            ? 'bg-white dark:bg-slate-900 text-indigo-650 dark:text-indigo-400 shadow-sm'
+                            : 'text-slate-550 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                        }`}
+                      >
+                        {filter}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Search Bar */}
+                  <div className="relative max-w-xs w-full">
+                    <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-2.5" />
+                    <input
+                      type="text"
+                      placeholder="Search URLs..."
+                      value={seoSearchQuery}
+                      onChange={e => setSeoSearchQuery(e.target.value)}
+                      className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                {/* URL List Table */}
+                <div className="border border-slate-150 dark:border-slate-850 rounded-2xl overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-slate-50 dark:bg-slate-900 border-b border-slate-150 dark:border-slate-850 text-[10px] uppercase font-black text-slate-500 tracking-wider">
+                          <th className="py-3 px-4">Type</th>
+                          <th className="py-3 px-4">Page / Resource Name</th>
+                          <th className="py-3 px-4">Dynamic URL</th>
+                          <th className="py-3 px-4 text-center">Priority</th>
+                          <th className="py-3 px-4 text-right">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-150 dark:divide-slate-850 text-xs">
+                        {seoLoading ? (
+                          <tr>
+                            <td colSpan={5} className="py-12 text-center text-slate-400 font-mono">
+                              Fetching dynamic live sitemap components...
+                            </td>
+                          </tr>
+                        ) : !seoUrls ? (
+                          <tr>
+                            <td colSpan={5} className="py-12 text-center text-slate-400 font-mono">
+                              No SEO metrics loaded. Click Refresh to query database.
+                            </td>
+                          </tr>
+                        ) : (() => {
+                          const allItems: { url: string; type: string; priority: string; name: string }[] = [];
+                          
+                          if (activeSeoTypeFilter === 'all' || activeSeoTypeFilter === 'base') {
+                            seoUrls.baseUrls.forEach(item => {
+                              allItems.push({
+                                url: item.url,
+                                type: 'Base Page',
+                                priority: item.priority,
+                                name: item.url.split('/').pop() || 'Homepage'
+                              });
+                            });
+                          }
+                          if (activeSeoTypeFilter === 'all' || activeSeoTypeFilter === 'offers') {
+                            seoUrls.specialOffers.forEach(item => {
+                              allItems.push({
+                                url: item.url,
+                                type: 'Special Offer',
+                                priority: item.priority,
+                                name: item.url.split('/').pop()?.replace(/-/g, ' ') || 'Special Offer'
+                              });
+                            });
+                          }
+                          if (activeSeoTypeFilter === 'all' || activeSeoTypeFilter === 'products') {
+                            seoUrls.productUrls.forEach(item => {
+                              allItems.push({
+                                url: item.url,
+                                type: 'Product',
+                                priority: item.priority,
+                                name: item.name
+                              });
+                            });
+                          }
+                          if (activeSeoTypeFilter === 'all' || activeSeoTypeFilter === 'blogs') {
+                            seoUrls.blogUrls.forEach(item => {
+                              allItems.push({
+                                url: item.url,
+                                type: 'Blog Post',
+                                priority: item.priority,
+                                name: item.title
+                              });
+                            });
+                          }
+
+                          const filteredItems = allItems.filter(item => {
+                            const queryStr = seoSearchQuery.toLowerCase();
+                            return (
+                              item.url.toLowerCase().includes(queryStr) ||
+                              item.type.toLowerCase().includes(queryStr) ||
+                              item.name.toLowerCase().includes(queryStr)
+                            );
+                          });
+
+                          if (filteredItems.length === 0) {
+                            return (
+                              <tr>
+                                <td colSpan={5} className="py-12 text-center text-slate-400">
+                                  No URLs found matching your query.
+                                </td>
+                              </tr>
+                            );
+                          }
+
+                          return filteredItems.map((item, idx) => (
+                            <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-850/40 transition-colors">
+                              <td className="py-3.5 px-4 font-bold">
+                                <span className={`px-2 py-0.5 rounded-full text-[9px] uppercase font-black ${
+                                  item.type === 'Base Page' ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400' :
+                                  item.type === 'Special Offer' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400' :
+                                  item.type === 'Product' ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' :
+                                  'bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400'
+                                }`}>
+                                  {item.type}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-4 font-extrabold text-slate-900 dark:text-white capitalize truncate max-w-[150px]" title={item.name}>
+                                {item.name}
+                              </td>
+                              <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500 dark:text-slate-400 select-all truncate max-w-[200px]" title={item.url}>
+                                {item.url}
+                              </td>
+                              <td className="py-3.5 px-4 text-center font-mono text-slate-550">
+                                {item.priority}
+                              </td>
+                              <td className="py-3.5 px-4 text-right">
+                                <button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(item.url);
+                                    setCopiedUrl(item.url);
+                                    setTimeout(() => setCopiedUrl(null), 1500);
+                                  }}
+                                  className="p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all cursor-pointer"
+                                  title="Copy single URL"
+                                >
+                                  {copiedUrl === item.url ? (
+                                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                                  ) : (
+                                    <Clipboard className="w-4 h-4 shrink-0" />
+                                  )}
+                                </button>
+                              </td>
+                            </tr>
+                          ));
+                        })()}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Dynamic Guides and instructions */}
+              <div className="lg:col-span-4 flex flex-col gap-6">
+                
+                {/* Search Console Actions */}
+                <div className="bg-slate-900 dark:bg-slate-950 p-6 rounded-3xl text-slate-300 border border-slate-800 animate-fade-in">
+                  <h4 className="font-extrabold text-white text-xs mb-3 uppercase tracking-wider font-mono flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-amber-500" />
+                    Quick Actions
+                  </h4>
+                  <p className="text-slate-350 text-xs leading-relaxed mb-4">
+                    Submit sitemap dynamically and monitor index status in Search Console instantly.
+                  </p>
+                  
+                  <div className="flex flex-col gap-3">
+                    <a
+                      href="https://search.google.com/search-console/sitemaps?resource_id=https://surajdx.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex justify-center items-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-xs shadow-md transition-all cursor-pointer"
+                    >
+                      Open Google Search Console <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                    
+                    <a
+                      href="https://surajdx.com/sitemap.xml"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex justify-center items-center gap-2 py-3 bg-slate-800 hover:bg-slate-750 text-white rounded-xl font-bold text-xs border border-slate-700 transition-all cursor-pointer"
+                    >
+                      Preview Sitemap XML <Eye className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Automation setup guide */}
+                <div className="bg-indigo-50/60 dark:bg-slate-900 p-6 rounded-3xl border border-indigo-100 dark:border-slate-800 text-slate-650 dark:text-slate-300">
+                  <h4 className="font-black text-slate-900 dark:text-white text-xs uppercase tracking-widest font-mono mb-3">Google Indexing Blueprint</h4>
+                  <p className="text-xs leading-relaxed mb-4">
+                    Suraj bhaiya, sitemap update karne pe pages automatic index hone ke 2 tarike hain. Aapka custom sitemap humne complete dynamic kar diya hai:
+                  </p>
+                  
+                  <div className="space-y-4 text-xs">
+                    <div className="border-l-2 border-indigo-500 pl-3">
+                      <strong className="block text-slate-900 dark:text-white mb-1 font-bold">1. GSC Automatic Crawling (Highly Recommended)</strong>
+                      <p className="text-slate-500 dark:text-slate-400">
+                        Aap Google Search Console me jaakar sitemap section me <code className="bg-slate-200 dark:bg-slate-850 px-1 py-0.5 rounded text-[10px] font-mono">sitemap.xml</code> submit kar dejiye. Iske baad, jab bhi aap naya Product add karenge ya Blog likhenge, Google search engines use automatically schedule karke fetch kar lenge.
+                      </p>
+                    </div>
+                    <div className="border-l-2 border-indigo-500 pl-3">
+                      <strong className="block text-slate-900 dark:text-white mb-1 font-bold">2. Google Indexing API (Sub-minute Submission)</strong>
+                      <p className="text-slate-500 dark:text-slate-400">
+                        Agar aap instantly (kuch hi minutes me) URL add karwana chahte hain, toh aap Google Cloud Platform me free service account banakar use Google Indexing API permissions de sakte hain.
+                      </p>
+                    </div>
                   </div>
                 </div>
 

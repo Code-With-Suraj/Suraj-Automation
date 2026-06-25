@@ -324,7 +324,7 @@ Return valid JSON structure matching the schema.
   let vite: any = null;
 
   // Dynamic XML Sitemap Generation for automated SEO tracking
-  app.get('/sitemap.xml', (req, res) => {
+  app.get('/sitemap.xml', async (req, res) => {
     try {
       const host = 'https://surajdx.com';
       
@@ -339,7 +339,16 @@ Return valid JSON structure matching the schema.
         { loc: '/portal', changefreq: 'monthly', priority: '0.7' },
         { loc: '/roi-tool', changefreq: 'monthly', priority: '0.8' },
         { loc: '/terms', changefreq: 'monthly', priority: '0.5' },
-        { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.5' }
+        { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.5' },
+        { loc: '/offers', changefreq: 'weekly', priority: '0.9' },
+        { loc: '/blog', changefreq: 'weekly', priority: '0.9' }
+      ];
+
+      const specialOffers = [
+        '/offers/google-sheets-automation',
+        '/offers/custom-excel-dashboard-mis',
+        '/offers/google-apps-script-automation',
+        '/offers/custom-web-app'
       ];
 
       let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
@@ -354,7 +363,16 @@ Return valid JSON structure matching the schema.
         xml += `  </url>\n`;
       });
 
-      // 2. Dynamic products appending from data solutions mapping automatically
+      // 2. Special Custom Offers
+      specialOffers.forEach(pathStr => {
+        xml += `  <url>\n`;
+        xml += `    <loc>${host}${pathStr}</loc>\n`;
+        xml += `    <changefreq>weekly</changefreq>\n`;
+        xml += `    <priority>0.85</priority>\n`;
+        xml += `  </url>\n`;
+      });
+
+      // 3. Dynamic products appending from data solutions mapping automatically
       if (typeof PRODUCT_SOLUTIONS === 'object' && PRODUCT_SOLUTIONS !== null) {
         Object.keys(PRODUCT_SOLUTIONS).forEach(key => {
           const product = PRODUCT_SOLUTIONS[key];
@@ -368,6 +386,38 @@ Return valid JSON structure matching the schema.
         });
       }
 
+      // 4. Dynamic blogs from Firestore
+      try {
+        const firestoreUrl = 'https://firestore.googleapis.com/v1/projects/gen-lang-client-0416530773/databases/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/documents/blogs';
+        const response = await fetch(firestoreUrl);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.documents) {
+            data.documents.forEach((doc: any) => {
+              const fields = doc.fields || {};
+              // Only include published blogs
+              const isPublished = fields.isPublished?.booleanValue ?? false;
+              if (isPublished) {
+                let slug = fields.slug?.stringValue;
+                if (!slug) {
+                  const parts = doc.name.split('/');
+                  slug = parts[parts.length - 1];
+                }
+                if (slug) {
+                  xml += `  <url>\n`;
+                  xml += `    <loc>${host}/blog/${slug}</loc>\n`;
+                  xml += `    <changefreq>weekly</changefreq>\n`;
+                  xml += `    <priority>0.7</priority>\n`;
+                  xml += `  </url>\n`;
+                }
+              }
+            });
+          }
+        }
+      } catch (blogErr) {
+        console.error('Failed to append blogs to dynamic sitemap:', blogErr);
+      }
+
       xml += `</urlset>\n`;
 
       res.header('Content-Type', 'application/xml');
@@ -375,6 +425,93 @@ Return valid JSON structure matching the schema.
     } catch (e) {
       console.error('Error generating sitemap dynamically:', e);
       res.status(500).send('Error generating sitemap');
+    }
+  });
+
+  // API: Get sitemap tracked URLs list dynamically for the Search Console tab
+  app.get('/api/seo/urls', async (req, res) => {
+    try {
+      const host = 'https://surajdx.com';
+      const baseUrls = [
+        { url: `${host}`, type: 'Base Page', priority: '1.0' },
+        { url: `${host}/about`, type: 'Base Page', priority: '0.8' },
+        { url: `${host}/services`, type: 'Base Page', priority: '0.9' },
+        { url: `${host}/contact`, type: 'Base Page', priority: '0.8' },
+        { url: `${host}/pricing`, type: 'Base Page', priority: '0.9' },
+        { url: `${host}/products`, type: 'Base Page', priority: '0.9' },
+        { url: `${host}/reviews`, type: 'Base Page', priority: '0.8' },
+        { url: `${host}/portal`, type: 'Base Page', priority: '0.7' },
+        { url: `${host}/roi-tool`, type: 'Base Page', priority: '0.8' },
+        { url: `${host}/terms`, type: 'Base Page', priority: '0.5' },
+        { url: `${host}/privacy-policy`, type: 'Base Page', priority: '0.5' },
+        { url: `${host}/offers`, type: 'Base Page', priority: '0.9' },
+        { url: `${host}/blog`, type: 'Base Page', priority: '0.9' }
+      ];
+
+      const specialOffers = [
+        { url: `${host}/offers/google-sheets-automation`, type: 'Special Offer', priority: '0.85' },
+        { url: `${host}/offers/custom-excel-dashboard-mis`, type: 'Special Offer', priority: '0.85' },
+        { url: `${host}/offers/google-apps-script-automation`, type: 'Special Offer', priority: '0.85' },
+        { url: `${host}/offers/custom-web-app`, type: 'Special Offer', priority: '0.85' }
+      ];
+
+      const productUrls: { url: string; type: string; priority: string; name: string }[] = [];
+      if (typeof PRODUCT_SOLUTIONS === 'object' && PRODUCT_SOLUTIONS !== null) {
+        Object.keys(PRODUCT_SOLUTIONS).forEach(key => {
+          const product = PRODUCT_SOLUTIONS[key];
+          if (product && !product.isHidden) {
+            productUrls.push({
+              url: `${host}/products/${product.id}`,
+              type: 'Product',
+              priority: '0.8',
+              name: product.name
+            });
+          }
+        });
+      }
+
+      const blogUrls: { url: string; type: string; priority: string; title: string }[] = [];
+      try {
+        const firestoreUrl = 'https://firestore.googleapis.com/v1/projects/gen-lang-client-0416530773/databases/ai-studio-25303fb0-aad1-4c73-af34-6545155928d8/documents/blogs';
+        const response = await fetch(firestoreUrl);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.documents) {
+            data.documents.forEach((doc: any) => {
+              const fields = doc.fields || {};
+              const isPublished = fields.isPublished?.booleanValue ?? false;
+              if (isPublished) {
+                let slug = fields.slug?.stringValue;
+                if (!slug) {
+                  const parts = doc.name.split('/');
+                  slug = parts[parts.length - 1];
+                }
+                const title = fields.title?.stringValue || slug;
+                if (slug) {
+                  blogUrls.push({
+                    url: `${host}/blog/${slug}`,
+                    type: 'Blog Post',
+                    priority: '0.7',
+                    title
+                  });
+                }
+              }
+            });
+          }
+        }
+      } catch (blogErr) {
+        console.error('Failed to fetch blog urls for SEO API:', blogErr);
+      }
+
+      res.json({
+        baseUrls,
+        specialOffers,
+        productUrls,
+        blogUrls
+      });
+    } catch (e) {
+      console.error('Error fetching SEO URLs list:', e);
+      res.status(500).json({ error: 'Failed to fetch sitemap URLs list' });
     }
   });
 
