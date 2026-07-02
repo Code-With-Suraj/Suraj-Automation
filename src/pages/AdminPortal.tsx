@@ -158,6 +158,18 @@ export default function AdminPortal() {
   const [blogRelatedProductIds, setBlogRelatedProductIds] = useState<string[]>([]);
   const [blogCustomAutomationSuggestion, setBlogCustomAutomationSuggestion] = useState('');
   const [isEnriching, setIsEnriching] = useState(false);
+  const [isSummarizing, setIsSummarizing] = useState(false);
+
+  // Automatically update Read Time when blogContent changes
+  useEffect(() => {
+    if (!blogContent.trim()) {
+      setBlogReadTime('1 min read');
+      return;
+    }
+    const wordsCount = blogContent.trim().split(/\s+/).filter(Boolean).length;
+    const computedMinutes = Math.max(1, Math.ceil(wordsCount / 200));
+    setBlogReadTime(`${computedMinutes} min read`);
+  }, [blogContent]);
 
   // Quotation States
   const [quotations, setQuotations] = useState<any[]>([]);
@@ -443,14 +455,77 @@ export default function AdminPortal() {
       customAutomationSuggestion += `📞 Niche "Request Custom Demo" click karke direct discuss karein, standard cost se full 50% ki bachat hogi!`;
     }
 
+    // Catchy Hinglish fallback summaries
+    let briefSummary = '';
+    if (primaryMatchedProductId) {
+      const prodName = PRODUCT_SOLUTIONS[primaryMatchedProductId]?.name || primaryMatchedProductId;
+      briefSummary = `🚀 Apne business operations ko manual registers se cloud sheets par shift karein! Is detailed guide mein sikhein kaise ${prodName} setup aapke system workflows ko automate karke daily 2+ ghante bacha sakta hai. Aaj hi automatic WhatsApp alerts aur Google Sheets ka power check karein! 📊🔥`;
+    } else {
+      briefSummary = `💡 Kya aapka business manually maintain ho raha hai? Sheets aur Apps Script ke automatic triggers ke sath pure automation setup ko chalu karein aur errors ko 100% khatam karein! Padhein poori guide aur sikhein professional auto-delivery system setup karna. 🚀📦`;
+    }
+
     return {
       success: true,
       isAIPowered: false,
       enrichedContent,
       primaryMatchedProductId,
       relatedProductIds: finalRelated,
-      customAutomationSuggestion
+      customAutomationSuggestion,
+      briefSummary
     };
+  };
+
+  const handleGenerateSummary = async () => {
+    if (!blogTitle.trim() || !blogContent.trim()) {
+      setBlogErrorMsg('Please fill in Article Title and Article Content before generating a summary.');
+      return;
+    }
+    setIsSummarizing(true);
+    setBlogErrorMsg('');
+    setBlogSuccessMsg('');
+    try {
+      const res = await fetch('/api/gemini/summarize-blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: blogTitle.trim(),
+          content: blogContent.trim()
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.briefSummary) {
+          setBlogSummary(data.briefSummary);
+          setBlogSuccessMsg(data.isAIPowered 
+            ? '✨ Catchy Hinglish summary generated successfully using Gemini AI!'
+            : '⚠️ Summary generated using fallback pattern (no Gemini key configured).'
+          );
+          setTimeout(() => setBlogSuccessMsg(''), 6000);
+        } else {
+          setBlogErrorMsg(data.error || 'Failed to generate summary.');
+        }
+      } else {
+        const norm = `${blogTitle} ${blogContent}`.toLowerCase();
+        let briefSummaryFallback = '';
+        if (norm.includes('billsarthi') || norm.includes('billing') || norm.includes('invoice')) {
+          briefSummaryFallback = `🧾 Manual billing se pareshan hain? BillSarthi system setup karke ek single click mein automatic invoices generate karein aur data leaks ko 100% rokein! Padhein complete professional workflow guide aur apna dhanda digitalize karein! 🚀📈`;
+        } else {
+          briefSummaryFallback = `🚀 Apne business operations ko manual processes se cloud sheets par shift karein! Is detailed step-by-step guide se automatic triggers aur simple setups seekhein aur dhanda automate karke daily hours bachaayein! 🔥📊`;
+        }
+        setBlogSummary(briefSummaryFallback);
+        setBlogSuccessMsg('⚠️ Summary generated using client-side fallback pattern.');
+        setTimeout(() => setBlogSuccessMsg(''), 6000);
+      }
+    } catch (err) {
+      console.warn('Failed to call summarizer endpoint, using client fallback:', err);
+      const norm = `${blogTitle} ${blogContent}`.toLowerCase();
+      let briefSummaryFallback = `🚀 Apne business operations ko manual processes se cloud sheets par shift karein! Is detailed step-by-step guide se automatic triggers aur simple setups seekhein aur dhanda automate karke daily hours bachaayein! 🔥📊`;
+      setBlogSummary(briefSummaryFallback);
+      setBlogSuccessMsg('⚠️ Summary generated using client-side fallback pattern.');
+      setTimeout(() => setBlogSuccessMsg(''), 6000);
+    } finally {
+      setIsSummarizing(false);
+    }
   };
 
   const handleEnrichBlog = async () => {
@@ -478,8 +553,11 @@ export default function AdminPortal() {
           setBlogPrimaryMatchedProductId(data.primaryMatchedProductId || '');
           setBlogRelatedProductIds(data.relatedProductIds || []);
           setBlogCustomAutomationSuggestion(data.customAutomationSuggestion || '');
+          if (data.briefSummary) {
+            setBlogSummary(data.briefSummary);
+          }
           setBlogSuccessMsg(data.isAIPowered 
-            ? '✨ Gemini AI successfully analyzed, linked relevant products, and generated custom code recommendations!'
+            ? '✨ Gemini AI successfully analyzed, linked relevant products, generated code, and updated your Hinglish summary!'
             : '⚠️ Enriched using high-precision fallback matches (no Gemini key configured).'
           );
           setTimeout(() => setBlogSuccessMsg(''), 6000);
@@ -493,7 +571,8 @@ export default function AdminPortal() {
         setBlogPrimaryMatchedProductId(clientData.primaryMatchedProductId);
         setBlogRelatedProductIds(clientData.relatedProductIds);
         setBlogCustomAutomationSuggestion(clientData.customAutomationSuggestion);
-        setBlogSuccessMsg('⚠️ Enriched using client-side high-precision matches (fallback mode).');
+        setBlogSummary(clientData.briefSummary);
+        setBlogSuccessMsg('⚠️ Enriched and summarized using client-side high-precision matches (fallback mode).');
         setTimeout(() => setBlogSuccessMsg(''), 6000);
       }
     } catch (err: any) {
@@ -504,7 +583,8 @@ export default function AdminPortal() {
         setBlogPrimaryMatchedProductId(clientData.primaryMatchedProductId);
         setBlogRelatedProductIds(clientData.relatedProductIds);
         setBlogCustomAutomationSuggestion(clientData.customAutomationSuggestion);
-        setBlogSuccessMsg('⚠️ Enriched using client-side high-precision matches (fallback mode).');
+        setBlogSummary(clientData.briefSummary);
+        setBlogSuccessMsg('⚠️ Enriched and summarized using client-side high-precision matches (fallback mode).');
         setTimeout(() => setBlogSuccessMsg(''), 6000);
       } catch (fallbackErr: any) {
         console.error('Error during client-side fallback enrichment:', fallbackErr);
@@ -1886,7 +1966,27 @@ export default function AdminPortal() {
 
                   {/* Summary Textarea */}
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-2">Brief Summary * (Visible on cards)</label>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-450 dark:text-slate-500">Brief Summary * (Visible on cards)</label>
+                      <button
+                        type="button"
+                        onClick={handleGenerateSummary}
+                        disabled={isSummarizing || !blogTitle.trim() || !blogContent.trim()}
+                        className="text-[11px] font-black text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 disabled:text-slate-400 flex items-center gap-1 cursor-pointer select-none bg-none border-none p-0"
+                      >
+                        {isSummarizing ? (
+                          <>
+                            <div className="w-2.5 h-2.5 border border-indigo-600 dark:border-indigo-400 border-t-transparent rounded-full animate-spin" />
+                            Summarizing...
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles className="w-3 h-3 text-amber-500 fill-amber-500/10" />
+                            Auto-generate (Hinglish)
+                          </>
+                        )}
+                      </button>
+                    </div>
                     <textarea 
                       required
                       rows={3}

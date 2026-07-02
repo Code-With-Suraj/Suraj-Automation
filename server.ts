@@ -583,13 +583,18 @@ DIRECTIONS & RULES:
    - Explain how the business owner can automate this workflow using Google Sheets + Apps Script + custom WhatsApp triggers (Suraj's speciality).
    - Write this in a helpful, supportive, and business-focused tone using a mixture of professional Hinglish & English (highly trusted by Indian SME business owners).
    - Keep the advice realistic, encouraging them to book a consulting call or buy the pre-built tool to save 50% on standard software development agency costs.
+4. EYE-CATCHY HINGLISH BRIEF SUMMARY:
+   - Generate an extremely catchy, professional, and energetic brief summary of this blog post (max 2-3 sentences).
+   - Write this in highly polished, natural Hinglish (using Latin alphabet) with an appealing tone that Indian business owners trust. E.g., "Google Sheets aur automatic Apps Script tools use karke aap apne billing leakage ko 100% control kar sakte hain! 🚀 Is article mein sikhein step-by-step automatic invoice aur WhatsApp setup kaise chalu karein. 🔥"
+   - Include relevant emojis to make it visually attractive, eye-catching, and outstanding.
 
 Return valid JSON structure matching this schema:
 {
   "enrichedContent": "The entire blog markdown content with naturally inserted markdown product links (e.g. [VendorSarthi](/products/vendorsarthi)). Ensure you return the FULL updated content.",
   "primaryMatchedProductId": "The ID of the primary matching product from the available products, or '' if none fits.",
   "relatedProductIds": ["Array of product IDs from same category or relevant to this blog"],
-  "customAutomationSuggestion": "Detailed markdown content for the custom automation suggestion box. Explain exactly how they can set up a Google Sheet and Apps Script automation for this specific usecase."
+  "customAutomationSuggestion": "Detailed markdown content for the custom automation suggestion box. Explain exactly how they can set up a Google Sheet and Apps Script automation for this specific usecase.",
+  "briefSummary": "The generated eye-catching professional Hinglish brief summary with emojis."
 }
 `;
 
@@ -617,9 +622,13 @@ Return valid JSON structure matching this schema:
                   customAutomationSuggestion: {
                     type: Type.STRING,
                     description: "Actionable Hinglish/English markdown guide about Apps Script, Google Sheets and WhatsApp triggers automation for this specific blog topic."
+                  },
+                  briefSummary: {
+                    type: Type.STRING,
+                    description: "An eye-catching, highly professional, and super engaging Hinglish summary of the blog post (maximum 2-3 sentences), with attractive emojis."
                   }
                 },
-                required: ["enrichedContent", "primaryMatchedProductId", "relatedProductIds", "customAutomationSuggestion"]
+                required: ["enrichedContent", "primaryMatchedProductId", "relatedProductIds", "customAutomationSuggestion", "briefSummary"]
               }
             }
           });
@@ -705,18 +714,123 @@ Return valid JSON structure matching this schema:
         customAutomationSuggestion += `📞 Niche "Request Custom Demo" click karke direct discuss karein, standard cost se full 50% ki bachat hogi!`;
       }
 
+      // Catchy Hinglish fallback summaries
+      let briefSummary = '';
+      if (primaryMatchedProductId) {
+        const prodName = PRODUCT_SOLUTIONS[primaryMatchedProductId]?.name || primaryMatchedProductId;
+        briefSummary = `🚀 Apne business operations ko manual registers se cloud sheets par shift karein! Is detailed guide mein sikhein kaise ${prodName} setup aapke system workflows ko automate karke daily 2+ ghante bacha sakta hai. Aaj hi automatic WhatsApp alerts aur Google Sheets ka power check karein! 📊🔥`;
+      } else {
+        briefSummary = `💡 Kya aapka business manually maintain ho raha hai? Sheets aur Apps Script ke automatic triggers ke sath pure automation setup ko chalu karein aur errors ko 100% khatam karein! Padhein poori guide aur sikhein professional auto-delivery system setup karna. 🚀📦`;
+      }
+
       res.json({
         success: true,
         isAIPowered: false,
         enrichedContent,
         primaryMatchedProductId,
         relatedProductIds: finalRelated,
-        customAutomationSuggestion
+        customAutomationSuggestion,
+        briefSummary
       });
 
     } catch (err) {
       console.error('Core blog enrichment error:', err);
       res.status(500).json({ error: 'Server error while performing blog content enrichment.' });
+    }
+  });
+
+  // API: Dedicated Blog Summarization (Hinglish & Eye-Catchy)
+  app.post('/api/gemini/summarize-blog', async (req, res) => {
+    try {
+      const { title, content } = req.body;
+      if (!title || !content) {
+        res.status(400).json({ error: 'Please provide both blog title and content.' });
+        return;
+      }
+
+      const hasApiKey = !!process.env.GEMINI_API_KEY;
+      if (hasApiKey) {
+        try {
+          const ai = new GoogleGenAI({
+            apiKey: process.env.GEMINI_API_KEY,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              }
+            }
+          });
+
+          const prompt = `
+Generate an extremely catchy, highly professional, and super engaging brief summary of this blog post.
+
+BLOG TITLE: ${title}
+BLOG CONTENT:
+${content}
+
+DIRECTIONS & RULES:
+1. Keep it to maximum 2-3 sentences.
+2. Write this in highly polished, natural, and energetic Hinglish (Latin alphabet) that Indian SMB business owners and founders find extremely relatable, readable, and professional.
+3. Highlight key benefits and use emojis to make it visually eye-catching and outstanding.
+4. Encourage learning or taking action.
+
+Return valid JSON structure matching this schema:
+{
+  "briefSummary": "The generated eye-catching professional Hinglish brief summary with emojis."
+}
+`;
+
+          const response = await ai.models.generateContent({
+            model: "gemini-3.5-flash",
+            contents: prompt,
+            config: {
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  briefSummary: {
+                    type: Type.STRING,
+                    description: "An eye-catching, highly professional, and super engaging Hinglish summary of the blog post (maximum 2-3 sentences), with attractive emojis."
+                  }
+                },
+                required: ["briefSummary"]
+              }
+            }
+          });
+
+          if (response.text) {
+            const parsed = JSON.parse(response.text.trim());
+            res.json({ success: true, isAIPowered: true, briefSummary: parsed.briefSummary });
+            return;
+          }
+        } catch (geminiErr) {
+          console.error('[Gemini Blog Summarization Error] falling back:', geminiErr);
+        }
+      }
+
+      // Rule-based catchy Hinglish fallback summaries
+      let briefSummary = '';
+      const norm = `${title} ${content}`.toLowerCase();
+      if (norm.includes('billsarthi') || norm.includes('billing') || norm.includes('invoice')) {
+        briefSummary = `🧾 Manual billing se pareshan hain? BillSarthi system setup karke ek single click mein automatic invoices generate karein aur data leaks ko 100% rokein! Padhein complete professional workflow guide aur apna dhanda digitalize karein! 🚀📈`;
+      } else if (norm.includes('karmsarthi') || norm.includes('staff') || norm.includes('attendance') || norm.includes('salary')) {
+        briefSummary = `👥 Staff attendance aur salary calculation ab hogi bekarar automatic! KarmSarthi system implement karein aur manual Excel data tracking ko chalu karein automation ke sath. Efficiency aur trust dono ko 2x badaein! 🚀💼`;
+      } else if (norm.includes('vendorsarthi') || norm.includes('procurement') || norm.includes('vendor')) {
+        briefSummary = `🤝 Vendors aur quotations manage karne ka professional tarika! VendorSarthi automated RFQ workflow ke sath upne procurement loop ko simplify karein aur dynamic cloud sheets report compile karein safely. 🚀📊`;
+      } else if (norm.includes('hisabsarthi') || norm.includes('accounting') || norm.includes('ledger')) {
+        briefSummary = `📊 Daily business finance aur GST booking ab control mein! HisabSarthi manual entry failures ko eliminate karta hai aur automatic tax reports cloud sheet mein safely update karta hai. Padhein and seekhein! 🚀💡`;
+      } else {
+        briefSummary = `🚀 Apne business operations ko manual processes se cloud sheets par shift karein! Is detailed step-by-step guide se automatic triggers aur simple setups seekhein aur dhanda automate karke daily hours bachaayein! 🔥📊`;
+      }
+
+      res.json({
+        success: true,
+        isAIPowered: false,
+        briefSummary
+      });
+
+    } catch (err) {
+      console.error('Core blog summarization error:', err);
+      res.status(500).json({ error: 'Server error while performing blog summarization.' });
     }
   });
 
