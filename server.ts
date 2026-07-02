@@ -834,6 +834,166 @@ Return valid JSON structure matching this schema:
     }
   });
 
+  // API: Scrape URL and Draft Blog Post
+  app.post('/api/admin/scrape-url', async (req, res) => {
+    try {
+      const { url } = req.body;
+      if (!url) {
+        res.status(400).json({ error: 'Please provide a valid URL to import.' });
+        return;
+      }
+
+      let html = '';
+      try {
+        const response = await fetch(url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5'
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        html = await response.text();
+      } catch (fetchErr: any) {
+        console.error('[Web Scrape Fetch Error]:', fetchErr);
+        res.status(400).json({ error: `Could not fetch from URL. Make sure it is public and accessible. Error: ${fetchErr.message}` });
+        return;
+      }
+
+      // Quick clean up of style, script tags and HTML to prevent token overflow
+      let textContent = html
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      // Cap size of extracted text to avoid prompt limits
+      const maxChars = 15000;
+      if (textContent.length > maxChars) {
+        textContent = textContent.slice(0, maxChars) + '... [truncated]';
+      }
+
+      const hasApiKey = !!process.env.GEMINI_API_KEY;
+      if (hasApiKey) {
+        try {
+          const ai = new GoogleGenAI({
+            apiKey: process.env.GEMINI_API_KEY,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              }
+            }
+          });
+
+          const prompt = `
+You are an expert content writer and business automation systems draft architect.
+An administrator wants to draft a high-quality blog post by importing content from a public webpage or article.
+We have fetched and stripped the webpage content below.
+
+ORIGINAL WEBPAGE SCRAPED RAW TEXT:
+----------------------------------
+${textContent}
+----------------------------------
+
+INSTRUCTIONS & RULES:
+1. Reconstruct a fully draft-ready, detailed, professional blog post based on this content. Do not lose key value propositions, metrics, or technical details from the source.
+2. Structure the content elegantly in beautiful Markdown format (with bullet points, sub-headings, key takeaways, and bold highlights).
+3. Ensure the tone is helpful, authoritative, and tailored for Indian business owners, mixing professional English and smart Hinglish in code blocks/quotes when relevant.
+4. Provide a high-converting, professional, yet catchy Title.
+5. Select a relevant category (one of: "Automation", "Operations", "Business Growth", "Technology", "Finance", "Case Study").
+6. Generate 3 to 5 highly relevant industry tags (e.g. ["Google Sheets", "Apps Script", "Business Automation"]).
+7. Write an eye-catching, highly professional, and energetic Hinglish Brief Summary of the article (max 2-3 sentences) with awesome emojis to attract clicks. E.g., "Manual workflows se ho rahe dhande ke losses ko 100% automate karein! 🚀 Is detailed case study mein jaanein kaise sheets aur triggers se efficiency badhti hai. 🔥"
+
+Return valid JSON structure matching this exact schema:
+{
+  "title": "A highly catchy professional title",
+  "content": "Full reconstructed detailed blog post in Markdown format",
+  "category": "Operations",
+  "tags": ["Tag1", "Tag2"],
+  "briefSummary": "The catchy Hinglish brief summary with emojis"
+}
+`;
+
+          const response = await ai.models.generateContent({
+            model: "gemini-3.5-flash",
+            contents: prompt,
+            config: {
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  title: { type: Type.STRING },
+                  content: { type: Type.STRING },
+                  category: { type: Type.STRING },
+                  tags: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING }
+                  },
+                  briefSummary: { type: Type.STRING }
+                },
+                required: ["title", "content", "category", "tags", "briefSummary"]
+              }
+            }
+          });
+
+          if (response.text) {
+            const parsed = JSON.parse(response.text.trim());
+            res.json({
+              success: true,
+              isAIPowered: true,
+              draft: {
+                title: parsed.title,
+                content: parsed.content,
+                category: parsed.category,
+                tags: parsed.tags,
+                briefSummary: parsed.briefSummary
+              }
+            });
+            return;
+          }
+        } catch (geminiErr: any) {
+          console.error('[Gemini Blog Scraper Draft Error]:', geminiErr);
+        }
+      }
+
+      // Fallback: Parse basic title and description if Gemini is missing or failed
+      let titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+      let pageTitle = titleMatch ? titleMatch[1].trim() : 'Imported Article Draft';
+      // Clean up title if it contains suffixes like | LinkedIn or | Medium
+      pageTitle = pageTitle.replace(/\s*[|•-]\s*(LinkedIn|Medium|Facebook|Twitter|Blog|Home).*$/gi, '');
+
+      let descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i) ||
+                      html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*name=["']description["']/i);
+      let pageDesc = descMatch ? descMatch[1].trim() : '';
+
+      if (!pageDesc) {
+        // Try to capture some initial sentences from textContent
+        pageDesc = textContent.slice(0, 300) + '...';
+      }
+
+      const fallbackContent = `## ${pageTitle}\n\nThis article was imported from: ${url}\n\n### Original Summary / Description\n${pageDesc}\n\n### Extracted Raw Content\n${textContent.slice(0, 2000)}\n\n---\n*Note: Please enrich this draft with custom WhatsApp alerts or Apps Script automation steps to suit your business requirements.*`;
+
+      res.json({
+        success: true,
+        isAIPowered: false,
+        draft: {
+          title: pageTitle,
+          content: fallbackContent,
+          category: "Operations",
+          tags: ["Imported", "Automation"],
+          briefSummary: `🚀 Imported article about "${pageTitle}"! Seekhein naye technical trends aur workflows ko upne business mein automated tarike se deploy karna. 🔥`
+        }
+      });
+
+    } catch (err: any) {
+      console.error('Core URL drafting error:', err);
+      res.status(500).json({ error: `Server error while importing URL: ${err.message}` });
+    }
+  });
+
   // Intercept blog routes to dynamically inject SEO Meta tags for social media preview indexers
   app.get('/blog/:slug', async (req, res, next) => {
     try {

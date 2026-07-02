@@ -159,6 +159,8 @@ export default function AdminPortal() {
   const [blogCustomAutomationSuggestion, setBlogCustomAutomationSuggestion] = useState('');
   const [isEnriching, setIsEnriching] = useState(false);
   const [isSummarizing, setIsSummarizing] = useState(false);
+  const [importUrl, setImportUrl] = useState('');
+  const [isImporting, setIsImporting] = useState(false);
 
   // Automatically update Read Time when blogContent changes
   useEffect(() => {
@@ -366,6 +368,7 @@ export default function AdminPortal() {
     setBlogPrimaryMatchedProductId('');
     setBlogRelatedProductIds([]);
     setBlogCustomAutomationSuggestion('');
+    setImportUrl('');
   };
 
   const handleEditBlog = (b: any) => {
@@ -525,6 +528,60 @@ export default function AdminPortal() {
       setTimeout(() => setBlogSuccessMsg(''), 6000);
     } finally {
       setIsSummarizing(false);
+    }
+  };
+
+  const handleImportFromUrl = async () => {
+    if (!importUrl.trim()) {
+      setBlogErrorMsg('Please provide an article URL to import.');
+      return;
+    }
+    setIsImporting(true);
+    setBlogErrorMsg('');
+    setBlogSuccessMsg('');
+    try {
+      const res = await fetch('/api/admin/scrape-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: importUrl.trim() })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.draft) {
+          const { title, content, category, tags, briefSummary } = data.draft;
+          setBlogTitle(title || '');
+          setBlogContent(content || '');
+          setBlogCategory(category || 'Apps Script & Automation');
+          setBlogTags(tags || []);
+          setBlogTagsInput((tags || []).join(', '));
+          setBlogSummary(briefSummary || '');
+          
+          // Generate slug
+          if (!blogEditingId && title) {
+            const generatedSlug = title.toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/(^-|-$)+/g, '');
+            setBlogSlug(generatedSlug);
+          }
+
+          setBlogSuccessMsg(data.isAIPowered 
+            ? '✨ Successfully scraped article and drafted high-quality blog using Gemini AI!'
+            : '⚠️ Imported webpage contents using fallback scraper (no Gemini key configured).'
+          );
+          setImportUrl('');
+          setTimeout(() => setBlogSuccessMsg(''), 6000);
+        } else {
+          setBlogErrorMsg(data.error || 'Failed to scrape and draft from URL.');
+        }
+      } else {
+        const errData = await res.json();
+        setBlogErrorMsg(errData.error || 'Scraping request failed.');
+      }
+    } catch (err: any) {
+      console.error('Scraping error:', err);
+      setBlogErrorMsg(`Could not connect to scraping service: ${err.message}`);
+    } finally {
+      setIsImporting(false);
     }
   };
 
@@ -1887,6 +1944,46 @@ export default function AdminPortal() {
                 </div>
 
                 <form onSubmit={handleSaveBlog} className="space-y-6">
+
+                  {/* Import from Web URL Tool Card */}
+                  <div className="p-5 bg-gradient-to-br from-indigo-50/50 to-indigo-100/10 dark:from-slate-950/40 dark:to-slate-900/10 border border-indigo-100 dark:border-slate-800 rounded-2xl">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Globe className="w-4 h-4 text-indigo-500" />
+                      <h3 className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-350">
+                        Import & Auto-Draft from Web Article (e.g. LinkedIn, Medium, or Blog)
+                      </h3>
+                    </div>
+                    <p className="text-[11px] text-slate-500 mb-4 leading-relaxed">
+                      Enter any public article or LinkedIn post URL. We'll automatically scrape its contents and use Gemini AI to draft a polished, ready-to-publish educational blog post with dynamic tags, Hinglish summary, and category!
+                    </p>
+                    <div className="flex gap-2.5">
+                      <input
+                        type="url"
+                        placeholder="Paste article URL here (e.g., https://linkedin.com/pulse/...)"
+                        value={importUrl}
+                        onChange={(e) => setImportUrl(e.target.value)}
+                        className="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleImportFromUrl}
+                        disabled={isImporting || !importUrl.trim()}
+                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl flex items-center gap-1.5 transition-all select-none cursor-pointer disabled:bg-slate-200 dark:disabled:bg-slate-800 disabled:text-slate-450 shrink-0"
+                      >
+                        {isImporting ? (
+                          <>
+                            <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            Drafting...
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-3.5 h-3.5" />
+                            Fetch & Draft
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
                   
                   {/* Title and Slug */}
                   <div className="grid md:grid-cols-2 gap-6">
