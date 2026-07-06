@@ -35,9 +35,9 @@ import QuotationTool from '../components/QuotationTool';
 
 export default function Services() {
   useSEO(
-    'Services & Pricing | Suraj Automation - Noida\'s Custom Automation Experts',
-    'Custom automation services, interactive MIS dashboards, background apps script triggers, and custom website packages built for high operational growth.',
-    'ai automation companies, mis dashboards, ai automation company, custom automation, apps script triggers, ai automation websites, ai automation softwares, automation company in noida'
+    'Services & Pricing | Custom Business Automation using Google Sheets',
+    'Explore premium custom business automation using Google Sheets, custom Apps Script macros, secure cloud databases, automated workflows, and high-converting website packages.',
+    'business automation using Google Sheets, google sheets automation, custom business automation, apps script triggers, mis dashboards, automation company in noida'
   );
   const [activeTab, setActiveTab] = useState<'web' | 'data'>('web');
   const [openFaq, setOpenFaq] = useState<number | null>(null);

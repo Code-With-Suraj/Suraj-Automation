@@ -2,6 +2,108 @@ import { BlogPost } from '../types';
 
 export const FALLBACK_BLOGS: BlogPost[] = [
   {
+    id: 'business-automation-google-sheets',
+    title: 'Business Automation using Google Sheets: The Ultimate Guide for Indian SMBs',
+    slug: 'business-automation-using-google-sheets',
+    summary: 'Everything you need to know about setting up professional business automation using Google Sheets, Apps Script, and AI. Replace manual tracking and WhatsApp chaos with automated, secure cloud-based workflows.',
+    content: `# Business Automation using Google Sheets: The Ultimate Guide for Indian SMBs
+
+In today's fast-paced digital economy, small and medium businesses (SMBs) in India face a common struggle: operational bottlenecks. Managing inventory, follow-ups, sales logs, and employee performance across scattered WhatsApp chats and manual ledger files causes massive errors and wastes precious hours.
+
+You might think that solving this requires licensing complex, expensive, and rigid enterprise software. However, the most robust, affordable, and flexible solution is already at your fingertips: **professional business automation using Google Sheets**.
+
+By supercharging your standard Google Sheets with Google Apps Script and modern AI APIs, you can build a customized, cloud-native ERP alternative tailored to your exact workflow. Let’s explore how you can automate 100% of your business processes.
+
+---
+
+## Why Choose Google Sheets for Business Automation?
+
+While specialized software exists, Google Sheets remains the undisputed champion of business operations for several reasons:
+
+1. **Familiarity & Zero Learning Curve**: Your local managers, staff, and accountants already know how to enter data into spreadsheets. There is no training friction.
+2. **100% Free Hosting**: Google Apps Script runs entirely on Google's cloud servers. You pay **₹0** in recurring hosting, server, or software licensing fees.
+3. **Real-Time Collaboration**: Team members from Noida, Gurgaon, or Mumbai can update the central database simultaneously with auto-saved, cloud-secure logging.
+4. **Endless Customizability**: Unlike rigid off-the-shelf software, a Google Sheets automation suite can be modified and expanded in minutes as your business requirements evolve.
+
+---
+
+## 5 Practical Use Cases of Google Sheets Automation
+
+With custom code triggers and webhooks, Google Sheets transitions from a static data grid into a dynamic operational engine. Here are five automation systems we build daily:
+
+### 1. Automated GST Billing & Invoicing
+Whenever a new order is logged in your sheets, our background scripts automatically merge the data into a beautifully formatted GST tax invoice template, compile it into a secure PDF, save it in Google Drive, and dispatch it to the client via email and WhatsApp.
+
+### 2. Bi-directional WhatsApp Alerts & Follow-ups
+Connect your sheets to WhatsApp APIs. Send automatic, customized WhatsApp alerts to customers when their order status is updated (e.g., "Dispatched"), or send automated reminders to clients with outstanding payments.
+
+### 3. Automated Inventory & Low-Stock Alerts
+Set up a live stock ledger. When your raw materials or finished products drop below a critical threshold, Apps Script triggers real-time alerts to the procurement team so you never halt manufacturing.
+
+### 4. Interactive MIS Reporting & Visual Dashboards
+Consolidate data from Google Forms, WhatsApp trackers, and sales sheets into a single, real-time executive dashboard. View your active sales pipelines, daily margins, and branch-level revenues in visual charts with date and employee filters.
+
+### 5. Multi-User Access Portals & Role Permissions
+Keep sensitive financial data secure. Build a client or staff portal where users can only view or edit their assigned tasks, while management maintains 100% privacy and administrative control in the primary master spreadsheet.
+
+---
+
+## A Simple Apps Script Code to Automate WhatsApp Reminders
+
+To give you a preview of how **business automation using Google Sheets** works, here is a simple Google Apps Script snippet that automatically logs outstanding dues and drafts follow-up links:
+
+\`\`\`javascript
+/**
+ * Generates custom WhatsApp click-to-chat links for outstanding clients
+ */
+function generateWhatsAppDuesAlerts() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("OutstandingDues");
+  if (!sheet) return;
+  
+  const values = sheet.getDataRange().getValues();
+  
+  // Assuming Column A: Client Name, Column B: Mobile Number, Column C: Pending Amount, Column D: Due Date
+  for (let i = 1; i < values.length; i++) {
+    const name = values[i][0];
+    const rawPhone = values[i][1];
+    const amount = values[i][2];
+    const dueDate = Utilities.formatDate(new Date(values[i][3]), "GMT+5:30", "dd-MMM-yyyy");
+    
+    // Format Indian mobile number to country code
+    let phone = rawPhone.toString().replace(/\\D/g, '');
+    if (phone.length === 10) {
+      phone = "91" + phone;
+    }
+    
+    if (phone) {
+      const message = \`Hi \${name}, this is a friendly reminder from Suraj Automation. An outstanding payment of ₹\${amount} was due on \${dueDate}. Please clear it at your earliest. Thanks!\`;
+      const encodedMsg = encodeURIComponent(message);
+      const waLink = \`https://wa.me/\${phone}?text=\${encodedMsg}\`;
+      
+      // Write link to Column E (5th column) for easy click-to-trigger
+      sheet.getRange(i + 1, 5).setValue(waLink).setFontColor("#16a34a").setFontWeight("bold");
+    }
+  }
+}
+\`\`\`
+
+---
+
+## Start Automating Your Business Operations Today
+
+Every hour you or your management team spends on manual copy-pasting, data reconciling, or calling clients for follow-ups is an hour lost on active sales and scaling. Transitioning from **Excel to a Google Sheets Automation System** is the single highest ROI investment an ambitious SMB can make.
+
+At **Suraj Automation**, we specialize in professional, low-cost custom systems to completely automate your processes. 
+
+*Want to build a custom system for your team? Explore our [Sarthi Products Catalog](/products) to copy ready-to-use templates directly, calculate your potential savings with our [ROI Calculator](/roi-tool), or book a free consultation via our [Contact page](/contact).*`,
+    category: 'Apps Script & Automation',
+    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=600&auto=format&fit=crop',
+    tags: ['Google Sheets', 'Business Automation', 'Apps Script', 'Indian SMBs', 'WhatsApp Automation'],
+    createdAt: new Date('2026-07-06T09:00:00Z').toISOString(),
+    readTime: '6 min read',
+    isPublished: true
+  },
+  {
     id: 'why-apps-script-erp',
     title: 'Why Google Sheets + Apps Script is the Ultimate ERP for Indian SMBs',
     slug: 'why-apps-script-erp',

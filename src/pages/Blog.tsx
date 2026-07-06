@@ -41,13 +41,22 @@ export default function Blog() {
 
         // Filter & Sort in-memory
         const publishedBlogs = fetchedBlogs
-          .filter(b => b.isPublished !== false)
-          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+          .filter(b => b.isPublished !== false);
 
-        setBlogs(publishedBlogs);
+        // Merge with FALLBACK_BLOGS to guarantee key articles exist alongside Firestore articles
+        const mergedBlogs = [...publishedBlogs];
+        FALLBACK_BLOGS.forEach(fallback => {
+          if (!mergedBlogs.some(b => b.slug === fallback.slug || b.id === fallback.id)) {
+            mergedBlogs.push(fallback);
+          }
+        });
+
+        mergedBlogs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        setBlogs(mergedBlogs);
       } catch (error) {
         console.error('Error fetching blogs from Firestore:', error);
-        setBlogs([]);
+        setBlogs(FALLBACK_BLOGS);
       } finally {
         setLoading(false);
       }

@@ -16,9 +16,9 @@ import { useSEO } from '../hooks/useSEO';
 
 export default function Home() {
   useSEO(
-    'Suraj Automation | Noida\'s Premier AI Automation Company',
-    'As Noida\'s leading AI automation company, we specialize in custom automation, interactive MIS dashboards, advanced apps script triggers, and AI automation softwares for SMBs.',
-    'ai automation companies, mis dashboards, ai automation company, custom automation, apps script triggers, ai automation websites, ai automation softwares, automation company in noida'
+    'Business Automation using Google Sheets & AI | Suraj Automation',
+    'Get custom business automation using Google Sheets, custom Apps Script triggers, automated WhatsApp systems, and interactive MIS dashboards. Automate 100% of your manual tasks today!',
+    'business automation using Google Sheets, google sheets automation, custom business automation, apps script triggers, mis dashboards, automation company in noida'
   );
 
   return (

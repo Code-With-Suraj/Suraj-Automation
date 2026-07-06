@@ -340,11 +340,13 @@ export default function BlogDetail() {
             customAutomationSuggestion: data.customAutomationSuggestion || ''
           });
         } else {
-          setBlog(null);
+          const fallback = FALLBACK_BLOGS.find(b => b.slug === slug);
+          setBlog(fallback || null);
         }
       } catch (error) {
         console.error('Error fetching blog details from Firestore:', error);
-        setBlog(null);
+        const fallback = FALLBACK_BLOGS.find(b => b.slug === slug);
+        setBlog(fallback || null);
       } finally {
         setLoading(false);
       }
