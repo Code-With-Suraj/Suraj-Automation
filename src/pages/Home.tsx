@@ -1,43 +1,42 @@
 import Hero from '../components/Hero';
-import Stats from '../components/Stats';
-import SolutionsHighlight from '../components/SolutionsHighlight';
-import Problem from '../components/Problem';
-import DiagnosticSimulator from '../components/DiagnosticSimulator';
-import WhatIDo from '../components/WhatIDo';
+import TrustedByMarquee from '../components/TrustedByMarquee';
+import WhyChooseUs from '../components/WhyChooseUs';
 import WhatWeOffer from '../components/WhatWeOffer';
+import IndustriesGrid from '../components/IndustriesGrid';
 import ProductsSection from '../components/ProductsSection';
-import WhyAppsScript from '../components/WhyAppsScript';
-import WhyMe from '../components/WhyMe';
-import WhoIsThisFor from '../components/WhoIsThisFor';
-import TestimonialCarousel from '../components/TestimonialCarousel';
+import TechStack from '../components/TechStack';
+import CaseStudies from '../components/CaseStudies';
+import DiagnosticSimulator from '../components/DiagnosticSimulator';
 import Process from '../components/Process';
+import TestimonialCarousel from '../components/TestimonialCarousel';
+import FaqSection from '../components/FaqSection';
 import FinalCTA from '../components/FinalCTA';
+import AIChatWidget from '../components/AIChatWidget';
 import { useSEO } from '../hooks/useSEO';
 
 export default function Home() {
   useSEO(
-    'Business Automation using Google Sheets & AI | Suraj Automation',
-    'Get custom business automation using Google Sheets, custom Apps Script triggers, automated WhatsApp systems, and interactive MIS dashboards. Automate 100% of your manual tasks today!',
-    'business automation using Google Sheets, google sheets automation, custom business automation, apps script triggers, mis dashboards, automation company in noida'
+    'Custom Software & Business Automation Company | Suraj Automation',
+    "We don't just build websites. We build software that runs businesses. Custom Web Apps, Google Apps Script ERPs, WhatsApp Automation, and MIS Dashboards for growing SMBs.",
+    'custom web application development, business automation company, google apps script erp, whatsapp automation system, mis dashboard software, suraj automation'
   );
 
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <Hero />
-      <Stats />
-      <SolutionsHighlight />
-      <Problem />
-      <DiagnosticSimulator />
-      <WhatIDo />
+      <TrustedByMarquee />
+      <WhyChooseUs />
       <WhatWeOffer />
+      <IndustriesGrid />
       <ProductsSection />
-      <WhyAppsScript />
-      <WhyMe />
-      <WhoIsThisFor />
+      <TechStack />
+      <CaseStudies />
+      <DiagnosticSimulator />
       <Process />
       <TestimonialCarousel />
+      <FaqSection />
       <FinalCTA />
+      <AIChatWidget />
     </main>
   );
 }
-

@@ -1,0 +1,26 @@
+# Suraj Automation
+> Noida's premier AI automation company specializing in custom automation, interactive MIS dashboards, background Apps Script triggers, and AI automation software for Indian SMBs.
+
+## About Us
+Suraj Automation is founded by Suraj Singh, a Google Apps Script Expert & Full-Stack Automation Architect. We transform manual business processes into efficient, automated workflows using Google Workspace and AI technologies.
+
+## Products (Sarthi Suite)
+- BillSarthi: Automated billing and invoicing system.
+- BookingSarthi: Appointment and booking management.
+- BudgetSarthi: Expense and budget tracking.
+- StockSarthi: Inventory and stock management.
+- RationKart, Claimo, KarmSarthi, CakeSarthi, GymSarthi, MenuSarthi, SupplySarthi, HisabSarthi, LoanSarthi, VendorSarthi, PersonalFinSarthi, HireSarthi, SalarySarthi.
+
+## Services
+- Custom Google Sheets ERP
+- Apps Script Automation
+- Dynamic MIS Dashboards
+- WhatsApp & Email Automation
+- Custom Software Systems
+
+## Contact
+- Name: Suraj Singh
+- Phone: +91-8851666208
+- Email: suraj.gasdeveloper@gmail.com
+- Address: Sector 62, Noida, Uttar Pradesh, 201301, India
+- Website: https://surajdx.com

@@ -45,7 +45,8 @@ export default defineConfig(({mode}) => {
       tailwindcss(),
       Sitemap({ 
         hostname: 'https://surajdx.com', 
-        dynamicRoutes 
+        dynamicRoutes,
+        generateRobotsTxt: false
       })
     ],
     define: {

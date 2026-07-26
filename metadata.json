@@ -1,6 +1,6 @@
 {
   "name": "Suraj Automation",
-  "description": "A professional landing page for custom business systems and automation using Google Apps Script for SMBs.",
+  "description": "Custom web applications, Google Apps Script ERPs, WhatsApp automation, and AI business systems for growing companies.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -56,6 +56,15 @@ export function useSEO(
     setMeta('twitter:description', socialDesc);
     setMeta('twitter:image', absoluteImgUrl);
 
+    // Canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', window.location.href);
+
     // Dynamic JSON-LD Schema Markup Generation for SEO & AI Search Engines
     const origin = window.location.origin;
     const currentUrl = window.location.href;
