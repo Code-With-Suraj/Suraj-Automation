@@ -111,7 +111,17 @@ export default function DynamicProductPage() {
               </div>
 
               <div className="flex flex-wrap gap-4 items-center">
-                {isPurchased ? (
+                {product.id === 'websarthi' ? (
+                  <a 
+                    href="https://websarthi.surajdx.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-8 py-4 bg-teal-500 hover:bg-teal-600 text-white rounded-xl font-black text-lg transition-all shadow-lg shadow-teal-500/25 items-center justify-center gap-2 group hover:-translate-y-1"
+                  >
+                    Launch WebSarthi Official Portal ↗
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                ) : isPurchased ? (
                   <a 
                     href="#blueprintSection"
                     className="inline-flex px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-emerald-500/20 items-center justify-center gap-2 group hover:-translate-y-1"

@@ -46,14 +46,16 @@ export default function Services() {
     "mis-reporting": BarChart3,
     "process-automation": Cpu,
     "sql-data": Database,
-    "web-apps": Layers
+    "web-apps": Layers,
+    "website-development": Globe
   };
 
   const serviceColors: Record<string, { color: string; darkColor: string }> = {
     "mis-reporting": { color: "from-indigo-500 to-blue-600", darkColor: "group-hover:text-indigo-400 border-indigo-500/20" },
     "process-automation": { color: "from-emerald-500 to-teal-600", darkColor: "group-hover:text-emerald-400 border-emerald-500/20" },
     "sql-data": { color: "from-blue-500 to-cyan-600", darkColor: "group-hover:text-blue-400 border-blue-500/20" },
-    "web-apps": { color: "from-purple-500 to-pink-600", darkColor: "group-hover:text-purple-400 border-purple-500/20" }
+    "web-apps": { color: "from-purple-500 to-pink-600", darkColor: "group-hover:text-purple-400 border-purple-500/20" },
+    "website-development": { color: "from-teal-500 to-emerald-600", darkColor: "group-hover:text-teal-400 border-teal-500/20" }
   };
 
   const coreServices = CORE_SERVICES.map(s => ({

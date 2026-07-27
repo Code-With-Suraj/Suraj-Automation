@@ -1,10 +1,19 @@
-# Suraj Automation
-> Noida's premier AI automation company specializing in custom automation, interactive MIS dashboards, background Apps Script triggers, and AI automation software for Indian SMBs.
+# Suraj Automation & WebSarthi
+> Noida's premier AI automation company specializing in custom automation, interactive MIS dashboards, background Apps Script triggers, AI automation software, and WebSarthi — Zero Heavy Upfront Website Subscriptions for Indian SMBs.
 
 ## About Us
-Suraj Automation is founded by Suraj Singh, a Google Apps Script Expert & Full-Stack Automation Architect. We transform manual business processes into efficient, automated workflows using Google Workspace and AI technologies.
+Suraj Automation is founded by Suraj Singh, a Google Apps Script Expert & Full-Stack Automation Architect. We transform manual business processes into efficient, automated workflows using Google Workspace, WebSarthi digital presence subscriptions, and AI technologies.
+
+## WebSarthi — Website & Web App Subscriptions
+- URL: https://websarthi.surajdx.com/
+- Concept: Parented by Suraj Automation • Zero Heavy Upfront Costs.
+- Pricing: Starting for ₹1,999/month (No ₹50,000 upfront cost).
+- Included Features: Custom Design & Development, NVMe Cloud Server Hosting, SSL Certificate, Monthly Updates, 3-7 Days Fast Delivery, 99.9% Uptime SLA, Bank-grade Encryption, Direct WhatsApp Support, WhatsApp Lead Form Active.
+- Custom-tailored Subscriptions for: Small & Medium Businesses, Local Businesses, Manufacturers, Restaurants, Clinics & Doctors, Schools & Colleges, Coaching Institutes, CA Firms & Lawyers, Consultants, Real Estate Companies, Startups, Traders & Dealers, Distributors, Wholesalers, Agencies.
+- Client Subdomains: https://yourbusiness.websarthi.in
 
 ## Products (Sarthi Suite)
+- WebSarthi: Zero Heavy Upfront Website & Web App Subscription (https://websarthi.surajdx.com/)
 - BillSarthi: Automated billing and invoicing system.
 - BookingSarthi: Appointment and booking management.
 - BudgetSarthi: Expense and budget tracking.
@@ -12,6 +21,7 @@ Suraj Automation is founded by Suraj Singh, a Google Apps Script Expert & Full-S
 - RationKart, Claimo, KarmSarthi, CakeSarthi, GymSarthi, MenuSarthi, SupplySarthi, HisabSarthi, LoanSarthi, VendorSarthi, PersonalFinSarthi, HireSarthi, SalarySarthi.
 
 ## Services
+- WebSarthi Website Subscriptions (₹1,999/mo, 0 upfront)
 - Custom Google Sheets ERP
 - Apps Script Automation
 - Dynamic MIS Dashboards
@@ -19,8 +29,9 @@ Suraj Automation is founded by Suraj Singh, a Google Apps Script Expert & Full-S
 - Custom Software Systems
 
 ## Contact
-- Name: Suraj Singh
-- Phone: +91-8851666208
+- Founder & Architect: Suraj Singh
+- Phone / WhatsApp: +91-8851666208
 - Email: suraj.gasdeveloper@gmail.com
 - Address: Sector 62, Noida, Uttar Pradesh, 201301, India
-- Website: https://surajdx.com
+- Main Website: https://surajdx.com
+- WebSarthi Portal: https://websarthi.surajdx.com

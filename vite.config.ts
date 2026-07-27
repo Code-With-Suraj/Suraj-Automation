@@ -34,7 +34,8 @@ const dynamicRoutes = [
   '/products/hiresarthi',
   '/products/budgetsarthi',
   '/products/salarysarthi',
-  '/products/bookingsarthi'
+  '/products/bookingsarthi',
+  '/products/websarthi'
 ];
 
 export default defineConfig(({mode}) => {

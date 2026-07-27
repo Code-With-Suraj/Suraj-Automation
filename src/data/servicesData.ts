@@ -54,6 +54,18 @@ export const CORE_SERVICES: ServiceItem[] = [
       "No server cost — runs on Google Drive",
       "Training & onboarding included"
     ]
+  },
+  {
+    id: "website-development",
+    title: "WebSarthi Website Development",
+    subtitle: "Custom Website & Web App Services (WebSarthi)",
+    description: "Suraj Automation ki dedicated WebSarthi division dwara custom business websites and web portals. Zero heavy upfront fee with domain, hosting, SSL, and monthly updates.",
+    points: [
+      "Custom Domain (.in/.com) & High-Speed NVMe Hosting included",
+      "Mobile-first responsive design & Google SEO indexing setup",
+      "SSL Security, WhatsApp lead forms, & instant click-to-call",
+      "100% managed maintenance with 99.9% SLA uptime (https://websarthi.surajdx.com/)"
+    ]
   }
 ];
 

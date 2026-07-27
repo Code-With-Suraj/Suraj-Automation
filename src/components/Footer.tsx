@@ -127,6 +127,19 @@ export default function Footer() {
               </ul>
             </div>
             <div>
+              <h5 className="text-teal-400 font-extrabold uppercase mb-4 tracking-wider flex items-center gap-1.5">
+                <span>WebSarthi Websites</span>
+                <span className="bg-teal-500/20 text-teal-300 text-[10px] px-1.5 py-0.5 rounded font-bold">₹1,999/mo</span>
+              </h5>
+              <ul className="space-y-2.5">
+                <li><a href="https://websarthi.surajdx.com/" target="_blank" rel="noopener noreferrer" className="text-teal-300 hover:text-teal-200 font-bold transition-colors">WebSarthi Digital Platform ↗</a></li>
+                <li><Link to="/services" className="hover:text-indigo-400 transition-colors">WebSarthi Services & Pricing</Link></li>
+                <li><a href="https://websarthi.surajdx.com/" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors">Zero Upfront Cost Website</a></li>
+                <li><a href="https://websarthi.surajdx.com/" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors">Custom Web App Subscriptions</a></li>
+                <li><a href="https://websarthi.surajdx.com/" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors">NVMe Cloud Hosting & SSL</a></li>
+              </ul>
+            </div>
+            <div>
               <h5 className="text-slate-300 font-extrabold uppercase mb-4 tracking-wider">Service & Retail ERPs</h5>
               <ul className="space-y-2.5">
                 <li><Link to="/products/cakesarthi" className="hover:text-indigo-400 transition-colors">CakeSarthi Bakery Web App</Link></li>
@@ -134,7 +147,6 @@ export default function Footer() {
                 <li><Link to="/products/gymsarthi" className="hover:text-indigo-400 transition-colors">GymSarthi Gym Management</Link></li>
                 <li><Link to="/products/billsarthi" className="hover:text-indigo-400 transition-colors">BillSarthi Vendor Invoice Audit</Link></li>
                 <li><Link to="/offers" className="hover:text-indigo-400 transition-colors">Special Solutions Offers Hub</Link></li>
-                <li><Link to="/reviews" className="hover:text-indigo-400 transition-colors">Verified Customer Reviews</Link></li>
               </ul>
             </div>
           </div>
@@ -142,7 +154,7 @@ export default function Footer() {
           {/* Keyword Rich SEO Explanation Panel */}
           <div className="bg-slate-900/60 p-6 rounded-2xl border border-slate-800/80 mb-6 text-xs leading-relaxed text-slate-500 hover:border-slate-850 hover:text-slate-400 transition-colors duration-300">
             <p>
-              Suraj Automation is Noida&apos;s leading <strong className="text-slate-300">ai automation company</strong> and a premier <strong className="text-slate-300">automation company in noida</strong>, delivering professional <strong className="text-slate-300">custom automation</strong>, smart <strong className="text-slate-300">mis dashboards</strong>, and background <strong className="text-slate-300">apps script triggers</strong> integration. As one of the top-tier <strong className="text-slate-300">ai automation companies</strong>, we specialize in publishing highly ranked <strong className="text-slate-300">ai automation websites</strong> and deploying advanced, zero-upkeep <strong className="text-slate-300">ai automation softwares</strong>. We replace spreadsheets and scattered workflows with centralized tools and Google Workspace dashboards across Delhi NCR, Noida, and globally.
+              Suraj Automation is Noida&apos;s leading <strong className="text-slate-300">ai automation company</strong> and parent company of <a href="https://websarthi.surajdx.com/" target="_blank" rel="noopener noreferrer" className="text-teal-400 font-bold hover:underline">WebSarthi (https://websarthi.surajdx.com/)</a> — India&apos;s premier zero-heavy-upfront website and custom web app subscription platform starting at <strong className="text-teal-300 font-bold">₹1,999/month</strong>. We deliver professional <strong className="text-slate-300">custom automation</strong>, smart <strong className="text-slate-300">mis dashboards</strong>, NVMe cloud hosting with SSL security, and background <strong className="text-slate-300">apps script triggers</strong>. Whether you need an affordable website subscription with no ₹50,000 upfront cost or automated business ERPs across Delhi NCR, Noida, and globally, Suraj Automation & WebSarthi provide bank-grade, 99.9% SLA uptime digital solutions.
             </p>
           </div>
         </div>

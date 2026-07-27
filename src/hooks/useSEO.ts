@@ -123,7 +123,7 @@ export function useSEO(
       "name": "Suraj Automation",
       "url": origin,
       "logo": `${origin}/favicon.svg`,
-      "description": "Noida's leading AI automation company specializing in professional custom automation, custom software systems, and background apps script triggers.",
+      "description": "Noida's leading AI automation company specializing in professional custom automation, custom software systems, background apps script triggers, and WebSarthi monthly website subscriptions.",
       "founder": {
         "@type": "Person",
         "name": "Suraj Singh",
@@ -138,8 +138,15 @@ export function useSEO(
         "availableLanguage": ["Hindi", "English"]
       },
       "sameAs": [
-        "https://www.linkedin.com/in/surajautomation"
-      ]
+        "https://www.linkedin.com/in/surajautomation",
+        "https://websarthi.surajdx.com/"
+      ],
+      "subOrganization": {
+        "@type": "Organization",
+        "name": "WebSarthi",
+        "url": "https://websarthi.surajdx.com/",
+        "description": "Zero heavy upfront costs monthly website & custom web app subscription platform by Suraj Automation starting at ₹1,999/month."
+      }
     };
 
     schemaScriptOrg.textContent = JSON.stringify(organizationSchema);
@@ -167,13 +174,15 @@ export function useSEO(
       },
       "url": `${origin}/about`,
       "sameAs": [
-        "https://www.linkedin.com/in/surajautomation"
+        "https://www.linkedin.com/in/surajautomation",
+        "https://websarthi.surajdx.com/"
       ],
       "knowsAbout": [
         "Google Apps Script",
         "Business Process Automation",
         "AI Integrations",
         "Full-Stack Web Development",
+        "WebSarthi Monthly Website Subscriptions",
         "Google Workspace Development",
         "MIS Dashboards",
         "Custom Software Development"
@@ -181,6 +190,54 @@ export function useSEO(
     };
 
     schemaScriptPerson.textContent = JSON.stringify(personSchema);
+
+    // 1d. WebSarthi Service Schema (AEO/GEO & AI Search Engine Indexing)
+    let schemaScriptWebSarthi = document.getElementById('seo-schema-websarthi') as HTMLScriptElement;
+    if (!schemaScriptWebSarthi) {
+      schemaScriptWebSarthi = document.createElement('script');
+      schemaScriptWebSarthi.id = 'seo-schema-websarthi';
+      schemaScriptWebSarthi.type = 'application/ld+json';
+      document.head.appendChild(schemaScriptWebSarthi);
+    }
+    const webSarthiSchema = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": "https://websarthi.surajdx.com/#service",
+      "name": "WebSarthi — Website & Web App Subscriptions",
+      "url": "https://websarthi.surajdx.com/",
+      "provider": {
+        "@type": "Organization",
+        "name": "Suraj Automation",
+        "url": origin
+      },
+      "description": "Zero Heavy Upfront Costs. Launch your digital presence with a premium website or custom web app on an affordable monthly subscription starting for ₹1,999/mo. Includes design, hosting, SSL, and monthly updates.",
+      "offers": {
+        "@type": "Offer",
+        "price": "1999",
+        "priceCurrency": "INR",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "1999",
+          "priceCurrency": "INR",
+          "unitText": "MONTH"
+        }
+      },
+      "areaServed": "IN",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "WebSarthi Business Categories",
+        "itemListElement": [
+          { "@type": "Offer", "name": "SMB & Local Business Website" },
+          { "@type": "Offer", "name": "Manufacturer & Factory Catalog Website" },
+          { "@type": "Offer", "name": "Doctor & Clinic Appointment Website" },
+          { "@type": "Offer", "name": "School & Coaching Institute Portal" },
+          { "@type": "Offer", "name": "Restaurant QR Menu Website" },
+          { "@type": "Offer", "name": "CA Firm & Lawyer Portal" },
+          { "@type": "Offer", "name": "Real Estate Property Website" }
+        ]
+      }
+    };
+    schemaScriptWebSarthi.textContent = JSON.stringify(webSarthiSchema);
 
     // 2. SoftwareApplication Schema (Specifically for products)
     let schemaScriptProduct = document.getElementById('seo-schema-product') as HTMLScriptElement;
@@ -222,6 +279,8 @@ export function useSEO(
       if (elOrg) elOrg.remove();
       const elPerson = document.getElementById('seo-schema-person');
       if (elPerson) elPerson.remove();
+      const elWS = document.getElementById('seo-schema-websarthi');
+      if (elWS) elWS.remove();
       const elProd = document.getElementById('seo-schema-product');
       if (elProd) elProd.remove();
     };
