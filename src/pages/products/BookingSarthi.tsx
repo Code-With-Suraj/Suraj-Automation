@@ -29,9 +29,12 @@ export default function BookingSarthi() {
   const isPurchased = hasPurchased('bookingsarthi');
 
   useSEO(
-    'BookingSarthi Review: Appointment & Service Automation | Suraj Automation',
-    'Evaluate BookingSarthi, a surprisingly complete micro-SaaS platform built specifically for Indian service businesses managing appointments, CRM, and marketing.',
-    'appointment booking software, salon software, clinic scheduling, google sheets crm, service business automation, whatsapp booking'
+    'BookingSarthi Appointment Software | Suraj Automation',
+    'BookingSarthi automates appointment scheduling, customer records, and follow-up workflows on Google Sheets and Apps Script for Indian services.',
+    'BookingSarthi, appointment booking software, Custom CRM Software Development, Google Sheets CRM automation',
+    undefined,
+    { price: '499' },
+    { canonicalPath: '/products/bookingsarthi', isProduct: true, productName: 'BookingSarthi' }
   );
 
   const metadata = {

@@ -42,6 +42,7 @@ import {
   Percent,
   TrendingDown
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
@@ -157,9 +158,12 @@ export default function HisabSarthi() {
   };
 
   useSEO(
-    'HisabSarthi Review: GST Accounting & Small Business Bookkeeping | Suraj Automation',
-    'Evaluate HisabSarthi, an elegant, lightweight GST accounting and billing sheets system constructed for Indian traders, wholesalers, distributors and service companies.',
-    'GST accounting sheets, small business bookkeeping, simple Tally alternative, ledger print template, ageing reports, GST billing excel apps script'
+    'HisabSarthi GST Accounting Software | Suraj Automation',
+    'HisabSarthi is a lightweight GST billing, vendor purchase, payment tracking, and ageing report system built on Google Sheets and Apps Script.',
+    'Custom Business Management Software, GST accounting sheets, HisabSarthi, small business bookkeeping, Google Apps Script Custom Software',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/hisabsarthi', isProduct: true, productName: 'HisabSarthi' }
   );
 
   const metadata = {
@@ -1016,6 +1020,12 @@ export default function HisabSarthi() {
                 Talk to our Accountant
               </a>
             </div>
+            <p className="relative z-10 text-center text-xs text-slate-400 mt-6">
+              Want tailored GST or ledger modules?{' '}
+              <Link to="/services/custom-software-development" className="text-indigo-400 hover:underline font-semibold">
+                Explore Custom Business Software Development →
+              </Link>
+            </p>
           </div>
         </div>
       </section>

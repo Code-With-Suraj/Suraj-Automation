@@ -3,13 +3,13 @@ import { motion } from 'motion/react';
 
 export default function TrustedByMarquee() {
   const stats = [
-    { value: "8+", label: "Micro-SaaS Products Built", sub: "Production Ready Web Apps", icon: PackageCheck },
-    { value: "50+", label: "Automations Delivered", sub: "Google Apps Script & Custom APIs", icon: Zap },
-    { value: "100%", label: "Custom, No Bloated ERP", sub: "Zero Monthly Software Lock-In", icon: ShieldCheck }
+    { value: "18+", label: "Sarthi Software Systems", sub: "Ready-to-Deploy Business Modules", icon: PackageCheck },
+    { value: "50%", label: "Lower Total Cost", sub: "Vs. Traditional Software Agencies", icon: Zap },
+    { value: "₹0", label: "Monthly Server Fees", sub: "Google Workspace & Cloud Architecture", icon: ShieldCheck }
   ];
 
   const industries = [
-    { name: "Manufacturing & Production", icon: Factory, badge: "30+ Systems" },
+    { name: "Manufacturing & Production", icon: Factory, badge: "BOM & COGS Control" },
     { name: "FMCG & Wholesale", icon: Store, badge: "Custom Supply Chain" },
     { name: "Restaurants & QSR", icon: Utensils, badge: "POS & KOT Systems" },
     { name: "Retail & E-commerce", icon: ShoppingBag, badge: "Inventory Automation" },

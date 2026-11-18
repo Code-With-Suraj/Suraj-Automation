@@ -6,6 +6,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import { UserProvider } from './contexts/UserContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -27,6 +28,9 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FloatingBuyWidget from './components/FloatingBuyWidget';
 import ScrollToTop from './components/ScrollToTop';
 import Breadcrumb from './components/Breadcrumb';
+import { SOLUTION_PAGES } from './data/solutionPagesData';
+
+const SolutionLandingPage = lazy(() => import('./pages/SolutionLandingPage'));
 
 // Lazy loaded product pages
 const RationKart = lazy(() => import('./pages/products/RationKart'));
@@ -81,8 +85,9 @@ function ProductsLayout() {
 
 export default function App() {
   return (
-    <UserProvider>
-      <Router>
+    <LanguageProvider>
+      <UserProvider>
+        <Router>
         <ScrollToTop />
         <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 flex flex-col">
           <Navbar />
@@ -91,6 +96,70 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
+              <Route
+                path="/services/google-apps-script-development"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['google-apps-script-development']} />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/services/custom-software-development"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['custom-software-development']} />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/services/web-application-development"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['web-application-development']} />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/services/whatsapp-automation"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['whatsapp-automation']} />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/services/mis-dashboard-development"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['mis-dashboard-development']} />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/services/ai-automation-services"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['ai-automation-services']} />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/services/inventory-management-software"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['inventory-management-software']} />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/custom-software-noida"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <SolutionLandingPage pageData={SOLUTION_PAGES['custom-software-noida']} />
+                  </Suspense>
+                }
+              />
               <Route path="/offers" element={<OffersHub />} />
               <Route path="/offers/:slug" element={<OfferDetailPage />} />
               <Route path="/contact" element={<Contact />} />
@@ -137,5 +206,6 @@ export default function App() {
         </div>
       </Router>
     </UserProvider>
+    </LanguageProvider>
   );
 }

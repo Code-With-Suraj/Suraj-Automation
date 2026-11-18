@@ -137,9 +137,12 @@ export default function BudgetSarthi() {
   };
 
   useSEO(
-    'BudgetSarthi Review: Under-The-Hood Spend Governance | Suraj Automation',
-    'BudgetSarthi is a robust expense control & finance governance system built on Google Workspace, resolving spreadsheet chaos with locking mechanism, alerts, and audit logs.',
-    'budget monitoring, expense logging, cost center analytics, financial controls sheets, google apps script budget, mid-sized business expense system'
+    'BudgetSarthi Spend Governance Tool | Suraj Automation',
+    'BudgetSarthi is an expense control and departmental finance governance web app built on Google Sheets and Apps Script with alerts and audit logs.',
+    'BudgetSarthi, Financial Reporting Automation, expense control sheets, Google Apps Script Custom Software',
+    undefined,
+    { price: '3999' },
+    { canonicalPath: '/products/budgetsarthi', isProduct: true, productName: 'BudgetSarthi' }
   );
 
   const productMetadata = {

@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Package, AlertTriangle, CheckCircle2, ListChecks, History, Upload, Smartphone, Store, TrendingUp, ShieldCheck, Settings, ArrowRight, MessageSquare, FileSpreadsheet, Lock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
@@ -9,9 +10,12 @@ export default function StockSarthi() {
   const isPurchased = hasPurchased('stocksarthi');
 
   useSEO(
-    'StockSarthi | Suraj Automation',
-    'Stock Management System - Take full control of your stock without Excel confusion.',
-    'stock management, inventory software, stock tracking, closing stock'
+    'StockSarthi Custom Inventory Software | Suraj Automation',
+    'StockSarthi is a Google Sheets & Apps Script custom inventory management software for multi-site stock entry, CSV uploads, and closing stock reports.',
+    'Custom Inventory Management Software, StockSarthi, multi-site inventory tracking, closing stock automation, Google Sheets inventory system',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/stocksarthi', isProduct: true, productName: 'StockSarthi' }
   );
 
   const problems = [
@@ -502,7 +506,13 @@ export default function StockSarthi() {
                   <li className="flex items-center gap-2 font-medium">✨ Custom dashboards</li>
                   <li className="flex items-center gap-2 font-medium">✨ Operational control solutions</li>
                 </ul>
-                <p className="font-bold text-white">Our goal is simple: Turn manual chaos into structured systems.</p>
+                <p className="font-bold text-white mb-4">Our goal is simple: Turn manual chaos into structured systems.</p>
+                <Link
+                  to="/services/inventory-management-software"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-white underline hover:text-emerald-100"
+                >
+                  Need bespoke inventory workflows? Explore Custom Inventory Software Services →
+                </Link>
               </div>
             </div>
 

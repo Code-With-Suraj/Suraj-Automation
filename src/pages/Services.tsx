@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import { 
   BarChart3, 
@@ -34,11 +35,6 @@ import { CORE_SERVICES } from '../data/servicesData';
 import QuotationTool from '../components/QuotationTool';
 
 export default function Services() {
-  useSEO(
-    'Services & Pricing | Custom Business Automation using Google Sheets',
-    'Explore premium custom business automation using Google Sheets, custom Apps Script macros, secure cloud databases, automated workflows, and high-converting website packages.',
-    'business automation using Google Sheets, google sheets automation, custom business automation, apps script triggers, mis dashboards, automation company in noida'
-  );
   const [activeTab, setActiveTab] = useState<'web' | 'data'>('web');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -172,6 +168,27 @@ export default function Services() {
   ];
 
   const currentFaqs = activeTab === 'web' ? webFaqs : dataFaqs;
+
+  useSEO(
+    'Automation & Web Services Pricing | Suraj Automation',
+    'Compare transparent pricing for Google Apps Script automation, custom MIS dashboards, Excel reporting, and WebSarthi business website plans across India.',
+    'business automation services pricing, Google Apps Script development services, MIS dashboard development India, custom software cost India',
+    undefined,
+    undefined,
+    {
+      canonicalPath: '/services',
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Services & Pricing', path: '/services' }
+      ],
+      serviceInfo: {
+        name: 'Business Automation & Web Application Development Services',
+        description: 'Custom Google Apps Script automation, spreadsheet MIS dashboards, WhatsApp workflow integrations, and managed business websites.',
+        serviceType: 'Business Process Automation & Custom Software'
+      },
+      faqs: [...webFaqs, ...dataFaqs]
+    }
+  );
 
   return (
     <main className="pt-24 pb-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -521,14 +538,14 @@ export default function Services() {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                  <h2 className="text-xs font-black uppercase tracking-widest text-emerald-650 dark:text-emerald-400 mb-3 font-mono">
+                  <h2 className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-3 font-mono">
                     What&apos;s Included?
                   </h2>
-                  <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4One">
+                  <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
                     Complete Built-In Value
                   </h3>
                   <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
-                    Yahan hum client ko dikhayenge ki unhe iss package mein kya-kya milta hai — everything managed seamlessly:
+                    Every website subscription package includes managed domain setup, cloud hosting, SSL security, and ongoing support:
                   </p>
                 </div>
 
@@ -614,10 +631,10 @@ export default function Services() {
                     How It Works
                   </h2>
                   <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
-                    Pristine Process, Zero Stress
+                    Simple Process, Zero Stress
                   </h3>
                   <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
-                    Client ko batayein ki process kitna aasan hai setup hone mein — complete in 3 standard phases:
+                    Go from onboarding to a live, managed business website in 3 straightforward phases:
                   </p>
                 </div>
 
@@ -713,7 +730,7 @@ export default function Services() {
                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 justify-center md:justify-start">
                       <a 
                         href="#data-pricing-table"
-                        className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-555 text-white rounded-xl font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 hover:-translate-y-0.5 transition-all text-base"
+                        className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 hover:-translate-y-0.5 transition-all text-base"
                         id="hero-data-plans-btn"
                       >
                         Explore Sheets Packages
@@ -992,10 +1009,10 @@ export default function Services() {
             <h3 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-2">
               Frequently Asked Questions
             </h3>
-            <p className="text-slate-500 dark:text-slate-450 text-sm font-semibold mt-2">
+            <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold mt-2">
               {activeTab === 'web' 
-                ? "Yeh section clients ke doubts clear karega aur aapke terms set karega:" 
-                : "Common questions regarding our custom sheet developments & hosting support:"}
+                ? "Clear answers covering setup, domain ownership, hosting, and ongoing website maintenance:" 
+                : "Common questions regarding our custom spreadsheet automations, data ownership, and support:"}
             </p>
           </div>
 
@@ -1088,22 +1105,61 @@ export default function Services() {
         </div>
       </section>
 
+      {/* Crawlable Dedicated Service Pages Directory (Always visible regardless of active tab) */}
+      <section className="py-16 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Specialized Capabilities</span>
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-2">
+              Explore Our Dedicated Service &amp; Solution Pages
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+              Read detailed technical scopes, before-and-after workflows, and FAQs for each automation and custom software service.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { title: 'Google Apps Script Development', to: '/services/google-apps-script-development', desc: 'Workspace web apps, PDF billing & Sheets automation' },
+              { title: 'Custom Software Development', to: '/services/custom-software-development', desc: 'Tailored internal ERPs & CRM software for Indian SMBs' },
+              { title: 'Web Application Development', to: '/services/web-application-development', desc: 'Role-based React, Firebase & Sheets web portals' },
+              { title: 'WhatsApp Business Automation', to: '/services/whatsapp-automation', desc: 'Order updates, invoices & payment reminder bots' },
+              { title: 'MIS Dashboard Development', to: '/services/mis-dashboard-development', desc: 'Automated Excel, Sheets, CFO & sales reporting' },
+              { title: 'AI Automation Services', to: '/services/ai-automation-services', desc: 'Gemini API document parsing & smart workflows' },
+              { title: 'Custom Inventory Software', to: '/services/inventory-management-software', desc: 'Multi-godown stock, PO & low-stock alerts' },
+              { title: 'Noida & Delhi NCR Services', to: '/custom-software-noida', desc: 'Local software & automation consulting across NCR' }
+            ].map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="p-5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition-all group"
+              >
+                <h3 className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-between gap-2">
+                  {item.title}
+                  <ArrowRight className="w-4 h-4 shrink-0" />
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{item.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Call To Action Banner */}
       <section className="py-12 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-indigo-905 to-slate-900 rounded-[2.5rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-xl">
+          <div className="bg-gradient-to-r from-indigo-950 to-slate-900 rounded-[2.5rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-xl">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-emerald-500/10 via-transparent to-transparent"></div>
             
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
               Need custom modifications?
             </h2>
             <p className="text-slate-300 max-w-2xl mx-auto text-base sm:text-lg mb-8 leading-relaxed font-medium">
-              Join 50+ businesses automating their registers and launching fast web presences. Start a quick WhatsApp chat to discuss specific workflow requirements.
+              Automate your daily business registers or launch a managed web presence built around your exact operations. Start a WhatsApp chat to discuss your workflow requirements.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%2520I%27ve%2520used%252520your%2520Pricing%252520page%2520and%2520want%2520to%2520discuss%2520a%2520project."
+                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%27ve%20reviewed%20your%20Services%20page%20and%20want%20to%20discuss%20a%20project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-base shadow-lg transition-all hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"

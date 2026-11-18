@@ -74,7 +74,7 @@ export default function WhyAppsScript() {
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-blue-600 opacity-50"></div>
             <img 
               src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop" 
-              alt="Team collaborating on a system" 
+              alt="Software engineering team building custom Google Apps Script business automation systems" 
               className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
               referrerPolicy="no-referrer"
             />

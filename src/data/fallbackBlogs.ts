@@ -392,5 +392,139 @@ Browse our **[Products Catalog](/products)** to see pre-built Sarthi automation 
     createdAt: new Date('2026-06-24T09:15:00Z').toISOString(),
     readTime: '4 min read',
     isPublished: true
+  },
+  {
+    id: 'custom-business-software-cost-india',
+    title: 'How Much Does Custom Business Software Cost in India?',
+    slug: 'custom-business-software-cost-india',
+    summary: 'A transparent cost breakdown of custom software development in India—comparing Google Apps Script web apps, React portals, and enterprise ERPs for SMBs.',
+    content: `When an Indian business outgrows manual registers and scattered Excel files, the first question founders ask is simple: **how much does custom business software cost in India?**
+
+The answer depends on complexity, user roles, database architecture, and whether you build on Google Workspace or dedicated cloud servers. Understanding these tiers helps SMBs avoid paying enterprise agency prices for internal workflows that can be launched at a fraction of the cost.
+
+---
+
+## 1. Ready-to-Deploy & Scripted Google Workspace Systems (₹1,499 – ₹15,000)
+
+For billing, stock tracking, leave approvals, and daily operations, you often do not need a heavy custom server. Building with [Google Apps Script Development Services](/services/google-apps-script-development) uses your existing Google Workspace as the database and backend runtime:
+
+* **Pre-built Sarthi templates**: Starting at ₹1,499 one-time for tools like [StockSarthi](/products/stocksarthi), [HisabSarthi](/products/hisabsarthi), and [KarmSarthi](/products/karmsarthi).
+* **Custom Apps Script automations**: ₹2,999 to ₹15,000 for automated PDF invoicing, multi-branch approvals, and email/WhatsApp triggers.
+* **Monthly hosting cost**: ₹0 because execution runs inside your Google Drive account.
+
+---
+
+## 2. Custom Web Applications & Internal Portals (₹15,000 – ₹75,000+)
+
+When you need customer logins, field-staff mobile interfaces, payment gateways, or role-based dashboards beyond spreadsheets, dedicated [Custom Web Application Development](/services/web-application-development) is ideal.
+
+* **Customer booking or vendor portals**: Clean mobile-first UI backed by Google Sheets or Firebase Firestore.
+* **Custom internal CRM, HRMS, or inventory apps**: Tailored permissions for admins, branch managers, and sales executives.
+* **Transparent ownership**: No per-user monthly SaaS lock-in fees as your staff grows from 5 to 50 people.
+
+---
+
+## 3. What Actually Drives Custom Software Pricing?
+
+1. **Data Sources & Integrations**: Connecting WhatsApp Business APIs, third-party billing software, or Tally exports adds webhook engineering scope.
+2. **Role Complexity**: Single-owner dashboards cost far less than multi-tier approval workflows across warehouses and accounts teams.
+3. **AI Capabilities**: Adding invoice OCR or automated inquiry triage via [AI Automation Services](/services/ai-automation-services) requires prompt engineering and API validation layers.
+
+---
+
+## How to Avoid Overpaying
+
+Start by mapping the exact bottlenecks costing your team the most hours each week. Use our [ROI & Process Match Tool](/roi-tool) or explore [Custom Software Development in India](/services/custom-software-development) and [Noida / Delhi NCR Consulting](/custom-software-noida) to get an honest milestone quote before writing a line of code.`,
+    category: 'Business Strategy',
+    image: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?q=80&w=600&auto=format&fit=crop',
+    tags: ['Custom Software Cost', 'Indian SMBs', 'Apps Script', 'ERP Alternative', 'Software Pricing'],
+    createdAt: new Date('2026-07-10T10:00:00Z').toISOString(),
+    readTime: '5 min read',
+    isPublished: true
+  },
+  {
+    id: 'whatsapp-business-automation-google-sheets',
+    title: 'WhatsApp Business Automation & Payment Reminders With Google Sheets',
+    slug: 'whatsapp-business-automation-google-sheets',
+    summary: 'Learn how Indian distributors, clinics, and SMBs connect Google Sheets to WhatsApp for automatic payment reminders, order alerts, and PDF invoice dispatch.',
+    content: `In India, business happens on WhatsApp—orders arrive as voice notes, dispatch updates get lost in group chats, and payment follow-ups depend on someone remembering to message every party.
+
+By connecting your spreadsheets or web app to [WhatsApp Business Automation Services](/services/whatsapp-automation), you turn manual messaging into a reliable, traceable workflow.
+
+---
+
+## High-Impact WhatsApp Workflows for SMBs
+
+### 1. Automated Payment Reminder Software
+Track overdue invoices in Google Sheets or [LoanSarthi](/products/loansarthi). When a due date approaches or passes, scheduled Apps Script triggers or WhatsApp API templates dispatch polite reminders with the exact pending balance and invoice reference.
+
+### 2. Instant Order & Dispatch Notifications
+B2B distributors using [SupplySarthi](/products/supplysarthi) update an order row from *Pending* to *Dispatched*, automatically sending the retailer tracking details and a PDF challan on WhatsApp.
+
+### 3. WhatsApp Invoice Automation
+Instead of manually downloading PDFs from billing software and forwarding them to 40 customers a day, Apps Script generates the GST tax invoice PDF in Google Drive and triggers a WhatsApp attachment notification automatically.
+
+### 4. Structured Lead & CRM Capture
+Combine WhatsApp inquiries with [AI Business Process Automation](/services/ai-automation-services) to extract client names, required SKUs, and quantities directly into a centralized sheet—eliminating copy-paste errors.
+
+---
+
+## Official WhatsApp API vs Click-to-Chat Links
+
+* **Official WhatsApp Business API**: Best for unattended automated triggers (scheduled payment reminders, OTP/order alerts, invoice PDFs) using approved templates.
+* **Dynamic Click-to-Chat Workflows**: Great zero-fee starter setup inside Google Sheets where staff click one generated link per row with pre-filled party details.
+
+Ready to streamline customer communication? Explore our [WhatsApp Automation Service Page](/services/whatsapp-automation) or book a quick workflow audit on our [Contact page](/contact).`,
+    category: 'WhatsApp & AI Automation',
+    image: 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?q=80&w=600&auto=format&fit=crop',
+    tags: ['WhatsApp Automation', 'Payment Reminders', 'WhatsApp API India', 'Google Sheets', 'Invoice Automation'],
+    createdAt: new Date('2026-07-12T11:30:00Z').toISOString(),
+    readTime: '5 min read',
+    isPublished: true
+  },
+  {
+    id: 'automate-excel-mis-reporting-small-business',
+    title: 'How to Automate Excel MIS Reporting Without Expensive Tools',
+    slug: 'automate-excel-mis-reporting-small-business',
+    summary: 'Replace 6-hour manual Excel copy-pasting with automated MIS reporting solutions, real-time sales tracking, and CFO dashboards built for Indian SMBs.',
+    content: `For many Indian business owners and finance managers, Monday morning starts with opening five separate Excel files, copying branch sales, fixing broken VLOOKUPs, and trying to figure out actual cash flow before noon.
+
+You do not need costly enterprise BI licenses to fix this. With structured [MIS Dashboard Development Services](/services/mis-dashboard-development), your reporting pipeline updates cleanly every day.
+
+---
+
+## Why Manual Excel MIS Breaks as You Grow
+
+* **Multiple file versions**: Branch managers email \`Sales_Final_v3.xlsx\`, making consolidated totals unreliable.
+* **Formula fragility**: Inserting one column breaks downstream summary tabs.
+* **Delayed profit visibility**: By the time COGS, vendor payables, and margins are compiled, the month is already over.
+
+---
+
+## 3 Steps to Automate Your MIS Reporting
+
+### 1. Centralize Raw Inputs
+Move branch entries, purchase bills, and daily sales logs into structured forms or Google Sheets tabs with strict dropdown validations (using tools like [BillSarthi](/products/billsarthi) or [StockSarthi](/products/stocksarthi)).
+
+### 2. Automate Consolidation with Apps Script or Power Query
+Instead of manual copy-paste, scheduled scripts fetch, clean, and append daily transactions into a master ledger automatically. Whether you prefer Excel reporting automation, Power BI, or cloud Google Sheets dashboards, clean data modeling comes first.
+
+### 3. Build Role-Specific Executive Dashboards
+Surface only the metrics decision-makers need daily:
+* **Cash Flow & Receivables**: Tracked cleanly inside a [CFO Dashboard](/products/cfo-dashboard).
+* **Product & Branch Margins**: Monitored through our [COGS Analytics Dashboard](/products/cogs-analytics-dashboard).
+* **Inventory & Reorder Alerts**: Connected directly to [Custom Inventory Management Software](/services/inventory-management-software).
+
+---
+
+## Upgrade Your Reporting This Week
+
+Explore our dedicated [MIS Dashboard Development page](/services/mis-dashboard-development) or review our starter [Excel & MIS Dashboard offer](/offers/custom-excel-dashboard-mis) to turn scattered spreadsheets into reliable real-time visibility.`,
+    category: 'MIS & Reporting',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
+    tags: ['MIS Dashboard', 'Excel Automation', 'CFO Dashboard', 'Sales Reporting', 'Business Intelligence'],
+    createdAt: new Date('2026-07-15T09:00:00Z').toISOString(),
+    readTime: '5 min read',
+    isPublished: true
   }
 ];

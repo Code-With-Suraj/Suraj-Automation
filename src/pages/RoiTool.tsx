@@ -20,6 +20,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useSEO } from '../hooks/useSEO';
 
 interface AnalysisResult {
   matchedProductId: string;
@@ -36,6 +37,20 @@ interface AnalysisResult {
 }
 
 export default function RoiTool() {
+  useSEO(
+    'Automation ROI & AI Solution Finder | Suraj Automation',
+    'Calculate weekly hours and cost savings from automating manual spreadsheets, WhatsApp orders, and MIS reporting, plus get an AI workflow recommendation.',
+    'business automation ROI calculator, workflow audit tool India, custom software estimator, Apps Script ROI calculator',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'ROI & AI Match', path: '/roi-tool' }
+      ]
+    }
+  );
+
   const [businessType, setBusinessType] = useState('');
   const [challenges, setChallenges] = useState('');
   const [scaleVolume, setScaleVolume] = useState('500'); // Monthly transactions or entries

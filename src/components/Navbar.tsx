@@ -110,86 +110,107 @@ export default function Navbar() {
               </button>
               
               {isServicesDropdownOpen && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-16 w-80 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xl py-3 z-50 transform origin-top transition-all duration-200">
-                  <div className="px-4 pb-2 border-b border-slate-100 dark:border-slate-800/80 mb-2 flex justify-between items-center">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Special Offers & Plans</span>
-                    <Link to="/offers" onClick={() => setIsServicesDropdownOpen(false)} className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline">View All</Link>
+                <div className="absolute left-1/2 -translate-x-1/2 top-16 w-[36rem] max-w-[90vw] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xl p-4 z-50 transform origin-top transition-all duration-200">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <div className="px-2 pb-2 border-b border-slate-100 dark:border-slate-800/80 mb-2 flex justify-between items-center">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Dedicated Services</span>
+                        <Link to="/services" onClick={() => setIsServicesDropdownOpen(false)} className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline">Pricing & Plans</Link>
+                      </div>
+                      <div className="space-y-0.5 text-xs font-semibold">
+                        <Link to="/services/google-apps-script-development" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-indigo-600 dark:hover:text-indigo-400">Google Apps Script Development</Link>
+                        <Link to="/services/custom-software-development" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-indigo-600 dark:hover:text-indigo-400">Custom Software Development</Link>
+                        <Link to="/services/web-application-development" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-indigo-600 dark:hover:text-indigo-400">Web Application Development</Link>
+                        <Link to="/services/whatsapp-automation" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-indigo-600 dark:hover:text-indigo-400">WhatsApp Business Automation</Link>
+                        <Link to="/services/mis-dashboard-development" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-indigo-600 dark:hover:text-indigo-400">MIS Dashboard Development</Link>
+                        <Link to="/services/ai-automation-services" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-indigo-600 dark:hover:text-indigo-400">AI Automation Services</Link>
+                        <Link to="/services/inventory-management-software" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-indigo-600 dark:hover:text-indigo-400">Custom Inventory Software</Link>
+                        <Link to="/custom-software-noida" onClick={() => setIsServicesDropdownOpen(false)} className="block px-2 py-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 font-bold hover:bg-indigo-50/70 dark:hover:bg-indigo-500/10">Noida & Delhi NCR Services</Link>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="px-2 pb-2 border-b border-slate-100 dark:border-slate-800/80 mb-2 flex justify-between items-center">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Starter Packages</span>
+                        <Link to="/offers" onClick={() => setIsServicesDropdownOpen(false)} className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline">View All</Link>
+                      </div>
+                      <div className="space-y-0.5">
+                        <Link
+                          to="/offers/google-sheets-automation"
+                          onClick={() => setIsServicesDropdownOpen(false)}
+                          className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                          id="dropdown-link-sheets"
+                        >
+                          <div className="p-1.5 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-lg shrink-0">
+                            <FileSpreadsheet className="w-4 h-4" />
+                          </div>
+                          <div className="flex-grow min-w-0">
+                            <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Google Sheets Automation</p>
+                            <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹1,499</p>
+                          </div>
+                        </Link>
+
+                        <Link
+                          to="/offers/custom-excel-dashboard-mis"
+                          onClick={() => setIsServicesDropdownOpen(false)}
+                          className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                          id="dropdown-link-excel"
+                        >
+                          <div className="p-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-lg shrink-0">
+                            <BarChart3 className="w-4 h-4" />
+                          </div>
+                          <div className="flex-grow min-w-0">
+                            <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Custom Excel Dashboard</p>
+                            <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹1,999</p>
+                          </div>
+                        </Link>
+
+                        <Link
+                          to="/offers/google-apps-script-automation"
+                          onClick={() => setIsServicesDropdownOpen(false)}
+                          className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                          id="dropdown-link-appsscript"
+                        >
+                          <div className="p-1.5 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                            <Workflow className="w-4 h-4" />
+                          </div>
+                          <div className="flex-grow min-w-0">
+                            <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Apps Script Workflow</p>
+                            <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹2,999</p>
+                          </div>
+                        </Link>
+
+                        <Link
+                          to="/offers/custom-web-app"
+                          onClick={() => setIsServicesDropdownOpen(false)}
+                          className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                          id="dropdown-link-webapp"
+                        >
+                          <div className="p-1.5 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 rounded-lg shrink-0">
+                            <MonitorSmartphone className="w-4 h-4" />
+                          </div>
+                          <div className="flex-grow min-w-0">
+                            <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Custom Web App</p>
+                            <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹3,999</p>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-0.5">
-                    <Link 
-                      to="/offers/google-sheets-automation" 
+                  <div className="border-t border-slate-100 dark:border-slate-800/80 mt-3 pt-2.5 px-2 flex justify-between items-center gap-2">
+                    <Link
+                      to="/services"
                       onClick={() => setIsServicesDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                      id="dropdown-link-sheets"
+                      className="text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400"
                     >
-                      <div className="p-1.5 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-lg shrink-0">
-                        <FileSpreadsheet className="w-4 h-4" />
-                      </div>
-                      <div className="flex-grow min-w-0">
-                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Google Sheets Automation</p>
-                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹1,499</p>
-                      </div>
+                      All Services &amp; Pricing
                     </Link>
-                    
-                    <Link 
-                      to="/offers/custom-excel-dashboard-mis" 
+                    <Link
+                      to="/offers"
                       onClick={() => setIsServicesDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                      id="dropdown-link-excel"
+                      className="text-[11px] font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline"
                     >
-                      <div className="p-1.5 bg-indigo-50 dark:bg-indigo-505/10 text-indigo-650 dark:text-indigo-405 rounded-lg shrink-0">
-                        <BarChart3 className="w-4 h-4" />
-                      </div>
-                      <div className="flex-grow min-w-0">
-                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Custom Excel Dashboard</p>
-                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹1,999</p>
-                      </div>
-                    </Link>
-                    
-                    <Link 
-                      to="/offers/google-apps-script-automation" 
-                      onClick={() => setIsServicesDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                      id="dropdown-link-appsscript"
-                    >
-                      <div className="p-1.5 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-450 rounded-lg shrink-0">
-                        <Workflow className="w-4 h-4" />
-                      </div>
-                      <div className="flex-grow min-w-0">
-                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Google Apps Script</p>
-                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹2,999</p>
-                      </div>
-                    </Link>
-                    
-                    <Link 
-                      to="/offers/custom-web-app" 
-                      onClick={() => setIsServicesDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                      id="dropdown-link-webapp"
-                    >
-                      <div className="p-1.5 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-450 rounded-lg shrink-0">
-                        <MonitorSmartphone className="w-4 h-4" />
-                      </div>
-                      <div className="flex-grow min-w-0">
-                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Custom Web App & Website</p>
-                        <p className="text-[10px] text-slate-500 font-semibold truncate">Starting at ₹3,999</p>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="border-t border-slate-100 dark:border-slate-800/80 mt-2 pt-2 px-4 flex justify-between items-center gap-2">
-                    <Link 
-                      to="/services" 
-                      onClick={() => setIsServicesDropdownOpen(false)}
-                      className="text-[10px] font-bold text-slate-650 dark:text-slate-350 hover:text-indigo-650 dark:hover:text-indigo-400"
-                    >
-                      Core Plans Page
-                    </Link>
-                    <Link 
-                      to="/offers" 
-                      onClick={() => setIsServicesDropdownOpen(false)}
-                      className="text-[10px] font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline"
-                    >
-                      All Dynamic Offers
+                      Explore Starter Offers →
                     </Link>
                   </div>
                 </div>
@@ -271,14 +292,22 @@ export default function Navbar() {
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMobileOffersOpen ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}`} />
             </button>
             {isMobileOffersOpen && (
-              <div className="pl-4 space-y-1 mt-1 bg-slate-50/50 dark:bg-slate-850/25 p-2 rounded-xl border border-slate-200/50 dark:border-slate-800">
-                <Link to="/services" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-650">Core Plans Page</Link>
-                <Link to="/offers" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-sm font-extrabold text-indigo-600 dark:text-indigo-400 hover:text-indigo-650">Special Deals Hub</Link>
+              <div className="pl-4 space-y-1 mt-1 bg-slate-50/50 dark:bg-slate-800/30 p-2 rounded-xl border border-slate-200/50 dark:border-slate-800 max-h-72 overflow-y-auto">
+                <Link to="/services" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600">All Services &amp; Pricing</Link>
+                <Link to="/services/google-apps-script-development" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Google Apps Script Development</Link>
+                <Link to="/services/custom-software-development" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Custom Software Development</Link>
+                <Link to="/services/web-application-development" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Web Application Development</Link>
+                <Link to="/services/whatsapp-automation" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">WhatsApp Business Automation</Link>
+                <Link to="/services/mis-dashboard-development" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">MIS Dashboard Development</Link>
+                <Link to="/services/ai-automation-services" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">AI Automation Services</Link>
+                <Link to="/services/inventory-management-software" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Custom Inventory Software</Link>
+                <Link to="/custom-software-noida" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400">Noida &amp; Delhi NCR Services</Link>
                 <div className="h-[1px] bg-slate-200/50 dark:bg-slate-800 my-1.5" />
-                <Link to="/offers/google-sheets-automation" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Sheets Automation (₹1,499)</Link>
-                <Link to="/offers/custom-excel-dashboard-mis" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Excel MIS Dashboard (₹1,999)</Link>
-                <Link to="/offers/google-apps-script-automation" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Apps Script Workflow (₹2,999)</Link>
-                <Link to="/offers/custom-web-app" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-550 dark:text-slate-450 hover:text-indigo-650">Web App & Site (₹3,999)</Link>
+                <Link to="/offers" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-sm font-extrabold text-indigo-600 dark:text-indigo-400">Starter Packages Hub</Link>
+                <Link to="/offers/google-sheets-automation" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Sheets Automation (₹1,499)</Link>
+                <Link to="/offers/custom-excel-dashboard-mis" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Excel MIS Dashboard (₹1,999)</Link>
+                <Link to="/offers/google-apps-script-automation" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Apps Script Workflow (₹2,999)</Link>
+                <Link to="/offers/custom-web-app" onClick={() => { setIsMobileMenuOpen(false); setIsMobileOffersOpen(false); }} className="block px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600">Web App &amp; Site (₹3,999)</Link>
               </div>
             )}
           </div>

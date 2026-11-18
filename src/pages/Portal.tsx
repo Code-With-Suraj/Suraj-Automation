@@ -37,7 +37,10 @@ export default function Portal() {
   useSEO(
     'My Portal | Suraj Automation',
     'Access your purchased Google Workspace automation blueprints, Apps Script codes, and template installation handbooks securely.',
-    'apps script dashboard, purchase registry, google workspace blueprint portal'
+    'apps script dashboard, purchase registry, google workspace blueprint portal',
+    undefined,
+    undefined,
+    { robots: 'noindex, nofollow' }
   );
 
   const { user, userProfile, purchases, customProducts, loading, login, logout, hasPurchased, isAdmin, getProductSolution } = useUser();

@@ -7,6 +7,7 @@ import {
   HelpCircle, AlertTriangle, ShieldAlert, Scale, RefreshCw, 
   XCircle, Ban, Hourglass, MapPin, Mail, Phone, Search, ExternalLink
 } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 interface TermSection {
   id: string;
@@ -18,6 +19,20 @@ interface TermSection {
 }
 
 export default function Terms() {
+  useSEO(
+    'Terms of Service & Policies | Suraj Automation',
+    'Review Suraj Automation terms covering custom software development, Google Apps Script deliverables, data ownership, hosting plans, and support policies.',
+    'Suraj Automation terms of service, custom software agreement, Google Apps Script data ownership policy',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Terms & Conditions', path: '/terms' }
+      ]
+    }
+  );
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
 

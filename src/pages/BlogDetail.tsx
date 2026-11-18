@@ -10,6 +10,7 @@ import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ArrowLeft, Calendar, Clock, Sparkles, User, Tag, Share2, Copy, Check, MessageSquare, Trash2, CornerDownRight } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 interface BlogComment {
   id: string;
@@ -28,6 +29,42 @@ export default function BlogDetail() {
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
+
+  const seoTitle = blog
+    ? `${blog.title.length > 42 ? `${blog.title.slice(0, 40).trim()}…` : blog.title} | Suraj Automation`
+    : 'Automation Guide | Suraj Automation';
+  const rawSummary = blog?.summary || 'Read practical Google Apps Script, MIS reporting, and business automation guides for Indian SMBs.';
+  const seoDesc = rawSummary.length > 160 ? `${rawSummary.slice(0, 157).trim()}...` : rawSummary;
+
+  useSEO(
+    seoTitle,
+    seoDesc,
+    blog?.tags?.join(', ') || 'Google Apps Script, business automation India, Google Sheets workflows',
+    blog?.image,
+    undefined,
+    {
+      ogType: blog ? 'article' : 'website',
+      robots: !loading && !blog ? 'noindex, nofollow' : 'index, follow',
+      canonicalPath: slug ? `/blog/${slug}` : '/blog',
+      breadcrumbs: blog
+        ? [
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+            { name: blog.title, path: `/blog/${blog.slug}` }
+          ]
+        : undefined,
+      articleInfo: blog
+        ? {
+            headline: blog.title,
+            description: seoDesc,
+            image: blog.image,
+            datePublished: typeof blog.createdAt === 'string' ? blog.createdAt : new Date(blog.createdAt).toISOString(),
+            authorName: 'Suraj Singh',
+            keywords: blog.tags
+          }
+        : undefined
+    }
+  );
 
   // Recommended Blogs States
   const [recommendedBlogs, setRecommendedBlogs] = useState<BlogPost[]>([]);
@@ -581,7 +618,7 @@ export default function BlogDetail() {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  h1: ({ children }) => <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-8 mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{children}</h1>,
+                  h1: ({ children }) => <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-8 mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{children}</h2>,
                   h2: ({ children }) => <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight mt-6 mb-3">{children}</h2>,
                   h3: ({ children }) => <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight mt-4 mb-2">{children}</h3>,
                   p: ({ children }) => <p className="leading-relaxed mb-4 text-slate-700 dark:text-slate-300">{children}</p>,

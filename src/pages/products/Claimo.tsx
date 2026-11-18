@@ -9,9 +9,12 @@ export default function Claimo() {
   const isPurchased = hasPurchased('claimo');
 
   useSEO(
-    'Claimo | Suraj Automation',
-    'Expense & Reimbursement System - Brings structure, transparency, and speed to your entire expense process.',
-    'expense management, reimbursement tool, expense approval workflow, corporate expenses'
+    'Claimo Expense & Reimbursement App | Suraj Automation',
+    'Claimo automates employee expense claims, receipt uploads, multi-level approvals, and reimbursement tracking on Google Sheets and Apps Script.',
+    'Claimo, expense management software, employee reimbursement workflow, Google Apps Script Custom Software',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/claimo', isProduct: true, productName: 'Claimo' }
   );
 
   const problems = [

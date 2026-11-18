@@ -4,6 +4,25 @@ import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI, Type } from '@google/genai';
 import { PRODUCT_SOLUTIONS } from './src/data/productSolutions';
+import { FALLBACK_BLOGS } from './src/data/fallbackBlogs';
+
+const escapeHtmlAttr = (str: string): string =>
+  String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+const CORE_SERVICE_ROUTES = [
+  '/services/google-apps-script-development',
+  '/services/custom-software-development',
+  '/services/web-application-development',
+  '/services/whatsapp-automation',
+  '/services/mis-dashboard-development',
+  '/services/ai-automation-services',
+  '/services/inventory-management-software',
+  '/custom-software-noida',
+];
 
 // Hardcoded fallbacks provided by user for instant out-of-the-box live functionality
 const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || 'rzp_live_Sugpl07IegaqDU';
@@ -359,13 +378,11 @@ Return valid JSON structure matching the schema.
         { loc: '/about', changefreq: 'monthly', priority: '0.8' },
         { loc: '/services', changefreq: 'weekly', priority: '0.9' },
         { loc: '/contact', changefreq: 'monthly', priority: '0.8' },
-        { loc: '/pricing', changefreq: 'weekly', priority: '0.9' },
         { loc: '/products', changefreq: 'weekly', priority: '0.9' },
         { loc: '/reviews', changefreq: 'weekly', priority: '0.8' },
-        { loc: '/portal', changefreq: 'monthly', priority: '0.7' },
         { loc: '/roi-tool', changefreq: 'monthly', priority: '0.8' },
-        { loc: '/terms', changefreq: 'monthly', priority: '0.5' },
-        { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.5' },
+        { loc: '/terms', changefreq: 'monthly', priority: '0.4' },
+        { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.4' },
         { loc: '/offers', changefreq: 'weekly', priority: '0.9' },
         { loc: '/blog', changefreq: 'weekly', priority: '0.9' }
       ];
@@ -389,7 +406,16 @@ Return valid JSON structure matching the schema.
         xml += `  </url>\n`;
       });
 
-      // 2. Special Custom Offers
+      // 2. Core Service & Noida Location Pages
+      CORE_SERVICE_ROUTES.forEach(pathStr => {
+        xml += `  <url>\n`;
+        xml += `    <loc>${host}${pathStr}</loc>\n`;
+        xml += `    <changefreq>weekly</changefreq>\n`;
+        xml += `    <priority>0.9</priority>\n`;
+        xml += `  </url>\n`;
+      });
+
+      // 3. Special Custom Offers
       specialOffers.forEach(pathStr => {
         xml += `  <url>\n`;
         xml += `    <loc>${host}${pathStr}</loc>\n`;
@@ -398,7 +424,7 @@ Return valid JSON structure matching the schema.
         xml += `  </url>\n`;
       });
 
-      // 3. Dynamic products appending from data solutions mapping automatically
+      // 4. Dynamic products appending from data solutions mapping automatically
       if (typeof PRODUCT_SOLUTIONS === 'object' && PRODUCT_SOLUTIONS !== null) {
         Object.keys(PRODUCT_SOLUTIONS).forEach(key => {
           const product = PRODUCT_SOLUTIONS[key];
@@ -412,7 +438,19 @@ Return valid JSON structure matching the schema.
         });
       }
 
-      // 4. Dynamic blogs from Firestore
+      // 5. Dynamic blogs from Firestore merged with published fallback guides
+      const seenSlugs = new Set<string>();
+      FALLBACK_BLOGS.forEach(blog => {
+        if (blog.isPublished !== false && blog.slug) {
+          seenSlugs.add(blog.slug);
+          xml += `  <url>\n`;
+          xml += `    <loc>${host}/blog/${blog.slug}</loc>\n`;
+          xml += `    <changefreq>weekly</changefreq>\n`;
+          xml += `    <priority>0.7</priority>\n`;
+          xml += `  </url>\n`;
+        }
+      });
+
       try {
         const documents = await fetchBlogsFromFirestoreREST();
         documents.forEach((doc: any) => {
@@ -425,7 +463,8 @@ Return valid JSON structure matching the schema.
               const parts = doc.name.split('/');
               slug = parts[parts.length - 1];
             }
-            if (slug) {
+            if (slug && !seenSlugs.has(slug)) {
+              seenSlugs.add(slug);
               xml += `  <url>\n`;
               xml += `    <loc>${host}/blog/${slug}</loc>\n`;
               xml += `    <changefreq>weekly</changefreq>\n`;
@@ -457,15 +496,18 @@ Return valid JSON structure matching the schema.
         { url: `${host}/about`, type: 'Base Page', priority: '0.8' },
         { url: `${host}/services`, type: 'Base Page', priority: '0.9' },
         { url: `${host}/contact`, type: 'Base Page', priority: '0.8' },
-        { url: `${host}/pricing`, type: 'Base Page', priority: '0.9' },
         { url: `${host}/products`, type: 'Base Page', priority: '0.9' },
         { url: `${host}/reviews`, type: 'Base Page', priority: '0.8' },
-        { url: `${host}/portal`, type: 'Base Page', priority: '0.7' },
         { url: `${host}/roi-tool`, type: 'Base Page', priority: '0.8' },
-        { url: `${host}/terms`, type: 'Base Page', priority: '0.5' },
-        { url: `${host}/privacy-policy`, type: 'Base Page', priority: '0.5' },
+        { url: `${host}/terms`, type: 'Base Page', priority: '0.4' },
+        { url: `${host}/privacy-policy`, type: 'Base Page', priority: '0.4' },
         { url: `${host}/offers`, type: 'Base Page', priority: '0.9' },
-        { url: `${host}/blog`, type: 'Base Page', priority: '0.9' }
+        { url: `${host}/blog`, type: 'Base Page', priority: '0.9' },
+        ...CORE_SERVICE_ROUTES.map(route => ({
+          url: `${host}${route}`,
+          type: 'Service Landing Page',
+          priority: '0.9'
+        }))
       ];
 
       const specialOffers = [
@@ -491,6 +533,19 @@ Return valid JSON structure matching the schema.
       }
 
       const blogUrls: { url: string; type: string; priority: string; title: string }[] = [];
+      const seenBlogSlugs = new Set<string>();
+      FALLBACK_BLOGS.forEach(blog => {
+        if (blog.isPublished !== false && blog.slug) {
+          seenBlogSlugs.add(blog.slug);
+          blogUrls.push({
+            url: `${host}/blog/${blog.slug}`,
+            type: 'Blog Post',
+            priority: '0.7',
+            title: blog.title
+          });
+        }
+      });
+
       try {
         const documents = await fetchBlogsFromFirestoreREST();
         documents.forEach((doc: any) => {
@@ -503,7 +558,8 @@ Return valid JSON structure matching the schema.
               slug = parts[parts.length - 1];
             }
             const title = fields.title?.stringValue || slug;
-            if (slug) {
+            if (slug && !seenBlogSlugs.has(slug)) {
+              seenBlogSlugs.add(slug);
               blogUrls.push({
                 url: `${host}/blog/${slug}`,
                 type: 'Blog Post',
@@ -1019,15 +1075,19 @@ Return valid JSON structure matching this exact schema:
         }
       }
 
-      if (!matchedDoc) {
+      const fallbackMatch = !matchedDoc
+        ? FALLBACK_BLOGS.find(b => b.slug === requestedSlug || b.id === requestedSlug)
+        : null;
+
+      if (!matchedDoc && !fallbackMatch) {
         return next();
       }
 
-      const fields = matchedDoc.fields || {};
-      const title = fields.title?.stringValue || 'Expert Automation Insights';
-      const summary = fields.summary?.stringValue || 'Expert Google Sheets & Google Apps Script automations for Indian SMBs.';
-      const category = fields.category?.stringValue || 'General';
-      const featuredImage = fields.image?.stringValue || 'https://blogger.googleusercontent.com/img/a/AVvXsEh5zZHbpxiw_k6uVI42WF3xsmx5ufKvjLCZmmNF7Wx1w3JXIFvgHSu6IQuiigrjGxnmzU99q-ZLe143TGx1uqJwdDWgBGzvwXLdcatbImKrD8TRKda9y4PnW6m_88uEs9JmwklolKLHhMnD4dFrJ3fxBXKncoDZyu4YPXgZ5vGfLE2vSbNUXEH-iHeUVbw=s16000';
+      const fields = matchedDoc?.fields || {};
+      const title = fields.title?.stringValue || fallbackMatch?.title || 'Business Automation Guide';
+      const summary = fields.summary?.stringValue || fallbackMatch?.summary || 'Practical Google Sheets, Apps Script & custom workflow automation guides for Indian SMBs.';
+      const category = fields.category?.stringValue || fallbackMatch?.category || 'Automation';
+      const featuredImage = fields.image?.stringValue || fallbackMatch?.image || 'https://surajdx.com/favicon.svg';
 
       const isProd = process.env.NODE_ENV === "production";
       const htmlPath = isProd 
@@ -1045,47 +1105,44 @@ Return valid JSON structure matching this exact schema:
         html = await vite.transformIndexHtml(req.originalUrl, html);
       }
 
-      const host = req.headers.host || 'surajdx.com';
-      const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-      const origin = `${protocol}://${host}`;
-      
+      const canonicalHost = 'https://surajdx.com';
       const absoluteImgUrl = featuredImage.startsWith('http') 
         ? featuredImage 
-        : `${origin}${featuredImage}`;
-      const absoluteBlogUrl = `${origin}/blog/${requestedSlug}`;
+        : `${canonicalHost}${featuredImage.startsWith('/') ? '' : '/'}${featuredImage}`;
+      const absoluteBlogUrl = `${canonicalHost}/blog/${requestedSlug}`;
 
-      const titleStr = `${title} | Suraj Automation Blog`;
-      const descriptionStr = summary;
-      const keywordsStr = `${category}, google sheets automation, google apps script, workflows, business automation`;
+      const cleanTitle = title.length > 52 ? `${title.slice(0, 49).trim()}...` : title;
+      const titleStr = escapeHtmlAttr(`${cleanTitle} | Suraj Automation`);
+      const descriptionStr = escapeHtmlAttr(summary.length > 160 ? `${summary.slice(0, 157).trim()}...` : summary);
+      const keywordsStr = escapeHtmlAttr(`${category}, google sheets automation, google apps script development, business automation india`);
 
-      // Open Graph structure for WhatsApp, LinkedIn, Facebook, Discord, Slack
+      // Open Graph & Canonical structure
       const seoMetaTags = `
-    <!-- Dynamic Social Media SEO Injection -->
+    <!-- Dynamic Blog SEO Injection -->
     <title>${titleStr}</title>
+    <meta name="robots" content="index, follow" />
     <meta name="description" content="${descriptionStr}" />
     <meta name="keywords" content="${keywordsStr}" />
+    <link rel="canonical" href="${escapeHtmlAttr(absoluteBlogUrl)}" />
     
     <meta property="og:title" content="${titleStr}" />
     <meta property="og:description" content="${descriptionStr}" />
-    <meta property="og:image" content="${absoluteImgUrl}" />
-    <meta property="og:image:secure_url" content="${absoluteImgUrl}" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content="${escapeHtmlAttr(absoluteImgUrl)}" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="${absoluteBlogUrl}" />
+    <meta property="og:url" content="${escapeHtmlAttr(absoluteBlogUrl)}" />
     <meta property="og:site_name" content="Suraj Automation" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${titleStr}" />
     <meta name="twitter:description" content="${descriptionStr}" />
-    <meta name="twitter:image" content="${absoluteImgUrl}" />
+    <meta name="twitter:image" content="${escapeHtmlAttr(absoluteImgUrl)}" />
       `;
 
-      // Clean existing tags to prevent dual title/descriptions
-      html = html.replace(/<title>[\s\S]*?<\/title>/i, '');
-      html = html.replace(/<meta\s+name="description"[\s\S]*?\/>/i, '');
-      html = html.replace(/<meta\s+name="keywords"[\s\S]*?\/>/i, '');
+      // Clean existing static tags to prevent duplicate titles, descriptions, canonicals, or OG tags
+      html = html.replace(/<title>[\s\S]*?<\/title>/gi, '');
+      html = html.replace(/<link\s+rel="canonical"[^>]*>/gi, '');
+      html = html.replace(/<meta\s+name="(?:description|keywords|robots|twitter:[^"]+)"[^>]*>/gi, '');
+      html = html.replace(/<meta\s+property="og:[^"]+"[^>]*>/gi, '');
 
       // Inject clean SEO tags at top of <head> block
       if (html.includes('<head>')) {
@@ -1129,60 +1186,54 @@ Return valid JSON structure matching this exact schema:
         html = await vite.transformIndexHtml(req.originalUrl, html);
       }
 
-      // Format dynamic SEO descriptions
+      // Format clean, descriptive SEO title & meta description
       const priceStr = product.price || '₹1,499';
-      const marketPriceStr = product.marketPrice || '₹4,999';
-      
-      const cleanPrice = parseInt(priceStr.replace(/[^\d]/g, ''), 10) || 1499;
-      const cleanMarketPrice = parseInt(marketPriceStr.replace(/[^\d]/g, ''), 10) || 4999;
-      const discount = Math.round(((cleanMarketPrice - cleanPrice) / cleanMarketPrice) * 100);
-
-      const titleStr = `${product.name} — ${product.tagline || 'Business Automation Tool'} | Suraj Automation`;
-      const descriptionStr = `🔥 Special Discount: Get @ ${priceStr} (${discount}% OFF, MRP: ${marketPriceStr}) — ${product.description || 'Google Workspace Apps Script workflows.'}`;
-      const keywordsStr = `${product.name}, google apps script solutions, sheet automation system, workflow integration dashboard`;
+      const rawTitle = `${product.name} — ${product.tagline || 'Business Automation Software'}`;
+      const titleStr = escapeHtmlAttr(
+        rawTitle.length > 48 ? `${product.name} | Suraj Automation` : `${rawTitle} | Suraj Automation`
+      );
+      const rawDesc = `${product.description || 'Custom Google Sheets & Apps Script automation template for Indian SMBs.'} One-time license ${priceStr}.`;
+      const descriptionStr = escapeHtmlAttr(rawDesc.length > 160 ? `${rawDesc.slice(0, 157).trim()}...` : rawDesc);
+      const keywordsStr = escapeHtmlAttr(`${product.name}, google apps script solutions, google sheets automation, small business software india`);
 
       // Pick the primary preview image
       const primaryImg = product.images && product.images.length > 0
         ? product.images[0]
-        : 'https://blogger.googleusercontent.com/img/a/AVvXsEh5zZHbpxiw_k6uVI42WF3xsmx5ufKvjLCZmmNF7Wx1w3JXIFvgHSu6IQuiigrjGxnmzU99q-ZLe143TGx1uqJwdDWgBGzvwXLdcatbImKrD8TRKda9y4PnW6m_88uEs9JmwklolKLHhMnD4dFrJ3fxBXKncoDZyu4YPXgZ5vGfLE2vSbNUXEH-iHeUVbw=s16000';
+        : 'https://surajdx.com/favicon.svg';
 
-      const host = req.headers.host || 'surajdx.com';
-      const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-      const origin = `${protocol}://${host}`;
-      
+      const canonicalHost = 'https://surajdx.com';
       const absoluteImgUrl = primaryImg.startsWith('http') 
         ? primaryImg 
-        : `${origin}${primaryImg}`;
-      const absoluteProductUrl = `${origin}/products/${productId}`;
+        : `${canonicalHost}${primaryImg.startsWith('/') ? '' : '/'}${primaryImg}`;
+      const absoluteProductUrl = `${canonicalHost}/products/${product.id}`;
 
-      // Open Graph structure for WhatsApp, LinkedIn, Facebook, Discord, Slack
+      // Open Graph & Canonical structure
       const seoMetaTags = `
-    <!-- Dynamic Social Media SEO Injection -->
+    <!-- Dynamic Product SEO Injection -->
     <title>${titleStr}</title>
+    <meta name="robots" content="index, follow" />
     <meta name="description" content="${descriptionStr}" />
     <meta name="keywords" content="${keywordsStr}" />
+    <link rel="canonical" href="${escapeHtmlAttr(absoluteProductUrl)}" />
     
     <meta property="og:title" content="${titleStr}" />
     <meta property="og:description" content="${descriptionStr}" />
-    <meta property="og:image" content="${absoluteImgUrl}" />
-    <meta property="og:image:secure_url" content="${absoluteImgUrl}" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content="${escapeHtmlAttr(absoluteImgUrl)}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="${absoluteProductUrl}" />
+    <meta property="og:url" content="${escapeHtmlAttr(absoluteProductUrl)}" />
     <meta property="og:site_name" content="Suraj Automation" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${titleStr}" />
     <meta name="twitter:description" content="${descriptionStr}" />
-    <meta name="twitter:image" content="${absoluteImgUrl}" />
+    <meta name="twitter:image" content="${escapeHtmlAttr(absoluteImgUrl)}" />
       `;
 
-      // Clean existing tags to prevent dual title/descriptions
-      html = html.replace(/<title>[\s\S]*?<\/title>/i, '');
-      html = html.replace(/<meta\s+name="description"[\s\S]*?\/>/i, '');
-      html = html.replace(/<meta\s+name="keywords"[\s\S]*?\/>/i, '');
+      // Clean existing static tags to prevent duplicate titles, descriptions, canonicals, or OG tags
+      html = html.replace(/<title>[\s\S]*?<\/title>/gi, '');
+      html = html.replace(/<link\s+rel="canonical"[^>]*>/gi, '');
+      html = html.replace(/<meta\s+name="(?:description|keywords|robots|twitter:[^"]+)"[^>]*>/gi, '');
+      html = html.replace(/<meta\s+property="og:[^"]+"[^>]*>/gi, '');
 
       // Inject clean SEO tags at top of <head> block
       if (html.includes('<head>')) {

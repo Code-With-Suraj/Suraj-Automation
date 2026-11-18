@@ -7,6 +7,7 @@ import {
   Search, ExternalLink, Calendar, AlertTriangle, Key, Ban, Scale, 
   Layers, LockKeyhole, FileSpreadsheet, RefreshCw, CheckCircle2
 } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 interface PrivacySection {
   id: string;
@@ -18,6 +19,20 @@ interface PrivacySection {
 }
 
 export default function PrivacyPolicy() {
+  useSEO(
+    'Privacy Policy & Data Ownership | Suraj Automation',
+    'Read how Suraj Automation handles inquiry details, Google Workspace data ownership, client confidentiality, and security across all automation services.',
+    'Suraj Automation privacy policy, Google Workspace data privacy, custom software data security India',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Privacy Policy', path: '/privacy-policy' }
+      ]
+    }
+  );
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
 

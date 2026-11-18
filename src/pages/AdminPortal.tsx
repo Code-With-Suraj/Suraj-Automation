@@ -15,7 +15,14 @@ import { collection, query, getDocs, orderBy, deleteDoc, doc, Timestamp, setDoc 
 
 export default function AdminPortal() {
   const { user, isAdmin, customProducts, saveCustomProduct, deleteCustomProduct, loading: authLoading } = useUser();
-  useSEO('Admin Workspace | Suraj Automation', 'Manage custom products, code bases, and installation manuals.');
+  useSEO(
+    'Admin Workspace | Suraj Automation',
+    'Manage custom products, code bases, and installation manuals.',
+    '',
+    undefined,
+    undefined,
+    { robots: 'noindex, nofollow' }
+  );
 
   // Workspace subtab selection
   const [adminTab, setAdminTab] = useState<'catalog' | 'quotations' | 'blogs' | 'seo'>('catalog');
@@ -39,11 +46,17 @@ export default function AdminPortal() {
       { url: `${host}`, type: 'Base Page', priority: '1.0' },
       { url: `${host}/about`, type: 'Base Page', priority: '0.8' },
       { url: `${host}/services`, type: 'Base Page', priority: '0.9' },
+      { url: `${host}/services/google-apps-script-development`, type: 'Service Page', priority: '0.9' },
+      { url: `${host}/services/custom-software-development`, type: 'Service Page', priority: '0.9' },
+      { url: `${host}/services/web-application-development`, type: 'Service Page', priority: '0.9' },
+      { url: `${host}/services/whatsapp-automation`, type: 'Service Page', priority: '0.9' },
+      { url: `${host}/services/mis-dashboard-development`, type: 'Service Page', priority: '0.9' },
+      { url: `${host}/services/ai-automation-services`, type: 'Service Page', priority: '0.9' },
+      { url: `${host}/services/inventory-management-software`, type: 'Service Page', priority: '0.9' },
+      { url: `${host}/custom-software-noida`, type: 'Location Page', priority: '0.9' },
       { url: `${host}/contact`, type: 'Base Page', priority: '0.8' },
-      { url: `${host}/pricing`, type: 'Base Page', priority: '0.9' },
       { url: `${host}/products`, type: 'Base Page', priority: '0.9' },
       { url: `${host}/reviews`, type: 'Base Page', priority: '0.8' },
-      { url: `${host}/portal`, type: 'Base Page', priority: '0.7' },
       { url: `${host}/roi-tool`, type: 'Base Page', priority: '0.8' },
       { url: `${host}/terms`, type: 'Base Page', priority: '0.5' },
       { url: `${host}/privacy-policy`, type: 'Base Page', priority: '0.5' },

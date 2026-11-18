@@ -9,9 +9,12 @@ export default function KarmSarthi() {
   const isPurchased = hasPurchased('karmsarthi');
 
   useSEO(
-    'KarmSarthi | Suraj Automation',
-    'HR Management System for Small Business - An employee management system for SMBs that handles your daily HR operations.',
-    'hr software, employee management system, small business hr, leave management'
+    'KarmSarthi Small Business HRMS Tool | Suraj Automation',
+    'KarmSarthi simplifies employee directories, leave requests, manager approvals, attendance records, and holiday calendars on Google Workspace.',
+    'Custom HRMS Software Development, KarmSarthi, small business HR software, leave management Google Sheets',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/karmsarthi', isProduct: true, productName: 'KarmSarthi' }
   );
 
   const problems = [

@@ -1,208 +1,190 @@
-import { motion } from 'motion/react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Package, Receipt, Wallet, Users, Cake, Dumbbell, Utensils, ArrowRight, Store, Calculator } from 'lucide-react';
-import { useUser } from '../contexts/UserContext';
+import { ExternalLink, MessageSquare, Image as ImageIcon, Check } from 'lucide-react';
+import {
+  PRODUCTS_CATALOG,
+  IndustryCategory,
+  getWhatsAppUrl,
+} from '../data/content';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const colorStyles: Record<string, { bg: string, text: string, hoverText: string }> = {
-  indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', hoverText: 'hover:text-indigo-700' },
-  emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', hoverText: 'hover:text-emerald-700' },
-  blue: { bg: 'bg-blue-50', text: 'text-blue-600', hoverText: 'hover:text-blue-700' },
-  amber: { bg: 'bg-amber-50', text: 'text-amber-600', hoverText: 'hover:text-amber-700' },
-  purple: { bg: 'bg-purple-50', text: 'text-purple-600', hoverText: 'hover:text-purple-700' },
-  rose: { bg: 'bg-rose-50', text: 'text-rose-600', hoverText: 'hover:text-rose-700' },
-  orange: { bg: 'bg-orange-50', text: 'text-orange-600', hoverText: 'hover:text-orange-700' },
-  red: { bg: 'bg-red-50', text: 'text-red-600', hoverText: 'hover:text-red-700' },
-  teal: { bg: 'bg-teal-50', text: 'text-teal-600', hoverText: 'hover:text-teal-700' },
-};
+const CATEGORIES: IndustryCategory[] = [
+  'All',
+  'Recovery & Finance',
+  'Supply & Distribution',
+  'Retail & F&B',
+  'Operations & Staff',
+];
 
 export default function ProductsSection() {
-  const { customProducts } = useUser();
+  const { lang } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState<IndustryCategory>('All');
+  const [showAll, setShowAll] = useState(false);
 
-  const products = [
-    {
-      id: 'loansarthi',
-      name: 'LoanSarthi',
-      tagline: 'Finance & Recovery Control System',
-      description: 'Small finance businesses ke liye powerful, mobile-first loan management system to create loans, track EMI, and manage recovery quickly.',
-      icon: <Wallet className="w-8 h-8" />,
-      color: 'indigo',
-      featured: true,
-    },
-    {
-      id: 'supplysarthi',
-      name: 'SupplySarthi',
-      tagline: 'Complete Supply & Distribution Management System',
-      description: 'Stop taking orders on WhatsApp. Manage your entire supply business in one Google Sheet-based system—from orders to GST invoices. Pay once, use for a lifetime.',
-      icon: <Store className="w-8 h-8" />,
-      color: 'teal',
-      featured: true,
-    },
-    {
-      id: 'bookingsarthi',
-      name: 'BookingSarthi',
-      tagline: 'Appointment Booking & Service Automation',
-      description: 'A complete micro-SaaS platform built specifically for Indian service businesses, managing appointments, staff scheduling, CRM, and marketing.',
-      icon: <ShoppingCart className="w-8 h-8" />,
-      color: 'purple',
-    },
-    {
-      id: 'hisabsarthi',
-      name: 'HisabSarthi',
-      tagline: 'Google Sheets-based GST Accounting Tool',
-      description: 'Ditch Tally and complex ERPs. HisabSarthi is a simple, affordable GST invoicing and accounting system built for Indian small businesses. 100% data control in your Google Drive.',
-      icon: <Calculator className="w-8 h-8" />,
-      color: 'blue',
-    },
-    {
-      id: 'rationkart',
-      name: 'RationKart',
-      tagline: 'Digital Ordering & Approval',
-      description: 'Manage item requests, approvals, and stock in one place for grocery stores.',
-      icon: <ShoppingCart className="w-6 h-6" />,
-      color: 'indigo',
-    },
-    {
-      id: 'stocksarthi',
-      name: 'StockSarthi',
-      tagline: 'Stock Management System',
-      description: 'Take full control of your stock without Excel confusion. A simple inventory management software built for growing businesses.',
-      icon: <Package className="w-6 h-6" />,
-      color: 'emerald',
-    },
-    {
-      id: 'billsarthi',
-      name: 'BillSarthi',
-      tagline: 'Vendor Bill Management',
-      description: 'A smart web-based billing system that helps store teams enter vendor bills correctly.',
-      icon: <Receipt className="w-6 h-6" />,
-      color: 'blue',
-    },
-    {
-      id: 'claimo',
-      name: 'Claimo',
-      tagline: 'Expense & Reimbursement',
-      description: 'Brings structure, transparency, and speed to your entire expense process.',
-      icon: <Wallet className="w-6 h-6" />,
-      color: 'amber',
-    },
-    {
-      id: 'karmsarthi',
-      name: 'KarmSarthi',
-      tagline: 'HR Management System for Small Business',
-      description: 'An employee management system for SMBs that handles your daily HR operations.',
-      icon: <Users className="w-6 h-6" />,
-      color: 'purple',
-    },
-    {
-      id: 'cakesarthi',
-      name: 'CakeSarthi',
-      tagline: 'Online Ordering for Bakeries',
-      description: 'Turn your local bakery into a smart online business with your own ordering website.',
-      icon: <Cake className="w-6 h-6" />,
-      color: 'rose',
-    },
-    {
-      id: 'gymsarthi',
-      name: 'GymSarthi',
-      tagline: 'Gym Management System for Small Gym',
-      description: 'A simple gym member tracking system specially built for Indian gym owners.',
-      icon: <Dumbbell className="w-6 h-6" />,
-      color: 'orange',
-    },
-    {
-      id: 'menusarthi',
-      name: 'MenuSarthi',
-      tagline: 'Digital Menu for Restaurant',
-      description: 'Your own premium digital menu and restaurant online ordering system without heavy commissions.',
-      icon: <Utensils className="w-6 h-6" />,
-      color: 'red',
-    }
-  ];
+  const filtered =
+    selectedCategory === 'All'
+      ? PRODUCTS_CATALOG
+      : PRODUCTS_CATALOG.filter((p) => p.category === selectedCategory);
+
+  const visibleProducts = showAll || selectedCategory !== 'All' ? filtered : filtered.slice(0, 6);
 
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden" id="products">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-100/50 via-transparent to-transparent"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-700 text-sm font-bold tracking-wide mb-4">
-              Custom Web Apps for Business
-            </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">
-              Ready-to-Deploy Automation Systems
-            </h2>
-            <p className="text-lg text-slate-600">
-              Powerful, customizable web applications and small business automation tools designed specifically to solve the most common operational challenges.
-            </p>
-          </motion.div>
+    <section className="py-16 lg:py-24 bg-slate-50 border-b border-slate-200" id="products">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mb-10">
+          <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-2">
+            {lang === 'hinglish' ? 'Portfolio · Google Sheets + Apps Script Systems' : 'Product Portfolio · Google Sheets + Apps Script'}
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+            {lang === 'hinglish'
+              ? 'Alag-alag business ke liye ready & customizable Sarthi systems.'
+              : 'Purpose-built Sarthi systems tailored to Indian SMB workflows.'}
+          </h2>
+          <p className="text-base text-slate-600 leading-relaxed">
+            {lang === 'hinglish'
+              ? 'Har system ek hi clean architecture par chalta hai: client ka apna isolated Google Sheet, Apps Script deployment, Script Properties me API keys, LockService safety, aur Gupshup WhatsApp API support.'
+              : 'Every product runs on one proven architecture: per-client isolated Google Sheet, Apps Script deployment, secrets only in Script Properties, LockService concurrency safety, and WhatsApp Business API via Gupshup.'}
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {products.filter(p => !customProducts.find((cp: any) => cp.id === p.id)?.isHidden).slice(0, 3).map((product, idx) => {
-            const styles = colorStyles[product.color];
-            const isFeatured = product.featured;
-            
+        {/* Industry Filter Bar (Interactive Buttons) */}
+        <div className="flex flex-wrap items-center gap-2 mb-10" role="tablist" aria-label="Filter products by industry">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              role="tab"
+              aria-selected={selectedCategory === cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg border transition-colors whitespace-nowrap shrink-0 cursor-pointer min-h-[40px] ${
+                selectedCategory === cat
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Product Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {visibleProducts.map((product) => {
+            const isInternalDemo = product.demoLink.startsWith('/');
+            const isPlaceholderDemo = product.demoLink.startsWith('[');
+
             return (
-              <motion.div
+              <article
                 key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 group relative overflow-hidden ${isFeatured ? 'border-indigo-100 md:col-span-2 md:flex-row gap-6 md:gap-10 items-center overflow-visible' : 'border-slate-100 hover:border-slate-300'}`}
+                className="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col justify-between hover:border-slate-300 transition-colors"
               >
-                {isFeatured && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-indigo-500 to-blue-500 text-white text-xs font-bold px-5 py-1.5 rounded-bl-[1.5rem] shadow-sm z-10 hidden md:block">
-                    FEATURED
+                <div>
+                  {/* Explicit [SCREENSHOT] Placeholder Frame */}
+                  <div className="aspect-[16/9] bg-slate-100 border-b border-slate-200 flex flex-col items-center justify-center p-4 text-center">
+                    <ImageIcon className="w-6 h-6 text-slate-400 mb-2" />
+                    <span className="font-mono text-[11px] text-slate-600 font-medium leading-snug">
+                      {product.screenshotPlaceholder}
+                    </span>
                   </div>
-                )}
-                
-                <div className={`rounded-2xl border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] ${styles.bg} flex items-center justify-center ${styles.text} mb-6 md:mb-0 group-hover:scale-110 transition-transform duration-300 shrink-0 ${isFeatured ? 'w-20 h-20 md:w-28 md:h-28' : 'w-16 h-16'}`}>
-                  {product.icon}
+
+                  <div className="p-6">
+                    {/* Clean Unboxed Metadata */}
+                    <div className="flex items-center gap-2 text-xs text-slate-500 font-medium mb-2">
+                      <span className="text-emerald-700 font-semibold">{product.category}</span>
+                      <span aria-hidden="true">·</span>
+                      <span className="truncate">{product.forWho[lang]}</span>
+                    </div>
+
+                    <h3 className="text-xl font-extrabold text-slate-900 mb-2">
+                      {product.name}{' '}
+                      {product.altName && (
+                        <span className="text-sm font-medium text-slate-500">
+                          ({product.altName})
+                        </span>
+                      )}
+                    </h3>
+
+                    <p className="text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200/70 rounded-md px-3 py-2 mb-3">
+                      {lang === 'hinglish' ? 'Problem: ' : 'Solves: '}
+                      {product.problemSolved[lang]}
+                    </p>
+
+                    <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                      {product.oneLiner[lang]}
+                    </p>
+
+                    <ul className="space-y-2 text-xs sm:text-sm text-slate-700">
+                      {product.features.map((feat, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                          <span>{feat[lang]}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                
-                <div className={`flex flex-col flex-grow ${isFeatured ? 'md:ml-2' : ''}`}>
-                  <h3 className={`font-extrabold text-slate-900 mb-2 tracking-tight ${isFeatured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>{product.name}</h3>
-                  <p className={`text-xs font-bold ${styles.text} mb-3 uppercase tracking-wider`}>{product.tagline}</p>
-                  <p className={`text-slate-600 mb-8 font-body leading-relaxed flex-grow ${isFeatured ? 'text-base md:text-lg max-w-2xl' : 'text-sm md:text-base'}`}>
-                    {product.description}
-                  </p>
-                  <Link
-                    to={`/products/${product.id}`}
-                    className={`inline-flex items-center text-sm font-bold bg-slate-950 text-white px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-all group/link w-fit ${isFeatured ? 'shadow-md shadow-slate-900/10' : ''}`}
+
+                {/* Card Action Footer */}
+                <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center gap-2.5">
+                  {isInternalDemo ? (
+                    <Link
+                      to={product.demoLink}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 text-xs font-bold rounded-lg transition-colors whitespace-nowrap min-h-[40px]"
+                    >
+                      <span>{lang === 'hinglish' ? 'Demo dekho' : 'View demo'}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  ) : (
+                    <Link
+                      to={`/products/${product.slug}`}
+                      title={isPlaceholderDemo ? product.demoLink : 'View system details'}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 text-xs font-bold rounded-lg transition-colors whitespace-nowrap min-h-[40px]"
+                    >
+                      <span>{lang === 'hinglish' ? 'Demo dekho' : 'View demo'}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
+
+                  <a
+                    href={getWhatsAppUrl(product.whatsappQuery)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-lg transition-colors whitespace-nowrap min-h-[40px]"
                   >
-                    View Details
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
+                    <MessageSquare className="w-3.5 h-3.5 shrink-0" />
+                    <span>{lang === 'hinglish' ? 'WhatsApp baat karo' : 'WhatsApp'}</span>
+                  </a>
                 </div>
-              </motion.div>
+              </article>
             );
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16 text-center"
-        >
+        {/* Show All / Explore Full Catalog */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          {selectedCategory === 'All' && filtered.length > 6 && (
+            <button
+              type="button"
+              onClick={() => setShowAll(!showAll)}
+              className="px-6 py-3 bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 font-semibold text-sm rounded-lg transition-colors cursor-pointer min-h-[44px]"
+            >
+              {showAll
+                ? lang === 'hinglish'
+                  ? 'Kam systems dikhayein'
+                  : 'Show fewer systems'
+                : lang === 'hinglish'
+                  ? `Sabhi ${PRODUCTS_CATALOG.length} systems dekhein`
+                  : `Show all ${PRODUCTS_CATALOG.length} systems`}
+            </button>
+          )}
           <Link
             to="/products"
-            className="inline-flex items-center justify-center px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-slate-900/20 group hover:shadow-xl hover:-translate-y-1"
+            className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-colors min-h-[44px] inline-flex items-center"
           >
-            Explore All Products
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            {lang === 'hinglish' ? 'Full Catalog Page Kholo' : 'Open Full Catalog'}
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
-

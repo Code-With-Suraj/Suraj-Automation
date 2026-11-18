@@ -18,7 +18,7 @@ const colorStyles: Record<string, { bg: string, text: string, hoverText: string,
   teal: { bg: 'bg-teal-50', text: 'text-teal-600', hoverText: 'hover:text-teal-700', buttonBg: 'bg-teal-600', buttonHoverBg: 'hover:bg-teal-700' },
 };
 
-const ImageCarousel = ({ images, className = '' }: { images: string[], className?: string }) => {
+const ImageCarousel = ({ images, productName, tagline, className = '' }: { images: string[], productName: string, tagline?: string, className?: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = (e: MouseEvent) => {
@@ -39,7 +39,7 @@ const ImageCarousel = ({ images, className = '' }: { images: string[], className
     <div className={`relative w-full rounded-2xl overflow-hidden group/carousel bg-slate-100 flex-shrink-0 ${className || 'h-48 sm:h-56 mb-6'}`}>
       <img 
         src={images[currentIndex]} 
-        alt={`Product screenshot ${currentIndex + 1}`}
+        alt={`${productName}${tagline ? ` - ${tagline}` : ''} preview ${currentIndex + 1}`}
         className="w-full h-full object-cover transition-all duration-500"
         referrerPolicy="no-referrer"
         onError={(e) => {
@@ -84,7 +84,19 @@ const ImageCarousel = ({ images, className = '' }: { images: string[], className
 };
 
 export default function Products() {
-  useSEO('Products | Suraj Automation', 'Explore all our custom web apps for business automation including GST tools, HR systems, Expense trackers, and more.');
+  useSEO(
+    'Business Automation Software Suite | Suraj Automation',
+    'Explore ready-to-deploy Google Sheets & Apps Script systems for GST billing, inventory tracking, HRMS payroll, MIS dashboards, and B2B operations in India.',
+    'business automation software India, Google Sheets ERP templates, inventory management software India, GST billing tool, HRMS payroll software SMB',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Products', path: '/products' }
+      ]
+    }
+  );
 
   const { customProducts } = useUser();
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -663,7 +675,7 @@ export default function Products() {
                       
                       <div className="w-full lg:w-1/2 z-10 relative">
                         <div className="rounded-2xl border border-slate-700/50 p-2 bg-slate-800/50 backdrop-blur-sm shadow-2xl relative group-hover:border-indigo-500/30 transition-colors duration-500">
-                          <ImageCarousel images={product.images} className="h-64 sm:h-72 lg:h-[22rem]" />
+                          <ImageCarousel images={product.images} productName={product.name} tagline={product.tagline} className="h-64 sm:h-72 lg:h-[22rem]" />
                         </div>
                       </div>
                     </motion.div>
@@ -689,7 +701,7 @@ export default function Products() {
                       </div>
 
                       <div className="w-full mb-6">
-                        <ImageCarousel images={product.images} className="h-56 rounded-[1.25rem]" />
+                        <ImageCarousel images={product.images} productName={product.name} tagline={product.tagline} className="h-56 rounded-[1.25rem]" />
                       </div>
                       
                       <div className="flex flex-col flex-grow">
@@ -766,6 +778,32 @@ export default function Products() {
               </div>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Need Custom Modifications / Specialized Service Links */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="bg-slate-900 text-white rounded-3xl p-8 md:p-10 border border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-widest text-indigo-400">Custom Engineering Available</span>
+            <h2 className="text-2xl md:text-3xl font-extrabold mt-2">
+              Need a Custom Workflow Beyond Ready-Made Tools?
+            </h2>
+            <p className="text-slate-300 text-sm md:text-base mt-2 leading-relaxed">
+              Every Sarthi module can be tailored to your company&apos;s exact approval hierarchy, GST billing rules, or WhatsApp notifications. Explore our dedicated service scopes:
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link to="/services/custom-software-development" className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-xs font-bold transition-colors">
+              Custom Software India
+            </Link>
+            <Link to="/services/inventory-management-software" className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-bold transition-colors">
+              Inventory Software
+            </Link>
+            <Link to="/services/mis-dashboard-development" className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-bold transition-colors">
+              MIS Dashboards
+            </Link>
+          </div>
         </div>
       </section>
     </main>

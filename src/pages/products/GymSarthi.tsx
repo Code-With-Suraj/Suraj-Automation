@@ -9,9 +9,12 @@ export default function GymSarthi() {
   const isPurchased = hasPurchased('gymsarthi');
 
   useSEO(
-    'GymSarthi | Suraj Automation',
-    'Gym Management System for Small Gym - A simple gym member tracking system specially built for Indian gym owners.',
-    'gym member tracking, gym billing software, gym management app, fitness club software'
+    'GymSarthi Member & Renewal Software | Suraj Automation',
+    'GymSarthi automates member admissions, fee receipts, membership expiry reminders, and monthly profit dashboards for Indian gyms on Google Sheets.',
+    'GymSarthi, gym member tracking software, membership renewal reminder automation, Google Sheets CRM',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/gymsarthi', isProduct: true, productName: 'GymSarthi' }
   );
 
   const problems = [

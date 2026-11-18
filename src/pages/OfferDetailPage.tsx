@@ -27,11 +27,33 @@ export default function OfferDetailPage() {
     return <Navigate to="/offers" replace />;
   }
 
-  // Set the SEO target keywords and descriptions exactly as requested
+  const shortTitle =
+    offer.id === 'sheets-automation'
+      ? 'Google Sheets Automation Deal | Suraj Automation'
+      : offer.id === 'excel-dashboard'
+        ? 'Custom Excel Dashboard & MIS | Suraj Automation'
+        : offer.id === 'apps-script'
+          ? 'Apps Script Workflow Package | Suraj Automation'
+          : 'Custom Web App & Site Deal | Suraj Automation';
+
   useSEO(
-    `${offer.title} | Suraj Automation`,
+    shortTitle,
     offer.metaDescription,
-    offer.keywords
+    offer.keywords,
+    undefined,
+    { price: offer.startingPrice },
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Offers', path: '/offers' },
+        { name: offer.title, path: `/offers/${offer.slug}` }
+      ],
+      serviceInfo: {
+        name: offer.title,
+        description: offer.metaDescription,
+        serviceType: 'Business Automation Service'
+      }
+    }
   );
 
   const IconComponent = offer.icon;
@@ -187,16 +209,23 @@ export default function OfferDetailPage() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 bg-indigo-600 hover:bg-indigo-550 text-white rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 w-full sm:w-auto"
+              className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 w-full sm:w-auto"
             >
               <MessageSquare className="w-5 h-5 fill-white/10" />
               Book or Request via WhatsApp
             </a>
             <Link
-              to="/offers"
-              className="px-8 py-4 bg-white/10 hover:bg-white/15 text-white border border-white/10 rounded-xl font-bold text-sm w-full sm:w-auto flex items-center justify-center"
+              to={
+                offer.id === 'excel-dashboard'
+                  ? '/services/mis-dashboard-development'
+                  : offer.id === 'web-app-sheets'
+                    ? '/services/web-application-development'
+                    : '/services/google-apps-script-development'
+              }
+              className="px-8 py-4 bg-white/10 hover:bg-white/15 text-white border border-white/10 rounded-xl font-bold text-sm w-full sm:w-auto flex items-center justify-center gap-2"
             >
-              Back to Special Deals
+              Read Full Service Guide
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

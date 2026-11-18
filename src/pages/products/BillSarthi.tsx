@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Receipt, AlertTriangle, CheckCircle2, ListChecks, Search, Calculator, BrainCircuit, LayoutDashboard, FileSpreadsheet, Settings, ArrowRight, MessageSquare, Store, TrendingUp, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
@@ -9,9 +10,12 @@ export default function BillSarthi() {
   const isPurchased = hasPurchased('billsarthi');
 
   useSEO(
-    'BillSarthi | Suraj Automation',
-    'Vendor Bill Management - A smart web-based billing system that helps store teams enter vendor bills correctly.',
-    'vendor bills, billing system, bill management, accounts tool'
+    'BillSarthi Vendor Billing System | Suraj Automation',
+    'BillSarthi is a Google Apps Script vendor bill entry and GST validation system with price lookup, duplicate detection, and multi-site reporting.',
+    'Custom Business Management Software, vendor bills, GST billing system, BillSarthi, Google Apps Script Custom Software',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/billsarthi', isProduct: true, productName: 'BillSarthi' }
   );
 
   const problems = [
@@ -508,7 +512,13 @@ export default function BillSarthi() {
                   <li className="flex items-center gap-2 font-medium">✨ Custom dashboards</li>
                   <li className="flex items-center gap-2 font-medium">✨ AI-supported business tools</li>
                 </ul>
-                <p className="font-bold text-white">Goal is simple: Manual chaos → Structured automation.</p>
+                <p className="font-bold text-white mb-4">Goal is simple: Manual chaos → Structured automation.</p>
+                <Link
+                  to="/services/custom-software-development"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-white underline hover:text-blue-100"
+                >
+                  Need a custom billing workflow? Explore Custom Software Development Services →
+                </Link>
               </div>
             </div>
 

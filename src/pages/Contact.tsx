@@ -6,9 +6,17 @@ import { useSEO } from '../hooks/useSEO';
 
 export default function Contact() {
   useSEO(
-    'Contact Us | Suraj Automation - Noida\'s Automation Company',
-    'Get in touch with Suraj Automation, a top-ranked AI automation company in Noida. Let\'s build custom automation tools, MIS dashboards, and Apps Script triggers for your business.',
-    'ai automation companies, mis dashboards, ai automation company, custom automation, apps script triggers, ai automation websites, ai automation softwares, automation company in noida'
+    'Contact Suraj Automation | Process Audit Noida & India',
+    'Book a workflow audit with Suraj Automation. Build custom software, Google Apps Script tools, WhatsApp bots, and MIS dashboards across Noida, NCR, and India.',
+    'contact Suraj Automation, automation company in Noida, custom software consultation Delhi NCR, Google Apps Script developer contact',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Contact', path: '/contact' }
+      ]
+    }
   );
   const [formData, setFormData] = useState({
     name: '',
@@ -140,8 +148,8 @@ export default function Contact() {
                     <MapPin className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Location</p>
-                    <p className="text-base font-bold text-slate-900 dark:text-white">Proudly serving Indian SMBs nationwide.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Location &amp; Coverage</p>
+                    <p className="text-base font-bold text-slate-900 dark:text-white">Noida, Uttar Pradesh — Serving Noida, Greater Noida, Ghaziabad, Delhi NCR &amp; Pan-India SMBs.</p>
                   </div>
                 </div>
               </div>

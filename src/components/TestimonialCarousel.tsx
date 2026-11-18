@@ -1,40 +1,36 @@
-import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { collection, query, where, orderBy, onSnapshot, limit } from 'firebase/firestore';
+import { MessageSquare, Quote } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { ServiceReview } from '../types';
+import { SITE_CONFIG, getWhatsAppUrl } from '../data/content';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function TestimonialCarousel() {
+  const { lang } = useLanguage();
   const [reviews, setReviews] = useState<ServiceReview[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const reviewsRef = collection(db, 'reviews');
-    // Only get approved and 5 star or 4 star reviews to show on home page
     const q = query(
       reviewsRef,
       where('isApproved', '==', true),
       orderBy('createdAt', 'desc'),
-      limit(10)
+      limit(6)
     );
 
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const fetchedReviews: ServiceReview[] = [];
-        snapshot.forEach((doc) => {
-          fetchedReviews.push({ id: doc.id, ...doc.data() } as ServiceReview);
+        const fetched: ServiceReview[] = [];
+        snapshot.forEach((docSnap) => {
+          fetched.push({ id: docSnap.id, ...docSnap.data() } as ServiceReview);
         });
-        
-        // Filter high rating ones just in case
-        const topReviews = fetchedReviews.filter(r => r.rating >= 4);
-        setReviews(topReviews);
+        setReviews(fetched.filter((r) => r.rating >= 4));
         setLoading(false);
       },
-      (error) => {
-        console.error("Error fetching reviews:", error);
+      () => {
         setLoading(false);
       }
     );
@@ -42,119 +38,99 @@ export default function TestimonialCarousel() {
     return () => unsubscribe();
   }, []);
 
-  const nextReview = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % reviews.length);
-  }, [reviews.length]);
-
-  const prevReview = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
-  }, [reviews.length]);
-
-  // Autoplay functionality
-  useEffect(() => {
-    if (reviews.length <= 1) return;
-    
-    const interval = setInterval(nextReview, 6000);
-    return () => clearInterval(interval);
-  }, [nextReview, reviews.length]);
-
-  if (loading || reviews.length === 0) {
-    return null;
-  }
+  const hasStaticRealTestimonials = SITE_CONFIG.realTestimonials.length > 0;
+  const hasFirestoreReviews = reviews.length > 0;
 
   return (
-    <section className="py-24 bg-slate-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/40 via-slate-900 to-slate-900"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-4">Client Success Stories</h2>
-          <h3 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
-            Loved by Ambitious SMBs
-          </h3>
-          <div className="h-1 w-20 bg-indigo-500 rounded-full mx-auto mb-8"></div>
-        </div>
+    <section className="py-16 lg:py-24 bg-white border-b border-slate-200" id="testimonials">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {!loading && (hasStaticRealTestimonials || hasFirestoreReviews) ? (
+          <div>
+            <div className="max-w-2xl mb-10">
+              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-2">
+                {lang === 'hinglish' ? 'Client Feedback' : 'Verified Client Feedback'}
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                {lang === 'hinglish'
+                  ? 'Clients ka real feedback.'
+                  : 'Real feedback from working businesses.'}
+              </h2>
+            </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Navigation Buttons for large screens */}
-            <button 
-              onClick={prevReview}
-              className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg transition-colors z-20 hidden md:block border border-slate-700 hover:border-indigo-500"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-
-            <button 
-              onClick={nextReview}
-              className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg transition-colors z-20 hidden md:block border border-slate-700 hover:border-indigo-500"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-
-            {/* Carousel Container */}
-            <div className="overflow-hidden relative px-4 pb-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="bg-slate-800/80 p-8 md:p-12 rounded-3xl border border-slate-700/80 backdrop-blur-sm shadow-2xl relative"
-                >
-                  <Quote className="absolute top-6 right-6 w-12 h-12 text-indigo-500/20" />
-                  
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className={`w-6 h-6 ${i < reviews[currentIndex].rating ? 'text-amber-400 fill-amber-400' : 'text-slate-600'}`} 
-                      />
-                    ))}
-                  </div>
-                  
-                  <p className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed mb-8 italic">
-                    "{reviews[currentIndex].comment}"
-                  </p>
-                  
-                  <div className="flex items-center gap-4">
-                    {reviews[currentIndex].authorPhotoURL ? (
-                      <img 
-                        src={reviews[currentIndex].authorPhotoURL} 
-                        alt={reviews[currentIndex].authorName}
-                        className="w-14 h-14 rounded-full border-2 border-indigo-500 object-cover"
-                      />
-                    ) : (
-                      <div className="w-14 h-14 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xl">
-                        {reviews[currentIndex].authorName.charAt(0).toUpperCase()}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {hasStaticRealTestimonials
+                ? SITE_CONFIG.realTestimonials.map((t, idx) => (
+                    <div
+                      key={idx}
+                      className="p-6 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between"
+                    >
+                      <div>
+                        <Quote className="w-5 h-5 text-emerald-700 mb-3" />
+                        <p className="text-sm text-slate-700 leading-relaxed mb-4">
+                          "{t.quote}"
+                        </p>
                       </div>
-                    )}
-                    <div>
-                      <h4 className="text-white font-bold text-lg">{reviews[currentIndex].authorName}</h4>
-                      <p className="text-indigo-400 text-sm font-medium">{reviews[currentIndex].authorTitle || 'Verified Client'}</p>
-                      {reviews[currentIndex].serviceUsed && (
-                        <p className="text-slate-500 text-xs mt-1">Used: {reviews[currentIndex].serviceUsed}</p>
-                      )}
+                      <div className="pt-4 border-t border-slate-200 text-xs">
+                        <p className="font-bold text-slate-900">{t.name}</p>
+                        <p className="text-slate-600">
+                          {t.business} · {t.city}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                  ))
+                : reviews.map((rev) => (
+                    <div
+                      key={rev.id}
+                      className="p-6 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between"
+                    >
+                      <div>
+                        <Quote className="w-5 h-5 text-emerald-700 mb-3" />
+                        <p className="text-sm text-slate-700 leading-relaxed mb-4">
+                          "{rev.comment}"
+                        </p>
+                      </div>
+                      <div className="pt-4 border-t border-slate-200 text-xs">
+                        <p className="font-bold text-slate-900">{rev.authorName}</p>
+                        <p className="text-slate-600">
+                          {rev.authorTitle || 'Verified Client'}
+                          {rev.serviceUsed ? ` · ${rev.serviceUsed}` : ''}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
             </div>
           </div>
-          
-          {/* Pagination Indicators */}
-          <div className="flex justify-center gap-2 mt-6">
-            {reviews.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentIndex(i)}
-                className={`transition-all duration-300 rounded-full ${i === currentIndex ? 'w-8 h-2.5 bg-indigo-500' : 'w-2.5 h-2.5 bg-slate-700 hover:bg-slate-500'}`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
+        ) : (
+          /* Honest Pilot Offer Block — No fake testimonials or fake urgency timers */
+          <div className="rounded-xl bg-slate-50 border border-slate-200 p-8 sm:p-10 lg:p-12 grid lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8">
+              <p className="text-xs font-semibold uppercase tracking-wider text-amber-700 mb-2">
+                {SITE_CONFIG.pilotOffer.badge}
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-4">
+                {SITE_CONFIG.pilotOffer.heading[lang]}
+              </h2>
+              <p className="text-base text-slate-600 leading-relaxed max-w-2xl">
+                {SITE_CONFIG.pilotOffer.description[lang]}
+              </p>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
+              <a
+                href={getWhatsAppUrl('Hi Suraj, mujhe "Pehle 5 clients pilot offer" ke baare me janna hai.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-lg transition-colors min-h-[48px] text-center"
+              >
+                <MessageSquare className="w-4 h-4 shrink-0" />
+                <span>{SITE_CONFIG.pilotOffer.cta[lang]}</span>
+              </a>
+              <p className="text-xs text-slate-500 text-center lg:text-left font-mono">
+                [REAL_TESTIMONIALS: Add verified client quotes with permission]
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

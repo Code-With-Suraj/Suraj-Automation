@@ -14,7 +14,7 @@ export default function FinalCTA() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-900/80 via-slate-950 to-slate-950"></div>
       <img 
         src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2070&auto=format&fit=crop" 
-        alt="Business meeting" 
+        alt="Indian business operations team planning custom software automation and workflow optimization" 
         className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
         referrerPolicy="no-referrer"
       />

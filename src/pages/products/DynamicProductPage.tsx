@@ -11,6 +11,8 @@ import {
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import { calculateDiscount } from '../../data/productSolutions';
+import { PRODUCTS_CATALOG, getWhatsAppUrl } from '../../data/content';
+import { useLanguage } from '../../contexts/LanguageContext';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
 import ShareProductModal from '../../components/ShareProductModal';
 
@@ -24,41 +26,160 @@ function getYoutubeId(url: string | undefined): string | null {
 export default function DynamicProductPage() {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
+  const { lang } = useLanguage();
   const { getProductSolution, hasPurchased, user, login } = useUser();
   const [copied, setCopied] = useState(false);
   const [activeFileIndex, setActiveFileIndex] = useState(0);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const product = productId ? getProductSolution(productId) : null;
+  const catalogProduct = productId ? PRODUCTS_CATALOG.find((p) => p.slug === productId || p.id === productId) : null;
   const isPurchased = productId ? hasPurchased(productId) : false;
 
+  const resolvedTitle = product
+    ? `${product.name} | Suraj Automation`
+    : catalogProduct
+      ? `${catalogProduct.name} Software | Suraj Automation`
+      : 'Product Details | Suraj Automation';
+
+  const resolvedDesc = product
+    ? (product.description || `Custom Google Sheets and Apps Script automation system: ${product.name} by Suraj Automation.`).slice(0, 158)
+    : catalogProduct
+      ? `${catalogProduct.name}: ${catalogProduct.oneLiner.en} Built on isolated Google Sheets & Apps Script for Indian SMBs.`.slice(0, 158)
+      : 'Custom Google Sheets and Apps Script business automation system by Suraj Automation.';
+
   useSEO(
-    product ? `${product.name} — ${product.tagline || 'Business Automation Tool'}` : 'Product Details',
-    product ? product.description || `Automated spreadsheet and scripting solutions for ${product.name}` : 'Details regarding automation tools.',
-    'google apps script, sheets automation, workflow management',
+    resolvedTitle,
+    resolvedDesc,
+    'Custom Business Management Software, Google Apps Script Web App Development, Google Sheets Automation India',
     product?.images?.[0] || undefined,
     product ? {
       price: product.price,
       marketPrice: product.marketPrice || undefined,
       discount: calculateDiscount(product.price, product.marketPrice)
-    } : undefined
+    } : undefined,
+    {
+      canonicalPath: productId ? `/products/${productId}` : '/products',
+      isProduct: Boolean(product || catalogProduct),
+      productName: product?.name || catalogProduct?.name,
+      noindex: !product && !catalogProduct,
+    }
   );
 
+  if (!product && catalogProduct) {
+    return (
+      <main className="pt-24 pb-20 bg-white min-h-screen">
+        <section className="bg-[#0B1528] text-white py-16 border-b border-slate-800">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 mb-6"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Back to All Products
+            </Link>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              {catalogProduct.category} · {catalogProduct.forWho[lang]}
+            </p>
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
+              {catalogProduct.name}{' '}
+              {catalogProduct.altName && (
+                <span className="text-xl font-medium text-slate-400">({catalogProduct.altName})</span>
+              )}
+            </h1>
+            <p className="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed mb-8">
+              {catalogProduct.oneLiner[lang]}
+            </p>
+            <div className="flex flex-wrap gap-3.5">
+              <a
+                href={getWhatsAppUrl(catalogProduct.whatsappQuery)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-lg transition-colors min-h-[44px]"
+              >
+                WhatsApp pe Demo Book Karein
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <Link
+                to="/pricing"
+                className="inline-flex items-center justify-center px-6 py-3.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-semibold text-sm rounded-lg transition-colors min-h-[44px]"
+              >
+                See Pricing Tiers
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-6 rounded-xl bg-amber-50 border border-amber-200">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-amber-800 mb-2">
+                Problem It Solves
+              </h2>
+              <p className="text-slate-800 text-sm sm:text-base leading-relaxed">
+                {catalogProduct.problemSolved[lang]}
+              </p>
+            </div>
+            <div className="p-6 rounded-xl bg-slate-50 border border-slate-200">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-emerald-700 mb-2">
+                Architecture
+              </h2>
+              <p className="text-slate-700 text-sm leading-relaxed">
+                Per-client isolated Google Sheet + Apps Script deployment, secrets stored only in Script Properties, LockService concurrency protection, and WhatsApp Business API via Gupshup.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-6 sm:p-8 rounded-xl bg-white border border-slate-200">
+            <h2 className="text-xl font-extrabold text-slate-900 mb-4">Key Features</h2>
+            <ul className="space-y-3 text-sm sm:text-base text-slate-700">
+              {catalogProduct.features.map((feat, idx) => (
+                <li key={idx} className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
+                  <span>{feat[lang]}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="aspect-[16/10] rounded-xl bg-slate-100 border border-dashed border-slate-300 flex flex-col items-center justify-center p-6 text-center">
+              <p className="font-mono text-xs font-bold text-slate-700 mb-1">
+                {catalogProduct.screenshotPlaceholder}
+              </p>
+              <p className="text-xs text-slate-500">
+                Real product screenshot slot (no fake mockups).
+              </p>
+            </div>
+            <div className="aspect-[16/10] rounded-xl bg-slate-100 border border-dashed border-slate-300 flex flex-col items-center justify-center p-6 text-center">
+              <Youtube className="w-7 h-7 text-slate-400 mb-2" />
+              <p className="font-mono text-xs font-bold text-slate-700 mb-1">
+                [VIDEO_LINKS: Loom / YouTube Walkthrough]
+              </p>
+              <p className="text-xs text-slate-500">
+                Lazy-loaded walkthrough video embed placeholder.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   if (!product) {
     return (
       <main className="pt-32 pb-20 max-w-7xl mx-auto px-4 text-center">
-        <div className="bg-white p-12 rounded-3xl border border-slate-200 shadow-sm inline-block max-w-md">
-          <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-6" />
+        <div className="bg-white p-12 rounded-xl border border-slate-200 shadow-sm inline-block max-w-md">
+          <AlertTriangle className="w-12 h-12 text-amber-600 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-slate-900 mb-2">Product Not Found</h2>
-          <p className="text-slate-600 mb-8">
-            The requested product solution does not exist or has been removed.
+          <p className="text-slate-600 mb-6 text-sm">
+            The requested product solution does not exist or has been moved.
           </p>
           <Link 
             to="/products"
-            className="inline-flex px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all items-center gap-2"
+            className="inline-flex px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold transition-colors items-center gap-2 text-sm"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
             Back to Catalog
           </Link>
         </div>

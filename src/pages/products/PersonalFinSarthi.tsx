@@ -16,9 +16,12 @@ export default function PersonalFinSarthi() {
   const isPurchased = hasPurchased('personalfinsarthi');
 
   useSEO(
-    'PersonalFin Sarthi | India’s Smartest Personal Finance Tracker',
-    'Track expenses, savings, debt, investments, and subscriptions in one beautiful dashboard. Your secure, offline-first personal CFO based on Google Sheets.',
-    'personal finance tracker, expense tracker sheets, debt avalanche calculator, snowball tracker, budget planner sarthi'
+    'PersonalFin Sarthi Finance Tracker | Suraj Automation',
+    'PersonalFin Sarthi tracks household expenses, savings goals, investments, subscriptions, and debt payoff plans inside your private Google Sheet.',
+    'PersonalFin Sarthi, personal finance tracker Google Sheets, debt payoff tracker, expense tracker template',
+    undefined,
+    { price: '599' },
+    { canonicalPath: '/products/personalfinsarthi', isProduct: true, productName: 'PersonalFin Sarthi' }
   );
 
   const [activeFaq, setActiveFaq] = useState<number | null>(null);

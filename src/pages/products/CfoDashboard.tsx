@@ -12,9 +12,12 @@ export default function CfoDashboard() {
   const isPurchased = hasPurchased('cfo-dashboard');
 
   useSEO(
-    'CFO Dashboard for Indian SMBs | Complete Financial Control',
-    'See your cash position instantly and forecast cash flow with the CFO Dashboard. Transform spreadsheets into a single financial control center.',
-    'cfo dashboard, cash flow, financial health, business dashboard, cash reserve, indian smb finance'
+    'CFO Dashboard for Indian SMBs | Suraj Automation',
+    'Monitor cash position, party receivables, and cash flow forecasts in real time with the CFO Dashboard built on Google Sheets and Apps Script for Indian SMBs.',
+    'CFO Dashboard Development, Real Time Business Reporting Dashboard, Financial Reporting Automation, MIS Dashboard Development Services',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/cfo-dashboard', isProduct: true, productName: 'CFO Dashboard' }
   );
 
   const businessTypes = [

@@ -3,6 +3,7 @@ import {
   Bot, AlertTriangle, CheckCircle2, TrendingUp, Receipt, Database, PieChart, ShieldCheck, 
   ArrowRight, MessageSquare, Store, Calculator, BarChart3, Layers, UserCheck, Smartphone, Factory, Home, Settings
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
@@ -12,9 +13,12 @@ export default function CogsAnalyticsDashboard() {
   const isPurchased = hasPurchased('cogs-analytics-dashboard');
 
   useSEO(
-    'COGS Analytics Dashboard | Complete Visibility',
-    'Gain complete control over your food cost & inventory performance. Turn raw purchase, inventory & revenue data into actionable profit insights.',
-    'cogs dashboard, profit tracking, cost of goods sold, restaurant inventory, cloud kitchen dashboard'
+    'COGS Analytics Dashboard Tool | Suraj Automation',
+    'Track Cost of Goods Sold, vendor purchases, stock transfers, and multi-location food cost margins in real time on Google Sheets and Apps Script.',
+    'MIS Dashboard Development Services, Real Time Business Reporting Dashboard, COGS dashboard, Cost of Goods Sold tracking',
+    undefined,
+    { price: '3999' },
+    { canonicalPath: '/products/cogs-analytics-dashboard', isProduct: true, productName: 'COGS Analytics Dashboard' }
   );
 
   const monitorItems = [
@@ -378,7 +382,12 @@ export default function CogsAnalyticsDashboard() {
                <span className="text-4xl">₹3,999</span>
              </div>
              <RazorpayCheckout productId="cogs-analytics-dashboard" />
-             <p className="mt-4 text-sm text-slate-500 font-medium">Custom Enterprise Versions Available</p>
+             <p className="mt-4 text-sm text-slate-500 font-medium">
+               Custom Enterprise Versions Available —{' '}
+               <Link to="/services/mis-dashboard" className="text-indigo-600 font-bold hover:underline">
+                 Explore Custom MIS Dashboard Development Services →
+               </Link>
+             </p>
           </div>
         </div>
       </section>

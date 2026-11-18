@@ -5,15 +5,33 @@ import {defineConfig, loadEnv} from 'vite';
 import Sitemap from 'vite-plugin-sitemap';
 
 const dynamicRoutes = [
-  '/',
   '/about',
+  '/services',
+  '/services/google-apps-script-development',
+  '/services/custom-software-development',
+  '/services/web-application-development',
+  '/services/whatsapp-automation',
+  '/services/mis-dashboard-development',
+  '/services/ai-automation-services',
+  '/services/inventory-management-software',
+  '/custom-software-noida',
   '/contact',
-  '/pricing',
   '/products',
-  '/portal',
   '/reviews',
   '/roi-tool',
   '/offers',
+  '/offers/google-sheets-automation',
+  '/offers/custom-excel-dashboard-mis',
+  '/offers/google-apps-script-automation',
+  '/offers/custom-web-app',
+  '/blog',
+  '/blog/business-automation-using-google-sheets',
+  '/blog/why-apps-script-erp',
+  '/blog/automate-gst-invoices',
+  '/blog/google-sheets-top-formulas',
+  '/blog/custom-business-software-cost-india',
+  '/blog/whatsapp-business-automation-google-sheets',
+  '/blog/automate-excel-mis-reporting-small-business',
   '/terms',
   '/privacy-policy',
   '/products/cogs-analytics-dashboard',
@@ -34,8 +52,7 @@ const dynamicRoutes = [
   '/products/hiresarthi',
   '/products/budgetsarthi',
   '/products/salarysarthi',
-  '/products/bookingsarthi',
-  '/products/websarthi'
+  '/products/bookingsarthi'
 ];
 
 export default defineConfig(({mode}) => {

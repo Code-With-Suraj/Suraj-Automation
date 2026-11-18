@@ -11,9 +11,12 @@ export default function CakeSarthi() {
   const solution = getProductSolution('cakesarthi');
 
   useSEO(
-    'CakeSarthi | Suraj Automation',
-    'Online Ordering for Bakeries - Turn your local bakery into a smart online business.',
-    'bakery online system, cake ordering website, bakery ecommerce, cake shop app'
+    'CakeSarthi Bakery Ordering Software | Suraj Automation',
+    'CakeSarthi gives local bakeries an online custom cake catalog, advance payment tracking, and automated order logs backed by Google Sheets.',
+    'CakeSarthi, bakery ordering software, custom web app India, Google Sheets order management',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/cakesarthi', isProduct: true, productName: 'CakeSarthi' }
   );
 
   const problems = [

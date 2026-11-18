@@ -9,9 +9,12 @@ export default function RationKart() {
   const isPurchased = hasPurchased('rationkart');
 
   useSEO(
-    'RationKart | Suraj Automation',
-    'Grocery Request Management System on Google Ecosystem to end the WhatsApp and Excel chaos for Indian SMBs.',
-    'grocery store app, digital ordering system, request management, google sheets backend'
+    'RationKart Grocery Request System | Suraj Automation',
+    'RationKart streamlines multi-site grocery requisitions, manager approvals, and returns with photo proof inside Google Sheets and Apps Script.',
+    'RationKart, requisition approval software, Google Apps Script Web App Development, multi-site supply workflow',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/rationkart', isProduct: true, productName: 'RationKart' }
   );
 
   const features = [

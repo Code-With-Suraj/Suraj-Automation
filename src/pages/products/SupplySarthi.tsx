@@ -34,6 +34,7 @@ import {
   Check,
   X
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { useSEO } from '../../hooks/useSEO';
 import RazorpayCheckout from '../../components/RazorpayCheckout';
@@ -46,11 +47,14 @@ export default function SupplySarthi() {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'ops' | 'fin' | 'client'>('all');
   const [activeTimelineStep, setActiveTimelineStep] = useState<number>(0);
 
-  // SEO configuration using the review keywords
+  // SEO configuration
   useSEO(
-    'SupplySarthi Review: Lightweight ERP for SMB Distributors | Suraj Automation',
-    'SupplySarthi — An honest, under-the-hood evaluation of the order management, ledger, and GST generation system built on Google Workspace, sheets, and Tally XML integration.',
-    'supply management software, order tracking sheets, Tally XML export, FMCG distributor automation, GST invoicing sheets, restaurant supply pricing list, lightweight ERP India'
+    'SupplySarthi Order & Ledger ERP | Suraj Automation',
+    'SupplySarthi is a Google Sheets & Apps Script order management, client pricing, Tally XML export, and GST billing system for distributors.',
+    'Custom ERP Software Development, SupplySarthi, order tracking sheets, Tally XML export, WhatsApp Order Management Automation',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/supplysarthi', isProduct: true, productName: 'SupplySarthi' }
   );
 
   // Core review overview
@@ -1274,8 +1278,15 @@ export default function SupplySarthi() {
               </a>
             </div>
 
-            <p className="text-xs text-slate-505 font-semibold text-slate-400 mt-2">
-              Overall Analyst Audit rating: 8.7/10 - Highly Recommended for B2B distributors.
+            <p className="text-xs text-slate-400 font-semibold mt-4">
+              Need custom distributor workflows? Explore our{' '}
+              <Link to="/services/whatsapp-automation" className="text-emerald-400 hover:underline">
+                WhatsApp Order Automation
+              </Link>{' '}
+              and{' '}
+              <Link to="/services/custom-software-development" className="text-emerald-400 hover:underline">
+                Custom ERP Development Services
+              </Link>.
             </p>
           </div>
 

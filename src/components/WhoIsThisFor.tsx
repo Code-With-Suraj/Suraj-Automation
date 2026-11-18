@@ -57,7 +57,7 @@ export default function WhoIsThisFor() {
             <div className="bg-slate-900 dark:bg-slate-950 border border-slate-800 rounded-[2.5rem] p-10 relative overflow-hidden shadow-xl">
               <img 
                 src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop" 
-                alt="Business collaboration" 
+                alt="SMB management team reviewing automated business intelligence dashboards and operational reports" 
                 className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
               />
               <div className="absolute inset-0 bg-slate-900/80"></div>

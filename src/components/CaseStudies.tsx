@@ -1,116 +1,146 @@
-import { motion } from 'motion/react';
-import { ArrowUpRight, TrendingUp, Clock, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Image as ImageIcon, Lock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CUSTOM_CASE_STUDIES, SITE_CONFIG, getWhatsAppUrl } from '../data/content';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function CaseStudies() {
-  const caseStudies = [
-    {
-      title: "FMCG Distributor Supply Chain Automation",
-      client: "North India FMCG Distributor",
-      before: "Field agents taking orders on paper notebook. 4+ hours daily entering data manually into Excel with 15% billing errors.",
-      after: "Automated WhatsApp ordering bot + Google Sheets ERP (SupplySarthi). Field agents book orders in 10 seconds on mobile.",
-      metrics: [
-        { label: "Order Booking Speed", val: "10x Faster" },
-        { label: "Data Leakage", val: "0% Errors" },
-        { label: "Monthly Admin Savings", val: "₹28,000" }
-      ]
-    },
-    {
-      title: "Multi-Location Bakery COGS & Recipe System",
-      client: "CakeSarthi Client Chain",
-      before: "Untracked raw material wastage, raw ingredient cost fluctuations wiping out 20% profit margins across 5 outlets.",
-      after: "Custom COGS Analytics & Recipe BOM system. Real-time ingredient wastage alerts sent directly to WhatsApp.",
-      metrics: [
-        { label: "Margin Recovery", val: "+18% Profit" },
-        { label: "Ingredient Leakage", val: "Audited 100%" },
-        { label: "Daily WhatsApp Alerts", val: "Instant" }
-      ]
-    },
-    {
-      title: "Micro-Lending & Loan EMI Recovery Portal",
-      client: "Financial Services Agency",
-      before: "Manual phone calls for overdue loan EMIs, physical register books, and lost borrower payment history.",
-      after: "LoanSarthi EMI recovery system with automated WhatsApp payment links & instant UPI QR codes.",
-      metrics: [
-        { label: "On-Time Collection", val: "94% Rate" },
-        { label: "Recovery Hours Saved", val: "60 Hrs/Mo" },
-        { label: "Zero Lost Records", val: "100% Cloud" }
-      ]
-    }
-  ];
+  const { lang } = useLanguage();
+  const hasPermission = SITE_CONFIG.permissions.confirmNcrClientPermissions;
 
   return (
-    <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 font-semibold text-xs uppercase tracking-wider mb-4 border border-emerald-500/20">
-            Real Business Case Studies
+    <section className="py-16 lg:py-24 bg-white border-b border-slate-200" id="proof-of-work">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div className="max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-2">
+              {lang === 'hinglish' ? 'Proof of Work · Asli Kaam' : 'Proof of Work · Custom Builds'}
+            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              {lang === 'hinglish'
+                ? 'Custom dashboards, MRP tools aur NCR business websites.'
+                : 'Custom dashboards, reconciliation apps, and NCR business sites.'}
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
-            Proven Results & <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300">Operational Transformation</span>
-          </h2>
-          <p className="text-lg text-slate-400 font-body">
-            See how our custom software systems eliminate manual friction, prevent revenue leakage, and accelerate business throughput.
-          </p>
+
+          <Link
+            to="/case-studies"
+            className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-emerald-700 whitespace-nowrap"
+          >
+            <span>{lang === 'hinglish' ? 'Sabhi Case Studies Dekhein' : 'View all case studies'}</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {caseStudies.map((cs, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-slate-900 rounded-3xl p-8 border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition-all duration-300 shadow-xl"
+        {/* Custom Work Cards: Problem -> What we built -> Result */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-12">
+          {CUSTOM_CASE_STUDIES.map((cs) => (
+            <article
+              key={cs.id}
+              className="rounded-xl border border-slate-200 bg-slate-50 overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-widest block mb-2">{cs.client}</span>
-                <h3 className="text-xl font-extrabold text-white mb-6 leading-snug">
-                  {cs.title}
-                </h3>
+                <div className="aspect-[16/9] bg-slate-100 border-b border-slate-200 flex flex-col items-center justify-center p-4 text-center">
+                  <ImageIcon className="w-6 h-6 text-slate-400 mb-2" />
+                  <span className="font-mono text-[11px] text-slate-600">
+                    {cs.screenshotPlaceholder}
+                  </span>
+                </div>
 
-                {/* Before vs After Comparison */}
-                <div className="space-y-4 mb-8">
-                  <div className="p-4 rounded-2xl bg-rose-950/40 border border-rose-900/50 text-rose-200 text-xs leading-relaxed">
-                    <span className="font-bold text-rose-400 flex items-center gap-1.5 mb-1 text-[11px] uppercase tracking-wider">
-                      <AlertTriangle className="w-3.5 h-3.5" /> BEFORE AUTOMATION
+                <div className="p-6 space-y-4">
+                  <div>
+                    <span className="text-xs font-semibold text-emerald-700">
+                      {cs.category}
                     </span>
-                    {cs.before}
+                    <h3 className="text-lg font-extrabold text-slate-900 mt-1">
+                      {cs.title}
+                    </h3>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-900/50 text-emerald-200 text-xs leading-relaxed">
-                    <span className="font-bold text-emerald-400 flex items-center gap-1.5 mb-1 text-[11px] uppercase tracking-wider">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> AFTER CUSTOM SOFTWARE
-                    </span>
-                    {cs.after}
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                        Problem
+                      </p>
+                      <p className="text-slate-700 leading-relaxed">{cs.problem[lang]}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                        What We Built
+                      </p>
+                      <p className="text-slate-700 leading-relaxed">{cs.whatWeBuilt[lang]}</p>
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-white border border-slate-200">
+                      <p className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">
+                        Result
+                      </p>
+                      <p className="font-mono text-xs text-slate-700 leading-relaxed">
+                        {cs.result}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div>
-                {/* Metrics */}
-                <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-800 text-center">
-                  {cs.metrics.map((m, mIdx) => (
-                    <div key={mIdx} className="p-2 rounded-xl bg-slate-800/60 border border-slate-700/50">
-                      <span className="text-sm sm:text-base font-extrabold text-cyan-300 block">{m.val}</span>
-                      <span className="text-[9px] text-slate-400 font-semibold block uppercase mt-0.5">{m.label}</span>
-                    </div>
-                  ))}
-                </div>
-
+              <div className="px-6 py-4 bg-white border-t border-slate-200">
                 <a
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20similar%20case%20study%20solution%20for%20my%20business."
+                  href={getWhatsAppUrl(`Hi Suraj, mujhe "${cs.title}" jaisa custom system banwana hai.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 inline-flex items-center gap-1.5"
                 >
-                  <span>Build Similar System For Your Business</span>
-                  <ArrowUpRight className="w-4 h-4 text-emerald-400" />
+                  <span>{lang === 'hinglish' ? 'Aisa system discuss karein' : 'Discuss a similar build'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
-            </motion.div>
+            </article>
           ))}
+        </div>
+
+        {/* NCR Client Websites Showcase (Strictly Gated by [CONFIRM_PERMISSIONS]) */}
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div>
+              <h3 className="text-lg font-bold text-slate-900">
+                {lang === 'hinglish' ? 'NCR Client Websites (WebSarthi)' : 'NCR Client Websites (WebSarthi)'}
+              </h3>
+              <p className="text-sm text-slate-600 mt-1">
+                {lang === 'hinglish'
+                  ? 'Client naam aur screenshots sirf unki written permission ke baad hi public kiye jaate hain.'
+                  : 'Client business names and screenshots are displayed publicly only after confirmed client permission.'}
+              </p>
+            </div>
+          </div>
+
+          {hasPermission ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+              {SITE_CONFIG.permissions.ncrClients.map((client) => (
+                <div
+                  key={client.name}
+                  className="bg-white p-4 rounded-lg border border-slate-200"
+                >
+                  <p className="font-bold text-slate-900 text-sm">{client.name}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{client.type}</p>
+                  <p className="font-mono text-[11px] text-emerald-700 mt-2 truncate">
+                    {client.url}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="p-4 rounded-lg bg-white border border-dashed border-slate-300 flex items-start gap-3">
+              <Lock className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+              <div className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <span className="font-mono font-bold text-amber-800 block mb-1">
+                  [CONFIRM_PERMISSIONS]
+                </span>
+                {lang === 'hinglish'
+                  ? '4 NCR client websites built hain, par permission flag confirm hone tak public names yahan show nahi kiye gaye hain. Live call par relevant demo screen-share par dikhaye ja sakte hain.'
+                  : 'Completed NCR client websites are kept private until [CONFIRM_PERMISSIONS] is verified in content.ts. Relevant demos can be shown privately during our 20-min consultation call.'}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

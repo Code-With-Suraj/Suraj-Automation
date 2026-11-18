@@ -10,13 +10,22 @@ import {
   Cpu,
   Target
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 
 export default function About() {
   useSEO(
-    'About Us | Custom Business Automation using Google Sheets',
-    'Meet Suraj Singh, the expert developer behind Suraj Automation. We design robust custom business automation using Google Sheets, Apps Script, and AI integrations.',
-    'business automation using Google Sheets, google sheets automation, custom business automation, apps script triggers, mis dashboards, automation company in noida'
+    'About Suraj Automation | Custom Software & Apps Script India',
+    'Meet Suraj Singh, founder of Suraj Automation in Noida. We build affordable custom software, Google Apps Script apps, WhatsApp automation, and MIS dashboards.',
+    'Suraj Automation, Suraj Singh, custom software development company India, Google Apps Script developer India, business automation company in Delhi NCR',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'About Us', path: '/about' }
+      ]
+    }
   );
   const whatWeDo = [
     {
@@ -114,7 +123,7 @@ export default function About() {
             >
               <img 
                 src="https://sarthi-automations.vercel.app/static/suraj.png" 
-                alt="Suraj Singh" 
+                alt="Suraj Singh, Founder and Automation Architect at Suraj Automation" 
                 className="w-full h-full object-cover object-[center_20%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-8">
@@ -137,10 +146,22 @@ export default function About() {
               </h3>
               <div className="space-y-6 text-lg text-slate-600 dark:text-slate-300 transition-colors">
                 <p>
-                  Led by Suraj Singh, Suraj Automation was built to solve a specific problem: local businesses struggling with scattered data, operational bottlenecks, and manual human errors.
+                  Led by Suraj Singh in Noida, Suraj Automation was built to solve a specific problem: Indian SMBs struggling with scattered WhatsApp orders, disconnected spreadsheets, and manual data-entry errors.
                 </p>
                 <p>
-                  We believe that small business owners shouldn't have to act as data entry operators. Our mission is to transform your scattered WhatsApp messages and manual Excel sheets into centralized, automated, and AI-enhanced business engines.
+                  We believe business owners shouldn&apos;t have to act as data-entry operators. Through{' '}
+                  <Link to="/services/custom-software-development" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+                    custom business software development
+                  </Link>
+                  ,{' '}
+                  <Link to="/services/google-apps-script-development" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+                    Google Apps Script automation
+                  </Link>
+                  , and dedicated regional consulting across{' '}
+                  <Link to="/custom-software-noida" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+                    Noida and Delhi NCR
+                  </Link>
+                  , we turn daily operations into structured, reliable systems.
                 </p>
               </div>
             </motion.div>

@@ -9,16 +9,29 @@ import CaseStudies from '../components/CaseStudies';
 import DiagnosticSimulator from '../components/DiagnosticSimulator';
 import Process from '../components/Process';
 import TestimonialCarousel from '../components/TestimonialCarousel';
-import FaqSection from '../components/FaqSection';
+import FaqSection, { HOME_FAQS } from '../components/FaqSection';
 import FinalCTA from '../components/FinalCTA';
 import AIChatWidget from '../components/AIChatWidget';
 import { useSEO } from '../hooks/useSEO';
 
 export default function Home() {
   useSEO(
-    'Custom Software & Business Automation Company | Suraj Automation',
-    "We don't just build websites. We build software that runs businesses. Custom Web Apps, Google Apps Script ERPs, WhatsApp Automation, and MIS Dashboards for growing SMBs.",
-    'custom web application development, business automation company, google apps script erp, whatsapp automation system, mis dashboard software, suraj automation'
+    'Business Automation Company India | Suraj Automation',
+    'Suraj Automation is a business automation & custom software development company in India helping SMBs automate workflows with Apps Script, WhatsApp & MIS.',
+    'business automation company india, custom software development company india, business process automation services, custom web application development, small business automation solutions, workflow automation solutions',
+    undefined,
+    undefined,
+    {
+      faqs: HOME_FAQS,
+      serviceInfo: {
+        name: 'Business Automation & Custom Software Development',
+        description:
+          'Custom web applications, Google Apps Script ERPs, WhatsApp business automation, AI integrations, and MIS dashboards for Indian SMBs.',
+        serviceType: 'Business Process Automation & Custom Software Development',
+        areaServed: ['India', 'Noida', 'Greater Noida', 'Ghaziabad', 'Delhi NCR'],
+        url: 'https://surajdx.com/'
+      }
+    }
   );
 
   return (

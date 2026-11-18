@@ -36,9 +36,12 @@ export default function MenuSarthi() {
   const isPurchased = hasPurchased('menusarthi');
 
   useSEO(
-    'MenuSarthi | Smart Digital QR Dining Solution',
-    'A professional contactless QR code ordering system for restaurants, cafes, and local dhabas with zero aggregator commission.',
-    'digital qr menu, contactless dining, restaurant ordering script, upi menu sarthi'
+    'MenuSarthi Digital QR Menu Software | Suraj Automation',
+    'MenuSarthi provides contactless QR menu ordering, table management, and zero-commission dining workflows powered by Google Sheets and Apps Script.',
+    'MenuSarthi, digital QR menu software, contactless restaurant ordering, Google Apps Script Web App Development',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/menusarthi', isProduct: true, productName: 'MenuSarthi' }
   );
 
   // --- Sound Effects Synthesizer ---

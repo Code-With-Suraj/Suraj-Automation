@@ -85,9 +85,17 @@ export default function Reviews() {
 
   // Apply SEO tags
   useSEO(
-    "Client Reviews & Testimonials | Suraj Automation",
-    "Read verified client testimonials and rating reviews of our customized Google Sheets and Google Apps Script automation services. Give your workflow a 5-star boost!",
-    "reviews, client testimonials, ratings, Google Sheets automation, Google Apps Script reviews, Suraj Automation user feedback"
+    "Verified Client Reviews | Suraj Automation",
+    "Read verified client feedback on our Google Apps Script workflows, custom software, WhatsApp automation, and MIS dashboards across India.",
+    "Suraj Automation reviews, client testimonials India, Google Apps Script developer feedback, custom software reviews",
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Reviews', path: '/reviews' }
+      ]
+    }
   );
 
   // Subscribe to reviews in realtime
@@ -150,9 +158,16 @@ export default function Reviews() {
     return () => unsubscribe();
   }, [isAdmin, sortBy]);
 
-  // JSON-LD dynamic schema injection for Google Search rich snippet ranking
+  // JSON-LD dynamic schema injection for approved reviews only (no fabricated counts)
   useEffect(() => {
     const scriptId = 'reviews-json-ld';
+    const approvedReviews = reviews.filter(r => r.isApproved);
+    if (approvedReviews.length === 0) {
+      const existing = document.getElementById(scriptId);
+      if (existing) existing.remove();
+      return;
+    }
+
     let script = document.getElementById(scriptId) as HTMLScriptElement;
     if (!script) {
       script = document.createElement('script');
@@ -161,12 +176,9 @@ export default function Reviews() {
       document.head.appendChild(script);
     }
 
-    const approvedReviews = reviews.filter(r => r.isApproved);
-    const totalCount = approvedReviews.length || 18; // fallback realistic data if empty
+    const totalCount = approvedReviews.length;
     const totalRatingSum = approvedReviews.reduce((sum, r) => sum + r.rating, 0);
-    const avgRating = approvedReviews.length > 0 
-      ? (totalRatingSum / approvedReviews.length).toFixed(1) 
-      : '4.9';
+    const avgRating = (totalRatingSum / totalCount).toFixed(1);
 
     const schema = {
       "@context": "https://schema.org",
@@ -175,7 +187,6 @@ export default function Reviews() {
       "image": window.location.origin + "/favicon.svg",
       "telephone": "+918851666208",
       "url": window.location.origin,
-      "priceRange": "₹₹",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Noida",
@@ -317,7 +328,7 @@ export default function Reviews() {
   
   const averageRatingValue = publicReviews.length > 0 
     ? (publicReviews.reduce((sum, r) => sum + r.rating, 0) / publicReviews.length).toFixed(1) 
-    : '4.9';
+    : '—';
 
   const filterReviews = reviews.filter(r => {
     if (ratingFilter === 'all') return true;
@@ -406,15 +417,15 @@ export default function Reviews() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 sm:p-8 rounded-[2rem] shadow-sm flex flex-col gap-6">
               
               <div className="text-center pb-2">
-                <span className="text-sm font-bold text-slate-400 uppercase tracking-widest block mb-1">Global Rating Score</span>
+                <span className="text-sm font-bold text-slate-400 uppercase tracking-widest block mb-1">Verified Client Score</span>
                 <div className="flex items-baseline justify-center gap-2">
                   <span className="text-6xl font-black text-slate-900 dark:text-white">{averageRatingValue}</span>
-                  <span className="text-2xl font-bold text-slate-400">/ 5</span>
+                  {publicReviews.length > 0 && <span className="text-2xl font-bold text-slate-400">/ 5</span>}
                 </div>
                 
                 <div className="flex items-center justify-center gap-1.5 mt-2.5 text-amber-500 shrink-0">
                   {[1, 2, 3, 4, 5].map((star) => {
-                    const val = parseFloat(averageRatingValue);
+                    const val = publicReviews.length > 0 ? parseFloat(averageRatingValue) : 0;
                     return (
                       <Star 
                         key={star} 
@@ -424,16 +435,17 @@ export default function Reviews() {
                   })}
                 </div>
                 <p className="text-xs text-slate-400 dark:text-slate-500 font-bold uppercase mt-2.5 tracking-wider">
-                  Based on {publicReviews.length > 0 ? publicReviews.length : 15} Verified client implementations
+                  {publicReviews.length > 0
+                    ? `Based on ${publicReviews.length} verified client review${publicReviews.length === 1 ? '' : 's'}`
+                    : 'No verified reviews published yet'}
                 </p>
               </div>
 
               {/* Custom Bar Breakdown */}
               <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                 {[5, 4, 3, 2, 1].map((stars) => {
-                  const count = publicReviews.length > 0 ? ratingCounts[stars - 1] : (stars === 5 ? 12 : stars === 4 ? 3 : 0);
-                  const total = publicReviews.length > 0 ? publicReviews.length : 15;
-                  const percent = Math.round((count / total) * 100);
+                  const count = publicReviews.length > 0 ? ratingCounts[stars - 1] : 0;
+                  const percent = publicReviews.length > 0 ? Math.round((count / publicReviews.length) * 100) : 0;
                   
                   return (
                     <button
@@ -444,7 +456,7 @@ export default function Reviews() {
                       <span className="font-mono text-sm tracking-tight w-4 shrink-0 text-slate-400">{stars}★</span>
                       <div className="flex-grow h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div 
-                          className={`h-full rounded-full transition-all duration-500 ${ratingFilter === stars ? 'bg-indigo-650 dark:bg-indigo-400' : 'bg-amber-400 group-hover:bg-amber-500'}`}
+                          className={`h-full rounded-full transition-all duration-500 ${ratingFilter === stars ? 'bg-indigo-600 dark:bg-indigo-400' : 'bg-amber-400 group-hover:bg-amber-500'}`}
                           style={{ width: `${percent}%` }}
                         />
                       </div>
@@ -454,12 +466,12 @@ export default function Reviews() {
                 })}
               </div>
 
-              {/* Google Search Rank Info Explanation */}
+              {/* Verified Review Transparency Notice */}
               <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-200/50 dark:border-slate-800 px-4 py-4 rounded-xl flex items-start gap-3">
                 <Info className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" />
                 <div className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">
-                  <strong className="text-slate-800 dark:text-slate-300 font-bold block mb-0.5">How this ranks on Google:</strong>
-                  Our backend structure automatically exports verified 5-star evaluations using LD+JSON Schema standard specifications, allowing Google's crawler bots to display gold rating stars in Google Search result snippets automatically.
+                  <strong className="text-slate-800 dark:text-slate-300 font-bold block mb-0.5">Verified Feedback Policy:</strong>
+                  Every published review comes from a signed-in client submission reviewed before publication.
                 </div>
               </div>
 
@@ -507,16 +519,11 @@ export default function Reviews() {
               <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-200/50 dark:border-slate-800 rounded-2xl p-4 flex flex-col gap-3">
                 <div>
                   <h4 className="text-sm font-extrabold text-slate-900 dark:text-white leading-tight">Suraj Automation</h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 font-semibold leading-relaxed">Enterprise automation, CRM, ERP, and customized Google Sheets solutions.</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 font-semibold leading-relaxed">Custom software development, Google Apps Script automation, WhatsApp workflows, and MIS reporting.</p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <div className="flex text-amber-500 shrink-0">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                    ))}
-                  </div>
-                  <span className="font-mono text-xs font-bold text-slate-800 dark:text-white">5.0 Rating</span>
+                <div className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                  View live client feedback on Google Maps
                 </div>
               </div>
 

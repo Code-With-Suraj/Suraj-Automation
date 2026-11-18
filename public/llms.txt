@@ -1,37 +1,42 @@
-# Suraj Automation & WebSarthi
-> Noida's premier AI automation company specializing in custom automation, interactive MIS dashboards, background Apps Script triggers, AI automation software, and WebSarthi — Zero Heavy Upfront Website Subscriptions for Indian SMBs.
+# Suraj Automation
+> Indian business automation and custom software development company based in Noida, Uttar Pradesh, serving SMBs across Noida, Greater Noida, Ghaziabad, Delhi NCR, and pan-India.
 
-## About Us
-Suraj Automation is founded by Suraj Singh, a Google Apps Script Expert & Full-Stack Automation Architect. We transform manual business processes into efficient, automated workflows using Google Workspace, WebSarthi digital presence subscriptions, and AI technologies.
+## About Suraj Automation
+Suraj Automation is founded by Suraj Singh, a Google Apps Script Developer and Full-Stack Automation Architect. We help Indian small and medium businesses eliminate manual spreadsheets, WhatsApp order chaos, and repetitive billing or reporting work using affordable custom software, Google Apps Script web applications, WhatsApp Business automation, Gemini AI integrations, and automated MIS dashboards.
 
-## WebSarthi — Website & Web App Subscriptions
+## Core Services & Dedicated Pages
+- Business Automation Company India (Home): https://surajdx.com/
+- Google Apps Script Development Services: https://surajdx.com/services/google-apps-script-development
+- Custom Software Development India: https://surajdx.com/services/custom-software-development
+- Custom Web Application Development: https://surajdx.com/services/web-application-development
+- WhatsApp Business Automation Services: https://surajdx.com/services/whatsapp-automation
+- MIS Dashboard Development Services: https://surajdx.com/services/mis-dashboard-development
+- AI Automation Services for Small Business: https://surajdx.com/services/ai-automation-services
+- Custom Inventory Management Software: https://surajdx.com/services/inventory-management-software
+- Custom Software Development Company in Noida & Delhi NCR: https://surajdx.com/custom-software-noida
+- Services & Pricing Overview: https://surajdx.com/services
+- Starter Automation Packages: https://surajdx.com/offers
+
+## Sarthi Software Suite (Ready-to-Deploy Business Systems)
+- Products Directory: https://surajdx.com/products
+- BillSarthi: Automated vendor billing and GST invoice verification
+- HisabSarthi: Google Sheets-based GST accounting and ledger tool
+- StockSarthi: Inventory management and low-stock alert system
+- SupplySarthi: B2B supply chain and distribution order management
+- VendorSarthi: Procurement and vendor quotation tracker
+- LoanSarthi: Loan, EMI, and recovery tracking system
+- CFO Dashboard & COGS Analytics Dashboard: Automated financial & profit MIS reporting
+- KarmSarthi, HireSarthi, SalarySarthi, Claimo, BudgetSarthi, BookingSarthi, RationKart, CakeSarthi, MenuSarthi, GymSarthi, PersonalFinSarthi
+
+## WebSarthi — Managed Business Websites
 - URL: https://websarthi.surajdx.com/
-- Concept: Parented by Suraj Automation • Zero Heavy Upfront Costs.
-- Pricing: Starting for ₹1,999/month (No ₹50,000 upfront cost).
-- Included Features: Custom Design & Development, NVMe Cloud Server Hosting, SSL Certificate, Monthly Updates, 3-7 Days Fast Delivery, 99.9% Uptime SLA, Bank-grade Encryption, Direct WhatsApp Support, WhatsApp Lead Form Active.
-- Custom-tailored Subscriptions for: Small & Medium Businesses, Local Businesses, Manufacturers, Restaurants, Clinics & Doctors, Schools & Colleges, Coaching Institutes, CA Firms & Lawyers, Consultants, Real Estate Companies, Startups, Traders & Dealers, Distributors, Wholesalers, Agencies.
-- Client Subdomains: https://yourbusiness.websarthi.in
+- Concept: Parented by Suraj Automation for SMB business websites with managed domain, hosting, SSL, and monthly updates.
 
-## Products (Sarthi Suite)
-- WebSarthi: Zero Heavy Upfront Website & Web App Subscription (https://websarthi.surajdx.com/)
-- BillSarthi: Automated billing and invoicing system.
-- BookingSarthi: Appointment and booking management.
-- BudgetSarthi: Expense and budget tracking.
-- StockSarthi: Inventory and stock management.
-- RationKart, Claimo, KarmSarthi, CakeSarthi, GymSarthi, MenuSarthi, SupplySarthi, HisabSarthi, LoanSarthi, VendorSarthi, PersonalFinSarthi, HireSarthi, SalarySarthi.
-
-## Services
-- WebSarthi Website Subscriptions (₹1,999/mo, 0 upfront)
-- Custom Google Sheets ERP
-- Apps Script Automation
-- Dynamic MIS Dashboards
-- WhatsApp & Email Automation
-- Custom Software Systems
-
-## Contact
+## Contact & Service Coverage
 - Founder & Architect: Suraj Singh
 - Phone / WhatsApp: +91-8851666208
 - Email: suraj.gasdeveloper@gmail.com
-- Address: Sector 62, Noida, Uttar Pradesh, 201301, India
-- Main Website: https://surajdx.com
-- WebSarthi Portal: https://websarthi.surajdx.com
+- Location & Service Areas: Noida, Uttar Pradesh — serving Noida, Greater Noida, Ghaziabad, Delhi NCR, and SMBs across India
+- Website: https://surajdx.com
+- ROI & Solution Finder Tool: https://surajdx.com/roi-tool
+- Guides & Blog: https://surajdx.com/blog

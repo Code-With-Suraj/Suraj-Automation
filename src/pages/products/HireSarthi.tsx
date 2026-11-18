@@ -32,9 +32,12 @@ export default function HireSarthi() {
   const isPurchased = hasPurchased('hiresarthi');
 
   useSEO(
-    'HireSarthi | Premium Recruitment & Onboarding Automation',
-    'Streamline your recruitment pipeline, issue digital offer letters and onboard employees smoothly with our Google Workspace based system.',
-    'recruitment software, onboarding system, applicant tracking system, google sheets hr database'
+    'HireSarthi Recruitment & Onboarding | Suraj Automation',
+    'HireSarthi automates applicant tracking, interview pipelines, digital offer letter PDFs, and employee onboarding workflows on Google Workspace.',
+    'Custom HRMS Software Development, HireSarthi, recruitment tracking Google Sheets, onboarding automation',
+    undefined,
+    { price: '9999' },
+    { canonicalPath: '/products/hiresarthi', isProduct: true, productName: 'HireSarthi' }
   );
 
   // States for Interactive Demos

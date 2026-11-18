@@ -65,9 +65,9 @@ export default function Hero() {
             className="inline-flex items-center gap-2.5 py-2 px-5 rounded-full bg-slate-900/90 border border-slate-800 text-slate-200 text-xs sm:text-sm font-semibold tracking-wide mb-8 shadow-xl backdrop-blur-xl"
           >
             <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-            <span className="text-cyan-400 font-extrabold uppercase tracking-widest text-[11px]">POSITIONING PROMISE</span>
+            <span className="text-cyan-400 font-extrabold uppercase tracking-widest text-[11px]">BUSINESS AUTOMATION COMPANY INDIA</span>
             <span className="text-slate-400">|</span>
-            <span>Custom Software Architecture & Automation</span>
+            <span>Noida, Delhi NCR & Pan-India</span>
           </motion.div>
 
           <motion.h1
@@ -101,7 +101,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-body"
           >
-            Replace chaotic spreadsheets, manual WhatsApp messaging, and expensive SaaS subscriptions with high-speed custom internal software. Cut operational development costs by <span className="font-bold text-white underline decoration-cyan-400">50%</span> with zero recurring monthly server fees.
+            Practical <strong className="text-white">small business automation solutions</strong> and <strong className="text-white">custom software development</strong> for Indian SMBs. Replace manual spreadsheets and WhatsApp chaos with workflow automation, Google Apps Script ERPs, and AI dashboards—without recurring SaaS lock-in.
           </motion.p>
 
           <motion.div
@@ -130,21 +130,16 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Ratings & Social Proof */}
+          {/* Verifiable Architecture Proof */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-12 flex flex-wrap items-center justify-center gap-6 pt-6 border-t border-slate-800/80 text-xs sm:text-sm text-slate-400"
           >
-            <div className="flex items-center gap-2">
-              <div className="flex text-amber-400">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-4 h-4 fill-amber-400" />
-                ))}
-              </div>
-              <span className="font-bold text-white">4.9/5 Rating</span>
-              <span>(50+ Enterprise Clients)</span>
+            <div className="flex items-center gap-2 text-amber-300 font-semibold">
+              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <span>18+ Ready-to-Deploy Sarthi Systems</span>
             </div>
             <span className="hidden sm:inline">•</span>
             <div className="flex items-center gap-2 text-emerald-400 font-semibold">
@@ -154,7 +149,7 @@ export default function Hero() {
             <span className="hidden sm:inline">•</span>
             <div className="flex items-center gap-2 text-cyan-400 font-semibold">
               <CheckCircle2 className="w-4 h-4" />
-              <span>Zero Monthly Subscriptions</span>
+              <span>Zero Monthly SaaS Lock-In</span>
             </div>
           </motion.div>
         </div>

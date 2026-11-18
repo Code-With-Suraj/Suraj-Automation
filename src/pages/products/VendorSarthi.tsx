@@ -9,9 +9,12 @@ export default function VendorSarthi() {
   const isPurchased = hasPurchased('vendorsarthi');
 
   useSEO(
-    'VendorSarthi | Suraj Automation',
-    'A complete Vendor Management System built entirely on Google Sheets to end manual RFQs, WhatsApp quotes, and Excel comparisons.',
-    'vendor management system, procurement software, google sheets backend, RFQ automation'
+    'VendorSarthi Purchase & RFQ Software | Suraj Automation',
+    'VendorSarthi automates vendor RFQs, secure supplier quote links, rate comparisons, and purchase management workflows inside Google Sheets.',
+    'Purchase Management Software Development, VendorSarthi, RFQ automation, Google Sheets Business Automation',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/vendorsarthi', isProduct: true, productName: 'VendorSarthi' }
   );
 
   const features = [

@@ -25,9 +25,12 @@ export default function SalarySarthi() {
   const isPurchased = hasPurchased('salarysarthi');
 
   useSEO(
-    'SalarySarthi | HRMS & Payroll Management System for SMBs',
-    'SalarySarthi isn\'t trying to be another bloated HRMS—it focuses on solving payroll and attendance pain for SMBs surprisingly well.',
-    'payroll management system, hr software smb, google sheets payroll, attendance management'
+    'SalarySarthi HRMS & Payroll Software | Suraj Automation',
+    'SalarySarthi streamlines employee records, attendance tracking, role-based access, and monthly payroll calculations on Google Sheets for SMBs.',
+    'Custom HRMS Software Development, SalarySarthi, payroll management software, Google Sheets HRMS India',
+    undefined,
+    { price: '15000' },
+    { canonicalPath: '/products/salarysarthi', isProduct: true, productName: 'SalarySarthi' }
   );
 
   const features = [

@@ -6,8 +6,23 @@ import { db } from '../lib/firebase';
 import { BlogPost } from '../types';
 import { FALLBACK_BLOGS } from '../data/fallbackBlogs';
 import { Search, Calendar, Clock, BookOpen, ChevronRight, Sparkles, Filter } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 export default function Blog() {
+  useSEO(
+    'Automation & Apps Script Blog | Suraj Automation',
+    'Read step-by-step Google Apps Script, WhatsApp automation, GST billing, MIS dashboard, and custom software guides tailored for Indian SMBs.',
+    'Google Apps Script blog, business automation guides India, Google Sheets formulas, WhatsApp automation tutorial, MIS reporting guide',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Blog', path: '/blog' }
+      ]
+    }
+  );
+
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');

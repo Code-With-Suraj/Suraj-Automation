@@ -16,9 +16,12 @@ export default function LoanSarthi() {
   const solution = getProductSolution('loansarthi');
 
   useSEO(
-    'LoanSarthi | Suraj Automation',
-    'Finance business control system - Track karo. Loan do. Recovery karo - Sab kuch ek hi system me.',
-    'loan management software, finance business, emi tracking, recovery optimization, loan app'
+    'LoanSarthi EMI & Recovery Software | Suraj Automation',
+    'LoanSarthi manages loan disbursement schedules, EMI tracking, overdue alerts, and daily collection workflows on Google Sheets for finance SMBs.',
+    'LoanSarthi, loan management software, EMI tracking automation, Automated Payment Reminder Software',
+    undefined,
+    { price: '1499' },
+    { canonicalPath: '/products/loansarthi', isProduct: true, productName: 'LoanSarthi' }
   );
 
   const [currentSlide, setCurrentSlide] = useState(0);

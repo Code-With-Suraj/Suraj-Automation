@@ -7,9 +7,17 @@ import { useSEO } from '../hooks/useSEO';
 
 export default function OffersHub() {
   useSEO(
-    'Special Custom Offers | Suraj Automation',
-    'Boost your small business output. Explore our exclusive business automation offers starting at just ₹1499. Google Sheets automation, custom Excel dashboards, Google Apps Script and custom web solutions with zero server cost.',
-    'business automation offers, excel dashboards India, google sheets developer, custom web systems price'
+    'Automation Starter Packages & Offers | Suraj Automation',
+    'Affordable Google Sheets automation, Excel MIS dashboards, Apps Script workflows, and custom web apps starting at ₹1,499 with zero server fees.',
+    'business automation packages India, Excel MIS dashboard price, Google Sheets automation service, Google Apps Script pricing',
+    undefined,
+    undefined,
+    {
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'Starter Offers', path: '/offers' }
+      ]
+    }
   );
 
   return (
