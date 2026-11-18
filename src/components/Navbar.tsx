@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Sun, Moon, Sparkles, ChevronDown, Tag, FileSpreadsheet, BarChart3, Workflow, MonitorSmartphone } from 'lucide-react';
+import { Menu, X, Sun, Moon, Sparkles, ChevronDown, Tag, FileSpreadsheet, BarChart3, Workflow, MonitorSmartphone, Phone } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { useUser } from '../contexts/UserContext';
@@ -243,8 +243,21 @@ export default function Navbar() {
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             
+            <a
+              href="tel:+919355337839"
+              className={`p-2 rounded-full transition-colors shrink-0 ${
+                !isScrolled && isHome
+                  ? 'bg-white/10 text-white hover:bg-white/20'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
+              }`}
+              aria-label="Call +91-9355337839"
+              title="Call +91-9355337839"
+            >
+              <Phone className="w-4 h-4" />
+            </a>
+
             <a 
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
+              href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
               target="_blank" 
               rel="noopener noreferrer"
               className="px-4 xl:px-6 py-2 xl:py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold transition-all shadow-[0_4px_14px_rgba(79,70,229,0.3)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.4)] hover:-translate-y-0.5 whitespace-nowrap text-sm xl:text-base shrink-0"
@@ -324,14 +337,23 @@ export default function Navbar() {
           {isAdmin && (
             <Link to="/admin" className={`block px-3 py-2 text-base font-medium rounded-md ${location.pathname === '/admin' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>Admin Workspace</Link>
           )}
-          <a 
-            href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="w-full mt-4 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-medium flex justify-center shadow-md transition-colors"
-          >
-            Book Audit
-          </a>
+          <div className="grid grid-cols-2 gap-2.5 mt-4">
+            <a 
+              href="tel:+919355337839" 
+              className="w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-semibold flex items-center justify-center gap-2 shadow-md transition-colors text-sm"
+            >
+              <Phone className="w-4 h-4" />
+              Call Now
+            </a>
+            <a 
+              href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20process%20audit." 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full px-4 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold flex items-center justify-center shadow-md transition-colors text-sm"
+            >
+              Book Audit
+            </a>
+          </div>
         </div>
       )}
       

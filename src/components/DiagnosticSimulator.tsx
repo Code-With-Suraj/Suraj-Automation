@@ -398,7 +398,7 @@ export default function DiagnosticSimulator() {
                     {/* Booking CTAs */}
                     <div className="space-y-2.5">
                       <a
-                        href={`https://wa.me/918851666208?text=${whatsappText}`}
+                        href={`https://wa.me/919355337839?text=${whatsappText}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-emerald-500/20 flex items-center justify-center gap-2 group"

@@ -225,10 +225,10 @@ export default function MenuSarthi() {
       } else if (option.includes('Demo')) {
         setChatMessages(prev => [...prev, {
           sender: 'bot',
-          text: `I would love to set up a live zoom demo or answer your questions on WhatsApp! Please WhatsApp us at +91 8851666208.`
+          text: `I would love to set up a live zoom demo or answer your questions on WhatsApp! Please WhatsApp us at +91 9355337839.`
         }, {
           sender: 'bot',
-          text: `Click below to text us directly on WhatsApp:\n\n[📱 Chat on WhatsApp](https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20live%20demo%20of%20MenuSarthi%20for%20my%20restaurant.)`
+          text: `Click below to text us directly on WhatsApp:\n\n[📱 Chat on WhatsApp](https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20a%20free%20live%20demo%20of%20MenuSarthi%20for%20my%20restaurant.)`
         }]);
       } else if (option.includes('Question') || option.includes('FAQ')) {
         setChatMessages(prev => [...prev, {
@@ -262,7 +262,7 @@ export default function MenuSarthi() {
       } else if (q.includes('dhaba') || q.includes('local') || q.includes('small') || q.includes('roadside')) {
         reply = "Haan, bilkul! MenuSarthi local dhabas, family restaurants aur street food joints ke liye ekdum perfect aur super easy hai. Customer table par baithe hi QR code scan karke order kar lete hain, jisse waiter bulane aur shor machane ki zarurat nahi padti!";
       } else if (q.includes('demo') || q.includes('whatsapp') || q.includes('phone') || q.includes('call')) {
-        reply = "Sure! You can talk directly to Suraj Singh on WhatsApp at +91 8851666208 or send email to surajautomation.surajdx@gmail.com for bulk prints & custom integrations.";
+        reply = "Sure! You can talk directly to Suraj Singh on WhatsApp at +91 9355337839 or send email to surajautomation.surajdx@gmail.com for bulk prints & custom integrations.";
       }
 
       setChatMessages(prev => [...prev, { sender: 'bot', text: reply }]);
@@ -350,7 +350,7 @@ export default function MenuSarthi() {
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20live%20demo%20of%20MenuSarthi%20for%20my%20restaurant."
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20live%20demo%20of%20MenuSarthi%20for%20my%20restaurant."
                   target="_blank" rel="noreferrer"
                   className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-lg rounded-xl border border-slate-800 text-center transition-all flex items-center justify-center gap-2"
                 >
@@ -1196,7 +1196,7 @@ export default function MenuSarthi() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a 
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20live%20demo%20of%20MenuSarthi%20for%20my%20restaurant."
+              href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20live%20demo%20of%20MenuSarthi%20for%20my%20restaurant."
               target="_blank" rel="noreferrer"
               className="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-black text-lg rounded-xl shadow-lg shadow-red-500/25 flex items-center justify-center gap-2 group hover:-translate-y-0.5 transition-transform"
             >
@@ -1204,7 +1204,7 @@ export default function MenuSarthi() {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20have%20questions%20about%20MenuSarthi%20pricing%20and%20UPI%20settlement."
+              href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20have%20questions%20about%20MenuSarthi%20pricing%20and%20UPI%20settlement."
               target="_blank" rel="noreferrer"
               className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-lg rounded-xl border border-slate-800 flex items-center justify-center gap-2"
             >
@@ -1397,7 +1397,7 @@ export default function MenuSarthi() {
             <p className="leading-relaxed">Questions? Connect with our central sales desk for onboarding, bulk QR standee prints, or white-label solutions.</p>
             <div className="space-y-1.5 font-semibold text-slate-300">
               <p>✉ surajautomation.surajdx@gmail.com</p>
-              <p>📱 Contact / WhatsApp: +91 8851666208</p>
+              <p>📱 Contact / WhatsApp: +91 9355337839</p>
             </div>
           </div>
 

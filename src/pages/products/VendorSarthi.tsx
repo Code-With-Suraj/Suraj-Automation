@@ -127,7 +127,7 @@ export default function VendorSarthi() {
                   </a>
                 )}
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%252520a%252520free%252520demo%252520of%252520VendorSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%252520a%252520free%252520demo%252520of%252520VendorSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 border border-slate-750 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
@@ -379,7 +379,7 @@ export default function VendorSarthi() {
               
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20custom%20vendor%20management%20system.%20Show%20me%20VendorSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20a%20custom%20vendor%20management%20system.%20Show%20me%20VendorSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2 group hover:-translate-y-1"

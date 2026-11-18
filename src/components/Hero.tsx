@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Calendar, Star, ShieldCheck, CheckCircle2, Play, Sparkles, MessageSquare, Database, FileSpreadsheet, Activity, ChevronRight } from 'lucide-react';
+import { ArrowRight, Calendar, Star, ShieldCheck, CheckCircle2, Play, Sparkles, MessageSquare, Database, FileSpreadsheet, Activity, ChevronRight, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Hero() {
@@ -111,7 +111,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
           >
             <a
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%2015-min%20software%20consultation."
+              href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%2015-min%20software%20consultation."
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-base transition-all shadow-[0_0_35px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.6)] flex items-center justify-center gap-3 group hover:-translate-y-0.5"
@@ -119,6 +119,14 @@ export default function Hero() {
               <Calendar className="w-5 h-5 text-cyan-200" />
               <span>Book Free Consultation</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+
+            <a
+              href="tel:+919355337839"
+              className="w-full sm:w-auto px-7 py-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-200 border border-emerald-500/40 font-bold text-base transition-all flex items-center justify-center gap-2.5 hover:-translate-y-0.5"
+            >
+              <Phone className="w-5 h-5 text-emerald-400" />
+              <span>Call +91-9355337839</span>
             </a>
 
             <Link

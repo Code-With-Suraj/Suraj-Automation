@@ -13,7 +13,8 @@ import {
   ShieldCheck,
   Sparkles,
   AlertTriangle,
-  ExternalLink
+  ExternalLink,
+  Phone
 } from 'lucide-react';
 import { SolutionPageData } from '../data/solutionPagesData';
 import { PRODUCT_SOLUTIONS } from '../data/productSolutions';
@@ -53,7 +54,7 @@ export default function SolutionLandingPage({ pageData }: SolutionLandingPagePro
     }
   );
 
-  const whatsappUrl = `https://wa.me/918851666208?text=${encodeURIComponent(pageData.whatsappText)}`;
+  const whatsappUrl = `https://wa.me/919355337839?text=${encodeURIComponent(pageData.whatsappText)}`;
 
   const matchedProducts = pageData.relatedProductIds
     .map((id) => PRODUCT_SOLUTIONS[id])
@@ -105,6 +106,14 @@ export default function SolutionLandingPage({ pageData }: SolutionLandingPagePro
                 <MessageSquare className="w-5 h-5" />
                 <span>Book Free Workflow Audit</span>
                 <ArrowRight className="w-4 h-4" />
+              </a>
+
+              <a
+                href="tel:+919355337839"
+                className="px-6 py-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-200 font-bold text-sm sm:text-base inline-flex items-center gap-2 transition-all"
+              >
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span>Call +91-9355337839</span>
               </a>
 
               <Link
@@ -426,6 +435,13 @@ export default function SolutionLandingPage({ pageData }: SolutionLandingPagePro
               <MessageSquare className="w-5 h-5" />
               <span>Chat on WhatsApp</span>
               <ExternalLink className="w-4 h-4" />
+            </a>
+            <a
+              href="tel:+919355337839"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-lg transition-all"
+            >
+              <Phone className="w-5 h-5" />
+              <span>Call +91-9355337839</span>
             </a>
             <Link
               to="/roi-tool"

@@ -63,11 +63,22 @@ export default function Footer() {
                 </div>
                 <span className="font-medium text-slate-300">Suraj Singh</span>
               </li>
-              <li className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0">
+              <li className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Phone className="w-4 h-4 text-indigo-400" />
                 </div>
-                <a href="https://wa.me/918851666208" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors font-medium text-slate-300">+91-8851666208</a>
+                <div className="space-y-1.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a href="tel:+919355337839" className="hover:text-indigo-400 transition-colors font-semibold text-slate-200">+91-9355337839</a>
+                    <span className="text-slate-600">·</span>
+                    <a href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20discuss%20business%20automation." target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors">WhatsApp</a>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                    <a href="tel:+918851666208" className="hover:text-indigo-400 transition-colors">+91-8851666208</a>
+                    <span>·</span>
+                    <a href="https://wa.me/918851666208" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">WhatsApp</a>
+                  </div>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0">

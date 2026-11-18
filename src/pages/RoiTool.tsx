@@ -244,7 +244,7 @@ export default function RoiTool() {
       `💡 *Matched product:* ${result.matchedProductName} (${result.matchConfidence}% Fit)\n` +
       `⏳ *ROI Estimated:* ${result.estimatedRoi.hoursSaved} hrs saved & ₹${result.estimatedRoi.moneySaved} saved per month!\n\n` +
       `Mujhe is tool/software ke baare me details janani hain aur setup karwana hai. Please connect!`;
-    return `https://wa.me/918851666208?text=${encodeURIComponent(baseText)}`;
+    return `https://wa.me/919355337839?text=${encodeURIComponent(baseText)}`;
   };
 
   return (

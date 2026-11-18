@@ -88,7 +88,7 @@ export default function FaqSection() {
             </p>
           </div>
           <a
-            href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20have%20a%20question%20about%20custom%20software%20automation."
+            href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20have%20a%20question%20about%20custom%20software%20automation."
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shrink-0 flex items-center gap-2 shadow-md transition-all"

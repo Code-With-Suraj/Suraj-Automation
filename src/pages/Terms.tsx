@@ -564,14 +564,23 @@ export default function Terms() {
             </div>
 
             <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-805">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
                 <Phone className="w-5 h-5 animate-pulse" />
               </div>
-              <div>
+              <div className="space-y-1">
                 <span className="text-xs text-slate-450 block font-medium">WhatsApp / Call</span>
-                <a href="https://wa.me/918851666208" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-slate-900 dark:text-white hover:text-emerald-500 transition-colors flex items-center gap-1">
-                  +91 88516 66208 <ExternalLink className="w-3 h-3 text-slate-400" />
-                </a>
+                <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
+                  <a href="tel:+919355337839" className="hover:text-emerald-500 transition-colors">+91 93553 37839</a>
+                  <span className="text-slate-400">·</span>
+                  <a href="https://wa.me/919355337839" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1">
+                    WhatsApp <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                  <a href="tel:+918851666208" className="hover:text-emerald-500 transition-colors">+91 88516 66208</a>
+                  <span>·</span>
+                  <a href="https://wa.me/918851666208" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-500 transition-colors">WhatsApp</a>
+                </div>
               </div>
             </div>
 

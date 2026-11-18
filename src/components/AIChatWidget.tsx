@@ -168,7 +168,7 @@ export default function AIChatWidget() {
           <div className="px-4 py-2 bg-slate-950/80 border-t border-slate-800/80 text-[11px] flex justify-between items-center text-slate-400">
             <span>Want a human review?</span>
             <a
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20schedule%20a%20call."
+              href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20schedule%20a%20call."
               target="_blank"
               rel="noopener noreferrer"
               className="text-cyan-400 font-bold hover:underline flex items-center gap-1"

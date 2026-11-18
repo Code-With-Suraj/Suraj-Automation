@@ -180,7 +180,7 @@ export default function BookingSarthi() {
               </div>
               <div className="flex gap-4 shrink-0">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20BookingSarthi!" 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20BookingSarthi!" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-sm font-bold transition-colors border border-purple-700 block shadow-lg shadow-purple-500/25"
@@ -523,7 +523,7 @@ export default function BookingSarthi() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20BookingSarthi!" 
+              href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20BookingSarthi!" 
               target="_blank" 
               rel="noopener noreferrer"
               className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-lg font-bold tracking-wide transition-all shadow-xl shadow-purple-500/25"

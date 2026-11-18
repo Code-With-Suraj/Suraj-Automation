@@ -965,7 +965,7 @@ export const SERVICE_PAGES: ServicePageConfig[] = [
       {
         question: 'How do we start a project if we are in Noida, Greater Noida, or Ghaziabad?',
         answer:
-          'Book a free 20-minute consultation via WhatsApp (+91-8851666208) or our contact form. We review your current Excel sheets or registers, show a relevant live demo, and provide a fixed written quote before any work begins.'
+          'Book a free 20-minute consultation via Call or WhatsApp (+91-9355337839) or our contact form. We review your current Excel sheets or registers, show a relevant live demo, and provide a fixed written quote before any work begins.'
       }
     ]
   }

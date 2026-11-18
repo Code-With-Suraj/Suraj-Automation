@@ -313,7 +313,7 @@ export default function About() {
           </p>
 
           <a 
-            href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20would%20like%20to%20book%20my%20free%20process%20audit."
+            href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20would%20like%20to%20book%20my%20free%20process%20audit."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-5 rounded-2xl font-bold text-lg md:text-xl transition-all shadow-xl shadow-indigo-600/25 group hover:-translate-y-1"

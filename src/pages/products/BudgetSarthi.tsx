@@ -296,7 +296,7 @@ export default function BudgetSarthi() {
                   Buy Blueprint — ₹3,999
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20BudgetSarthi!" 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20BudgetSarthi!" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-colors border border-slate-700"
@@ -827,7 +827,7 @@ export default function BudgetSarthi() {
 
             <div className="relative z-10 flex flex-col sm:flex-row justify-center items-center gap-4">
               <a
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20of%20BudgetSarthi!"
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20of%20BudgetSarthi!"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-md font-bold transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
@@ -835,7 +835,7 @@ export default function BudgetSarthi() {
                 Book a Free Demo → See Where Your Budget Is Actually Going
               </a>
               <a
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20collaborate%20on%20building%20custom%20accounting%20tools."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20collaborate%20on%20building%20custom%20accounting%20tools."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-md font-semibold transition-colors flex items-center justify-center gap-2 border border-slate-800"

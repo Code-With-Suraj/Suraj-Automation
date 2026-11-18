@@ -211,7 +211,7 @@ export default function CakeSarthi() {
                   </a>
                 )}
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20CakeSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20CakeSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 border border-slate-750 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
@@ -589,7 +589,7 @@ export default function CakeSarthi() {
                   <li className="flex items-center gap-2 text-slate-800 font-medium"><span className="w-2 h-2 rounded-full bg-rose-500"></span> Custom requirements</li>
                 </ul>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20a%20custom%20quote%20for%20CakeSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20get%20a%20custom%20quote%20for%20CakeSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex w-full justify-center px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-colors"
@@ -619,7 +619,7 @@ export default function CakeSarthi() {
               
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20CakeSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20CakeSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 group hover:-translate-y-1"
@@ -628,7 +628,7 @@ export default function CakeSarthi() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20Let's%20build%20my%20online%20bakery%20system." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20Let's%20build%20my%20online%20bakery%20system." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-1"

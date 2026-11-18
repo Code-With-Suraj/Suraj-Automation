@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Linkedin, Phone, MapPin, User } from 'lucide-react';
-import { SITE_CONFIG } from '../data/content';
+import { Linkedin, Phone, MapPin, User, MessageSquare } from 'lucide-react';
+import { SITE_CONFIG, getWhatsAppUrl } from '../data/content';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function FounderSection() {
@@ -115,8 +115,17 @@ export default function FounderSection() {
                 href={`tel:${SITE_CONFIG.founder.phoneTel}`}
                 className="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 rounded-lg transition-colors min-h-[44px] font-mono tabular-nums"
               >
-                <Phone className="w-4 h-4 text-emerald-700" />
-                <span>{SITE_CONFIG.founder.phoneDisplay}</span>
+                <Phone className="w-4 h-4 text-indigo-700" />
+                <span>Call {SITE_CONFIG.founder.phoneDisplay}</span>
+              </a>
+              <a
+                href={getWhatsAppUrl('Hi Suraj, mujhe apne business automation ke baare me baat karni hai.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg transition-colors min-h-[44px]"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span>WhatsApp</span>
               </a>
               <span className="inline-flex items-center gap-1.5 text-slate-600 text-xs sm:text-sm">
                 <MapPin className="w-4 h-4 text-slate-500" />

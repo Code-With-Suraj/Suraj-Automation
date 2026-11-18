@@ -158,7 +158,7 @@ export default function BillSarthi() {
                   </a>
                 )}
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20BillSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20BillSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 border border-slate-700 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
@@ -493,7 +493,7 @@ export default function BillSarthi() {
                   <li className="flex items-center gap-2 text-slate-800 font-medium"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Integration needs</li>
                 </ul>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20know%20the%20pricing%20for%20BillSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20know%20the%20pricing%20for%20BillSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex w-full justify-center px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-colors"
@@ -532,7 +532,7 @@ export default function BillSarthi() {
               
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20BillSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20BillSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 group hover:-translate-y-1"
@@ -541,7 +541,7 @@ export default function BillSarthi() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20Let's%20build%20a%20smart%20billing%20system." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20Let's%20build%20a%20smart%20billing%20system." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-1"

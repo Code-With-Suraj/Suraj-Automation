@@ -185,7 +185,7 @@ export default function Reviews() {
       "@type": "ProfessionalService",
       "name": "Suraj Automation",
       "image": window.location.origin + "/favicon.svg",
-      "telephone": "+918851666208",
+      "telephone": "+919355337839",
       "url": window.location.origin,
       "address": {
         "@type": "PostalAddress",

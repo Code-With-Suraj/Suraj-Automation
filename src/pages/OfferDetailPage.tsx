@@ -57,7 +57,7 @@ export default function OfferDetailPage() {
   );
 
   const IconComponent = offer.icon;
-  const whatsappUrl = `https://wa.me/918851666208?text=${encodeURIComponent(offer.whatsappMsg)}`;
+  const whatsappUrl = `https://wa.me/919355337839?text=${encodeURIComponent(offer.whatsappMsg)}`;
 
   return (
     <main className="pt-28 pb-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 min-h-screen">

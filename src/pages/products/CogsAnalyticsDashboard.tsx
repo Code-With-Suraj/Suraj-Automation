@@ -182,7 +182,7 @@ export default function CogsAnalyticsDashboard() {
                   </a>
                 )}
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20COGS%20Analytics%20Dashboard." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20COGS%20Analytics%20Dashboard." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
@@ -423,7 +423,7 @@ export default function CogsAnalyticsDashboard() {
             
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20COGS%20Analytics%20Dashboard." 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20COGS%20Analytics%20Dashboard." 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-10 py-5 bg-white text-indigo-900 rounded-2xl font-bold text-lg transition-all shadow-xl hover:shadow-2xl hover:scale-105 flex items-center justify-center gap-3"

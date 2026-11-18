@@ -79,7 +79,7 @@ export default function Services() {
         "No internet required - 100% private offline file"
       ],
       cta: "Order Offline Excel Dashboard",
-      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I%20am%20interested%20in%20the%20Basic%20Excel%2520Dashboard%20setup%20starting%20at%2520%E2%82%B92,000."
+      link: "https://wa.me/919355337839?text=Hi%20Suraj,%20I%20am%20interested%20in%20the%20Basic%20Excel%2520Dashboard%20setup%20starting%20at%2520%E2%82%B92,000."
     },
     {
       badge: "Cloud Automation",
@@ -99,7 +99,7 @@ export default function Services() {
         "1-Hour team call walkthrough training session"
       ],
       cta: "Deploy Google Sheets Dashboard",
-      link: "https://wa.me/918851666208?text=Hi%20Suraj,%20I%20am%20interested%20in%20the%20Google%20Sheets%2520Basic%2520Dashboard%2520setup%2520starting%252520at%2520%E2%82%B93,000."
+      link: "https://wa.me/919355337839?text=Hi%20Suraj,%20I%20am%20interested%20in%20the%20Google%20Sheets%2520Basic%2520Dashboard%2520setup%2520starting%252520at%2520%E2%82%B93,000."
     },
     {
       badge: "System Pro",
@@ -119,7 +119,7 @@ export default function Services() {
         "Team instructions manuals + 3 scope iterations"
       ],
       cta: "Design Custom Automation Suite",
-      link: "https://wa.me/918851666208?text=Hi%20Suraj,%2520I%20need%252520the%2520Advanced%2520Google%2520Sheets%2520%2B%2520Apps%252520Script%2520System."
+      link: "https://wa.me/919355337839?text=Hi%20Suraj,%2520I%20need%252520the%2520Advanced%2520Google%2520Sheets%2520%2B%2520Apps%252520Script%2520System."
     }
   ];
 
@@ -385,7 +385,7 @@ export default function Services() {
 
                     <div className="pt-8 mt-6 border-t border-slate-100 dark:border-slate-800">
                       <a
-                        href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20am%20interested%20in%2520the%20Monthly%20Starter%20website%2520plan%20for%2520Rs%20799/mo.%20Please%20share%20the%20onboarding%20form."
+                        href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20am%20interested%20in%2520the%20Monthly%20Starter%20website%2520plan%20for%2520Rs%20799/mo.%20Please%20share%20the%20onboarding%20form."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full py-4 px-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-slate-200 text-white dark:text-slate-950 rounded-xl font-extrabold text-sm text-center block transition-all hover:scale-[1.01] shadow-md shadow-slate-900/10"
@@ -459,7 +459,7 @@ export default function Services() {
 
                     <div className="pt-8 mt-6 border-t border-slate-100 dark:border-slate-800">
                       <a
-                        href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%2520am%20interested%20in%20the%20Yearly%20Pro%2520website%20plan%20for%20Rs%207,999/yr%20to%20save%2016%25.%20Please%20share%20the%20onboarding%20form."
+                        href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%2520am%20interested%20in%20the%20Yearly%20Pro%2520website%20plan%20for%20Rs%207,999/yr%20to%20save%2016%25.%20Please%20share%20the%20onboarding%20form."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full py-4 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-extrabold text-sm text-center block transition-all shadow-md shadow-indigo-600/20 hover:scale-[1.01]"
@@ -834,7 +834,7 @@ export default function Services() {
                       <div className="relative z-10 pt-8 border-t border-slate-200 dark:border-slate-800/80 mt-6 flex justify-between items-center">
                         <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Custom delivery & support included</span>
                         <a
-                          href={`https://wa.me/918851666208?text=Hi%20Suraj,%2520I%27m%2520interested%2520in%2520your%2520${encodeURIComponent(service.subtitle)}%2520service.`}
+                          href={`https://wa.me/919355337839?text=Hi%20Suraj,%2520I%27m%2520interested%2520in%2520your%2520${encodeURIComponent(service.subtitle)}%2520service.`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 group/link"
@@ -1159,7 +1159,7 @@ export default function Services() {
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%27ve%20reviewed%20your%20Services%20page%20and%20want%20to%20discuss%20a%20project."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%27ve%20reviewed%20your%20Services%20page%20and%20want%20to%20discuss%20a%20project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-base shadow-lg transition-all hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"

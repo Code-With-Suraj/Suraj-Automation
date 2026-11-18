@@ -257,7 +257,7 @@ export default function QuotationTool() {
       pdf.setTextColor(71, 85, 105); // slate-600
       pdf.text('Developer: Suraj Singh', margin, currentY + 16);
       pdf.text('Email: surajsingh.noida98@gmail.com', margin, currentY + 20.5);
-      pdf.text('Telegram/WhatsApp: +91 8851666208', margin, currentY + 25);
+      pdf.text('Call / WhatsApp: +91 9355337839', margin, currentY + 25);
       pdf.text('Web: www.surajdx.com', margin, currentY + 29.5);
 
       // Right Column Invoice Info (X = 130)
@@ -876,7 +876,7 @@ export default function QuotationTool() {
                   <div className="text-xs text-slate-500 space-y-0.5 leading-relaxed font-semibold">
                     <p>Developer: Suraj Singh</p>
                     <p>Email: surajsingh.noida98@gmail.com</p>
-                    <p>Telegram/WhatsApp: +91 8851666208</p>
+                    <p>Call / WhatsApp: +91 9355337839</p>
                     <p>Web portal: www.surajdx.com</p>
                   </div>
                 </div>

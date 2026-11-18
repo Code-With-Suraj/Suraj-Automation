@@ -582,7 +582,7 @@ export default function Portal() {
                             </div>
                             <div className="flex gap-3">
                               <a
-                                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20need%20help%20with%20Code%20Setup"
+                                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20need%20help%20with%20Code%20Setup"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors shadow shadow-emerald-600/10"

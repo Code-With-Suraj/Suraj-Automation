@@ -301,7 +301,7 @@ export default function SupplySarthi() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20would%20like%20to%20book%20a%20live%20demo%20for%20the%20SupplySarthi%20system."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20would%20like%20to%20book%20a%20live%20demo%20for%20the%20SupplySarthi%20system."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex px-8 py-4 bg-slate-900 border border-slate-850 text-slate-250 hover:bg-slate-850 hover:text-white rounded-xl font-bold text-base transition-all items-center justify-center gap-2"
@@ -1015,7 +1015,7 @@ export default function SupplySarthi() {
               </div>
 
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Starter%20Plan%20(₹999/month)."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Starter%20Plan%20(₹999/month)."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold rounded-xl text-sm transition-colors"
@@ -1062,7 +1062,7 @@ export default function SupplySarthi() {
               </div>
 
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Pro%20Plan%20(₹1,499/month)."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Pro%20Plan%20(₹1,499/month)."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-colors shadow-lg shadow-indigo-600/30"
@@ -1108,7 +1108,7 @@ export default function SupplySarthi() {
               </div>
 
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Pro%20Annual%20Plan%20(₹10,999/year)."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Pro%20Annual%20Plan%20(₹10,999/year)."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center py-3.5 px-4 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl text-sm transition-colors shadow-lg shadow-rose-500/20"
@@ -1153,7 +1153,7 @@ export default function SupplySarthi() {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a 
-                    href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Lifetime%20Access%2520(₹19,999%20one-time%20setup)."
+                    href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20the%20SupplySarthi%20Lifetime%20Access%2520(₹19,999%20one-time%20setup)."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex px-8 py-4 bg-white text-slate-900 font-bold rounded-xl text-base transition-all shadow-xl hover:bg-slate-100 items-center justify-center gap-2 group shrink-0"
@@ -1262,7 +1262,7 @@ export default function SupplySarthi() {
 
             <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%2520interested%20in%20a%20SupplySarthi%20demo.%20Let's%20coordinate!"
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%2520interested%20in%20a%20SupplySarthi%20demo.%20Let's%20coordinate!"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg rounded-xl transition-all shadow-lg shadow-emerald-500/25 items-center justify-center gap-2 group hover:-translate-y-0.5"

@@ -83,6 +83,14 @@ export default function ServiceLandingPage() {
                 <span>{service.primaryCtaLabel}</span>
               </a>
 
+              <a
+                href={`tel:${SITE_CONFIG.founder.phoneTel}`}
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold text-sm sm:text-base rounded-lg transition-colors min-h-[48px] whitespace-nowrap"
+              >
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span>Call {SITE_CONFIG.founder.phoneDisplay}</span>
+              </a>
+
               <Link
                 to="/contact"
                 className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-slate-900 hover:bg-slate-800 text-slate-100 border border-slate-700 font-semibold text-sm sm:text-base rounded-lg transition-colors min-h-[48px] whitespace-nowrap"

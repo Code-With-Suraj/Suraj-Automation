@@ -260,7 +260,7 @@ export default function DynamicProductPage() {
                   </a>
                 )}
                 <a 
-                  href={`https://wa.me/918851666208?text=Hi%20Suraj,%20I%20am%20interested%20in%20a%20personal%20demo%20of%20${encodeURIComponent(product.name)}`}
+                  href={`https://wa.me/919355337839?text=Hi%20Suraj,%20I%20am%20interested%20in%20a%20personal%20demo%20of%20${encodeURIComponent(product.name)}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"

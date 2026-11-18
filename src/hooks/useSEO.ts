@@ -157,14 +157,24 @@ export function useSEO(
         name: 'Suraj Singh',
         jobTitle: 'Founder & Full-Stack Automation Architect'
       },
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+91-8851666208',
-        contactType: 'customer service',
-        email: 'suraj.gasdeveloper@gmail.com',
-        areaServed: 'IN',
-        availableLanguage: ['English', 'Hindi']
-      },
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: '+91-9355337839',
+          contactType: 'customer service',
+          email: 'suraj.gasdeveloper@gmail.com',
+          areaServed: 'IN',
+          availableLanguage: ['English', 'Hindi']
+        },
+        {
+          '@type': 'ContactPoint',
+          telephone: '+91-8851666208',
+          contactType: 'customer service',
+          email: 'suraj.gasdeveloper@gmail.com',
+          areaServed: 'IN',
+          availableLanguage: ['English', 'Hindi']
+        }
+      ],
       sameAs: [
         'https://www.linkedin.com/in/surajautomation',
         'https://websarthi.surajdx.com/'
@@ -189,7 +199,7 @@ export function useSEO(
       name: 'Suraj Automation',
       image: `${origin}/favicon.svg`,
       url: origin,
-      telephone: '+91-8851666208',
+      telephone: '+91-9355337839',
       email: 'suraj.gasdeveloper@gmail.com',
       address: {
         '@type': 'PostalAddress',

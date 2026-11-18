@@ -137,7 +137,7 @@ export default function SalarySarthi() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20am%20interested%20in%20SalarySarthi.%20Can%20I%20see%20a%20free%20demo?" 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20am%20interested%20in%20SalarySarthi.%20Can%20I%20see%20a%20free%20demo?" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2 hover:-translate-y-1"
@@ -351,7 +351,7 @@ export default function SalarySarthi() {
               <RazorpayCheckout productId="salarysarthi" />
 
               <a
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20SalarySarthi."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20SalarySarthi."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full inline-flex mt-4 py-4 bg-transparent border border-slate-700 text-slate-300 hover:bg-slate-800 rounded-xl font-bold transition-all items-center justify-center gap-2 cursor-pointer"

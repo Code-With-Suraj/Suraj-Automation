@@ -151,7 +151,7 @@ export default function CfoDashboard() {
                     </a>
                   )}
                   <a 
-                    href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20CFO%20Dashboard." 
+                    href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20CFO%20Dashboard." 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex px-8 py-4 bg-white/10 border border-white/20 text-white hover:bg-white/20 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
@@ -359,7 +359,7 @@ export default function CfoDashboard() {
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20buy%20the%20CFO%20Dashboard." 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20buy%20the%20CFO%20Dashboard." 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-5 bg-white text-blue-700 hover:bg-blue-50 rounded-2xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-3"

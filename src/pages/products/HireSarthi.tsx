@@ -181,7 +181,7 @@ export default function HireSarthi() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20am%20interested%20in%20HireSarthi.%20Can%20I%20see%2520a%20free%20demo?" 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20am%20interested%20in%20HireSarthi.%20Can%20I%20see%2520a%20free%20demo?" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2 hover:-translate-y-1"
@@ -486,7 +486,7 @@ export default function HireSarthi() {
                   </a>
 
                   <a
-                    href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20HireSarthi."
+                    href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20HireSarthi."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full inline-flex py-3 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl font-bold text-xs transition-all items-center justify-center gap-1 cursor-pointer"
@@ -496,7 +496,7 @@ export default function HireSarthi() {
                   </a>
 
                   <a
-                    href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'd%20love%20to%20talk%20to%20an%20HR%20Automation%20Expert%20about%20HireSarthi."
+                    href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'd%20love%20to%20talk%20to%20an%20HR%20Automation%20Expert%20about%20HireSarthi."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-[11px] font-extrabold text-slate-500 hover:text-indigo-600 hover:underline"
@@ -614,7 +614,7 @@ export default function HireSarthi() {
                   Need custom sheets or integrated calendars? The platform supports expansion to multi-branch rosters instantly with direct support from local technical coordinator Suraj.
                 </p>
                 <a
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20custom%20modules%2520in%20HireSarthi."
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20custom%20modules%2520in%20HireSarthi."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-xs font-bold text-white transition-colors border border-indigo-500/20"
@@ -644,7 +644,7 @@ export default function HireSarthi() {
 
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%28m%20joining%20HireSarthi%20now!" 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%28m%20joining%20HireSarthi%20now!" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2 group"
@@ -653,7 +653,7 @@ export default function HireSarthi() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20HireSarthi." 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20a%20free%20demo%20of%20HireSarthi." 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-white text-slate-950 hover:bg-slate-50 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 hover:-translate-y-1"

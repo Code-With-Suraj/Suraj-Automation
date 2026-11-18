@@ -315,7 +315,7 @@ export default function HisabSarthi() {
                   Buy Blueprint — From ₹499
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20HisabSarthi!" 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I'm%20interested%20in%20a%20free%20demo%20for%20HisabSarthi!" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-colors border border-slate-700 block"
@@ -869,7 +869,7 @@ export default function HisabSarthi() {
               </div>
 
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20HisabSarthi%20Starter%20Plan!" 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20get%20HisabSarthi%20Starter%20Plan!" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold rounded-xl text-center text-sm transition-colors block"
@@ -914,7 +914,7 @@ export default function HisabSarthi() {
               </div>
 
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20HisabSarthi%20Pro%20Plan!" 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20get%20HisabSarthi%20Pro%20Plan!" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-center text-sm transition-colors shadow-lg shadow-indigo-500/25 block"
@@ -959,7 +959,7 @@ export default function HisabSarthi() {
               </div>
 
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20HisabSarthi%20Lifetime%20Access%20Plan!" 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20get%20HisabSarthi%20Lifetime%20Access%20Plan!" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full py-3 px-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-xl text-center text-sm transition-colors shadow-lg shadow-amber-500/20 block"
@@ -1004,7 +1004,7 @@ export default function HisabSarthi() {
 
             <div className="relative z-10 flex flex-col sm:flex-row justify-center items-center gap-4">
               <a
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20of%20HisabSarthi!"
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20of%20HisabSarthi!"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-650 hover:bg-slate-900 border border-transparent hover:border-indigo-650 hover:text-indigo-400 text-white rounded-xl text-base font-bold transition-all shadow-md flex items-center justify-center gap-2"
@@ -1012,7 +1012,7 @@ export default function HisabSarthi() {
                 🚀 Book a Free Demo →
               </a>
               <a
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20have%20questions%20regarding%20the%20Google%20Sheets%20database%20setup."
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20have%20questions%20regarding%20the%20Google%20Sheets%20database%20setup."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-base font-bold border border-slate-700 flex items-center justify-center gap-1"

@@ -127,7 +127,7 @@ export default function RationKart() {
                   </a>
                 )}
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20see%20a%20demo%20of%20RationKart." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20see%20a%20demo%20of%20RationKart." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
@@ -401,7 +401,7 @@ export default function RationKart() {
               
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20my%20team%20also%20uses%20WhatsApp%20for%20grocery/store%20requests.%20I%20want%20to%20see%20RationKart%20demo." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20my%20team%20also%20uses%20WhatsApp%20for%20grocery/store%20requests.%20I%20want%20to%20see%20RationKart%20demo." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2 group hover:-translate-y-1"

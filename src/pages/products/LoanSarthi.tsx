@@ -196,7 +196,7 @@ export default function LoanSarthi() {
                   </a>
                 )}
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%2520a%2520free%2520demo%2520of%2520LoanSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%2520a%2520free%2520demo%2520of%2520LoanSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex px-8 py-4 bg-slate-900 border border-slate-750 text-slate-300 hover:bg-slate-800 rounded-xl font-bold text-lg transition-all items-center justify-center gap-2"
@@ -464,7 +464,7 @@ export default function LoanSarthi() {
               <div className="flex items-center gap-3 text-slate-700 font-medium"><CheckCircle2 className="w-5 h-5 text-indigo-500 shrink-0" /> Advanced Reports & Analytics</div>
             </div>
 
-            <a href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20get%20LoanSarthi%20Lifetime%20License." target="_blank" rel="noopener noreferrer" className="inline-flex py-4 px-10 bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-bold rounded-xl text-center transition-all shadow-xl shadow-indigo-500/25 hover:-translate-y-1 mb-8">
+            <a href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20get%20LoanSarthi%20Lifetime%20License." target="_blank" rel="noopener noreferrer" className="inline-flex py-4 px-10 bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-bold rounded-xl text-center transition-all shadow-xl shadow-indigo-500/25 hover:-translate-y-1 mb-8">
               Get LoanSarthi Now →
             </a>
             
@@ -513,7 +513,7 @@ export default function LoanSarthi() {
               
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20LoanSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20book%20a%20free%20demo%20for%20LoanSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 group hover:-translate-y-1"
@@ -521,7 +521,7 @@ export default function LoanSarthi() {
                   🔥 Free Demo Book karo
                 </a>
                 <a 
-                  href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20details%20for%20LoanSarthi." 
+                  href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20details%20for%20LoanSarthi." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700 flex items-center justify-center gap-2 group hover:-translate-y-1"

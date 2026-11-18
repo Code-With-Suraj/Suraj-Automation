@@ -123,13 +123,29 @@ export default function Contact() {
                   </div>
                 </div>
                 
-                <div className="flex gap-4 items-center">
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm border border-indigo-100/50 dark:border-slate-700">
+                <div className="flex gap-4 items-start">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm border border-indigo-100/50 dark:border-slate-700 mt-0.5">
                     <Phone className="w-6 h-6" />
                   </div>
-                  <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Phone / WhatsApp</p>
-                    <a href="https://wa.me/918851666208" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">+91-8851666208</a>
+                  <div className="space-y-2">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Call &amp; WhatsApp</p>
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <a href="tel:+919355337839" className="text-lg font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                        +91-9355337839
+                      </a>
+                      <a href="tel:+919355337839" className="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 transition-colors">
+                        Call
+                      </a>
+                      <a href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20discuss%20business%20automation." target="_blank" rel="noopener noreferrer" className="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 transition-colors">
+                        WhatsApp
+                      </a>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                      <span>Alt:</span>
+                      <a href="tel:+918851666208" className="font-semibold hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">+91-8851666208</a>
+                      <span>·</span>
+                      <a href="https://wa.me/918851666208" target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">WhatsApp</a>
+                    </div>
                   </div>
                 </div>
             

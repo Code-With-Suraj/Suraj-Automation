@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowRight, CheckCircle2, MessageSquare } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MessageSquare, Phone } from 'lucide-react';
 
 export default function FinalCTA() {
   const benefits = [
@@ -49,16 +49,23 @@ export default function FinalCTA() {
             
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20I%20want%20to%20discuss%20automating%20my%20business." 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20I%20want%20to%20discuss%20automating%20my%20business." 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 group hover:-translate-y-1"
               >
                 <MessageSquare className="w-5 h-5" />
-                Message me
+                WhatsApp +91-9355337839
               </a>
               <a 
-                href="https://wa.me/918851666208?text=Hi%20Suraj,%20Here%20are%20the%20details%20of%20my%20current%20system..." 
+                href="tel:+919355337839" 
+                className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-1"
+              >
+                <Phone className="w-5 h-5" />
+                Call +91-9355337839
+              </a>
+              <a 
+                href="https://wa.me/919355337839?text=Hi%20Suraj,%20Here%20are%20the%20details%20of%20my%20current%20system..." 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-1"
